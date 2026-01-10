@@ -91,7 +91,7 @@ function DropdownMenu({
 }) {
   return (
     <div
-      className={`absolute top-full left-0 mt-2 min-w-[200px] bg-white/95 backdrop-blur-sm shadow-lg rounded-md py-2 transition-all duration-200 ${
+      className={`absolute top-full left-0 mt-2 min-w-[200px] bg-white shadow-lg rounded-md py-2 transition-all duration-200 ${
         isOpen ? "opacity-100 visible translate-y-0" : "opacity-0 invisible -translate-y-2"
       }`}
     >
@@ -102,7 +102,7 @@ function DropdownMenu({
               href={item.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-[#c75b4a] transition-colors"
+              className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 transition-colors"
             >
               {item.label}
               <span className="ml-1 text-xs">&#8599;</span>
@@ -110,7 +110,7 @@ function DropdownMenu({
           ) : (
             <Link
               href={item.href}
-              className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-[#c75b4a] transition-colors"
+              className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 transition-colors"
             >
               {item.label}
             </Link>
@@ -153,7 +153,7 @@ function NavItemComponent({ item }: { item: NavItem }) {
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       >
-        <button className="text-[#c75b4a] hover:text-[#a84a3b] font-medium text-sm uppercase tracking-wider transition-colors flex items-center gap-1">
+        <button className="text-white hover:text-white/80 font-medium text-sm uppercase tracking-wider transition-colors flex items-center gap-1 drop-shadow-[0_1px_2px_rgba(0,0,0,0.5)]">
           {item.label}
           <svg
             className={`w-3 h-3 transition-transform ${isOpen ? "rotate-180" : ""}`}
@@ -177,7 +177,7 @@ function NavItemComponent({ item }: { item: NavItem }) {
   return (
     <Link
       href={item.href || "/"}
-      className="text-[#c75b4a] hover:text-[#a84a3b] font-medium text-sm uppercase tracking-wider transition-colors"
+      className="text-white hover:text-white/80 font-medium text-sm uppercase tracking-wider transition-colors drop-shadow-[0_1px_2px_rgba(0,0,0,0.5)]"
     >
       {item.label}
     </Link>
@@ -192,7 +192,7 @@ function MobileNavItem({ item, onClose }: { item: NavItem; onClose: () => void }
       <div className="border-b border-gray-100">
         <button
           onClick={() => setIsExpanded(!isExpanded)}
-          className="w-full flex items-center justify-between px-4 py-3 text-[#c75b4a] font-medium text-sm uppercase tracking-wider"
+          className="w-full flex items-center justify-between px-4 py-3 text-gray-800 font-medium text-sm uppercase tracking-wider"
         >
           {item.label}
           <svg
@@ -219,7 +219,7 @@ function MobileNavItem({ item, onClose }: { item: NavItem; onClose: () => void }
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={onClose}
-                    className="block px-8 py-2 text-sm text-gray-700 hover:text-[#c75b4a]"
+                    className="block px-8 py-2 text-sm text-gray-700 hover:text-gray-900"
                   >
                     {subItem.label}
                     <span className="ml-1 text-xs">&#8599;</span>
@@ -228,7 +228,7 @@ function MobileNavItem({ item, onClose }: { item: NavItem; onClose: () => void }
                   <Link
                     href={subItem.href}
                     onClick={onClose}
-                    className="block px-8 py-2 text-sm text-gray-700 hover:text-[#c75b4a]"
+                    className="block px-8 py-2 text-sm text-gray-700 hover:text-gray-900"
                   >
                     {subItem.label}
                   </Link>
@@ -245,7 +245,7 @@ function MobileNavItem({ item, onClose }: { item: NavItem; onClose: () => void }
     <Link
       href={item.href || "/"}
       onClick={onClose}
-      className="block px-4 py-3 text-[#c75b4a] font-medium text-sm uppercase tracking-wider border-b border-gray-100"
+      className="block px-4 py-3 text-gray-800 font-medium text-sm uppercase tracking-wider border-b border-gray-100"
     >
       {item.label}
     </Link>
@@ -256,7 +256,7 @@ export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-transparent">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-gradient-to-b from-black/40 to-transparent">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
@@ -281,7 +281,7 @@ export default function Header() {
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="lg:hidden p-2 text-[#c75b4a] hover:text-[#a84a3b] transition-colors"
+            className="lg:hidden p-2 text-white hover:text-white/80 transition-colors drop-shadow-[0_1px_2px_rgba(0,0,0,0.5)]"
             aria-label="Toggle mobile menu"
           >
             {isMobileMenuOpen ? (
@@ -319,7 +319,7 @@ export default function Header() {
 
       {/* Mobile Menu */}
       <div
-        className={`lg:hidden bg-white/95 backdrop-blur-sm shadow-lg transition-all duration-300 ${
+        className={`lg:hidden bg-white shadow-lg transition-all duration-300 ${
           isMobileMenuOpen ? "max-h-screen opacity-100" : "max-h-0 opacity-0 overflow-hidden"
         }`}
       >
