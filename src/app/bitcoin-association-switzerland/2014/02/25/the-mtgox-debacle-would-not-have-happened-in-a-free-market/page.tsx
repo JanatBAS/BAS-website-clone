@@ -1,6 +1,7 @@
 import Header from "@/components/Header";
 import FooterSimple from "@/components/FooterSimple";
 import Link from "next/link";
+import ShareButton from "@/components/ShareButton";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {

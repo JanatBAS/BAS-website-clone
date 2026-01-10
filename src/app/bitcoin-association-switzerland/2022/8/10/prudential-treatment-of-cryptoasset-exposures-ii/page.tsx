@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import ShareButton from "@/components/ShareButton";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 

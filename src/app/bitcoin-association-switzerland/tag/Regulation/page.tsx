@@ -1,6 +1,7 @@
 import Header from "@/components/Header";
 import FooterSimple from "@/components/FooterSimple";
 import Link from "next/link";
+import ShareButton from "@/components/ShareButton";
 import Image from "next/image";
 import { Separator } from "@/components/ui/separator";
 

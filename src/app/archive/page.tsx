@@ -40,7 +40,7 @@ const archiveData: ArchiveGroup[] = [
       {
         date: "May 31, 2025",
         title: "Statement on the 12-Point Program for a Forward-Looking Digital Financial Center",
-        href: "/bitcoin-association-switzerland/2025/12/8/-",
+        href: "/bitcoin-association-switzerland/2025/12/8/statement-on-12-point-program",
       },
     ],
   },
