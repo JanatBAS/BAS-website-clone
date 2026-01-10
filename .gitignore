@@ -1,0 +1,51 @@
+# Source data (reference materials, not part of codebase)
+BAS/
+old_squarespace.xml
+.claude/
+
+# Dependencies
+node_modules/
+.pnp/
+.pnp.js
+
+# Build outputs
+.next/
+out/
+build/
+dist/
+
+# Testing
+coverage/
+
+# Environment files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Vercel
+.vercel
+
+# Debug logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# TypeScript
+*.tsbuildinfo
+next-env.d.ts
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Misc
+*.pem
