@@ -35,13 +35,13 @@ const cards: FeatureCard[] = [
 
 export default function FeatureCards() {
   return (
-    <section className="bg-white py-16 md:py-20">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
+    <section className="bg-white py-10 md:py-14">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10">
           {cards.map((card, index) => (
             <div key={index} className="flex flex-col items-center text-center">
               {/* Image */}
-              <div className="relative w-full aspect-[4/3] mb-6 overflow-hidden">
+              <div className="relative w-full aspect-[4/3] mb-4 overflow-hidden">
                 <Image
                   src={card.image}
                   alt={card.imageAlt}
@@ -52,7 +52,7 @@ export default function FeatureCards() {
               </div>
 
               {/* Title */}
-              <h2 className="text-2xl md:text-3xl font-serif text-gray-900 mb-4">
+              <h2 className="text-lg md:text-xl font-serif text-gray-900 mb-2 uppercase tracking-wide">
                 <Link
                   href={card.titleLink}
                   className="hover:text-gray-600 transition-colors duration-200"
@@ -62,12 +62,12 @@ export default function FeatureCards() {
               </h2>
 
               {/* Description */}
-              <p className="text-base md:text-lg text-gray-700 leading-relaxed mb-6 max-w-md">
+              <p className="text-sm text-gray-600 leading-relaxed mb-3 max-w-sm">
                 {card.description}
               </p>
 
               {/* CTA Link using shadcn Button */}
-              <Button asChild variant="link" className="text-gray-900 hover:text-gray-600 p-0">
+              <Button asChild variant="link" className="text-gray-700 hover:text-gray-900 p-0 text-xs italic">
                 <Link href={card.ctaLink}>
                   {card.ctaText} <span className="ml-1">&rarr;</span>
                 </Link>
