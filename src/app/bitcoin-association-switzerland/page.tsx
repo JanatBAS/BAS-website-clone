@@ -7,6 +7,7 @@ import { Separator } from "@/components/ui/separator";
 interface BlogPost {
   id: string;
   author: string;
+  authorId: string;
   date: string;
   category?: string;
   title: string;
@@ -18,9 +19,24 @@ interface BlogPost {
   likeCount?: number;
 }
 
+// Author ID mapping (matching original Squarespace IDs)
+const authorIds: Record<string, string> = {
+  "kronrod": "59025f1030454480d862303f",
+  "Phil Lojacono": "672bdb3ae0672c1501f39ce8",
+  "Roger Darin": "54edd73ae4b04709779918e4",
+  "Luzius Meisser": "5a9907f3e4966b72996b9c31",
+  "Lucas Betschart": "5895fa2e725e2525b0696fd4",
+};
+
+// Reverse mapping for lookup
+const authorNames: Record<string, string> = Object.fromEntries(
+  Object.entries(authorIds).map(([name, id]) => [id, name])
+);
+
 const featuredPost: BlogPost = {
   id: "featured",
   author: "Roger Darin",
+  authorId: "54edd73ae4b04709779918e4",
   date: "10 August 2022",
   title: "Prudential Treatment of Cryptoasset Exposures II",
   excerpt:
@@ -34,6 +50,7 @@ const blogPosts: BlogPost[] = [
   {
     id: "1",
     author: "kronrod",
+    authorId: "59025f1030454480d862303f",
     date: "9 December 2025",
     category: "Uncategorized",
     title: "Bitcoin in 10vor10",
@@ -46,6 +63,7 @@ const blogPosts: BlogPost[] = [
   {
     id: "2",
     author: "kronrod",
+    authorId: "59025f1030454480d862303f",
     date: "9 December 2025",
     category: "Uncategorized",
     title: "Marc Faber points readers to Bitcoin",
@@ -60,6 +78,7 @@ const blogPosts: BlogPost[] = [
   {
     id: "3",
     author: "Phil Lojacono",
+    authorId: "672bdb3ae0672c1501f39ce8",
     date: "31 May 2025",
     title:
       "Statement on the 12-Point Program for a Forward-Looking Digital Financial Center",
@@ -72,6 +91,7 @@ const blogPosts: BlogPost[] = [
   {
     id: "4",
     author: "Phil Lojacono",
+    authorId: "672bdb3ae0672c1501f39ce8",
     date: "28 February 2025",
     title:
       "Bitcoin Association Switzerland Welcomes the Federal Council's Endorsement of Enhanced Bitcoin Regulation",
@@ -85,6 +105,7 @@ const blogPosts: BlogPost[] = [
   {
     id: "5",
     author: "Phil Lojacono",
+    authorId: "672bdb3ae0672c1501f39ce8",
     date: "13 November 2024",
     title:
       "Bitcoin Association Switzerland appoints new board, sets bold vision for the future",
@@ -97,6 +118,7 @@ const blogPosts: BlogPost[] = [
   {
     id: "6",
     author: "Phil Lojacono",
+    authorId: "672bdb3ae0672c1501f39ce8",
     date: "27 October 2024",
     title: "Announcement from the Board of the Bitcoin Association Switzerland",
     excerpt:
@@ -108,6 +130,7 @@ const blogPosts: BlogPost[] = [
   {
     id: "7",
     author: "Roger Darin",
+    authorId: "54edd73ae4b04709779918e4",
     date: "10 August 2022",
     title: "Prudential Treatment of Cryptoasset Exposures II",
     excerpt:
@@ -122,6 +145,7 @@ const blogPosts: BlogPost[] = [
   {
     id: "8",
     author: "Luzius Meisser",
+    authorId: "5a9907f3e4966b72996b9c31",
     date: "27 June 2021",
     title: "Prudential Treatment of Cryptoasset Exposures",
     excerpt:
@@ -136,6 +160,7 @@ const blogPosts: BlogPost[] = [
   {
     id: "9",
     author: "Luzius Meisser",
+    authorId: "5a9907f3e4966b72996b9c31",
     date: "20 April 2021",
     title:
       "Comments of Bitcoin Association Switzerland on the draft revised VASP Guidance",
@@ -150,6 +175,7 @@ const blogPosts: BlogPost[] = [
   {
     id: "10",
     author: "Luzius Meisser",
+    authorId: "5a9907f3e4966b72996b9c31",
     date: "20 June 2020",
     title:
       "Our Comment on the risk assessment for global Stablecoins of the G20's Financial Stability Board",
@@ -165,6 +191,7 @@ const blogPosts: BlogPost[] = [
   {
     id: "11",
     author: "Luzius Meisser",
+    authorId: "5a9907f3e4966b72996b9c31",
     date: "9 April 2020",
     title: "Our Comment on GWV-FINMA adjustment for FinSA / FinIA",
     excerpt:
@@ -179,6 +206,7 @@ const blogPosts: BlogPost[] = [
   {
     id: "12",
     author: "Luzius Meisser",
+    authorId: "5a9907f3e4966b72996b9c31",
     date: "13 March 2020",
     title:
       'Our Comment on "Designing a prudential treatment for cryptoassets" of the Basel Committee on Banking Supervision',
@@ -194,6 +222,7 @@ const blogPosts: BlogPost[] = [
   {
     id: "13",
     author: "Luzius Meisser",
+    authorId: "5a9907f3e4966b72996b9c31",
     date: "3 December 2019",
     title: "Crypto Valley Association Issues Questionable Recommendations",
     excerpt:
@@ -206,6 +235,7 @@ const blogPosts: BlogPost[] = [
   {
     id: "14",
     author: "Luzius Meisser",
+    authorId: "5a9907f3e4966b72996b9c31",
     date: "27 June 2019",
     title: "Our Comment on the Swiss Blockchain Law",
     excerpt:
@@ -220,6 +250,7 @@ const blogPosts: BlogPost[] = [
   {
     id: "15",
     author: "Luzius Meisser",
+    authorId: "5a9907f3e4966b72996b9c31",
     date: "14 December 2018",
     title: "On the Federal Council Report",
     excerpt:
@@ -231,6 +262,7 @@ const blogPosts: BlogPost[] = [
   {
     id: "16",
     author: "Luzius Meisser",
+    authorId: "5a9907f3e4966b72996b9c31",
     date: "26 September 2018",
     title: "Is the Ethereum system a legal subject?",
     excerpt:
@@ -241,6 +273,7 @@ const blogPosts: BlogPost[] = [
   {
     id: "17",
     author: "Luzius Meisser",
+    authorId: "5a9907f3e4966b72996b9c31",
     date: "1 June 2018",
     title: "Why storing Bitcoins for clients does not make you a bank",
     excerpt:
@@ -253,6 +286,7 @@ const blogPosts: BlogPost[] = [
   {
     id: "18",
     author: "Lucas Betschart",
+    authorId: "5895fa2e725e2525b0696fd4",
     date: "17 May 2018",
     title: "Bitcoin Association Switzerland 2018: General Assembly",
     excerpt:
@@ -263,6 +297,7 @@ const blogPosts: BlogPost[] = [
   {
     id: "19",
     author: "Luzius Meisser",
+    authorId: "5a9907f3e4966b72996b9c31",
     date: "19 April 2018",
     title: "Better legal protection for clients of Bitcoin firms coming?",
     excerpt:
@@ -275,6 +310,7 @@ const blogPosts: BlogPost[] = [
   {
     id: "20",
     author: "Luzius Meisser",
+    authorId: "5a9907f3e4966b72996b9c31",
     date: "3 March 2018",
     category: "Opinion",
     title: "The Latest Regulatory Threat",
@@ -295,7 +331,7 @@ function BlogPostCard({ post }: { post: BlogPost }) {
       <div className="text-xs text-gray-500 uppercase tracking-wider mb-2 space-y-1">
         <div>
           <Link
-            href={`/bitcoin-association-switzerland?author=${post.author.toLowerCase().replace(" ", "-")}`}
+            href={`/bitcoin-association-switzerland?author=${post.authorId}`}
             className="hover:text-[#c75b4a]"
           >
             {post.author}
@@ -413,70 +449,130 @@ function BlogPostCard({ post }: { post: BlogPost }) {
   );
 }
 
-export default function BlogPage() {
+interface PageProps {
+  searchParams: Promise<{ author?: string; offset?: string }>;
+}
+
+export default async function BlogPage({ searchParams }: PageProps) {
+  const params = await searchParams;
+  const authorFilter = params.author;
+
+  // Get author name from ID
+  const authorName = authorFilter ? authorNames[authorFilter] : null;
+
+  // Filter posts by author if filter is active
+  const filteredPosts = authorFilter
+    ? blogPosts.filter((post) => post.authorId === authorFilter)
+    : blogPosts;
+
+  // Check if featured post matches filter (or show if no filter)
+  const showFeaturedPost = !authorFilter || featuredPost.authorId === authorFilter;
+
   return (
     <>
       <Header />
       <main className="pt-20 min-h-screen bg-white">
-        {/* Featured Post Banner */}
-        <div className="relative h-[400px] md:h-[500px] lg:h-[600px] overflow-hidden">
-          <Image
-            src={featuredPost.image!}
-            alt={featuredPost.title}
-            fill
-            className="object-cover"
-            priority
-          />
-          <div className="absolute inset-0 bg-black/30" />
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white">
-              <div className="text-sm uppercase tracking-wider mb-2">
-                {featuredPost.date}
-              </div>
-              <div className="text-sm mb-2">{featuredPost.author}</div>
-              <h1 className="text-2xl md:text-3xl lg:text-4xl font-semibold uppercase tracking-wider mb-4">
-                <Link href={featuredPost.href} className="hover:opacity-80">
-                  {featuredPost.title}
-                </Link>
-              </h1>
-              <p className="text-sm md:text-base leading-relaxed max-w-3xl mx-auto">
-                {featuredPost.excerpt}
-              </p>
-              <p className="text-sm mt-4">
-                The{" "}
+        {/* Author Filter Banner */}
+        {authorFilter && authorName && (
+          <div className="bg-gray-100 py-4">
+            <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+              <div className="flex items-center justify-between">
+                <p className="text-sm text-gray-600">
+                  Showing posts by <span className="font-semibold">{authorName}</span>
+                </p>
                 <Link
-                  href="https://www.bitcoinassociation.ch/s/2022-08-07-BAS-comment-on-BIS-final.pdf"
-                  className="underline hover:opacity-80"
-                  target="_blank"
+                  href="/bitcoin-association-switzerland"
+                  className="text-sm text-[#c75b4a] hover:underline"
                 >
-                  letter
-                </Link>{" "}
-                we sent out this week is continuing this tradition.
-              </p>
+                  Clear filter
+                </Link>
+              </div>
             </div>
           </div>
-        </div>
+        )}
+
+        {/* Featured Post Banner - only show if no filter or matches author */}
+        {showFeaturedPost && (
+          <div className="relative h-[400px] md:h-[500px] lg:h-[600px] overflow-hidden">
+            <Image
+              src={featuredPost.image!}
+              alt={featuredPost.title}
+              fill
+              className="object-cover"
+              priority
+            />
+            <div className="absolute inset-0 bg-black/30" />
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white">
+                <div className="text-sm uppercase tracking-wider mb-2">
+                  {featuredPost.date}
+                </div>
+                <div className="text-sm mb-2">
+                  <Link
+                    href={`/bitcoin-association-switzerland?author=${featuredPost.authorId}`}
+                    className="hover:underline"
+                  >
+                    {featuredPost.author}
+                  </Link>
+                </div>
+                <h1 className="text-2xl md:text-3xl lg:text-4xl font-semibold uppercase tracking-wider mb-4">
+                  <Link href={featuredPost.href} className="hover:opacity-80">
+                    {featuredPost.title}
+                  </Link>
+                </h1>
+                <p className="text-sm md:text-base leading-relaxed max-w-3xl mx-auto">
+                  {featuredPost.excerpt}
+                </p>
+                <p className="text-sm mt-4">
+                  The{" "}
+                  <Link
+                    href="https://www.bitcoinassociation.ch/s/2022-08-07-BAS-comment-on-BIS-final.pdf"
+                    className="underline hover:opacity-80"
+                    target="_blank"
+                  >
+                    letter
+                  </Link>{" "}
+                  we sent out this week is continuing this tradition.
+                </p>
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* Blog Posts List */}
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          {blogPosts.map((post, index) => (
-            <div key={post.id}>
-              <BlogPostCard post={post} />
-              {index < blogPosts.length - 1 && (
-                <Separator className="bg-gray-200" />
-              )}
+          {filteredPosts.length === 0 ? (
+            <div className="py-12 text-center text-gray-500">
+              <p>No posts found for this author.</p>
+              <Link
+                href="/bitcoin-association-switzerland"
+                className="text-[#c75b4a] hover:underline mt-2 inline-block"
+              >
+                View all posts
+              </Link>
             </div>
-          ))}
+          ) : (
+            filteredPosts.map((post, index) => (
+              <div key={post.id}>
+                <BlogPostCard post={post} />
+                {index < filteredPosts.length - 1 && (
+                  <Separator className="bg-gray-200" />
+                )}
+              </div>
+            ))
+          )}
 
-          {/* Older Posts Link */}
-          <div className="py-8 text-center">
-            <Link
-              href="/bitcoin-association-switzerland?offset=1520060400561"
-              className="text-sm text-gray-600 hover:text-[#c75b4a] uppercase tracking-wider"
-            >
-              Older Posts
-            </Link>
-          </div>
+          {/* Older Posts Link - only show if no filter */}
+          {!authorFilter && (
+            <div className="py-8 text-center">
+              <Link
+                href="/bitcoin-association-switzerland?offset=1520060400561"
+                className="text-sm text-gray-600 hover:text-[#c75b4a] uppercase tracking-wider"
+              >
+                Older Posts
+              </Link>
+            </div>
+          )}
         </div>
       </main>
       <FooterSimple />
