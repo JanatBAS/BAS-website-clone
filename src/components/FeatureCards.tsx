@@ -1,6 +1,6 @@
-import React from 'react';
-import Image from 'next/image';
-import Link from 'next/link';
+import Image from "next/image";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
 
 interface FeatureCard {
   image: string;
@@ -14,26 +14,26 @@ interface FeatureCard {
 
 const cards: FeatureCard[] = [
   {
-    image: 'https://images.squarespace-cdn.com/content/v1/5895d62d2994ca86b0cd9807/1563354199228-0X8V4KH8AJ67UZI0QY6Z/1.jpg',
-    imageAlt: 'About Bitcoin Association Switzerland',
-    title: 'About',
-    titleLink: '/about-1',
-    description: 'Find out about our organization and mission.',
-    ctaText: 'Learn More',
-    ctaLink: '/about-1',
+    image: "https://images.squarespace-cdn.com/content/v1/5895d62d2994ca86b0cd9807/1563354199228-0X8V4KH8AJ67UZI0QY6Z/1.jpg",
+    imageAlt: "About Bitcoin Association Switzerland",
+    title: "About",
+    titleLink: "/about-1",
+    description: "Find out about our organization and mission.",
+    ctaText: "Learn More",
+    ctaLink: "/about-1",
   },
   {
-    image: 'https://images.squarespace-cdn.com/content/v1/5895d62d2994ca86b0cd9807/1563354353803-U6B96VGNWCKLD4E8VRHD/bas_gv_2018_bw.jpeg',
-    imageAlt: 'Join Bitcoin Association Switzerland',
-    title: 'Join US',
-    titleLink: '/meetups-events',
-    description: 'You can become a contributor to our cause, or participate yourself.',
-    ctaText: 'Find Out How',
-    ctaLink: '/meetups-events',
+    image: "https://images.squarespace-cdn.com/content/v1/5895d62d2994ca86b0cd9807/1563354353803-U6B96VGNWCKLD4E8VRHD/bas_gv_2018_bw.jpeg",
+    imageAlt: "Join Bitcoin Association Switzerland",
+    title: "Join US",
+    titleLink: "/meetups-events",
+    description: "You can become a contributor to our cause, or participate yourself.",
+    ctaText: "Find Out How",
+    ctaLink: "/meetups-events",
   },
 ];
 
-const FeatureCards: React.FC = () => {
+export default function FeatureCards() {
   return (
     <section className="bg-white py-16 md:py-20">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -66,22 +66,16 @@ const FeatureCards: React.FC = () => {
                 {card.description}
               </p>
 
-              {/* CTA Link */}
-              <Link
-                href={card.ctaLink}
-                className="inline-flex items-center text-gray-900 font-medium hover:text-gray-600 transition-colors duration-200 group"
-              >
-                <span>{card.ctaText}</span>
-                <span className="ml-2 transform group-hover:translate-x-1 transition-transform duration-200">
-                  &rarr;
-                </span>
-              </Link>
+              {/* CTA Link using shadcn Button */}
+              <Button asChild variant="link" className="text-gray-900 hover:text-gray-600 p-0">
+                <Link href={card.ctaLink}>
+                  {card.ctaText} <span className="ml-1">&rarr;</span>
+                </Link>
+              </Button>
             </div>
           ))}
         </div>
       </div>
     </section>
   );
-};
-
-export default FeatureCards;
+}
