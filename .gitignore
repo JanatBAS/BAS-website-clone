@@ -5,6 +5,9 @@ BAS/
 old_squarespace.xml
 .claude/
 
+# Sensitive files
+token.txt
+
 # dependencies
 /node_modules
 /.pnp
