@@ -98,16 +98,16 @@ const sidebarLinks = [
 
 function BoardMemberCard({ member }: { member: BoardMember }) {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-6 md:gap-8">
+    <div className="flex flex-col">
       {/* Member Image */}
-      <div className="flex justify-center md:justify-start">
-        <div className="relative w-full max-w-[200px] md:max-w-full aspect-square rounded-md overflow-hidden">
+      <div className="mb-4">
+        <div className="relative w-[180px] h-[180px] rounded-md overflow-hidden">
           <Image
             src={member.image}
             alt={member.name}
             fill
             className="object-cover"
-            sizes="(max-width: 768px) 200px, 300px"
+            sizes="180px"
           />
         </div>
       </div>
@@ -120,7 +120,7 @@ function BoardMemberCard({ member }: { member: BoardMember }) {
         {member.role && (
           <p className="font-semibold text-gray-900 mb-4">{member.role}</p>
         )}
-        <div className="space-y-4">
+        <div className="space-y-4 max-w-3xl">
           {member.bio.map((paragraph, index) => (
             <p key={index} className="text-sm text-gray-700 leading-relaxed">
               {paragraph}
