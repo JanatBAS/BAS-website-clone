@@ -1,0 +1,280 @@
+import Header from "@/components/Header";
+import FooterSimple from "@/components/FooterSimple";
+import Link from "next/link";
+import Image from "next/image";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Swiss Move to Reduce Blockchain Regulation - Bitcoin Association Switzerland",
+  description:
+    "Together with 23 co-signatories from all major parties, Swiss member of parliament Franz Gruter filed a parliamentary motion to reduce regulatory burdens of blockchain startups by restricting the legal definition of client deposit.",
+};
+
+export default function SwissMoveToReduceBlockchainRegulationPage() {
+  return (
+    <>
+      <Header />
+      <main className="pt-20 min-h-screen bg-white">
+        <article className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+          {/* Date */}
+          <div className="text-sm text-[#c75b4a] mb-4">
+            <Link
+              href="/bitcoin-association-switzerland/2016/06/20/swiss-parliamentary-motion-to-reduce-blockchain-regulation"
+              className="hover:underline"
+            >
+              20 June 2016
+            </Link>
+          </div>
+
+          {/* Title */}
+          <h1 className="text-2xl md:text-3xl font-normal text-gray-800 mb-4 leading-tight">
+            Swiss Move to Reduce Blockchain Regulation
+          </h1>
+
+          {/* Author and Category */}
+          <div className="text-sm text-[#c75b4a] mb-8 flex items-center gap-2">
+            <Link
+              href="/bitcoin-association-switzerland?author=59025f1030454480d862303f"
+              className="hover:underline"
+            >
+              kronrod
+            </Link>
+            <span className="text-gray-400">—</span>
+            <Link
+              href="/bitcoin-association-switzerland/category/Uncategorized"
+              className="hover:underline"
+            >
+              Uncategorized
+            </Link>
+          </div>
+
+          {/* Featured Image */}
+          <div className="mb-8">
+            <Image
+              src="http://static1.squarespace.com/static/5895d62d2994ca86b0cd9807/59025f1030454480d862303c/59025f1a30454480d86230c0/1493327642012/parliament.jpg?format=original"
+              alt="Swiss parliament"
+              width={800}
+              height={500}
+              className="w-full h-auto"
+            />
+          </div>
+
+          {/* Content */}
+          <div className="prose prose-sm max-w-none text-gray-700 leading-relaxed space-y-6">
+            <p>
+              Together with 23 co-signatories from all major parties, Swiss member of parliament Franz Gruter filed a{" "}
+              <a
+                href="https://www.parlament.ch/de/ratsbetrieb/suche-curia-vista/geschaeft?AffairId=20163472"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[#c75b4a] hover:underline"
+              >
+                parliamentary motion
+              </a>{" "}
+              to reduce regulatory burdens of blockchain startups by restricting the legal definition of &quot;client deposit&quot;. Today, firms that handle client money - regardless of whether in Swiss Francs, Bitcoin, or any other currency - get very quickly classified as banks, even if their risk profile fundamentally differs from that of typical banks. Being classified as a bank comes with regulatory and capital requirements that are practically impossible to fulfill for startups. That might be the primary reason why there is not a single operationally active cryptocurrency exchange in the style of bitstamp or bitfinex in Switzerland despite having an otherwise{" "}
+              <a
+                href="http://www.nzz.ch/schweiz/internet-unternehmer-unterwegs-im-crypto-valley-ld.89840"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[#c75b4a] hover:underline"
+              >
+                lively ecosystem of crypto startups
+              </a>
+              . Luzius Meisser, founder of Bitcoin Association Switzerland comments: &quot;This motion is a strong signal to blockchain startups all around the world that the Swiss parliament wants Switzerland to be at the forefront of fintech innovation.&quot;
+            </p>
+
+            <p>
+              The main part of the motion states (translation): &quot;The federal council shall be instructed to define the term &quot;client deposit&quot; from{" "}
+              <a
+                href="https://www.admin.ch/opc/de/classified-compilation/19340083/index.html"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[#c75b4a] hover:underline"
+              >
+                banking bill
+              </a>{" "}
+              art.1 and the{" "}
+              <a
+                href="https://www.admin.ch/opc/de/classified-compilation/20131795/index.html"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[#c75b4a] hover:underline"
+              >
+                banking act
+              </a>{" "}
+              art. 2 more narrowly, to the extent risk allows. The current broad interpretation by financial regulator Finma obstructs innovative blockchain startups whose business models get qualified as banking even in cases where the intention behind the law - namely depositor protection - would not require such a qualification.&quot; The full version (in German) can be found on the Website of the{" "}
+              <a
+                href="http://www.digitale-nachhaltigkeit.ch/2016/06/blockchain-motion/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[#c75b4a] hover:underline"
+              >
+                parliamentary group for digital sustainability
+              </a>
+              .
+            </p>
+
+            <p>
+              Franz Gruter comments in{" "}
+              <a
+                href="http://www.nzzmediasolutions.ch/titel/zentralschweiz-sonntag-2/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[#c75b4a] hover:underline"
+              >
+                Zentralschweiz am Sonntag
+              </a>{" "}
+              that he wants to prevent Finma from trampling the seedlings of a promising new ecosystem with the boots of bureaucracy. Andreas Glarner from law firm{" "}
+              <a
+                href="http://www.mme.ch/de/team/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[#c75b4a] hover:underline"
+              >
+                MME
+              </a>{" "}
+              emphasizes the importance of creating a free, yet carefully regulated, environment in order to continue attracting blockchain startups from all over the world. Switzerland is already well positioned with initiatives like the{" "}
+              <a
+                href="http://cryptovalleyzug.net/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[#c75b4a] hover:underline"
+              >
+                Cryptovalley in Zug
+              </a>
+              , a city that recently made international headlines by deciding to accept Bitcoin payments.
+            </p>
+
+            <p>
+              As a next step, the parliament will vote on the motion. However, the vote has not been scheduled yet and can happen in the autumn session the earliest. Having a citizen legislature, the Swiss parliament meets less often than that of other countries. (As a nice side-effect, it also tends to make fewer and more concise laws.) If passed, it would be up to the federal council to take concrete measures, some of which might again be voted on in parliament. In practice, the motion might already have am indirect positive impact today by sending a strong signal to the Swiss financial markets regulator Finma - which is explicitely mentioned in the motion - to interpret the existing rules less restrictively.
+            </p>
+          </div>
+
+          {/* Like and Share */}
+          <div className="mt-8 flex items-center gap-6 text-sm text-gray-500">
+            <button className="flex items-center gap-2 hover:text-[#c75b4a] transition-colors">
+              <svg
+                className="w-4 h-4"
+                fill="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+              </svg>
+              0 Likes
+            </button>
+            <button className="flex items-center gap-2 hover:text-[#c75b4a] transition-colors">
+              <svg
+                className="w-4 h-4"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"
+                />
+              </svg>
+              Share
+            </button>
+          </div>
+
+          {/* Comments Section */}
+          <div className="mt-12 pt-8 border-t border-gray-200">
+            <div className="flex items-center justify-between mb-6">
+              <h3 className="text-sm font-medium text-gray-800">Comments (1)</h3>
+              <select className="text-xs text-gray-500 border-0 bg-transparent">
+                <option>Newest First</option>
+                <option>Oldest First</option>
+                <option>Most Liked</option>
+                <option>Least Liked</option>
+              </select>
+            </div>
+
+            {/* Comment Form */}
+            <div className="mb-8">
+              <textarea
+                placeholder="Post Comment..."
+                className="w-full p-3 border border-gray-200 rounded text-sm resize-none h-24 focus:outline-none focus:border-gray-400"
+              />
+              <div className="flex justify-end mt-2 gap-2">
+                <button className="px-4 py-2 text-xs text-gray-500 hover:text-gray-700 transition-colors">
+                  Preview
+                </button>
+                <button className="px-4 py-2 text-xs bg-[#c75b4a] text-white rounded hover:bg-[#a84a3b] transition-colors">
+                  Post Comment
+                </button>
+              </div>
+            </div>
+
+            {/* Existing Comment */}
+            <div className="border-t border-gray-100 pt-6">
+              <div className="flex gap-3">
+                <div className="flex-shrink-0">
+                  <Image
+                    src="https://assets.squarespace.com/universal/images-v6/default-avatar.png"
+                    alt="Karla G avatar"
+                    width={40}
+                    height={40}
+                    className="rounded-full"
+                  />
+                </div>
+                <div className="flex-1">
+                  <div className="flex items-center gap-2 mb-1">
+                    <a
+                      href="https://www.karlagarrison.com/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-sm font-medium text-gray-800 hover:underline"
+                    >
+                      Karla G
+                    </a>
+                    <span className="text-xs text-gray-400">2 years ago</span>
+                    <span className="text-xs text-gray-400 italic">Pending</span>
+                    <span className="text-xs text-gray-400">Awaiting Moderation</span>
+                    <span className="text-xs text-gray-400">0 Likes</span>
+                  </div>
+                  <p className="text-sm text-gray-700">Intereesting thoughts</p>
+                  <div className="mt-2 flex gap-2">
+                    <button className="text-xs text-gray-400 hover:text-gray-600">Preview</button>
+                    <button className="text-xs text-gray-400 hover:text-gray-600">Post Reply</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Post Navigation */}
+          <div className="mt-12 pt-8 border-t border-gray-200">
+            <div className="flex justify-between items-start">
+              <div className="text-left">
+                <div className="text-xs text-gray-500 uppercase tracking-wider mb-1">
+                  Newer Post
+                </div>
+                <Link
+                  href="/bitcoin-association-switzerland/2016/08/05/fintech-made-in-switzerland"
+                  className="text-sm text-[#c75b4a] hover:underline"
+                >
+                  FinTech Made in Switzerland
+                </Link>
+              </div>
+              <div className="text-right">
+                <div className="text-xs text-gray-500 uppercase tracking-wider mb-1">
+                  Older Post
+                </div>
+                <Link
+                  href="/bitcoin-association-switzerland/2014/12/05/talk-at-sipug-day"
+                  className="text-sm text-[#c75b4a] hover:underline"
+                >
+                  Talk at SIPUG day
+                </Link>
+              </div>
+            </div>
+          </div>
+        </article>
+      </main>
+      <FooterSimple />
+    </>
+  );
+}

@@ -1,0 +1,165 @@
+import Header from "@/components/Header";
+import FooterSimple from "@/components/FooterSimple";
+import Link from "next/link";
+
+export default function StatementOn12PointProgramPage() {
+  return (
+    <>
+      <Header />
+      <main className="pt-24 min-h-screen bg-white">
+        <article className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          {/* Date */}
+          <div className="text-xs text-[#c75b4a] tracking-wider mb-4">
+            31 May 2025
+          </div>
+
+          {/* Title */}
+          <h1 className="text-2xl md:text-3xl font-semibold text-gray-900 mb-6 leading-tight">
+            Statement on the 12-Point Program for a Forward-Looking Digital Financial Center
+          </h1>
+
+          {/* Author */}
+          <div className="text-xs text-[#c75b4a] tracking-wider mb-8">
+            <Link
+              href="/bitcoin-association-switzerland?author=672bdb3ae0672c1501f39ce8"
+              className="hover:underline"
+            >
+              Phil Lojacono
+            </Link>
+          </div>
+
+          {/* Content */}
+          <div className="prose prose-sm max-w-none text-gray-600 leading-relaxed">
+            <p className="mb-6">
+              The Bitcoin Association Switzerland supports the 12-point program jointly developed by leading industry associations to foster a strong and future-oriented environment for digital innovation in Switzerland. We believe this framework is an important step toward ensuring regulatory clarity, technological advancement, and an open, competitive financial system that empowers individuals and businesses alike.
+            </p>
+
+            <p className="mb-6">
+              We are proud to have contributed to this initiative and remain committed to working collaboratively with all stakeholders - associations, policymakers, regulators, and entrepreneurs - to make Switzerland a global leader in the Bitcoin economy.
+            </p>
+
+            <p className="mb-6">
+              <strong className="text-gray-900">
+                However, we also wish to express a clear and principled stance as this was unclear in the communication of other involved parties
+              </strong>
+              :
+            </p>
+
+            <p className="mb-6">
+              <strong className="text-gray-900">
+                We strongly oppose the introduction of Central Bank Digital Currencies (CBDCs)
+              </strong>
+              . Such instruments pose a grave risk to financial privacy, individual freedom, and the principle of self-sovereignty that lies at the heart of the Bitcoin ethos. We believe that the development of CBDCs - especially those that enable centralized control or surveillance - would accelerate the erosion of civil liberties and contradict the open and decentralized values we work to protect.
+            </p>
+
+            <p className="mb-6">
+              Our commitment is to a financial future rooted in freedom, privacy, and individual empowerment. We invite all stakeholders to join us in upholding these principles as we shape the future of digital finance in Switzerland.
+            </p>
+
+            <p className="mb-2">
+              <a
+                href="https://www.bitcoinassociation.ch/s/12PointsForStrongFinancialCEntre_Manifest_EN.pdf"
+                className="text-[#c75b4a] hover:underline"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Download ENG version
+              </a>
+            </p>
+            <p className="mb-8">
+              <a
+                href="https://www.bitcoinassociation.ch/s/12PointsForStrongFinancialCentres_Manifest_DE.pdf"
+                className="text-[#c75b4a] hover:underline"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Download GER version
+              </a>
+            </p>
+          </div>
+
+          {/* Like and Share */}
+          <div className="flex items-center gap-4 text-xs text-gray-500 py-6 border-t border-gray-200">
+            <span className="flex items-center gap-1">
+              <svg
+                className="w-4 h-4"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                />
+              </svg>
+              0 Likes
+            </span>
+            <button className="flex items-center gap-1 hover:text-[#c75b4a]">
+              <svg
+                className="w-4 h-4"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"
+                />
+              </svg>
+              Share
+            </button>
+          </div>
+
+          {/* Comments Section */}
+          <div className="py-6 border-t border-gray-200">
+            <div className="flex items-center justify-between mb-6">
+              <h3 className="text-sm font-medium text-gray-900 uppercase tracking-wider">Comments (0)</h3>
+              <span className="text-xs text-[#c75b4a]">Newest First</span>
+            </div>
+
+            {/* Comment Form */}
+            <div className="border border-gray-200 rounded">
+              <textarea
+                className="w-full p-4 text-sm resize-none focus:outline-none min-h-[120px]"
+                placeholder=""
+              />
+              <div className="flex justify-end items-center gap-4 p-3 border-t border-gray-200 bg-gray-50">
+                <span className="text-xs text-gray-500">Preview</span>
+                <button className="bg-[#40c3b6] text-white px-4 py-2 text-xs font-medium tracking-wider hover:bg-[#36a99e] transition-colors">
+                  POST COMMENT...
+                </button>
+              </div>
+            </div>
+          </div>
+
+          {/* Navigation */}
+          <div className="flex justify-between py-8 border-t border-gray-200 text-xs">
+            <div>
+              <span className="text-gray-400 uppercase tracking-wider">Newer Post</span>
+              <Link
+                href="/bitcoin-association-switzerland/2014/06/04/marc-faber-points-readers-to-bitcoin"
+                className="block text-[#c75b4a] hover:underline mt-1"
+              >
+                Marc Faber points readers to Bitcoin
+              </Link>
+            </div>
+            <div className="text-right">
+              <span className="text-gray-400 uppercase tracking-wider">Older Post</span>
+              <Link
+                href="/bitcoin-association-switzerland/2025/2/28/bitcoin-association-switzerland-welcomes-the-federal-councils-endorsement-of-enhanced-bitcoin-regulation"
+                className="block text-[#c75b4a] hover:underline mt-1"
+              >
+                Bitcoin Association Switzerland Welcomes the Federal Council&apos;s Endorsement of Enhanced Bitcoin Regulation
+              </Link>
+            </div>
+          </div>
+        </article>
+      </main>
+      <FooterSimple />
+    </>
+  );
+}
