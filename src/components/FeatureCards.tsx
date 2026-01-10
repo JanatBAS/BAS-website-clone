@@ -1,0 +1,87 @@
+import React from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
+
+interface FeatureCard {
+  image: string;
+  imageAlt: string;
+  title: string;
+  titleLink: string;
+  description: string;
+  ctaText: string;
+  ctaLink: string;
+}
+
+const cards: FeatureCard[] = [
+  {
+    image: 'https://images.squarespace-cdn.com/content/v1/5895d62d2994ca86b0cd9807/1563354199228-0X8V4KH8AJ67UZI0QY6Z/1.jpg',
+    imageAlt: 'About Bitcoin Association Switzerland',
+    title: 'About',
+    titleLink: '/about-1',
+    description: 'Find out about our organization and mission.',
+    ctaText: 'Learn More',
+    ctaLink: '/about-1',
+  },
+  {
+    image: 'https://images.squarespace-cdn.com/content/v1/5895d62d2994ca86b0cd9807/1563354353803-U6B96VGNWCKLD4E8VRHD/bas_gv_2018_bw.jpeg',
+    imageAlt: 'Join Bitcoin Association Switzerland',
+    title: 'Join US',
+    titleLink: '/meetups-events',
+    description: 'You can become a contributor to our cause, or participate yourself.',
+    ctaText: 'Find Out How',
+    ctaLink: '/meetups-events',
+  },
+];
+
+const FeatureCards: React.FC = () => {
+  return (
+    <section className="bg-white py-16 md:py-20">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
+          {cards.map((card, index) => (
+            <div key={index} className="flex flex-col items-center text-center">
+              {/* Image */}
+              <div className="relative w-full aspect-[4/3] mb-6 overflow-hidden">
+                <Image
+                  src={card.image}
+                  alt={card.imageAlt}
+                  fill
+                  className="object-cover grayscale"
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                />
+              </div>
+
+              {/* Title */}
+              <h2 className="text-2xl md:text-3xl font-serif text-gray-900 mb-4">
+                <Link
+                  href={card.titleLink}
+                  className="hover:text-gray-600 transition-colors duration-200"
+                >
+                  {card.title}
+                </Link>
+              </h2>
+
+              {/* Description */}
+              <p className="text-base md:text-lg text-gray-700 leading-relaxed mb-6 max-w-md">
+                {card.description}
+              </p>
+
+              {/* CTA Link */}
+              <Link
+                href={card.ctaLink}
+                className="inline-flex items-center text-gray-900 font-medium hover:text-gray-600 transition-colors duration-200 group"
+              >
+                <span>{card.ctaText}</span>
+                <span className="ml-2 transform group-hover:translate-x-1 transition-transform duration-200">
+                  &rarr;
+                </span>
+              </Link>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default FeatureCards;
