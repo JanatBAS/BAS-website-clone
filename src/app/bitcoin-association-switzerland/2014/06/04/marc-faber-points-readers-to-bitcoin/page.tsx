@@ -120,20 +120,6 @@ export default function MarcFaberPointsReadersToBitcoinPage() {
               <h3 className="text-sm font-medium text-gray-900 uppercase tracking-wider">Comments (0)</h3>
               <span className="text-sm text-[#c75b4a]">Newest First</span>
             </div>
-
-            {/* Comment Form */}
-            <div className="border border-gray-200 rounded">
-              <textarea
-                className="w-full p-4 text-sm resize-none focus:outline-none min-h-[120px]"
-                placeholder=""
-              />
-              <div className="flex justify-end items-center gap-4 p-3 border-t border-gray-200 bg-gray-50">
-                <span className="text-xs text-gray-500">Preview</span>
-                <button className="bg-[#40c3b6] text-white px-4 py-2 text-xs font-medium tracking-wider hover:bg-[#36a99e] transition-colors">
-                  POST COMMENT...
-                </button>
-              </div>
-            </div>
           </div>
 
           {/* Post Navigation */}

@@ -100,21 +100,6 @@ export default function TalkAtSipugDayPage() {
               </select>
             </div>
 
-            {/* Comment Form */}
-            <div className="mb-8">
-              <textarea
-                placeholder=""
-                className="w-full p-3 border border-gray-200 rounded text-sm resize-none h-24 focus:outline-none focus:border-gray-400"
-              />
-              <div className="flex justify-end mt-2 gap-2">
-                <button className="px-4 py-2 text-xs text-gray-500 hover:text-gray-700 transition-colors">
-                  Preview
-                </button>
-                <button className="px-4 py-2 text-xs bg-gray-800 text-white tracking-wider hover:bg-gray-700 transition-colors">
-                  POST COMMENT...
-                </button>
-              </div>
-            </div>
           </div>
 
           {/* Post Navigation */}
