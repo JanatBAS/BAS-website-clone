@@ -291,24 +291,6 @@ export default function MinersLuckSmoothingPage() {
               </h3>
             </div>
 
-            {/* Comment Input */}
-            <div className="border border-gray-200 rounded mb-6">
-              <textarea
-                className="w-full p-4 text-sm text-gray-500 resize-none focus:outline-none"
-                rows={4}
-                placeholder=""
-                disabled
-              />
-              <div className="flex justify-end items-center gap-2 px-4 pb-3">
-                <button className="text-sm text-gray-500 hover:text-gray-700">
-                  Preview
-                </button>
-                <button className="text-sm bg-gray-800 text-white px-4 py-2 hover:bg-gray-700">
-                  Post Comment...
-                </button>
-              </div>
-            </div>
-
             {/* Comment 1: Renegade */}
             <div className="flex gap-4 py-4 border-t border-gray-100">
               <div className="flex-shrink-0">

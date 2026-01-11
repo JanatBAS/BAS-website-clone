@@ -162,22 +162,6 @@ export default function SwissMoveToReduceBlockchainRegulationPage() {
               <h3 className="text-sm font-medium text-gray-800">Comments (1)</h3>
             </div>
 
-            {/* Comment Form */}
-            <div className="mb-8">
-              <textarea
-                placeholder="Post Comment..."
-                className="w-full p-3 border border-gray-200 rounded text-sm resize-none h-24 focus:outline-none focus:border-gray-400"
-              />
-              <div className="flex justify-end mt-2 gap-2">
-                <button className="px-4 py-2 text-xs text-gray-500 hover:text-gray-700 transition-colors">
-                  Preview
-                </button>
-                <button className="px-4 py-2 text-xs bg-[#c75b4a] text-white rounded hover:bg-[#a84a3b] transition-colors">
-                  Post Comment
-                </button>
-              </div>
-            </div>
-
             {/* Existing Comment */}
             <div className="border-t border-gray-100 pt-6">
               <div className="flex gap-3">

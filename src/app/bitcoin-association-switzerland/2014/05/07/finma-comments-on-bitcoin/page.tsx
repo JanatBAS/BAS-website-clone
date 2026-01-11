@@ -90,20 +90,6 @@ export default function FinmaCommentsOnBitcoinPage() {
                 Comments (0)
               </h3>
             </div>
-            <div className="border border-gray-300">
-              <textarea
-                className="w-full h-24 p-3 resize-none text-sm text-gray-600 focus:outline-none"
-                placeholder=""
-              />
-              <div className="flex justify-end items-center gap-2 p-2 border-t border-gray-200 bg-gray-50">
-                <span className="text-xs text-gray-500 cursor-pointer hover:text-gray-700">
-                  Preview
-                </span>
-                <button className="px-4 py-2 bg-gray-800 text-white text-xs uppercase tracking-wider hover:bg-gray-700 transition-colors">
-                  Post Comment...
-                </button>
-              </div>
-            </div>
           </div>
 
           {/* Post Navigation */}

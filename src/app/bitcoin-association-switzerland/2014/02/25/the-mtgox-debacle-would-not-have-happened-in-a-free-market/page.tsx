@@ -139,20 +139,7 @@ export default function MtGoxDebacleFreemarketPage() {
               </h3>
             </div>
 
-            {/* Comment Input */}
-            <div className="mb-8">
-              <textarea
-                placeholder=""
-                className="w-full border border-gray-300 rounded p-3 text-sm text-gray-700 placeholder-gray-400 resize-none focus:outline-none focus:border-gray-400"
-                rows={4}
-              ></textarea>
-              <div className="flex justify-end gap-2 mt-2">
-                <span className="text-xs text-gray-400 py-2">Preview</span>
-                <button className="px-4 py-2 text-xs uppercase tracking-wider bg-gray-800 text-white hover:bg-gray-700 transition-colors">
-                  Post Comment...
-                </button>
-              </div>
-            </div>
+            
 
             {/* Comment 1 - Hans Loepfe */}
             <div className="mb-6 pb-6 border-b border-gray-100">

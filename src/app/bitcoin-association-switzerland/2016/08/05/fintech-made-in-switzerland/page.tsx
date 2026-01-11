@@ -82,19 +82,7 @@ export default function FintechMadeInSwitzerlandPage() {
               <h3 className="text-sm font-medium text-gray-800">Comments (0)</h3>
             </div>
 
-            {/* Comment Input */}
-            <div className="mb-8">
-              <textarea
-                placeholder="Post Comment..."
-                className="w-full border border-gray-300 rounded p-3 text-sm text-gray-700 placeholder-gray-400 resize-none focus:outline-none focus:border-gray-400"
-                rows={4}
-              ></textarea>
-              <div className="flex justify-end mt-2">
-                <button className="px-4 py-2 text-xs uppercase tracking-wider border border-gray-800 text-gray-800 hover:bg-gray-800 hover:text-white transition-colors">
-                  Post Comment
-                </button>
-              </div>
-            </div>
+            
           </div>
 
           {/* Post Navigation */}
