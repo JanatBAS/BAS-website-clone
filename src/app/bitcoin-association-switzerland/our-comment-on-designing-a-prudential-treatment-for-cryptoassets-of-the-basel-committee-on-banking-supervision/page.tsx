@@ -138,59 +138,6 @@ export default function BaselCommitteeCommentPage() {
             <ShareButton title="Our Comment on Designing a Prudential Treatment for Cryptoassets of the Basel Committee" />
           </div>
 
-          {/* Comments Section */}
-          <div className="mt-12 pt-8 border-t border-gray-200">
-            <h3 className="text-lg font-semibold text-gray-900 mb-6">Comments (1)</h3>
-
-            <p className="text-xs text-gray-500 mb-6">Newest First</p>
-
-            {/* Comment from Luzius Meisser */}
-            <div className="mb-8">
-              <div className="flex items-start gap-4">
-                <div className="w-10 h-10 rounded-full bg-gray-200 flex-shrink-0 overflow-hidden">
-                  <Image
-                    src="https://assets.squarespace.com/universal/images-v6/default-avatar.png"
-                    alt="Luzius Meisser"
-                    width={40}
-                    height={40}
-                  />
-                </div>
-                <div className="flex-1">
-                  <div className="flex items-center gap-2 mb-2">
-                    <a
-                      href="http://bitcoinassociation.ch/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="font-medium text-gray-900 text-sm hover:text-[#c75b4a]"
-                    >
-                      Luzius Meisser
-                    </a>
-                    <span className="text-xs text-gray-500">6 years ago</span>
-                    <span className="text-xs text-gray-400">0 Likes</span>
-                  </div>
-                  <div className="text-sm text-gray-700 space-y-4">
-                    <p>
-                      In the meantime, the answers have been published. It is nice to see that the Crypto Valley Association and others share our concerns, in particular regarding the &quot;illustrative example&quot; of possible capital requirements.
-                    </p>
-                    <p>
-                      Here are the answers:
-                    </p>
-                    <p>
-                      <a
-                        href="https://www.bis.org/bcbs/publ/comments/d490/overview.htm"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-[#c75b4a] hover:underline break-all"
-                      >
-                        https://www.bis.org/bcbs/publ/comments/d490/overview.htm
-                      </a>
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
           {/* Newer/Older Posts Navigation */}
           <div className="mt-12 pt-8 border-t border-gray-200 flex justify-between items-start text-xs">
             <div className="max-w-[45%]">

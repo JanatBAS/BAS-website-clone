@@ -130,48 +130,6 @@ export default function BlogPostPage() {
             <ShareButton title="Our Comment on GWV-FINMA adjustment for FinSA / FinIA" />
           </div>
 
-          {/* Comments Section */}
-          <div className="mt-12 border-t border-gray-200 pt-8">
-            <div className="flex items-center justify-between mb-6">
-              <h2 className="text-sm font-semibold text-gray-700 uppercase tracking-wider">
-                Comments (1)
-              </h2>
-              <select className="text-sm text-gray-500 bg-transparent border-none focus:outline-none cursor-pointer">
-                <option>Newest First</option>
-                <option>Oldest First</option>
-                <option>Most Liked</option>
-                <option>Least Liked</option>
-              </select>
-            </div>
-
-            {/* Comment */}
-            <div className="flex gap-4">
-              <div className="flex-shrink-0">
-                <div className="w-10 h-10 rounded-full bg-gray-300 flex items-center justify-center">
-                  <svg
-                    className="w-6 h-6 text-gray-500"
-                    fill="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
-                  </svg>
-                </div>
-              </div>
-              <div className="flex-grow">
-                <div className="flex items-center gap-2 mb-1">
-                  <span className="font-semibold text-gray-800">Pocket</span>
-                  <span className="text-xs text-gray-500">6 years ago</span>
-                  <span className="text-xs text-gray-400">0 Likes</span>
-                </div>
-                <p className="text-sm text-[#87a4ad] leading-relaxed">
-                  Thank you for taking a stance here. Seems unreasonable to think that reducing an
-                  already low limit would reduce shady transactions. This change would only harm
-                  responsible intermediaries and force genuine customers to foreign platforms.
-                </p>
-              </div>
-            </div>
-          </div>
-
           {/* Post Navigation */}
           <div className="mt-12 pt-8 border-t border-gray-200 flex justify-between">
             <div className="text-left">
