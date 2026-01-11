@@ -19,7 +19,7 @@ export default function GeneralAssemblyPage() {
           </h1>
 
           {/* Introduction */}
-          <div className="text-sm leading-relaxed text-[#c9a882] mb-8">
+          <div className="text-sm leading-relaxed text-gray-700 mb-8">
             <p>
               We are very much looking forward to welcoming you at this year&apos;s General Assembly of Bitcoin Association Switzerland, which will take place during the Bitcoin Baden Konferenz.
             </p>
@@ -30,7 +30,7 @@ export default function GeneralAssemblyPage() {
             <h2 className="text-sm font-semibold text-gray-800 mb-4 underline">
               Date, Time, and Location:
             </h2>
-            <div className="text-sm leading-relaxed text-[#c9a882] space-y-2">
+            <div className="text-sm leading-relaxed text-gray-700 space-y-2">
               <p>
                 <span className="font-semibold text-gray-800">&#9679; Date:</span> 06/12/2025
               </p>
@@ -76,7 +76,7 @@ export default function GeneralAssemblyPage() {
               </li>
               <li>
                 <span className="text-gray-800 font-semibold">2. Mandatory General Assembly Topics</span>
-                <ul className="mt-2 ml-6 space-y-1 text-[#c9a882]">
+                <ul className="mt-2 ml-6 space-y-1 text-gray-700">
                   <li>a. Approval of the Agenda</li>
                   <li>b. Approval of Minutes from Previous General Assembly</li>
                   <li>c. Financial Report 2025</li>
@@ -107,23 +107,23 @@ export default function GeneralAssemblyPage() {
               NOTES:
             </h2>
             <ol className="text-sm leading-relaxed space-y-3">
-              <li className="text-[#c9a882]">
+              <li className="text-gray-700">
                 <span className="font-semibold text-gray-800">1. Minutes:</span>{" "}
                 The Secretary records detailed minutes of decisions, votes, and discussions to comply with legal requirements.
               </li>
-              <li className="text-[#c9a882]">
+              <li className="text-gray-700">
                 <span className="font-semibold text-gray-800">2. Voting Process:</span>{" "}
                 Will be conducted digitally only.
               </li>
-              <li className="text-[#c9a882]">
+              <li className="text-gray-700">
                 <span className="font-semibold text-gray-800">3. Online Participation:</span>{" "}
                 Livestream with active voting via secure platform.
               </li>
-              <li className="text-[#c9a882]">
+              <li className="text-gray-700">
                 <span className="font-semibold text-gray-800">4. Apero:</span>{" "}
                 Networking with wine, beer &amp; snacks after the GA.
               </li>
-              <li className="text-[#c9a882]">
+              <li className="text-gray-700">
                 <span className="font-semibold text-gray-800">5. Recording:</span>{" "}
                 A recap video will be made for those who missed it.
               </li>
