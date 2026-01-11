@@ -28,7 +28,7 @@ export default function AnnouncementCategoryPage() {
               clicking here
             </Link>
             , or you can try searching for the content you are seeking by{" "}
-            <Link href="/search" className="text-[#c75b4a] hover:underline">
+            <Link href="/archive" className="text-[#c75b4a] hover:underline">
               clicking here
             </Link>
             .

@@ -98,7 +98,7 @@ export default function BASRoadshowBaselPage() {
               <span>Earlier Event: 21 March</span>
               <br />
               <Link
-                href="/roadshow-2025/2025/3/21/dvlfc1pg9tmpthqclelqcp2tmosgpg"
+                href="/roadshow-2025/2025/3/21/bas-roadshow-lake-zurich"
                 className="text-gray-700 hover:text-[#c75b4a] transition-colors"
               >
                 BAS Roadshow Lake Zurich

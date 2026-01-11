@@ -172,7 +172,7 @@ export default function BASRoadshowLausannePage() {
             <div className="text-[13px] md:text-right">
               <div className="text-gray-500 mb-1">Later Event: 21 March</div>
               <Link
-                href="/roadshow-2025/2025/3/21/dvlfc1pg9tmpthqclelqcp2tmosgpg"
+                href="/roadshow-2025/2025/3/21/bas-roadshow-lake-zurich"
                 className="text-[#c75b4a] hover:underline"
               >
                 BAS Roadshow Lake Zurich

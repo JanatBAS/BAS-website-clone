@@ -126,7 +126,7 @@ export default function WhoNeedsInternetEventPage() {
             <div className="flex-1 text-right">
               <div className="text-gray-500 mb-1">Later Event: 18 December</div>
               <Link
-                href="/most-recent-events/2020/2/4/bitcoin-christmas-meetup-zrich"
+                href="/most-recent-events/2020/2/4/bitcoin-christmas-meetup-zurich"
                 className="text-[#c75b4a] hover:underline"
               >
                 Bitcoin Christmas Meetup Zürich

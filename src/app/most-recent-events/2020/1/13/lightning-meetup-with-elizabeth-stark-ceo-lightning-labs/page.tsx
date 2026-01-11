@@ -121,7 +121,7 @@ export default function LightningMeetupElizabethStarkPage() {
                 Earlier Event: 18 December
               </div>
               <Link
-                href="/most-recent-events/2020/2/4/bitcoin-christmas-meetup-zrich"
+                href="/most-recent-events/2020/2/4/bitcoin-christmas-meetup-zurich"
                 className="text-[13px] text-[#c75b4a] hover:underline"
               >
                 Bitcoin Christmas Meetup Zurich

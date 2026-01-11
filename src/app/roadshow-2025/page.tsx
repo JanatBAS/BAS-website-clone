@@ -64,7 +64,7 @@ const roadshowEvents: RoadshowEvent[] = [
     ],
     signupLink: "https://lu.ma/pa1cmg9y",
     signupText: "Sign up for the roadshow event in Lake Zurich",
-    href: "/roadshow-2025/2025/3/21/dvlfc1pg9tmpthqclelqcp2tmosgpg",
+    href: "/roadshow-2025/2025/3/21/bas-roadshow-lake-zurich",
   },
   {
     id: "lausanne",

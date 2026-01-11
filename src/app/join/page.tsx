@@ -39,7 +39,7 @@ export default function JoinPage() {
               </Link>
               , or you can try searching for the content you are seeking by{" "}
               <Link
-                href="/search"
+                href="/archive"
                 className="text-[#9a8a78] hover:text-[#7d6e5f] underline"
               >
                 clicking here

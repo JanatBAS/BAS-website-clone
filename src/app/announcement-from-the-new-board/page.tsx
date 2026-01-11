@@ -153,7 +153,7 @@ export default function AnnouncementFromTheNewBoardPage() {
 
             <p className="mb-8">
               <Link
-                href="/s/BAS_Announcement_Oct27th2024-xxmm.pdf"
+                href="https://www.bitcoinassociation.ch/s/BAS_Announcement_Oct27th2024-xxmm.pdf"
                 className="text-[#c75b4a] hover:underline"
                 target="_blank"
                 rel="noopener noreferrer"

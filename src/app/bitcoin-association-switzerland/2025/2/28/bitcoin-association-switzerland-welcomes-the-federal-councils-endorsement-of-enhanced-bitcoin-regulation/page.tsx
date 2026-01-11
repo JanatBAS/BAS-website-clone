@@ -235,7 +235,7 @@ export default function FederalCouncilEndorsementPage() {
             <div>
               <span className="text-gray-400 uppercase tracking-wider">Newer Post</span>
               <Link
-                href="/bitcoin-association-switzerland/2025/12/8/-"
+                href="/bitcoin-association-switzerland/2025/12/8/statement-on-12-point-program"
                 className="block text-[#c75b4a] hover:underline mt-1"
               >
                 Statement on the 12-Point Program for a Forward-Looking Digital Financial Center

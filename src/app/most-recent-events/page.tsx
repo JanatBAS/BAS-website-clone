@@ -65,7 +65,7 @@ const events: Event[] = [
   },
   {
     id: "3",
-    slug: "bitcoin-christmas-meetup-zrich",
+    slug: "bitcoin-christmas-meetup-zurich",
     title: "Bitcoin Christmas Meetup Zurich",
     date: "Wednesday 18 December 2019",
     day: "18",
@@ -82,7 +82,7 @@ const events: Event[] = [
     googleCalendarUrl:
       "http://www.google.com/calendar/event?action=TEMPLATE&text=Bitcoin%20Christmas%20Meetup%20Z%C3%BCrich&dates=20191218T180000Z/20191218T225900Z&location=Langstrasse%20136",
     icsUrl:
-      "https://www.bitcoinassociation.ch/most-recent-events/2020/2/4/bitcoin-christmas-meetup-zrich?format=ical",
+      "https://www.bitcoinassociation.ch/most-recent-events/2020/2/4/bitcoin-christmas-meetup-zurich?format=ical",
   },
   {
     id: "4",
