@@ -156,65 +156,6 @@ export default function SwissMoveToReduceBlockchainRegulationPage() {
             <ShareButton title="Swiss Move to Reduce Blockchain Regulation" />
           </div>
 
-          {/* Comments Section */}
-          <div className="mt-12 pt-8 border-t border-gray-200">
-            <div className="mb-6">
-              <h3 className="text-sm font-medium text-gray-800">Comments (1)</h3>
-            </div>
-
-            {/* Comment Form */}
-            <div className="mb-8">
-              <textarea
-                placeholder="Post Comment..."
-                className="w-full p-3 border border-gray-200 rounded text-sm resize-none h-24 focus:outline-none focus:border-gray-400"
-              />
-              <div className="flex justify-end mt-2 gap-2">
-                <button className="px-4 py-2 text-xs text-gray-500 hover:text-gray-700 transition-colors">
-                  Preview
-                </button>
-                <button className="px-4 py-2 text-xs bg-[#c75b4a] text-white rounded hover:bg-[#a84a3b] transition-colors">
-                  Post Comment
-                </button>
-              </div>
-            </div>
-
-            {/* Existing Comment */}
-            <div className="border-t border-gray-100 pt-6">
-              <div className="flex gap-3">
-                <div className="flex-shrink-0">
-                  <Image
-                    src="https://assets.squarespace.com/universal/images-v6/default-avatar.png"
-                    alt="Karla G avatar"
-                    width={40}
-                    height={40}
-                    className="rounded-full"
-                  />
-                </div>
-                <div className="flex-1">
-                  <div className="flex items-center gap-2 mb-1">
-                    <a
-                      href="https://www.karlagarrison.com/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-sm font-medium text-gray-800 hover:underline"
-                    >
-                      Karla G
-                    </a>
-                    <span className="text-xs text-gray-400">2 years ago</span>
-                    <span className="text-xs text-gray-400 italic">Pending</span>
-                    <span className="text-xs text-gray-400">Awaiting Moderation</span>
-                    <span className="text-xs text-gray-400">0 Likes</span>
-                  </div>
-                  <p className="text-sm text-gray-700">Intereesting thoughts</p>
-                  <div className="mt-2 flex gap-2">
-                    <button className="text-xs text-gray-400 hover:text-gray-600">Preview</button>
-                    <button className="text-xs text-gray-400 hover:text-gray-600">Post Reply</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
           {/* Post Navigation */}
           <div className="mt-12 pt-8 border-t border-gray-200">
             <div className="flex justify-between items-start">

@@ -66,42 +66,6 @@ export default function BitcoinIn10vor10Page() {
             <ShareButton title="Bitcoin in 10vor10" />
           </div>
 
-          {/* Comments Section */}
-          <div className="mt-12 pt-8 border-t border-gray-200">
-            <div className="mb-6">
-              <h3 className="text-sm font-medium text-gray-900 uppercase tracking-wider">Comments (1)</h3>
-            </div>
-
-            {/* Existing Comment */}
-            <div className="flex gap-4">
-              <div className="flex-shrink-0">
-                <Image
-                  src="https://assets.squarespace.com/universal/images-v6/default-avatar.png"
-                  alt="Alexander Perry"
-                  width={40}
-                  height={40}
-                  className="rounded-full"
-                  unoptimized
-                />
-              </div>
-              <div className="flex-1">
-                <div className="flex items-center gap-2 mb-1">
-                  <a
-                    href="https://www.drain-service.com/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="font-medium text-gray-900 hover:underline"
-                  >
-                    Alexander Perry
-                  </a>
-                  <span className="text-sm text-[#c75b4a]">2 years ago</span>
-                  <span className="text-sm text-[#c75b4a]">- 0 Likes</span>
-                </div>
-                <p className="text-sm text-gray-700">This is grreat</p>
-              </div>
-            </div>
-          </div>
-
           {/* Post Navigation */}
           <div className="mt-12 pt-8 border-t border-gray-200">
             <div className="flex justify-end items-start">

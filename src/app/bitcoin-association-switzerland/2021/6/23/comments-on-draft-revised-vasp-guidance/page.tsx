@@ -238,48 +238,6 @@ export default function VASPGuidanceCommentsPage() {
             <ShareButton title="Comments of Bitcoin Association Switzerland on the draft revised VASP Guidance" />
           </div>
 
-          {/* Comments Section */}
-          <div className="mt-12 pt-8 border-t border-gray-200">
-            <h3 className="text-lg font-semibold text-gray-900 mb-6">Comments (1)</h3>
-
-            {/* Comment */}
-            <div className="mb-8">
-              <div className="flex items-start gap-4">
-                <div className="w-10 h-10 rounded-full bg-gray-200 flex-shrink-0 overflow-hidden">
-                  <Image
-                    src="https://assets.squarespace.com/universal/images-v6/default-avatar.png"
-                    alt="Michael Bruggler"
-                    width={40}
-                    height={40}
-                  />
-                </div>
-                <div className="flex-1">
-                  <div className="flex items-center gap-2 mb-2">
-                    <span className="font-medium text-gray-900 text-sm">Michael Bruggler</span>
-                    <span className="text-xs text-gray-500">4 years ago</span>
-                    <span className="text-xs text-gray-400">Pending</span>
-                    <span className="text-xs text-gray-400">Awaiting Moderation</span>
-                  </div>
-                  <p className="text-sm text-gray-700 mb-2">
-                    Thanks for your explications. Makes sense. Regarding Swiss Regulation it might make sense to have a closer look at Art. 11 &amp; 12 of GwV-FINMA outlining exceptions or reduced due diligence requirement when it comes down to buy goods &amp; services.
-                  </p>
-                  <p className="text-sm text-gray-700 mb-2">Kind regards</p>
-                  <p className="text-sm text-gray-700 mb-2">Michael</p>
-                  <p className="text-sm text-gray-700">
-                    <a
-                      href="https://www.FinTechWerkstatt.ch"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-[#c75b4a] hover:underline"
-                    >
-                      www.FinTechWerkstatt.ch
-                    </a>
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-
           {/* Newer/Older Posts Navigation */}
           <div className="mt-12 pt-8 border-t border-gray-200 flex justify-between items-center text-xs">
             <Link

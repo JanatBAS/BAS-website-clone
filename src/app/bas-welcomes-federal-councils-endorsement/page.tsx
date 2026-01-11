@@ -184,12 +184,7 @@ export default function FederalCouncilEndorsementPage() {
             </button>
           </div>
 
-          {/* Comments Section */}
-          <div className="py-6 border-t border-gray-200">
-            <h3 className="text-sm font-medium text-gray-900 mb-4">COMMENTS (0)</h3>
-
-          </div>
-        </article>
+          </article>
       </main>
       <FooterSimple />
     </>
