@@ -13,7 +13,7 @@ export default function FooterSimple() {
               asChild
               variant="secondary"
               size="icon"
-              className="rounded-full w-14 h-14 bg-[#6b6b6b] hover:bg-[#7b7b7b] border-0"
+              className="rounded-full w-10 h-10 bg-[#6b6b6b] hover:bg-[#7b7b7b] border-0"
             >
               <a
                 href="https://www.meetup.com/Bitcoin-Meetup-Switzerland"
@@ -23,8 +23,8 @@ export default function FooterSimple() {
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 64 64"
-                  className="w-9 h-9"
+                  viewBox="12 12 40 40"
+                  className="w-6 h-6"
                 >
                   <path
                     fill="white"
@@ -39,7 +39,7 @@ export default function FooterSimple() {
               asChild
               variant="secondary"
               size="icon"
-              className="rounded-full w-14 h-14 bg-[#6b6b6b] hover:bg-[#7b7b7b] border-0"
+              className="rounded-full w-10 h-10 bg-[#6b6b6b] hover:bg-[#7b7b7b] border-0"
             >
               <a
                 href="https://www.youtube.com/channel/UC5nVX9C2vM1dFg0BvatKEOg"
@@ -49,8 +49,8 @@ export default function FooterSimple() {
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 64 64"
-                  className="w-9 h-9"
+                  viewBox="14 18 36 28"
+                  className="w-6 h-6"
                 >
                   <path
                     fill="white"
@@ -65,7 +65,7 @@ export default function FooterSimple() {
               asChild
               variant="secondary"
               size="icon"
-              className="rounded-full w-14 h-14 bg-[#6b6b6b] hover:bg-[#7b7b7b] border-0"
+              className="rounded-full w-10 h-10 bg-[#6b6b6b] hover:bg-[#7b7b7b] border-0"
             >
               <a
                 href="https://x.com/bitcoin_ch"
@@ -75,8 +75,8 @@ export default function FooterSimple() {
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 64 64"
-                  className="w-8 h-8"
+                  viewBox="16 15 32 34"
+                  className="w-5 h-5"
                 >
                   <path
                     fill="white"
