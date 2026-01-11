@@ -648,11 +648,6 @@ export default function ProofOfWorkNotProofOfStakePage() {
           <div className="mt-12 pt-8 border-t border-gray-200">
             <h3 className="text-lg font-semibold text-gray-800 mb-6">Comments (3)</h3>
 
-            <div className="text-xs text-gray-500 mb-6">
-              <span className="text-gray-400 ml-2">Oldest First</span>
-              <span className="text-gray-400 ml-2">Most Liked</span>
-              <span className="text-gray-400 ml-2">Least Liked</span>
-            </div>
 
             {/* Comment 1 */}
             <div className="mb-8 flex gap-4">
