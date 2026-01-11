@@ -17,7 +17,7 @@ export default function MtGoxDebacleFreemarketPage() {
       <main className="pt-20 min-h-screen bg-white">
         <article className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           {/* Date */}
-          <div className="text-sm text-[#c9a96e] mb-4">25 February 2014</div>
+          <div className="text-sm text-[#c75b4a] mb-4">25 February 2014</div>
 
           {/* Title */}
           <h1 className="text-2xl md:text-3xl font-normal text-gray-800 mb-4 leading-tight">
@@ -25,7 +25,7 @@ export default function MtGoxDebacleFreemarketPage() {
           </h1>
 
           {/* Author and Category */}
-          <div className="text-sm text-[#c9a96e] mb-8">
+          <div className="text-sm text-[#c75b4a] mb-8">
             <Link
               href="/bitcoin-association-switzerland?author=59025f1030454480d862303f"
               className="hover:underline"
@@ -42,14 +42,14 @@ export default function MtGoxDebacleFreemarketPage() {
           </div>
 
           {/* Content */}
-          <div className="prose prose-sm max-w-none text-[#c9a96e] leading-relaxed space-y-6">
+          <div className="prose prose-sm max-w-none text-gray-700 leading-relaxed space-y-6">
             <p>
               As{" "}
               <a
                 href="http://blog.blockchain.info/2014/02/25/joint-statement/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-[#c9a96e] underline hover:text-[#b89960]"
+                className="text-[#c75b4a] hover:underline"
               >
                 other places reported
               </a>
@@ -66,7 +66,7 @@ export default function MtGoxDebacleFreemarketPage() {
                 href="http://ebay.com/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-[#c9a96e] underline hover:text-[#b89960]"
+                className="text-[#c75b4a] hover:underline"
               >
                 ebay.com
               </a>
@@ -75,7 +75,7 @@ export default function MtGoxDebacleFreemarketPage() {
                 href="http://doodle.com/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-[#c9a96e] underline hover:text-[#b89960]"
+                className="text-[#c75b4a] hover:underline"
               >
                 doodle.com
               </a>{" "}
@@ -84,7 +84,7 @@ export default function MtGoxDebacleFreemarketPage() {
                 href="http://yahoo.com/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-[#c9a96e] underline hover:text-[#b89960]"
+                className="text-[#c75b4a] hover:underline"
               >
                 yahoo.com
               </a>{" "}
@@ -113,22 +113,7 @@ export default function MtGoxDebacleFreemarketPage() {
 
           {/* Share */}
           <div className="mt-8 flex items-center gap-6 text-sm text-gray-500">
-            <button className="flex items-center gap-2 hover:text-[#c9a96e] transition-colors">
-              <svg
-                className="w-4 h-4"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"
-                />
-              </svg>
-              Share
-            </button>
+            <ShareButton title="The MtGox debacle would not have happened in a free market" />
           </div>
 
           {/* Comments Section */}
@@ -168,7 +153,7 @@ export default function MtGoxDebacleFreemarketPage() {
                     <span className="text-xs text-gray-400">12 years ago</span>
                     <span className="text-xs text-gray-400">· 0 Likes</span>
                   </div>
-                  <p className="text-sm text-[#c9a96e]">
+                  <p className="text-sm text-gray-600">
                     Gibt es keine derivative Produkte Futures/Options auf Bitcoin? Zu
                     Absicherungszwecken gäbe das grösseren Spielraum für
                     Institutionelle Anleger und höheren Open Interest was sich
@@ -188,7 +173,7 @@ export default function MtGoxDebacleFreemarketPage() {
                 </div>
                 <Link
                   href="/bitcoin-association-switzerland/2014/05/07/finma-comments-on-bitcoin"
-                  className="text-sm text-[#c9a96e] hover:underline"
+                  className="text-sm text-[#c75b4a] hover:underline"
                 >
                   Finma comments on Bitcoin
                 </Link>
@@ -199,7 +184,7 @@ export default function MtGoxDebacleFreemarketPage() {
                 </div>
                 <Link
                   href="/bitcoin-association-switzerland/2014/02/17/general-assembly-2014"
-                  className="text-sm text-[#c9a96e] hover:underline"
+                  className="text-sm text-[#c75b4a] hover:underline"
                 >
                   General Assembly 2014
                 </Link>
