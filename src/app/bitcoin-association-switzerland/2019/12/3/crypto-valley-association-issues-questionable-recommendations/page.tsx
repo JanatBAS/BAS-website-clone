@@ -92,6 +92,78 @@ export default function CryptoValleyAssociationPage() {
             <ShareButton title="Crypto Valley Association Issues Questionable Recommendations" />
           </div>
 
+          {/* Comments Section */}
+          <div className="mt-12 pt-8 border-t border-gray-200">
+            <h3 className="text-lg font-semibold text-gray-900 mb-6">Comments (1)</h3>
+
+            {/* Comment from Crypto Valley Association */}
+            <div className="mb-8">
+              <div className="flex items-start gap-4">
+                <div className="w-10 h-10 rounded-full bg-gray-200 flex-shrink-0 overflow-hidden">
+                  <Image
+                    src="https://assets.squarespace.com/universal/images-v6/default-avatar.png"
+                    alt="Crypto Valley Association"
+                    width={40}
+                    height={40}
+                  />
+                </div>
+                <div className="flex-1">
+                  <div className="flex items-center gap-2 mb-2">
+                    <a
+                      href="https://cryptovalley.swiss/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="font-medium text-gray-900 text-sm hover:text-[#c75b4a]"
+                    >
+                      Crypto Valley Association
+                    </a>
+                    <span className="text-xs text-gray-500">6 years ago</span>
+                  </div>
+                  <div className="text-sm text-gray-700 space-y-4">
+                    <p>Dear Blockchain Association Switzerland,</p>
+
+                    <p>
+                      Many thanks indeed for your interest in our paper. CVA is open to any constructive feedback that allows us to improve our paper. Some of the aspects of the Swiss Blockchain Federation Circular 2019/01 (&quot;Tokenized Equity&quot;) have been included in our paper.
+                    </p>
+
+                    <p>
+                      We would like to comment as follows on the three points you highlighted in your review (https://www.bitcoinassociation.ch/bitcoin-association-switzerland).
+                    </p>
+
+                    <p>
+                      1) Anti-money laundering laws - Regarding the applicability of AML laws, we have purposefully taken a more conservative view than what the law minimally would require. We did this simply out of the belief that avoiding ML issues is pivotal for the blockchain industry to get adopted rapidly in a sustainable manner (in particular as it applies to finance). We have been consistent on this topic since the time of the publication of our ICO code of conduct in Jan 2018. Accordingly, we recommend that companies are always able to identify their investors and complete basic sanction screening. This is also required to identify investors as per the Swiss code of obligations (686 para 1 SCO; Art. 697j para 1 SCO). FINMA has further clarified their expectations in this regard under the most recent 09/2019 Guidance.
+                    </p>
+
+                    <p>
+                      Having said that, we thought useful to edit some sections of our paper to more accurately reflect this position. We note that this position does not fundamentally contradicts the one adopted by the Swiss Blockchain Federation on December 12th, 2019.
+                    </p>
+
+                    <p>
+                      2) Custody of security tokens - It is undisputed that anyone, who in a professional capacity, amongst others, trades security/asset tokens in its own name for the account of its clients and (a) maintains accounts for these clients itself or through third parties for the settlement of transactions; or (b) holds securities of these clients in safe custody itself or through third parties in its own name, requires a license as a securities dealer (art. 3 para. 5 SESTO). In contrast, it is more delicate from a regulatory point of view to determine when a banking license is required with regard to the custody of payment tokens/virtual currencies. Consequently, the relevant section concentrates on this challenge.
+                    </p>
+
+                    <p>
+                      In this case too, we found appropriate to include in our paper an introductory paragraph to the relevant section to express this concept more clearly.
+                    </p>
+
+                    <p>
+                      3) Tokenization standard - We have based our line of argument on the latest CMTA20 proposal and we have not seen comments from your association on the proposal.
+                    </p>
+
+                    <p>
+                      Going forward we believe that there is scope and need for the industry to examine, and to the extent possible define, in more details the legal &amp; compliance and smart contract aspects for each instrument and issuer, and appreciate that our specialist is already in contact with you on this matter.
+                    </p>
+
+                    <p>
+                      Many thanks and best regards<br />
+                      Crypto Valley Association
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
           {/* Newer/Older Posts Navigation */}
           <div className="mt-12 pt-8 border-t border-gray-200 flex justify-between items-center text-xs">
             <Link

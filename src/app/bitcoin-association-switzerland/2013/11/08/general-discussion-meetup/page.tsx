@@ -64,6 +64,57 @@ export default function GeneralDiscussionMeetupPage() {
             <ShareButton title="General Discussion Meetup" />
           </div>
 
+          {/* Comments Section */}
+          <div className="mt-12 pt-8 border-t border-gray-200">
+            <div className="flex justify-between items-center mb-6">
+              <h3 className="text-sm font-medium text-gray-800 uppercase tracking-wider">Comments (1)</h3>
+            </div>
+
+            {/* Comment Input */}
+            <div className="mb-8">
+              <textarea
+                placeholder="Post Comment..."
+                className="w-full border border-gray-300 rounded p-3 text-sm text-gray-700 placeholder-gray-400 resize-none focus:outline-none focus:border-gray-400"
+                rows={4}
+              ></textarea>
+              <div className="flex justify-end gap-2 mt-2">
+                <button className="px-4 py-2 text-xs text-gray-500 hover:text-gray-700 transition-colors">
+                  Preview
+                </button>
+                <button className="px-4 py-2 text-xs uppercase tracking-wider bg-gray-800 text-white hover:bg-gray-700 transition-colors">
+                  Post Comment...
+                </button>
+              </div>
+            </div>
+
+            {/* Existing Comment */}
+            <div className="flex gap-3">
+              <div className="flex-shrink-0">
+                <div className="w-10 h-10 bg-gray-200 rounded-sm flex items-center justify-center">
+                  <svg className="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+                  </svg>
+                </div>
+              </div>
+              <div className="flex-1">
+                <div className="flex items-center gap-2 mb-1">
+                  <a
+                    href="https://thelustforlifepunk.blogspot.com/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-sm font-medium text-gray-800 hover:underline"
+                  >
+                    The Lust For Live
+                  </a>
+                  <span className="text-xs text-gray-400">2 years ago</span>
+                  <span className="text-xs text-gray-400">·</span>
+                  <span className="text-xs text-[#c75b4a]">0 Likes</span>
+                </div>
+                <p className="text-sm text-gray-700">Interesting readd</p>
+              </div>
+            </div>
+          </div>
+
           {/* Post Navigation */}
           <div className="mt-8 pt-8 border-t border-gray-200">
             <div className="flex justify-between items-start">

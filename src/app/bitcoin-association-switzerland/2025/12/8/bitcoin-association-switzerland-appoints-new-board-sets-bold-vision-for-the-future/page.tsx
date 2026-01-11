@@ -135,6 +135,15 @@ export default function BitcoinAssociationNewBoardPage() {
             <ShareButton title="Bitcoin Association Switzerland appoints new board, sets bold vision for the future" />
           </div>
 
+          {/* Comments Section */}
+          <div className="py-6 border-t border-gray-200">
+            <h3 className="text-sm font-medium text-gray-900 mb-4">COMMENTS (0)</h3>
+
+            <div className="flex items-center gap-4 text-xs text-gray-500 mb-6">
+            </div>
+
+          </div>
+
           {/* Navigation */}
           <div className="flex justify-between py-8 border-t border-gray-200 text-xs">
             <div>

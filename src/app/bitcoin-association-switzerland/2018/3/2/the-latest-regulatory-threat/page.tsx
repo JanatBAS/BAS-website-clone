@@ -202,6 +202,128 @@ export default function TheLatestRegulatoryThreatPage() {
             <ShareButton title="A BRIGHT NEW DAWN FOR DIGITAL TRANSFERS: SOUND MONEY AND PERSONAL FREEDOM." />
           </div>
 
+          {/* Comments Section */}
+          <div className="py-6 border-t border-gray-200">
+            <h3 className="text-sm font-medium text-gray-900 mb-4">Comments (3)</h3>
+
+            <div className="flex items-center gap-4 text-xs text-gray-500 mb-6">
+            </div>
+
+            <p className="text-xs text-gray-500 mb-6">Preview</p>
+            <p className="text-xs text-gray-400 mb-6">Comments Restricted</p>
+
+            {/* Comment 1 */}
+            <div className="flex gap-4 mb-6 pb-6 border-b border-gray-100">
+              <div className="w-10 h-10 rounded-full bg-gray-200 flex-shrink-0 overflow-hidden">
+                <Image
+                  src="https://assets.squarespace.com/universal/images-v6/default-avatar.png"
+                  alt="charona"
+                  width={40}
+                  height={40}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <div className="flex-1">
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="text-sm font-medium text-gray-900">charona</span>
+                  <span className="text-xs text-gray-500">8 years ago</span>
+                  <span className="text-xs text-gray-400">Pending</span>
+                  <span className="text-xs text-gray-400">Awaiting Moderation</span>
+                  <span className="text-xs text-gray-500">0 Likes</span>
+                </div>
+                <p className="text-sm text-gray-700">
+                  Well we could try Bank Frick in Liechtenstein, Swissquote, which is a
+                  bank that allows crypto trading, or even Julius Bar: the CEO&apos;s name
+                  is Hodler :) I agree that the proposed law doesn&apos;t make any sense
+                  though.
+                </p>
+              </div>
+            </div>
+
+            {/* Comment 2 */}
+            <div className="flex gap-4 mb-6 pb-6 border-b border-gray-100">
+              <div className="w-10 h-10 rounded-full bg-gray-200 flex-shrink-0 overflow-hidden">
+                <a
+                  href="https://davidgerard.co.uk/blockchain/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Image
+                    src="https://assets.squarespace.com/universal/images-v6/default-avatar.png"
+                    alt="David Gerard"
+                    width={40}
+                    height={40}
+                    className="w-full h-full object-cover"
+                  />
+                </a>
+              </div>
+              <div className="flex-1">
+                <div className="flex items-center gap-2 mb-2">
+                  <a
+                    href="https://davidgerard.co.uk/blockchain/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-sm font-medium text-gray-900 hover:text-[#c75b4a]"
+                  >
+                    David Gerard
+                  </a>
+                  <span className="text-xs text-gray-500">8 years ago</span>
+                  <span className="text-xs text-gray-400">Pending</span>
+                  <span className="text-xs text-gray-400">Awaiting Moderation</span>
+                  <span className="text-xs text-gray-500">0 Likes</span>
+                </div>
+                <p className="text-sm text-gray-700">
+                  Isn&apos;t that from over two years ago? &quot;Last modification
+                  05.01.2016&quot;
+                </p>
+              </div>
+            </div>
+
+            {/* Comment 3 */}
+            <div className="flex gap-4 mb-6 pb-6 border-b border-gray-100">
+              <div className="w-10 h-10 rounded-full bg-gray-200 flex-shrink-0 overflow-hidden">
+                <a
+                  href="http://bolt-now.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Image
+                    src="https://assets.squarespace.com/universal/images-v6/default-avatar.png"
+                    alt="Urs"
+                    width={40}
+                    height={40}
+                    className="w-full h-full object-cover"
+                  />
+                </a>
+              </div>
+              <div className="flex-1">
+                <div className="flex items-center gap-2 mb-2">
+                  <a
+                    href="http://bolt-now.com/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-sm font-medium text-gray-900 hover:text-[#c75b4a]"
+                  >
+                    Urs
+                  </a>
+                  <span className="text-xs text-gray-500">8 years ago</span>
+                  <span className="text-xs text-gray-400">Pending</span>
+                  <span className="text-xs text-gray-400">Awaiting Moderation</span>
+                  <span className="text-xs text-gray-500">0 Likes</span>
+                </div>
+                <p className="text-sm text-gray-700">
+                  Thanks for your observations, Luzius. As you, I try not fall into a
+                  conspiracy trap, but I believe that the the financial sector
+                  implicitly agrees that a decentralised money system is a threat.
+                  Their lobby tries to suppress by pushing for new regulations.
+                </p>
+                <p className="text-sm text-gray-700 mt-2">
+                  It&apos;s the empire striking back.
+                </p>
+              </div>
+            </div>
+          </div>
+
           {/* Navigation */}
           <div className="flex justify-between py-8 border-t border-gray-200 text-xs">
             <div>

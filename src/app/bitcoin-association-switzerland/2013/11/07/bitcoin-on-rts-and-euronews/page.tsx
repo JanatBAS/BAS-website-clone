@@ -98,6 +98,14 @@ export default function BitcoinOnRtsAndEuronewsPage() {
             <ShareButton title="Bitcoin on RTS and Euronews" />
           </div>
 
+          {/* Comments Section */}
+          <div className="mt-12 pt-8 border-t border-gray-200">
+            <div className="mb-6">
+              <h3 className="text-sm font-medium text-gray-800 uppercase tracking-wider">Comments (0)</h3>
+            </div>
+
+          </div>
+
           {/* Post Navigation */}
           <div className="mt-12 pt-8 border-t border-gray-200">
             <div className="flex justify-start">

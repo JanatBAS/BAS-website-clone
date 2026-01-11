@@ -84,6 +84,13 @@ export default function StatementOn12PointProgramPage() {
             <ShareButton title="Statement on the 12-Point Program for a Forward-Looking Digital Financial Center" />
           </div>
 
+          {/* Comments Section */}
+          <div className="py-6 border-t border-gray-200">
+            <div className="mb-6">
+              <h3 className="text-sm font-medium text-gray-900 uppercase tracking-wider">Comments (0)</h3>
+            </div>
+          </div>
+
           {/* Navigation */}
           <div className="flex justify-between py-8 border-t border-gray-200 text-xs">
             <div>
