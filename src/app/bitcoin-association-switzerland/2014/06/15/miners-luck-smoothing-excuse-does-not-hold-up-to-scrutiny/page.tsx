@@ -293,6 +293,111 @@ export default function MinersLuckSmoothingPage() {
             <ShareButton title="Miner's luck smoothing excuse does not hold up to scrutiny" />
           </div>
 
+          {/* Comments Section */}
+          <div className="mt-10">
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-sm font-medium text-gray-600 uppercase tracking-wider">
+                Comments (2)
+              </h3>
+              <span className="text-sm text-gray-500">Newest First</span>
+            </div>
+
+            {/* Comment Input */}
+            <div className="border border-gray-200 rounded mb-6">
+              <textarea
+                className="w-full p-4 text-sm text-gray-500 resize-none focus:outline-none"
+                rows={4}
+                placeholder=""
+                disabled
+              />
+              <div className="flex justify-end items-center gap-2 px-4 pb-3">
+                <button className="text-sm text-gray-500 hover:text-gray-700">
+                  Preview
+                </button>
+                <button className="text-sm bg-gray-800 text-white px-4 py-2 hover:bg-gray-700">
+                  Post Comment...
+                </button>
+              </div>
+            </div>
+
+            {/* Comment 1: Renegade */}
+            <div className="flex gap-4 py-4 border-t border-gray-100">
+              <div className="flex-shrink-0">
+                <Image
+                  src="https://assets.squarespace.com/universal/images-v6/default-avatar.png"
+                  alt="Avatar"
+                  width={40}
+                  height={40}
+                  className="rounded-sm"
+                />
+              </div>
+              <div className="flex-1">
+                <div className="mb-1">
+                  <a
+                    href="http://cynic.me/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[#c75b4a] hover:underline font-medium text-sm"
+                  >
+                    Renegade
+                  </a>
+                </div>
+                <div className="text-xs text-gray-500 mb-2">
+                  12 years ago · 0 Likes
+                </div>
+                <p className="text-sm text-gray-700">
+                  miner8765 said he isn&apos;t selling BTC. So USD variations
+                  are irrelevant there. Did I miss{" "}
+                  <a
+                    href="#"
+                    className="text-[#c75b4a] hover:underline"
+                  >
+                    something
+                  </a>
+                  ?
+                </p>
+              </div>
+            </div>
+
+            {/* Comment 2: kronrod */}
+            <div className="flex gap-4 py-4 border-t border-gray-100">
+              <div className="flex-shrink-0">
+                <Image
+                  src="https://assets.squarespace.com/universal/images-v6/default-avatar.png"
+                  alt="Avatar"
+                  width={40}
+                  height={40}
+                  className="rounded-sm"
+                />
+              </div>
+              <div className="flex-1">
+                <div className="mb-1">
+                  <a
+                    href="http://ziegeleigarten.wordpress.com/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[#c75b4a] hover:underline font-medium text-sm"
+                  >
+                    kronrod
+                  </a>
+                </div>
+                <div className="text-xs text-gray-500 mb-2">
+                  12 years ago · 0 Likes
+                </div>
+                <p className="text-sm text-gray-700">
+                  If he can afford hoarding the Bitcoins, he has the{" "}
+                  <a
+                    href="#"
+                    className="text-[#c75b4a] hover:underline"
+                  >
+                    liquidity
+                  </a>{" "}
+                  to absorb the variance anyway.
+                </p>
+              </div>
+            </div>
+          </div>
+
           {/* Post Navigation */}
           <div className="mt-12 pt-8 border-t border-gray-200">
             <div className="flex justify-between items-start">

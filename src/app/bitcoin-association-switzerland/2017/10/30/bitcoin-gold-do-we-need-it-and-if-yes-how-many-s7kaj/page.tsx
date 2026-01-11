@@ -622,6 +622,64 @@ export default function BitcoinGoldPage() {
             <ShareButton title="Bitcoin Gold - Do we need it and if yes, how many?" />
           </div>
 
+          {/* Comments Section */}
+          <div className="mt-12 pt-8 border-t border-gray-200">
+            <h3 className="text-lg font-semibold text-gray-800 mb-6">Comments (2)</h3>
+
+            {/* Comment Sort */}
+            <div className="mb-6 text-sm text-gray-500">
+              <select className="border border-gray-300 rounded px-2 py-1 text-sm">
+                <option>Newest First</option>
+                <option>Oldest First</option>
+                <option>Most Liked</option>
+                <option>Least Liked</option>
+              </select>
+            </div>
+
+            {/* Comments */}
+            <div className="space-y-6">
+              {/* Comment 1 */}
+              <div className="flex gap-4">
+                <div className="flex-shrink-0">
+                  <div className="w-10 h-10 bg-gray-300 rounded-full"></div>
+                </div>
+                <div className="flex-1">
+                  <div className="flex items-center gap-2 mb-1">
+                    <span className="font-medium text-gray-800">LaLaLa</span>
+                    <span className="text-xs text-gray-500">8 years ago</span>
+                    <span className="text-xs text-yellow-600 bg-yellow-100 px-2 py-0.5 rounded">
+                      Pending
+                    </span>
+                    <span className="text-xs text-gray-400">Awaiting Moderation</span>
+                  </div>
+                  <p className="text-sm text-gray-700">
+                    Such a great article - thanks for sharing!
+                  </p>
+                  <div className="mt-2 text-xs text-gray-500">1 Like</div>
+                </div>
+              </div>
+
+              {/* Comment 2 */}
+              <div className="flex gap-4">
+                <div className="flex-shrink-0">
+                  <div className="w-10 h-10 bg-gray-300 rounded-full"></div>
+                </div>
+                <div className="flex-1">
+                  <div className="flex items-center gap-2 mb-1">
+                    <span className="font-medium text-gray-800">AnotherOne</span>
+                    <span className="text-xs text-gray-500">8 years ago</span>
+                    <span className="text-xs text-yellow-600 bg-yellow-100 px-2 py-0.5 rounded">
+                      Pending
+                    </span>
+                    <span className="text-xs text-gray-400">Awaiting Moderation</span>
+                  </div>
+                  <p className="text-sm text-gray-700">Sh!tcoin</p>
+                  <div className="mt-2 text-xs text-gray-500">0 Likes</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
           {/* Post Navigation */}
           <div className="mt-12 pt-8 border-t border-gray-200">
             <div className="flex justify-between items-start">

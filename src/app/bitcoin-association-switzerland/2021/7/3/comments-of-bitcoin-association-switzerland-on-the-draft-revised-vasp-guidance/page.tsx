@@ -198,6 +198,40 @@ export default function PrudentialTreatmentCryptoassetExposures() {
             </div>
           </div>
 
+          {/* Comments Section */}
+          <section className="mt-12 pt-8 border-t border-gray-200">
+            <h3 className="text-lg font-semibold text-gray-800 mb-6">Comments (1)</h3>
+            <p className="text-sm text-gray-500 mb-6">Newest First</p>
+
+            {/* Comment 1 */}
+            <div className="mb-8">
+              <div className="flex items-start gap-4">
+                <div className="w-10 h-10 bg-gray-300 rounded-full flex-shrink-0" />
+                <div className="flex-1">
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="font-medium text-gray-800">Michael Bruggler</span>
+                    <span className="text-gray-400 text-sm">4 years ago</span>
+                  </div>
+                  <p className="text-gray-700 text-sm leading-relaxed">
+                    Thanks for this enlighting examples and explications.
+                  </p>
+                  <p className="text-gray-700 text-sm leading-relaxed mt-2">
+                    Looking at many problems like bank secrecy, risk assessment (supreme dept crises...), money laundering, offshore obfuscation, corruption etc.) over the last decade, I&apos;m surprised how determined destructive this regulatory proposals are. How the self regulatory organization Swiss Banking Association has guided their members, it comes to no surprise, that some serious members left their organization. Observing how Credit Suisse and UBS did monopolise many discussions, while failing on being a model role in risk assessment/management or how poorly the prevention of money laundering has been handled by many American Bank (laundering US$ 200 Trillions...) I sure agree that regulators should have their neutral and independent view on how to deal with sanctimonious and advantageous claims coming from the banking industry.
+                  </p>
+                  <p className="text-gray-700 text-sm leading-relaxed mt-2">
+                    In all fairness I also want to mention that a friend of mine lost about CHF 1 Mio. in the Mt. Gox trading platform when it became insolvent. Looking at Ethereum&apos;s DAO, Dogecoin, PayCoin, SpaceBIT, GetGems (Gems) to name a view critical circumstances, I would not necessarily come to the same conclusion, that the counterparty risk is 0. But agree that one has to assess the risk for each crypto currency (technology/cryptography used, nodes, time-stamping scheme, ecological aspects, speed, underlaying assets etc.) and each counter-party involved.
+                  </p>
+                  <p className="text-gray-700 text-sm leading-relaxed mt-2">
+                    I agree with our federal council, that we have to support an appropriately liberal and globally competitive regulatory frame work to protect unsuspecting consumers as well as innovation. A frame, in which our FinTech Start Up industry can perform their first fragile inovative steps in order to support economic freedom for all of us later on.
+                  </p>
+                  <p className="text-gray-700 text-sm leading-relaxed mt-2">Kind regards</p>
+                  <p className="text-gray-700 text-sm leading-relaxed">Michael</p>
+                  <p className="text-gray-700 text-sm leading-relaxed">www.fintechwerkstatt.ch</p>
+                </div>
+              </div>
+            </div>
+          </section>
+
           {/* Navigation */}
           <nav className="mt-12 pt-8 border-t border-gray-200 flex justify-between">
             <div>

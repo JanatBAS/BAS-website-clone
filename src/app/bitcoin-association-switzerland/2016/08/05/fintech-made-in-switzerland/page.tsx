@@ -86,6 +86,33 @@ export default function FintechMadeInSwitzerlandPage() {
             <ShareButton title="FinTech Made in Switzerland" />
           </div>
 
+          {/* Comments Section */}
+          <div className="mt-12 pt-8 border-t border-gray-200">
+            <div className="flex justify-between items-center mb-6">
+              <h3 className="text-sm font-medium text-gray-800">Comments (0)</h3>
+              <select className="text-xs text-gray-500 border border-gray-300 rounded px-2 py-1 bg-white">
+                <option>Newest First</option>
+                <option>Oldest First</option>
+                <option>Most Liked</option>
+                <option>Least Liked</option>
+              </select>
+            </div>
+
+            {/* Comment Input */}
+            <div className="mb-8">
+              <textarea
+                placeholder="Post Comment..."
+                className="w-full border border-gray-300 rounded p-3 text-sm text-gray-700 placeholder-gray-400 resize-none focus:outline-none focus:border-gray-400"
+                rows={4}
+              ></textarea>
+              <div className="flex justify-end mt-2">
+                <button className="px-4 py-2 text-xs uppercase tracking-wider border border-gray-800 text-gray-800 hover:bg-gray-800 hover:text-white transition-colors">
+                  Post Comment
+                </button>
+              </div>
+            </div>
+          </div>
+
           {/* Post Navigation */}
           <div className="mt-8 pt-8 border-t border-gray-200">
             <div className="flex justify-between items-start">

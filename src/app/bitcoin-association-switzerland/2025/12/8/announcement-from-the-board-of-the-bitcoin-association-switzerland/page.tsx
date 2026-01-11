@@ -211,6 +211,29 @@ export default function AnnouncementFromBoardPage() {
             <ShareButton title="Announcement from the Board of the Bitcoin Association Switzerland" />
           </div>
 
+          {/* Comments Section */}
+          <div className="py-6 border-t border-gray-200">
+            <h3 className="text-sm font-medium text-gray-900 mb-4">COMMENTS (0)</h3>
+
+            <div className="flex items-center gap-4 text-xs text-gray-500 mb-6">
+              <span>Newest First</span>
+            </div>
+
+            {/* Comment Form */}
+            <div className="bg-gray-50 p-4 rounded">
+              <textarea
+                className="w-full border border-gray-300 rounded p-3 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-[#c75b4a] focus:border-transparent"
+                rows={4}
+                placeholder="Post Comment..."
+              />
+              <div className="flex justify-end mt-3">
+                <button className="bg-[#40c3b6] text-white px-6 py-2 text-sm font-medium rounded hover:bg-[#36a99e] transition-colors">
+                  POST COMMENT
+                </button>
+              </div>
+            </div>
+          </div>
+
           {/* Navigation */}
           <div className="flex justify-between py-8 border-t border-gray-200 text-xs">
             <div>

@@ -216,6 +216,60 @@ export default function SwissBlockchainLawCommentPage() {
             <ShareButton title="Our Comment on the Swiss Blockchain Law" />
           </div>
 
+          {/* Comments Section */}
+          <div className="mt-12 pt-8 border-t border-gray-200">
+            <h3 className="text-lg font-semibold text-gray-900 mb-6">Comments (2)</h3>
+
+            {/* Comment 1 */}
+            <div className="mb-8">
+              <div className="flex items-start gap-4">
+                <div className="w-10 h-10 rounded-full bg-gray-200 flex-shrink-0 overflow-hidden">
+                  <Image
+                    src="https://assets.squarespace.com/universal/images-v6/default-avatar.png"
+                    alt="Enrique"
+                    width={40}
+                    height={40}
+                  />
+                </div>
+                <div className="flex-1">
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="font-medium text-gray-900 text-sm">Enrique</span>
+                    <span className="text-xs text-gray-500">7 years ago</span>
+                  </div>
+                  <p className="text-sm text-gray-700 mb-2">
+                    Excellent !
+                  </p>
+                  <p className="text-sm text-gray-700">
+                    Any chance a similar detailed document explaining easily the implications of 2 and 3rd change can be published by the Bitcoin Association?
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Comment 2 */}
+            <div className="mb-8">
+              <div className="flex items-start gap-4">
+                <div className="w-10 h-10 rounded-full bg-gray-200 flex-shrink-0 overflow-hidden">
+                  <Image
+                    src="https://assets.squarespace.com/universal/images-v6/default-avatar.png"
+                    alt="Luzius"
+                    width={40}
+                    height={40}
+                  />
+                </div>
+                <div className="flex-1">
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="font-medium text-gray-900 text-sm">Luzius</span>
+                    <span className="text-xs text-gray-500">7 years ago</span>
+                  </div>
+                  <p className="text-sm text-gray-700">
+                    Yes, actually I wrote something about those too but they got lost due to a copy &amp; paste error. Will be added again soon.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
           {/* Newer/Older Posts Navigation */}
           <div className="mt-12 pt-8 border-t border-gray-200 flex justify-between items-center text-xs">
             <Link

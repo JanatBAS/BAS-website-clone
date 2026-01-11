@@ -138,6 +138,66 @@ export default function PrudentialTreatmentCryptoassetExposuresII() {
             </div>
           </div>
 
+          {/* Comments Section */}
+          <section className="mt-12 pt-8 border-t border-gray-200">
+            <h3 className="text-lg font-semibold text-gray-800 mb-6">Comments (3)</h3>
+            <p className="text-sm text-gray-500 mb-6">Newest First</p>
+
+            {/* Comment 1 */}
+            <div className="mb-8 pb-8 border-b border-gray-100">
+              <div className="flex items-start gap-4">
+                <div className="w-10 h-10 bg-gray-300 rounded-full flex-shrink-0" />
+                <div className="flex-1">
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="font-medium text-gray-800">Ruckli</span>
+                    <span className="text-gray-400 text-sm">3 years ago</span>
+                  </div>
+                  <p className="text-gray-700 text-sm leading-relaxed">
+                    Vielen Dank fur Info.
+                  </p>
+                  <p className="text-gray-700 text-sm leading-relaxed mt-2">
+                    Der BIZ geht es hauptsachlich darum ihre Pfrunde sowie total veraltete Strukturen zu bewahren. Glucklicherweise interessieren sich 80 % der Studienabganger im Finanzbereich fur Cryptos! Es gibt viel zu tun und die Moglichkeiten sind unendlich. Das ist vergleichbar, wie wenn man vor 8 Jahren in Tesla, Amazon, MSFT, Alibaba, etc. investiert hatte. Unverstandlich dass man eine, vor dem abgrundstehende Industrie (Banks), nicht mehr in diesem Bereich unterstutzt. Sie sollten an die Zukunft glauben und das Potential erkennen. Sicher ist es nicht einfach sich mit einer neuen Technologie auseinanderzusetzen. Erkennen Sie den Nutzen fur die ganze Welt und wie damit demokratisches Denken gefordert werden konnte. Cryptos kommen sowieso. Die Frage ist nur wie lange Sie es noch aufhalten konnen.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Comment 2 */}
+            <div className="mb-8 pb-8 border-b border-gray-100">
+              <div className="flex items-start gap-4">
+                <div className="w-10 h-10 bg-gray-300 rounded-full flex-shrink-0" />
+                <div className="flex-1">
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="font-medium text-gray-800">Ruckli</span>
+                    <span className="text-gray-400 text-sm">3 years ago</span>
+                  </div>
+                  <p className="text-gray-700 text-sm leading-relaxed">
+                    Vielen Dank fur Info.
+                  </p>
+                  <p className="text-gray-700 text-sm leading-relaxed mt-2">
+                    Der BIZ geht hauptsachlich darum Ihre Pfunde sowie total veraltete Strukturen zu schutzen bis es einfach nicht mehr geht. Glucklicherweise interessieren sich 80 % der Studienabganger im Finanzbereich fur Cryptos. Es gibt so viel zu tun und die Moglichkeiten sind unendlich. Das ist vergleichbar wie wenn man vor 8 Jahren in Tesla, Amazon, MSFT, Alibaba, etc. investiert hatte. Unverstandlich, dass man einer vor dem abgrundstehende Industrie (Banks) nicht unterstutzt und motiviert in diesen Bereich zu investieren. Sie sollten an die Zukunft glauben und das Potential sehen. Ja, es wahrscheinlich zu kompliziert sich auf etwas Neues einzustellen.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Comment 3 */}
+            <div className="mb-8">
+              <div className="flex items-start gap-4">
+                <div className="w-10 h-10 bg-gray-300 rounded-full flex-shrink-0" />
+                <div className="flex-1">
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="font-medium text-gray-800">Bjorn Bjercke</span>
+                    <span className="text-gray-400 text-sm">3 years ago</span>
+                  </div>
+                  <p className="text-gray-700 text-sm leading-relaxed">
+                    Thank you for this.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </section>
+
           {/* Navigation */}
           <nav className="mt-12 pt-8 border-t border-gray-200 flex justify-between">
             <div>

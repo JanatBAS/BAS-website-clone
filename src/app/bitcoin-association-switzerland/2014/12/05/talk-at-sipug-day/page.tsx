@@ -88,6 +88,35 @@ export default function TalkAtSipugDayPage() {
             <ShareButton title="Talk at SIPUG day" />
           </div>
 
+          {/* Comments Section */}
+          <div className="mt-12 pt-8 border-t border-gray-200">
+            <div className="flex items-center justify-between mb-6">
+              <h3 className="text-sm font-medium text-gray-800 uppercase tracking-wider">Comments (0)</h3>
+              <select className="text-xs text-gray-500 border-0 bg-transparent">
+                <option>Newest First</option>
+                <option>Oldest First</option>
+                <option>Most Liked</option>
+                <option>Least Liked</option>
+              </select>
+            </div>
+
+            {/* Comment Form */}
+            <div className="mb-8">
+              <textarea
+                placeholder=""
+                className="w-full p-3 border border-gray-200 rounded text-sm resize-none h-24 focus:outline-none focus:border-gray-400"
+              />
+              <div className="flex justify-end mt-2 gap-2">
+                <button className="px-4 py-2 text-xs text-gray-500 hover:text-gray-700 transition-colors">
+                  Preview
+                </button>
+                <button className="px-4 py-2 text-xs bg-gray-800 text-white tracking-wider hover:bg-gray-700 transition-colors">
+                  POST COMMENT...
+                </button>
+              </div>
+            </div>
+          </div>
+
           {/* Post Navigation */}
           <div className="mt-12 pt-8 border-t border-gray-200">
             <div className="flex justify-between items-start">
