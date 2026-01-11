@@ -168,14 +168,8 @@ export default function SwissMoveToReduceBlockchainRegulationPage() {
 
           {/* Comments Section */}
           <div className="mt-12 pt-8 border-t border-gray-200">
-            <div className="flex items-center justify-between mb-6">
+            <div className="mb-6">
               <h3 className="text-sm font-medium text-gray-800">Comments (1)</h3>
-              <select className="text-xs text-gray-500 border-0 bg-transparent">
-                <option>Newest First</option>
-                <option>Oldest First</option>
-                <option>Most Liked</option>
-                <option>Least Liked</option>
-              </select>
             </div>
 
             {/* Comment Form */}

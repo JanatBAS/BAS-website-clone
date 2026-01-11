@@ -216,7 +216,6 @@ export default function AnnouncementFromBoardPage() {
             <h3 className="text-sm font-medium text-gray-900 mb-4">COMMENTS (0)</h3>
 
             <div className="flex items-center gap-4 text-xs text-gray-500 mb-6">
-              <span>Newest First</span>
             </div>
 
           </div>

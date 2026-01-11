@@ -201,7 +201,6 @@ export default function PrudentialTreatmentCryptoassetExposures() {
           {/* Comments Section */}
           <section className="mt-12 pt-8 border-t border-gray-200">
             <h3 className="text-lg font-semibold text-gray-800 mb-6">Comments (1)</h3>
-            <p className="text-sm text-gray-500 mb-6">Newest First</p>
 
             {/* Comment 1 */}
             <div className="mb-8">

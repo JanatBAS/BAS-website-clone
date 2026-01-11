@@ -223,7 +223,6 @@ export default function TheLatestRegulatoryThreatPage() {
             <h3 className="text-sm font-medium text-gray-900 mb-4">Comments (3)</h3>
 
             <div className="flex items-center gap-4 text-xs text-gray-500 mb-6">
-              <span>Newest First</span>
             </div>
 
             <p className="text-xs text-gray-500 mb-6">Preview</p>

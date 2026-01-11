@@ -211,12 +211,6 @@ export default function BlogPostPage() {
               <h2 className="text-sm font-semibold text-gray-700 uppercase tracking-wider">
                 Comments (1)
               </h2>
-              <select className="text-sm text-gray-500 bg-transparent border-none focus:outline-none cursor-pointer">
-                <option>Newest First</option>
-                <option>Oldest First</option>
-                <option>Most Liked</option>
-                <option>Least Liked</option>
-              </select>
             </div>
 
             {/* Comment */}

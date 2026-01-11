@@ -628,12 +628,6 @@ export default function BitcoinGoldPage() {
 
             {/* Comment Sort */}
             <div className="mb-6 text-sm text-gray-500">
-              <select className="border border-gray-300 rounded px-2 py-1 text-sm">
-                <option>Newest First</option>
-                <option>Oldest First</option>
-                <option>Most Liked</option>
-                <option>Least Liked</option>
-              </select>
             </div>
 
             {/* Comments */}

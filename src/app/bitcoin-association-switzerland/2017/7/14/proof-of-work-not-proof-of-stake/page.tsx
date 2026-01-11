@@ -649,7 +649,6 @@ export default function ProofOfWorkNotProofOfStakePage() {
             <h3 className="text-lg font-semibold text-gray-800 mb-6">Comments (3)</h3>
 
             <div className="text-xs text-gray-500 mb-6">
-              <span>Newest First</span>
               <span className="text-gray-400 ml-2">Oldest First</span>
               <span className="text-gray-400 ml-2">Most Liked</span>
               <span className="text-gray-400 ml-2">Least Liked</span>

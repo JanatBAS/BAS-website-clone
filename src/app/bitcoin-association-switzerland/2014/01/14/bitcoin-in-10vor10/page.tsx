@@ -78,9 +78,8 @@ export default function BitcoinIn10vor10Page() {
 
           {/* Comments Section */}
           <div className="mt-12 pt-8 border-t border-gray-200">
-            <div className="flex items-center justify-between mb-6">
+            <div className="mb-6">
               <h3 className="text-sm font-medium text-gray-900 uppercase tracking-wider">Comments (1)</h3>
-              <span className="text-sm text-[#c75b4a]">Newest First</span>
             </div>
 
             {/* Existing Comment */}

@@ -299,7 +299,6 @@ export default function MinersLuckSmoothingPage() {
               <h3 className="text-sm font-medium text-gray-600 uppercase tracking-wider">
                 Comments (2)
               </h3>
-              <span className="text-sm text-gray-500">Newest First</span>
             </div>
 
             {/* Comment Input */}

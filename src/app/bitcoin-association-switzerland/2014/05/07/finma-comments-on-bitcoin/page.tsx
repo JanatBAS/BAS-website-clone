@@ -105,7 +105,6 @@ export default function FinmaCommentsOnBitcoinPage() {
               <h3 className="text-sm font-medium text-gray-700 uppercase tracking-wider">
                 Comments (0)
               </h3>
-              <span className="text-sm text-[#8b7355]">Newest First</span>
             </div>
             <div className="border border-gray-300">
               <textarea
