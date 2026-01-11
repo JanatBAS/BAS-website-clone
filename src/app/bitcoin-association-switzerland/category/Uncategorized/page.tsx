@@ -269,11 +269,6 @@ function BlogPostCard({ post }: { post: BlogPost }) {
                 : `${post.commentCount} Comments`}
           </Link>
         )}
-        {post.likeCount !== undefined && (
-          <span className="flex items-center gap-1">
-            {post.likeCount} Likes
-          </span>
-        )}
         <button className="flex items-center gap-1 hover:text-[#c75b4a]">
           Share
         </button>
