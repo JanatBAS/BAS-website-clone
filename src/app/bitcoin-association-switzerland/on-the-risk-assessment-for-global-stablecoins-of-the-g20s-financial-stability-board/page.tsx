@@ -262,7 +262,7 @@ export default function BlogPostPage() {
             <div className="text-left">
               <p className="text-xs text-gray-500 uppercase tracking-wider mb-1">Newer Post</p>
               <Link
-                href="/bitcoin-association-switzerland/2021/6/23/01ts1e8cggntafbag86wvwbztvudvh"
+                href="/bitcoin-association-switzerland/2021/6/23/comments-on-draft-revised-vasp-guidance"
                 className="text-sm text-[#87a4ad] hover:opacity-80 leading-tight"
               >
                 Comments of Bitcoin Association<br />

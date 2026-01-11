@@ -106,7 +106,7 @@ const archiveData: ArchiveGroup[] = [
       {
         date: "Apr 20, 2021",
         title: "Comments of Bitcoin Association Switzerland on the draft revised VASP Guidance",
-        href: "/bitcoin-association-switzerland/2021/6/23/01ts1e8cggntafbag86wvwbztvudvh",
+        href: "/bitcoin-association-switzerland/2021/6/23/comments-on-draft-revised-vasp-guidance",
       },
     ],
   },

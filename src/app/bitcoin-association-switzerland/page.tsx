@@ -167,7 +167,7 @@ const blogPosts: BlogPost[] = [
       "Comments of Bitcoin Association Switzerland on the draft revised VASP Guidance",
     excerpt:
       'The Bitcoin Association Switzerland has sent a comment on the FATF\'s revised draft guidance on crypto assets. In a consciously "expansive" approach, the FATF proposes to classify participants in decentralized systems as financial intermediaries even if they do not engage in financial intermediation. This would erode the benefits of disintermediation and cause great harm to the nascent sector of Decentralized Finance (DeFi). We criticize this approach and suggest a number of measures to contain the potential damage of imprudent regulation.',
-    href: "/bitcoin-association-switzerland/2021/6/23/01ts1e8cggntafbag86wvwbztvudvh",
+    href: "/bitcoin-association-switzerland/2021/6/23/comments-on-draft-revised-vasp-guidance",
     image:
       "https://images.squarespace-cdn.com/content/v1/5895d62d2994ca86b0cd9807/1625317027225-0V2QI222IZBXZV25EUYN/april.jpg?format=2500w",
     commentCount: 1,

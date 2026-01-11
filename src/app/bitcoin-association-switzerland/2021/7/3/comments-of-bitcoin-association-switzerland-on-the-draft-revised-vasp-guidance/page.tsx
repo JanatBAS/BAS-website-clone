@@ -246,7 +246,7 @@ export default function PrudentialTreatmentCryptoassetExposures() {
             <div className="text-right">
               <p className="text-sm text-gray-500 mb-1">Older Post</p>
               <Link
-                href="/bitcoin-association-switzerland/2021/6/23/01ts1e8cggntafbag86wvwbztvudvh"
+                href="/bitcoin-association-switzerland/2021/6/23/comments-on-draft-revised-vasp-guidance"
                 className="text-[#c75b4a] hover:underline text-sm"
               >
                 Comments of Bitcoin Association Switzerland on the draft revised VASP Guidance
