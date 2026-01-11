@@ -28,7 +28,7 @@ export default function Footer() {
               asChild
               variant="secondary"
               size="icon"
-              className="rounded-full w-10 h-10 bg-[#6b6b6b] hover:bg-[#7b7b7b] border-0"
+              className="rounded-full w-14 h-14 bg-[#6b6b6b] hover:bg-[#7b7b7b] border-0"
             >
               <a
                 href="https://www.meetup.com/Bitcoin-Meetup-Switzerland"
@@ -54,7 +54,7 @@ export default function Footer() {
               asChild
               variant="secondary"
               size="icon"
-              className="rounded-full w-10 h-10 bg-[#6b6b6b] hover:bg-[#7b7b7b] border-0"
+              className="rounded-full w-14 h-14 bg-[#6b6b6b] hover:bg-[#7b7b7b] border-0"
             >
               <a
                 href="https://www.youtube.com/channel/UC5nVX9C2vM1dFg0BvatKEOg"
@@ -80,7 +80,7 @@ export default function Footer() {
               asChild
               variant="secondary"
               size="icon"
-              className="rounded-full w-10 h-10 bg-[#6b6b6b] hover:bg-[#7b7b7b] border-0"
+              className="rounded-full w-14 h-14 bg-[#6b6b6b] hover:bg-[#7b7b7b] border-0"
             >
               <a
                 href="https://x.com/bitcoin_ch"
