@@ -29,6 +29,7 @@ const navigationItems: NavItem[] = [
   {
     label: "Events",
     dropdown: [
+      { label: "Calendar", href: "/calendar" },
       { label: "Roadshow 2025", href: "/roadshow-2025" },
       { label: "Education", href: "/education" },
       {
