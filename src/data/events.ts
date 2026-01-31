@@ -309,6 +309,10 @@ const transformedMostRecentEvents: UnifiedEvent[] = mostRecentEventsRaw.map(even
   const dateInfo = getDateInfo(event.dateISO);
   const fullDescription = event.description;
 
+  // Extract href from icsUrl (page path may differ from event date, e.g., Christmas meetup)
+  const icsPath = event.icsUrl?.replace('https://www.bitcoinassociation.ch', '').replace('?format=ical', '') || '';
+  const href = icsPath || `/most-recent-events/${event.slug}`;
+
   return {
     id: event.id,
     slug: event.slug,
@@ -328,7 +332,7 @@ const transformedMostRecentEvents: UnifiedEvent[] = mostRecentEventsRaw.map(even
     location: event.location,
     locationUrl: event.locationUrl,
     imageUrl: event.image,
-    href: `/most-recent-events/${event.slug}`,
+    href,
     googleCalendarUrl: event.googleCalendarUrl,
     icsUrl: event.icsUrl,
     category: 'meetup',
