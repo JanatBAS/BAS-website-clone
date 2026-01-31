@@ -20,43 +20,17 @@ interface BlogPost {
 
 const featuredPost: BlogPost = {
   id: "featured",
-  author: "Roger Darin",
-  date: "10 August 2022",
-  title: "Prudential Treatment of Cryptoasset Exposures II",
+  author: "Phil Lojacono",
+  date: "31 May 2025",
+  title: "Statement on the 12-Point Program for a Forward-Looking Digital Financial Center",
   excerpt:
-    "While the Bank for International Settlement / Basel Committee on Banking Supervision continues to propose regulation, they also have developed a habit of not addressing legitimate concerns from the community. That is highly regrettable, but no reason to throw in the towel. So the Bitcoin Association Switzerland continues to provide constructive feedback and - so we think - well argued suggestions on how to improve on the longterm goals of the BIS to make the space safer and allow for more innovation.",
-  href: "/bitcoin-association-switzerland/2022/8/10/prudential-treatment-of-cryptoasset-exposures-ii",
+    "The Bitcoin Association Switzerland supports the 12-point program jointly developed by leading industry associations to foster a strong and future-oriented environment for digital innovation in Switzerland. We believe this framework is an important step toward ensuring regulatory clarity, technological advancement, and an open, competitive financial system that empowers individuals and businesses alike.",
+  href: "/bitcoin-association-switzerland/2025/12/8/statement-on-12-point-program",
   image:
     "https://images.squarespace-cdn.com/content/v1/5895d62d2994ca86b0cd9807/1660148501401-GDNI2ZA03O3AI2DBF64S/header7.jpg?format=2500w",
 };
 
 const uncategorizedPosts: BlogPost[] = [
-  {
-    id: "1",
-    author: "kronrod",
-    date: "9 December 2025",
-    category: "Uncategorized",
-    title: "Bitcoin in 10vor10",
-    excerpt:
-      "A long 10vor10 segment about Bitcoin. Well done.",
-    href: "/bitcoin-association-switzerland/2014/01/14/bitcoin-in-10vor10",
-    commentCount: 1,
-    likeCount: 0,
-  },
-  {
-    id: "2",
-    author: "kronrod",
-    date: "9 December 2025",
-    category: "Uncategorized",
-    title: "Marc Faber points readers to Bitcoin",
-    excerpt:
-      'Swiss investment guru Marc Faber publishes a monthly market commentary. Along with the June commentary, he sent his subscribers a report on Bitcoin, titled "Dispelling the Myths of Bitcoin" and written by Lee Robinson from Atlana wealth. I already was in contact with Faber last autumn suggesting that he should send my report on Bitcoin to his readers - which he unfortunately did not even though he indicated interest. The report he finally attached is an interesting read, containing an excellent collection of quotes (e.g. "Every informed person needs to know about Bitcoin because it might be one of the world\'s most important developments." by Nobel price winner Leon Louw) and showing various charts copied from the internet (e.g. this Bitcoin Ecosystem Snapshot). It lists three scenarios and attaches long-term values between 5\'714 USD and 119\'000 USD per Bitcoin. For the latter, the author randomly assumes that Bitcoin can capture 1% of the global money supply - not a very profound analysis. Nevertheless, I find it notable that Marc Faber finally decided to inform his readers about Bitcoin (without endorsing it). It is a symptom of raising awareness among investors and a good sign for the future.',
-    href: "/bitcoin-association-switzerland/2014/06/04/marc-faber-points-readers-to-bitcoin",
-    image:
-      "http://static4.businessinsider.com/image/4d40343ccadcbb1d1a010000/marc-faber-moral-decay-among-the-elites-proves-america-is-a-failed-state.jpg",
-    commentCount: 0,
-    likeCount: 0,
-  },
   {
     id: "3",
     author: "kronrod",
@@ -164,6 +138,20 @@ const uncategorizedPosts: BlogPost[] = [
   {
     id: "11",
     author: "kronrod",
+    date: "5 December 2013",
+    category: "Uncategorized",
+    title: "Marc Faber points readers to Bitcoin",
+    excerpt:
+      'Swiss investment guru Marc Faber publishes a monthly market commentary. Along with the June commentary, he sent his subscribers a report on Bitcoin, titled "Dispelling the Myths of Bitcoin" and written by Lee Robinson from Atlana wealth. I already was in contact with Faber last autumn suggesting that he should send my report on Bitcoin to his readers - which he unfortunately did not even though he indicated interest. The report he finally attached is an interesting read...',
+    href: "/bitcoin-association-switzerland/2013/12/05/marc-faber-points-readers-to-bitcoin",
+    image:
+      "http://static4.businessinsider.com/image/4d40343ccadcbb1d1a010000/marc-faber-moral-decay-among-the-elites-proves-america-is-a-failed-state.jpg",
+    commentCount: 0,
+    likeCount: 0,
+  },
+  {
+    id: "12",
+    author: "kronrod",
     date: "4 December 2013",
     category: "Uncategorized",
     title: "Bitcoin in Echo der Zeit",
@@ -174,7 +162,7 @@ const uncategorizedPosts: BlogPost[] = [
     likeCount: 0,
   },
   {
-    id: "12",
+    id: "13",
     author: "kronrod",
     date: "8 November 2013",
     category: "Uncategorized",
@@ -186,7 +174,7 @@ const uncategorizedPosts: BlogPost[] = [
     likeCount: 0,
   },
   {
-    id: "13",
+    id: "14",
     author: "kronrod",
     date: "7 November 2013",
     category: "Uncategorized",

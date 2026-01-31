@@ -18,22 +18,6 @@ interface ArchiveGroup {
 // Archive data based on the original website
 const archiveData: ArchiveGroup[] = [
   {
-    month: "December 2025",
-    monthFilter: "12-2025",
-    items: [
-      {
-        date: "Dec 9, 2025",
-        title: "Bitcoin in 10vor10",
-        href: "/bitcoin-association-switzerland/2014/01/14/bitcoin-in-10vor10",
-      },
-      {
-        date: "Dec 9, 2025",
-        title: "Marc Faber points readers to Bitcoin",
-        href: "/bitcoin-association-switzerland/2014/06/04/marc-faber-points-readers-to-bitcoin",
-      },
-    ],
-  },
-  {
     month: "May 2025",
     monthFilter: "05-2025",
     items: [
@@ -381,6 +365,11 @@ const archiveData: ArchiveGroup[] = [
     month: "December 2013",
     monthFilter: "12-2013",
     items: [
+      {
+        date: "Dec 5, 2013",
+        title: "Marc Faber points readers to Bitcoin",
+        href: "/bitcoin-association-switzerland/2013/12/05/marc-faber-points-readers-to-bitcoin",
+      },
       {
         date: "Dec 4, 2013",
         title: "Bitcoin in Echo der Zeit",

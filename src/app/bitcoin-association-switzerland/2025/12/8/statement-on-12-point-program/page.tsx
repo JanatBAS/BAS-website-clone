@@ -92,16 +92,7 @@ export default function StatementOn12PointProgramPage() {
           </div>
 
           {/* Navigation */}
-          <div className="flex justify-between py-8 border-t border-gray-200 text-xs">
-            <div>
-              <span className="text-gray-400 uppercase tracking-wider">Newer Post</span>
-              <Link
-                href="/bitcoin-association-switzerland/2014/06/04/marc-faber-points-readers-to-bitcoin"
-                className="block text-[#c75b4a] hover:underline mt-1"
-              >
-                Marc Faber points readers to Bitcoin
-              </Link>
-            </div>
+          <div className="flex justify-end py-8 border-t border-gray-200 text-xs">
             <div className="text-right">
               <span className="text-gray-400 uppercase tracking-wider">Older Post</span>
               <Link

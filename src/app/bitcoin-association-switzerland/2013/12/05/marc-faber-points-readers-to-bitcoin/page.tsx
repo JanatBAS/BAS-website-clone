@@ -19,7 +19,7 @@ export default function MarcFaberPointsReadersToBitcoinPage() {
         <article className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           {/* Date */}
           <div className="text-sm text-[#c75b4a] mb-2">
-            9 December 2025
+            5 December 2013
           </div>
 
           {/* Title */}
@@ -113,27 +113,16 @@ export default function MarcFaberPointsReadersToBitcoinPage() {
 
           {/* Post Navigation */}
           <div className="mt-12 pt-8 border-t border-gray-200">
-            <div className="flex justify-between items-start">
-              <div className="text-left">
-                <div className="text-xs text-gray-500 uppercase tracking-wider mb-1">
-                  Newer Post
-                </div>
-                <Link
-                  href="/bitcoin-association-switzerland/2014/01/14/bitcoin-in-10vor10"
-                  className="text-sm text-[#c75b4a] hover:underline"
-                >
-                  Bitcoin in 10vor10
-                </Link>
-              </div>
+            <div className="flex justify-end items-start">
               <div className="text-right">
                 <div className="text-xs text-gray-500 uppercase tracking-wider mb-1">
                   Older Post
                 </div>
                 <Link
-                  href="/bitcoin-association-switzerland/2025/12/8/statement-on-12-point-program"
+                  href="/bitcoin-association-switzerland/2013/12/04/bitcoin-in-echo-der-zeit"
                   className="text-sm text-[#c75b4a] hover:underline"
                 >
-                  Statement on the 12-Point Program for a Forward-Looking Digital Financial Center
+                  Bitcoin in Echo der Zeit
                 </Link>
               </div>
             </div>
