@@ -28,6 +28,11 @@ const nextConfig: NextConfig = {
         hostname: 'static4.businessinsider.com',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'img.youtube.com',
+        pathname: '/**',
+      },
     ],
   },
 };
