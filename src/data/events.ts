@@ -220,9 +220,9 @@ const roadshowEventsRaw = [
     dayOfWeek: "Sunday",
     day: "21",
     month: "Sept",
-    startTime: "18:30",
+    startTime: "18:00",
     endTime: "22:30",
-    startTimeDisplay: "6:30 pm",
+    startTimeDisplay: "6:00 pm",
     endTimeDisplay: "10:30 pm",
     description: [
       "The Bitcoin Association Switzerland invites you: Roadshow in Basel on September, 21, 2025",
@@ -283,9 +283,9 @@ const roadshowEventsRaw = [
     day: "21",
     month: "Jan",
     startTime: "18:00",
-    endTime: "20:00",
+    endTime: "23:00",
     startTimeDisplay: "6:00 pm",
-    endTimeDisplay: "8:00 pm",
+    endTimeDisplay: "11:00 pm",
     mapLink: "https://maps.app.goo.gl/4JqGTXYT8Xe3ZnbR8",
     description: [
       "The Bitcoin Association Switzerland invites you: Roadshow in Bern on January, 21, 2025",
