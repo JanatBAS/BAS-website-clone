@@ -98,7 +98,7 @@ export function useCalendar({
     [weekStart, filteredEvents]
   );
 
-  // Get list of upcoming events for list view
+  // Get list of events for list view (all events, upcoming first then past)
   const listEvents = useMemo(() => {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
@@ -109,7 +109,7 @@ export function useCalendar({
       return eventDate >= today;
     });
 
-    // Also include some past events for context
+    // Get all past events, sorted descending (most recent first)
     const past = filteredEvents.filter(event => {
       const eventDate = new Date(event.dateISO + 'T00:00:00');
       return eventDate < today;
@@ -117,7 +117,7 @@ export function useCalendar({
 
     return [
       ...sortEventsByDate(upcoming, true),
-      ...sortEventsByDate(past, false).slice(0, 5),
+      ...sortEventsByDate(past, false),
     ];
   }, [filteredEvents]);
 
