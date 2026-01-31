@@ -90,7 +90,7 @@ export default function PrivateMembershipPage() {
                 </p>
 
                 <p className="text-[#666] leading-relaxed">
-                  The annual membership fee is CHF 21, payable in bitcoin on-chain (with secondary layer payment solutions coming soon). If you wish to pay for more than 1 year in one payment, please make a note in the comment section of the membership form.
+                  The annual membership fee is CHF 21, payable in bitcoin on-chain (with secondary layer payment solutions coming soon).
                 </p>
 
                 <p className="text-[#1a1a1a] font-semibold mt-6">
