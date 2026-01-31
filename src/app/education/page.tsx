@@ -1,7 +1,6 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
-import Image from "next/image";
 
 const featuredVideos = [
   {
@@ -15,49 +14,6 @@ const featuredVideos = [
     title: "Bitcoin blockchain technology evolution",
     speaker: "Adam Back",
     description: "Technical perspective",
-  },
-];
-
-const allVideos = [
-  {
-    id: "oHBPLCKxeSE",
-    title: "Decentralised Identity",
-    speaker: "Christopher Allen",
-  },
-  {
-    id: "HpTDN3PRdSo",
-    title: "Who needs the Internet anyway?",
-    speaker: "Neil Woodfine",
-  },
-  {
-    id: "TVqME0ykhMY",
-    title: "Liquid introduction",
-    speaker: "Jonas Nick",
-  },
-  {
-    id: "sFbLqBq3mKc",
-    title: "Roman Sterlingov case",
-    speaker: "Panel Discussion",
-  },
-  {
-    id: "3mPgIIwHC14",
-    title: "Switzerland's new blockchain law",
-    speaker: "Luzius Meisser",
-  },
-  {
-    id: "3pRR8OK4UfE",
-    title: "What happens to my cryptoassets when I die?",
-    speaker: "Pamela Morgan",
-  },
-  {
-    id: "HWvv2xoEbqY",
-    title: "Lightning Network",
-    speaker: "Christian Decker",
-  },
-  {
-    id: "OmJrOciQPfs",
-    title: "Programmable money",
-    speaker: "Andreas Antonopoulos",
   },
 ];
 
@@ -91,18 +47,6 @@ function YouTubeIcon() {
         d="M46.7,26c0,0-0.3-2.1-1.2-3c-1.1-1.2-2.4-1.2-3-1.3C38.3,21.4,32,21.4,32,21.4h0 c0,0-6.3,0-10.5,0.3c-0.6,0.1-1.9,0.1-3,1.3c-0.9,0.9-1.2,3-1.2,3S17,28.4,17,30.9v2.3c0,2.4,0.3,4.9,0.3,4.9s0.3,2.1,1.2,3 c1.1,1.2,2.6,1.2,3.3,1.3c2.4,0.2,10.2,0.3,10.2,0.3s6.3,0,10.5-0.3c0.6-0.1,1.9-0.1,3-1.3c0.9-0.9,1.2-3,1.2-3s0.3-2.4,0.3-4.9 v-2.3C47,28.4,46.7,26,46.7,26z M28.9,35.9l0-8.4l8.1,4.2L28.9,35.9z"
       />
     </svg>
-  );
-}
-
-function PlayOverlay() {
-  return (
-    <div className="absolute inset-0 flex items-center justify-center bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity">
-      <div className="w-12 h-12 rounded-full bg-[#c75b4a] flex items-center justify-center">
-        <svg className="w-5 h-5 text-white ml-0.5" fill="currentColor" viewBox="0 0 24 24">
-          <path d="M8 5v14l11-7z" />
-        </svg>
-      </div>
-    </div>
   );
 }
 
@@ -158,38 +102,23 @@ export default function EducationPage() {
           </div>
         </section>
 
-        {/* All Videos Grid Section */}
+        {/* All Videos Section */}
         <section className="bg-gray-50 py-12 md:py-16">
           <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-[#8b7355] text-lg font-light mb-8 font-serif italic">
-              More Lectures
+            <h2 className="text-[#8b7355] text-lg font-light mb-2 font-serif italic">
+              All Lectures
             </h2>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              {allVideos.map((video) => (
-                <a
-                  key={video.id}
-                  href={`https://www.youtube.com/watch?v=${video.id}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group block"
-                >
-                  <div className="relative aspect-video bg-gray-200 rounded overflow-hidden mb-3">
-                    <Image
-                      src={`https://img.youtube.com/vi/${video.id}/mqdefault.jpg`}
-                      alt={video.title}
-                      fill
-                      className="object-cover"
-                    />
-                    <PlayOverlay />
-                  </div>
-                  <h3 className="text-gray-900 font-medium text-sm mb-1 group-hover:text-[#c75b4a] transition-colors line-clamp-2">
-                    {video.title}
-                  </h3>
-                  <p className="text-gray-500 text-xs">
-                    {video.speaker}
-                  </p>
-                </a>
-              ))}
+            <p className="text-gray-500 text-sm mb-8">
+              Browse and watch all lectures from the Bitcoin Lectures channel. Use the playlist menu to select different videos.
+            </p>
+            <div className="relative w-full bg-gray-100 rounded overflow-hidden" style={{ height: "500px" }}>
+              <iframe
+                src="https://www.youtube.com/embed/videoseries?list=UU5nVX9C2vM1dFg0BvatKEOg&rel=0"
+                title="Bitcoin Lectures - All Videos"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                className="absolute inset-0 w-full h-full"
+              />
             </div>
           </div>
         </section>
@@ -207,7 +136,7 @@ export default function EducationPage() {
                 rel="noopener noreferrer"
               >
                 <YouTubeIcon />
-                View All on YouTube
+                View Channel on YouTube
               </a>
             </Button>
             <p className="text-gray-500 text-sm mt-4">
