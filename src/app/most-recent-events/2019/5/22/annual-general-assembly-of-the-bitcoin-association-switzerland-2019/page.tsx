@@ -9,22 +9,22 @@ export default function AnnualGeneralAssembly2019EventPage() {
       <Header />
       <main className="pt-20 min-h-screen bg-white">
         {/* Hero Banner */}
-        <div className="relative h-[300px] md:h-[400px] overflow-hidden">
-          <Image
-            src="https://images.squarespace-cdn.com/content/v1/5895d62d2994ca86b0cd9807/1559826412982-8ZXXRM08LMVLQ48XLHMT/banner.jpg?format=2500w"
-            alt="A BRIGHT NEW DAWN FOR DIGITAL TRANSFERS, SOUND MONEY AND PERSONAL FREEDOM."
-            fill
-            className="object-cover"
-            priority
-          />
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-              <p className="text-xs md:text-sm uppercase tracking-[0.2em] text-white/90 font-light">
-                A BRIGHT NEW DAWN FOR DIGITAL TRANSFERS, SOUND MONEY AND PERSONAL FREEDOM.
-              </p>
-            </div>
+        <section className="relative w-full h-[200px] bg-[#1a1a1a]">
+          <div className="absolute inset-0 opacity-30">
+            <Image
+              src="https://images.squarespace-cdn.com/content/v1/5895d62d2994ca86b0cd9807/1563353801249-II3IT1HTUUTQO7E0WDSN/logo_with_name_next_to_it_big.png?format=2500w"
+              alt="BAS General Assembly background"
+              fill
+              className="object-contain"
+              priority
+            />
           </div>
-        </div>
+          <div className="absolute inset-0 flex items-center justify-center">
+            <h1 className="text-white text-sm md:text-base uppercase tracking-[0.3em] text-center px-4 font-light">
+              A bright new dawn for digital transfers, sound money and personal freedom.
+            </h1>
+          </div>
+        </section>
 
         {/* Content Section */}
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
