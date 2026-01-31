@@ -29,12 +29,6 @@ const quickNavCards = [
     href: "/education",
     icon: GraduationCapIcon,
   },
-  {
-    title: "Past Events",
-    description: "Browse our event archive",
-    href: "/archive",
-    icon: ArchiveIcon,
-  },
 ];
 
 const regionalMeetups = [
@@ -114,24 +108,6 @@ function GraduationCapIcon() {
   );
 }
 
-function ArchiveIcon() {
-  return (
-    <svg
-      className="w-6 h-6"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth={1.5}
-      viewBox="0 0 24 24"
-    >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        d="m20.25 7.5-.625 10.632a2.25 2.25 0 0 1-2.247 2.118H6.622a2.25 2.25 0 0 1-2.247-2.118L3.75 7.5M10 11.25h4M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125Z"
-      />
-    </svg>
-  );
-}
-
 function ExternalLinkIcon() {
   return (
     <svg
@@ -176,7 +152,7 @@ export default function EventsPage() {
             <h2 className="text-[#8b7355] text-lg font-light mb-8 font-serif italic">
               Explore Our Events
             </h2>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="grid sm:grid-cols-3 gap-6">
               {quickNavCards.map((card) => (
                 <Link
                   key={card.href}
@@ -228,16 +204,16 @@ export default function EventsPage() {
 
         {/* Featured Image Section */}
         <section className="bg-white py-12 md:py-16">
-          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h2 className="text-[#8b7355] text-lg font-light mb-4 font-serif italic">
               World-Class Speakers
             </h2>
-            <p className="text-gray-600 text-sm leading-relaxed mb-6 max-w-2xl">
+            <p className="text-gray-600 text-sm leading-relaxed mb-6 max-w-2xl mx-auto">
               Our events feature high-profile speakers from all over the world,
               covering many areas within and around Bitcoin. Whether you are new
               to Bitcoin or an early adopter, everyone is welcome to join us.
             </p>
-            <figure>
+            <figure className="flex flex-col items-center">
               <div className="relative w-full max-w-2xl aspect-[3/2] overflow-hidden rounded-lg">
                 <Image
                   src="https://images.squarespace-cdn.com/content/v1/5895d62d2994ca86b0cd9807/1509367420387-9GBUFUZ0Q7X0ICXBY0L3/andreas.jpeg"
