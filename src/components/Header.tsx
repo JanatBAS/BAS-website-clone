@@ -29,6 +29,7 @@ const navigationItems: NavItem[] = [
   {
     label: "Events",
     dropdown: [
+      { label: "Overview", href: "/events" },
       { label: "Calendar", href: "/calendar" },
       { label: "Roadshow 2025", href: "/roadshow-2025" },
       { label: "Education", href: "/education" },
@@ -66,10 +67,6 @@ const navigationItems: NavItem[] = [
       { label: "Corporate", href: "/corporate" },
       { label: "Our Corporate Members", href: "/our-corporate-members" },
     ],
-  },
-  {
-    label: "Participate",
-    dropdown: [{ label: "Meetups & Events", href: "/meetups-events" }],
   },
   {
     label: "About",
