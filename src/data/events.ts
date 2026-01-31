@@ -3,27 +3,6 @@ import { UnifiedEvent, CATEGORY_COLORS } from '@/types/calendar';
 // Raw data from most-recent-events
 const mostRecentEventsRaw = [
   {
-    id: "mre-1",
-    slug: "regular-meetups",
-    title: "Regular Meetups",
-    date: "Friday 1 April 2022",
-    dateISO: "2022-04-01",
-    day: "1",
-    month: "Apr",
-    time: "7:00 pm",
-    time24: "19:00",
-    endTime: "8:00 pm",
-    endTime24: "20:00",
-    description:
-      "Every second Wednesday we meet in Zurich and every fourth Wednesday in Geneva. There are also Bitcoin meetups in other cities on a less regular schedule. Please contact us if you plan to start a meetup in your city and we will help you as good as we can!\n\nBesides our regular beer & Bitcoin meetups, we organize various events. You can find an overview of our past events for this year below.\n\nJoin us at meetup.com to sign up for our events!",
-    image:
-      "https://images.squarespace-cdn.com/content/v1/5895d62d2994ca86b0cd9807/1555097535318-T2XJTHLGARGBMIHCZ5IK/regular_meetup.jpeg?format=500w",
-    googleCalendarUrl:
-      "http://www.google.com/calendar/event?action=TEMPLATE&text=Regular%20Meetups&dates=20220401T170000Z/20220401T180000Z",
-    icsUrl:
-      "https://www.bitcoinassociation.ch/most-recent-events/2022/4/1/regular-meetups?format=ical",
-  },
-  {
     id: "mre-2",
     slug: "lightning-meetup-with-elizabeth-stark-ceo-lightning-labs",
     title: "Lightning Meetup with Elizabeth Stark (CEO Lightning Labs)",
