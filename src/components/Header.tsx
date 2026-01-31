@@ -30,6 +30,7 @@ const navigationItems: NavItem[] = [
     label: "Events",
     dropdown: [
       { label: "Roadshow 2025", href: "/roadshow-2025" },
+      { label: "Education", href: "/education" },
       {
         label: "Bitcoin Meetup Zurich",
         href: "https://www.meetup.com/bitcoin-meetup-switzerland/",
