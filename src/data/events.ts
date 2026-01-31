@@ -364,8 +364,8 @@ const transformedRoadshowEvents: UnifiedEvent[] = roadshowEventsRaw.map(event =>
   const dateInfo = getDateInfo(event.dateISO);
   const fullDescription = event.description.join('\n\n');
 
-  // Generate Google Calendar URL
-  const gcalUrl = `http://www.google.com/calendar/event?action=TEMPLATE&text=${encodeURIComponent(event.title)}&dates=${event.dateISO.replace(/-/g, "")}T${event.startTime.replace(":", "")}00Z/${event.dateISO.replace(/-/g, "")}T${event.endTime.replace(":", "")}00Z`;
+  // Generate Google Calendar URL (without Z suffix - times are local Swiss time, add ctz for timezone)
+  const gcalUrl = `http://www.google.com/calendar/event?action=TEMPLATE&text=${encodeURIComponent(event.title)}&dates=${event.dateISO.replace(/-/g, "")}T${event.startTime.replace(":", "")}00/${event.dateISO.replace(/-/g, "")}T${event.endTime.replace(":", "")}00&ctz=Europe/Zurich`;
 
   return {
     id: event.id,
