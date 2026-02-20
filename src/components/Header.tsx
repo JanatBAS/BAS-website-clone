@@ -69,6 +69,10 @@ const navigationItems: NavItem[] = [
     ],
   },
   {
+    label: "Shop",
+    href: "/shop",
+  },
+  {
     label: "About",
     dropdown: [
       { label: "About", href: "/about-1" },

@@ -47,6 +47,11 @@ const nextConfig: NextConfig = {
         hostname: '*.public.blob.vercel-storage.com',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'dezentralshop.ch',
+        pathname: '/**',
+      },
     ],
   },
 };
