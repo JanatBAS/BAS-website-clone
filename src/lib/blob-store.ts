@@ -6,7 +6,11 @@ const POSTS_KEY = 'admin/posts.json';
 
 async function readBlob<T>(key: string): Promise<T | null> {
   try {
-    const { blobs } = await list({ prefix: key });
+    // Strip extension for prefix search: addRandomSuffix inserts suffix before
+    // the extension, so "admin/events.json" becomes "admin/events-{suffix}.json"
+    // and won't match a prefix of "admin/events.json"
+    const prefix = key.replace(/\.[^.]+$/, '');
+    const { blobs } = await list({ prefix });
     if (blobs.length === 0) return null;
     // Pick the most recently uploaded blob
     const latest = blobs.sort(
@@ -28,7 +32,8 @@ async function writeBlob<T>(key: string, data: T): Promise<void> {
   });
   // Then clean up old blobs (safe: new data is already persisted)
   try {
-    const { blobs } = await list({ prefix: key });
+    const prefix = key.replace(/\.[^.]+$/, '');
+    const { blobs } = await list({ prefix });
     for (const blob of blobs) {
       if (blob.url !== newBlob.url) {
         await del(blob.url);
