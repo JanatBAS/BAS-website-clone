@@ -24,7 +24,8 @@ function LoginForm() {
 
       if (res.ok) {
         const redirect = searchParams.get('redirect') || '/admin';
-        router.push(redirect);
+        const safeRedirect = redirect.startsWith('/admin') ? redirect : '/admin';
+        router.push(safeRedirect);
       } else {
         setError('Invalid password');
       }

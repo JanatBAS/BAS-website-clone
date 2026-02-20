@@ -1,17 +1,12 @@
-'use client';
-
-import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import AdminNav from '@/components/admin/AdminNav';
+import { getAdminEvents } from '@/lib/blob-store';
+import { getAdminPosts } from '@/lib/blob-store';
 
-export default function AdminDashboard() {
-  const [eventCount, setEventCount] = useState<number | null>(null);
-  const [postCount, setPostCount] = useState<number | null>(null);
+export const dynamic = 'force-dynamic';
 
-  useEffect(() => {
-    fetch('/api/admin/events').then(r => r.json()).then(data => setEventCount(Array.isArray(data) ? data.length : 0));
-    fetch('/api/admin/posts').then(r => r.json()).then(data => setPostCount(Array.isArray(data) ? data.length : 0));
-  }, []);
+export default async function AdminDashboard() {
+  const [events, posts] = await Promise.all([getAdminEvents(), getAdminPosts()]);
 
   return (
     <>
@@ -22,14 +17,14 @@ export default function AdminDashboard() {
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
           <div className="bg-gray-900 border border-gray-800 rounded-lg p-6">
             <p className="text-gray-400 text-sm">Admin Events</p>
-            <p className="text-3xl font-bold mt-1">{eventCount ?? '...'}</p>
+            <p className="text-3xl font-bold mt-1">{events.length}</p>
             <Link href="/admin/events" className="text-[#2a9d8f] text-sm mt-3 inline-block hover:underline">
               Manage events
             </Link>
           </div>
           <div className="bg-gray-900 border border-gray-800 rounded-lg p-6">
             <p className="text-gray-400 text-sm">Admin Blog Posts</p>
-            <p className="text-3xl font-bold mt-1">{postCount ?? '...'}</p>
+            <p className="text-3xl font-bold mt-1">{posts.length}</p>
             <Link href="/admin/posts" className="text-[#2a9d8f] text-sm mt-3 inline-block hover:underline">
               Manage posts
             </Link>

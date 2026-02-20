@@ -22,6 +22,7 @@ interface BlogPost {
   tags?: string[];
   commentCount?: number;
   likeCount?: number;
+  unoptimizedImage?: boolean;
 }
 
 // Author ID mapping (matching original Squarespace IDs)
@@ -628,12 +629,16 @@ function BlogPostCard({ post }: { post: BlogPost }) {
         </div>
         {post.category && (
           <div>
-            <Link
-              href={`/bitcoin-association-switzerland/category/${post.category}`}
-              className="hover:text-[#c75b4a]"
-            >
-              {post.category}
-            </Link>
+            {post.href.startsWith('/blog/') ? (
+              <span>{post.category}</span>
+            ) : (
+              <Link
+                href={`/bitcoin-association-switzerland/category/${post.category}`}
+                className="hover:text-[#c75b4a]"
+              >
+                {post.category}
+              </Link>
+            )}
           </div>
         )}
       </div>
@@ -655,6 +660,7 @@ function BlogPostCard({ post }: { post: BlogPost }) {
               width={800}
               height={400}
               className="w-full h-auto object-cover"
+              unoptimized={post.unoptimizedImage}
             />
           </Link>
         </div>
@@ -669,17 +675,21 @@ function BlogPostCard({ post }: { post: BlogPost }) {
       {post.tags && post.tags.length > 0 && (
         <div className="text-xs text-gray-500 mb-3">
           Tagged:{" "}
-          {post.tags.map((tag, index) => (
-            <span key={tag}>
-              <Link
-                href={`/bitcoin-association-switzerland/tag/${tag}`}
-                className="text-[#c75b4a] hover:underline"
-              >
-                {tag}
-              </Link>
-              {index < post.tags!.length - 1 && ", "}
-            </span>
-          ))}
+          {post.href.startsWith('/blog/') ? (
+            <span className="text-[#c75b4a]">{post.tags.join(', ')}</span>
+          ) : (
+            post.tags.map((tag, index) => (
+              <span key={tag}>
+                <Link
+                  href={`/bitcoin-association-switzerland/tag/${tag}`}
+                  className="text-[#c75b4a] hover:underline"
+                >
+                  {tag}
+                </Link>
+                {index < post.tags!.length - 1 && ", "}
+              </span>
+            ))
+          )}
         </div>
       )}
 

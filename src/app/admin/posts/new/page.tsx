@@ -83,8 +83,8 @@ export default function NewPostPage() {
               </select>
             </div>
             <div>
-              <label className={labelClass}>Date * (e.g. &quot;20 February 2026&quot;)</label>
-              <input name="date" required className={inputClass} placeholder="20 February 2026" />
+              <label className={labelClass}>Date *</label>
+              <input name="date" type="date" required className={inputClass} />
             </div>
           </div>
 

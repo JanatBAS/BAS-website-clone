@@ -17,6 +17,15 @@ function slugify(text: string): string {
   return text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
 }
 
+function formatDisplayDate(dateISO: string): string {
+  const date = new Date(dateISO + 'T12:00:00');
+  return date.toLocaleDateString('en-GB', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+  });
+}
+
 export async function POST(request: Request) {
   try {
     const data: AdminBlogPostFormData = await request.json();
@@ -25,19 +34,35 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
     }
 
-    const id = `admin-post-${Date.now().toString(36)}`;
-    const now = new Date().toISOString();
+    // date field is now YYYY-MM-DD from a date input
+    const dateISO = data.date;
+    const parsedDate = new Date(dateISO + 'T12:00:00');
 
-    // Parse the display date into a timestamp
-    const timestamp = new Date(data.date).getTime() || Date.now();
+    if (isNaN(parsedDate.getTime())) {
+      return NextResponse.json({ error: 'Invalid date format. Use YYYY-MM-DD.' }, { status: 400 });
+    }
+
+    // Strict validation: reject impossible dates like Feb 31 (Node normalizes them silently)
+    const [year, month, day] = dateISO.split('-').map(Number);
+    if (parsedDate.getFullYear() !== year || parsedDate.getMonth() + 1 !== month || parsedDate.getDate() !== day) {
+      return NextResponse.json({ error: 'Invalid calendar date.' }, { status: 400 });
+    }
+
+    const displayDate = formatDisplayDate(dateISO);
+    const timestamp = parsedDate.getTime();
+
+    const uniqueSuffix = Date.now().toString(36);
+    const id = `admin-post-${uniqueSuffix}`;
+    const slug = `${slugify(data.title)}-${uniqueSuffix}`;
+    const now = new Date().toISOString();
 
     const post: AdminBlogPost = {
       id,
-      slug: slugify(data.title),
+      slug,
       title: data.title,
       author: data.author,
       authorId: data.authorId || '672bdb3ae0672c1501f39ce8',
-      date: data.date,
+      date: displayDate,
       timestamp,
       excerpt: data.excerpt,
       htmlContent: data.htmlContent,

@@ -1,6 +1,5 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
-import Image from 'next/image';
 import Header from '@/components/Header';
 import FooterSimple from '@/components/FooterSimple';
 import { getAdminPostBySlug } from '@/lib/blob-store';
@@ -21,15 +20,14 @@ export default async function AdminBlogPostPage({ params }: PageProps) {
     <>
       <Header />
       <main className="pt-20 min-h-screen bg-white">
-        {/* Featured Image Banner */}
+        {/* Featured Image Banner — uses plain img to support arbitrary hosts */}
         {post.imageUrl && (
           <div className="relative h-[300px] md:h-[400px] lg:h-[500px] overflow-hidden">
-            <Image
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
               src={post.imageUrl}
               alt={post.title}
-              fill
-              className="object-cover"
-              priority
+              className="absolute inset-0 w-full h-full object-cover"
             />
             <div className="absolute inset-0 bg-black/20" />
             <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4">
@@ -74,21 +72,11 @@ export default async function AdminBlogPostPage({ params }: PageProps) {
             dangerouslySetInnerHTML={{ __html: post.htmlContent }}
           />
 
-          {/* Tags */}
+          {/* Tags — plain text (no links) since admin tags may not have matching pages */}
           {post.tags && post.tags.length > 0 && (
             <div className="mt-10 pt-6 border-t border-gray-200">
               <span className="text-sm text-gray-600">Tagged: </span>
-              {post.tags.map((tag, index) => (
-                <span key={tag}>
-                  <Link
-                    href={`/bitcoin-association-switzerland/tag/${tag}`}
-                    className="text-sm text-[#c75b4a] hover:underline"
-                  >
-                    {tag}
-                  </Link>
-                  {index < post.tags!.length - 1 && ', '}
-                </span>
-              ))}
+              <span className="text-sm text-[#c75b4a]">{post.tags.join(', ')}</span>
             </div>
           )}
 

@@ -70,6 +70,7 @@ export function CalendarEventModal({ event, isOpen, onClose }: CalendarEventModa
               alt={event.title}
               fill
               className="object-cover"
+              unoptimized={event.source === 'admin'}
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
 

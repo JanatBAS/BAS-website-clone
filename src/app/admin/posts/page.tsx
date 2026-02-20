@@ -1,28 +1,12 @@
-'use client';
-
-import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import AdminNav from '@/components/admin/AdminNav';
-import type { AdminBlogPost } from '@/types/admin';
+import AdminPostsList from '@/components/admin/AdminPostsList';
+import { getAdminPosts } from '@/lib/blob-store';
 
-export default function AdminPostsPage() {
-  const [posts, setPosts] = useState<AdminBlogPost[]>([]);
-  const [loading, setLoading] = useState(true);
+export const dynamic = 'force-dynamic';
 
-  const fetchPosts = async () => {
-    const res = await fetch('/api/admin/posts');
-    const data = await res.json();
-    setPosts(Array.isArray(data) ? data : []);
-    setLoading(false);
-  };
-
-  useEffect(() => { fetchPosts(); }, []);
-
-  const handleDelete = async (id: string) => {
-    if (!confirm('Delete this post?')) return;
-    await fetch(`/api/admin/posts?id=${id}`, { method: 'DELETE' });
-    fetchPosts();
-  };
+export default async function AdminPostsPage() {
+  const posts = await getAdminPosts();
 
   return (
     <>
@@ -37,46 +21,7 @@ export default function AdminPostsPage() {
             New Post
           </Link>
         </div>
-
-        {loading ? (
-          <p className="text-gray-400">Loading...</p>
-        ) : posts.length === 0 ? (
-          <p className="text-gray-400">No admin blog posts yet.</p>
-        ) : (
-          <div className="overflow-x-auto">
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="border-b border-gray-800 text-left text-gray-400">
-                  <th className="pb-2 pr-4">Title</th>
-                  <th className="pb-2 pr-4">Author</th>
-                  <th className="pb-2 pr-4">Date</th>
-                  <th className="pb-2"></th>
-                </tr>
-              </thead>
-              <tbody>
-                {posts.map((post) => (
-                  <tr key={post.id} className="border-b border-gray-800/50">
-                    <td className="py-3 pr-4">
-                      <Link href={`/blog/${post.slug}`} className="hover:text-[#2a9d8f]" target="_blank">
-                        {post.title}
-                      </Link>
-                    </td>
-                    <td className="py-3 pr-4 text-gray-400">{post.author}</td>
-                    <td className="py-3 pr-4 text-gray-400">{post.date}</td>
-                    <td className="py-3 text-right">
-                      <button
-                        onClick={() => handleDelete(post.id)}
-                        className="text-red-400 hover:text-red-300 text-xs"
-                      >
-                        Delete
-                      </button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        )}
+        <AdminPostsList posts={posts} />
       </div>
     </>
   );

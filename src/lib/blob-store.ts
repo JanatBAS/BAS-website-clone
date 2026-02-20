@@ -8,7 +8,11 @@ async function readBlob<T>(key: string): Promise<T | null> {
   try {
     const { blobs } = await list({ prefix: key });
     if (blobs.length === 0) return null;
-    const res = await fetch(blobs[0].url, { cache: 'no-store' });
+    // Pick the most recently uploaded blob
+    const latest = blobs.sort(
+      (a, b) => new Date(b.uploadedAt).getTime() - new Date(a.uploadedAt).getTime()
+    )[0];
+    const res = await fetch(latest.url, { cache: 'no-store' });
     return res.json();
   } catch {
     return null;
@@ -16,20 +20,23 @@ async function readBlob<T>(key: string): Promise<T | null> {
 }
 
 async function writeBlob<T>(key: string, data: T): Promise<void> {
-  // Delete existing blob first
+  // Write new data FIRST (with random suffix to avoid conflicts)
+  const newBlob = await put(key, JSON.stringify(data), {
+    access: 'public',
+    contentType: 'application/json',
+    addRandomSuffix: true,
+  });
+  // Then clean up old blobs (safe: new data is already persisted)
   try {
     const { blobs } = await list({ prefix: key });
     for (const blob of blobs) {
-      await del(blob.url);
+      if (blob.url !== newBlob.url) {
+        await del(blob.url);
+      }
     }
   } catch {
-    // Ignore delete errors
+    // Cleanup failure is non-critical — data is safe
   }
-  await put(key, JSON.stringify(data), {
-    access: 'public',
-    contentType: 'application/json',
-    addRandomSuffix: false,
-  });
 }
 
 // --- Events ---

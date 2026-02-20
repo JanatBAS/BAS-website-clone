@@ -25,7 +25,19 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
     }
 
-    const id = `admin-evt-${Date.now().toString(36)}`;
+    // Strict date validation: reject impossible dates like Feb 31
+    const parsedDate = new Date(data.dateISO + 'T12:00:00');
+    if (isNaN(parsedDate.getTime())) {
+      return NextResponse.json({ error: 'Invalid date format. Use YYYY-MM-DD.' }, { status: 400 });
+    }
+    const [year, month, day] = data.dateISO.split('-').map(Number);
+    if (parsedDate.getFullYear() !== year || parsedDate.getMonth() + 1 !== month || parsedDate.getDate() !== day) {
+      return NextResponse.json({ error: 'Invalid calendar date.' }, { status: 400 });
+    }
+
+    const uniqueSuffix = Date.now().toString(36);
+    const id = `admin-evt-${uniqueSuffix}`;
+    const slug = `${slugify(data.title)}-${uniqueSuffix}`;
     const now = new Date().toISOString();
     const description = data.description;
     const shortDescription = description.length > 150
@@ -34,7 +46,7 @@ export async function POST(request: Request) {
 
     const event: AdminEvent = {
       id,
-      slug: slugify(data.title),
+      slug,
       title: data.title,
       description,
       shortDescription,

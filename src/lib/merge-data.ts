@@ -83,6 +83,7 @@ interface BlogPost {
   tags?: string[];
   commentCount?: number;
   likeCount?: number;
+  unoptimizedImage?: boolean;
 }
 
 export function adminPostToMerged(post: AdminBlogPost): BlogPost {
@@ -100,6 +101,7 @@ export function adminPostToMerged(post: AdminBlogPost): BlogPost {
     tags: post.tags,
     commentCount: 0,
     likeCount: 0,
+    unoptimizedImage: true,
   };
 }
 
