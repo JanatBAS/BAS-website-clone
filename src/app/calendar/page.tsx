@@ -3,13 +3,18 @@ import Header from '@/components/Header';
 import FooterSimple from '@/components/FooterSimple';
 import { Calendar } from '@/components/calendar';
 import { allEvents } from '@/data/events';
+import { getAllEventsWithAdmin } from '@/lib/merge-data';
+
+export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
   title: 'Events Calendar | Bitcoin Association Switzerland',
   description: 'View all Bitcoin Association Switzerland events, meetups, and roadshow dates in our interactive calendar.',
 };
 
-export default function CalendarPage() {
+export default async function CalendarPage() {
+  const events = await getAllEventsWithAdmin(allEvents);
+
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
       <Header />
@@ -29,7 +34,7 @@ export default function CalendarPage() {
       {/* Calendar section */}
       <main className="flex-1 py-8 sm:py-12">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <Calendar events={allEvents} />
+          <Calendar events={events} />
         </div>
       </main>
 

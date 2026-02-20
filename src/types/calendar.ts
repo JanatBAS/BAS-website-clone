@@ -1,6 +1,6 @@
 export type EventCategory = 'roadshow' | 'meetup' | 'conference' | 'workshop' | 'general';
 export type EventStatus = 'upcoming' | 'past';
-export type EventSource = 'roadshow' | 'most-recent-events';
+export type EventSource = 'roadshow' | 'most-recent-events' | 'admin';
 export type CalendarView = 'month' | 'week' | 'list';
 
 export interface UnifiedEvent {

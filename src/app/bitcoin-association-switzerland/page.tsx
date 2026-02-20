@@ -4,6 +4,9 @@ import Link from "next/link";
 import ShareButton from "@/components/ShareButton";
 import Image from "next/image";
 import { Separator } from "@/components/ui/separator";
+import { getAllPostsWithAdmin } from "@/lib/merge-data";
+
+export const dynamic = 'force-dynamic';
 
 interface BlogPost {
   id: string;
@@ -707,13 +710,16 @@ export default async function BlogPage({ searchParams }: PageProps) {
   const authorFilter = params.author;
   const offsetFilter = params.offset ? parseInt(params.offset, 10) : null;
 
+  // Merge admin posts with hardcoded posts
+  const allPosts = await getAllPostsWithAdmin(blogPosts);
+
   // Get author name from ID
   const authorName = authorFilter ? authorNames[authorFilter] : null;
 
   // Filter posts by author if filter is active, then by offset (timestamp)
   let filteredPosts = authorFilter
-    ? blogPosts.filter((post) => post.authorId === authorFilter)
-    : blogPosts;
+    ? allPosts.filter((post) => post.authorId === authorFilter)
+    : allPosts;
 
   // Apply offset filter - show posts with timestamp less than offset
   if (offsetFilter) {
@@ -727,7 +733,7 @@ export default async function BlogPage({ searchParams }: PageProps) {
   const lastPost = filteredPosts[filteredPosts.length - 1];
   // Check if there are actually more posts older than the last visible one
   const postsOlderThanLast = lastPost
-    ? blogPosts.filter((post) => post.timestamp < lastPost.timestamp)
+    ? allPosts.filter((post) => post.timestamp < lastPost.timestamp)
     : [];
   const hasMorePosts = postsOlderThanLast.length > 0;
 
