@@ -31,7 +31,14 @@ export default function AdminEventsList({ events }: { events: AdminEvent[] }) {
           {events.map((event) => (
             <tr key={event.id} className="border-b border-gray-800/50">
               <td className="py-3 pr-4">{event.title}</td>
-              <td className="py-3 pr-4 text-gray-400">{event.dateISO}</td>
+              <td className="py-3 pr-4 text-gray-400">
+                {event.dateISO}
+                {event.recurrence && (
+                  <span className="ml-2 text-xs text-[#2a9d8f]">
+                    (repeats {event.recurrence.frequency === 'biweekly' ? 'biweekly' : event.recurrence.frequency})
+                  </span>
+                )}
+              </td>
               <td className="py-3 pr-4 text-gray-400 capitalize">{event.category}</td>
               <td className="py-3 text-right">
                 <button

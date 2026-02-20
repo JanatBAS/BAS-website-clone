@@ -62,6 +62,17 @@ export async function deleteAdminEvent(id: string): Promise<void> {
   await writeBlob(EVENTS_KEY, filtered);
 }
 
+export async function excludeEventOccurrence(id: string, date: string): Promise<void> {
+  const events = await getAdminEvents();
+  const event = events.find((e) => e.id === id);
+  if (!event) return;
+  if (!event.excludedDates) event.excludedDates = [];
+  if (!event.excludedDates.includes(date)) {
+    event.excludedDates.push(date);
+  }
+  await writeBlob(EVENTS_KEY, events);
+}
+
 // --- Blog Posts ---
 
 export async function getAdminPosts(): Promise<AdminBlogPost[]> {

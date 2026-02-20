@@ -17,6 +17,7 @@ export default function NewEventPage() {
   const router = useRouter();
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
+  const [isRecurring, setIsRecurring] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -24,6 +25,13 @@ export default function NewEventPage() {
     setError('');
 
     const form = new FormData(e.currentTarget);
+    const recurrence = isRecurring
+      ? {
+          frequency: form.get('recurrenceFrequency') as string,
+          endDate: (form.get('recurrenceEndDate') as string) || undefined,
+        }
+      : undefined;
+
     const body = {
       title: form.get('title'),
       dateISO: form.get('dateISO'),
@@ -35,6 +43,7 @@ export default function NewEventPage() {
       signupLink: form.get('signupLink') || undefined,
       category: form.get('category'),
       description: form.get('description'),
+      recurrence,
     };
 
     const res = await fetch('/api/admin/events', {
@@ -112,6 +121,35 @@ export default function NewEventPage() {
           <div>
             <label className={labelClass}>Signup Link</label>
             <input name="signupLink" type="url" className={inputClass} placeholder="https://lu.ma/..." />
+          </div>
+
+          <div className="border border-gray-700 rounded-lg p-4 space-y-3">
+            <label className="flex items-center gap-2 cursor-pointer">
+              <input
+                type="checkbox"
+                checked={isRecurring}
+                onChange={(e) => setIsRecurring(e.target.checked)}
+                className="rounded border-gray-600 bg-gray-900 text-[#2a9d8f] focus:ring-[#2a9d8f]"
+              />
+              <span className="text-sm font-medium text-gray-300">This is a recurring event</span>
+            </label>
+
+            {isRecurring && (
+              <div className="grid grid-cols-2 gap-4 pt-1">
+                <div>
+                  <label className={labelClass}>Frequency</label>
+                  <select name="recurrenceFrequency" required className={inputClass}>
+                    <option value="weekly">Every week</option>
+                    <option value="biweekly">Every 2 weeks</option>
+                    <option value="monthly">Same date each month</option>
+                  </select>
+                </div>
+                <div>
+                  <label className={labelClass}>End Date (optional)</label>
+                  <input name="recurrenceEndDate" type="date" className={inputClass} />
+                </div>
+              </div>
+            )}
           </div>
 
           <div>

@@ -2,6 +2,7 @@ import type { UnifiedEvent } from '@/types/calendar';
 import { CATEGORY_COLORS } from '@/types/calendar';
 import type { AdminEvent, AdminBlogPost } from '@/types/admin';
 import { getAdminEvents, getAdminPosts } from './blob-store';
+import { expandRecurringEvent } from './recurrence';
 
 function formatTimeDisplay(time24: string): string {
   const [h, m] = time24.split(':').map(Number);
@@ -62,7 +63,7 @@ export function adminEventToUnified(event: AdminEvent): UnifiedEvent {
 export async function getAllEventsWithAdmin(hardcodedEvents: UnifiedEvent[]): Promise<UnifiedEvent[]> {
   try {
     const adminEvents = await getAdminEvents();
-    const transformed = adminEvents.map(adminEventToUnified);
+    const transformed = adminEvents.flatMap(expandRecurringEvent).map(adminEventToUnified);
     return [...hardcodedEvents, ...transformed].sort((a, b) => b.dateISO.localeCompare(a.dateISO));
   } catch {
     return hardcodedEvents;

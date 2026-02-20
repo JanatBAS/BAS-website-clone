@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
-import { getAdminEvents, addAdminEvent, deleteAdminEvent } from '@/lib/blob-store';
+import { getAdminEvents, addAdminEvent, deleteAdminEvent, excludeEventOccurrence } from '@/lib/blob-store';
 import type { AdminEvent, AdminEventFormData } from '@/types/admin';
+import type { RecurrenceFrequency } from '@/types/admin';
 
 export const dynamic = 'force-dynamic';
 
@@ -35,6 +36,23 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Invalid calendar date.' }, { status: 400 });
     }
 
+    // Validate recurrence if provided
+    if (data.recurrence) {
+      const validFrequencies: RecurrenceFrequency[] = ['weekly', 'biweekly', 'monthly'];
+      if (!validFrequencies.includes(data.recurrence.frequency)) {
+        return NextResponse.json({ error: 'Invalid recurrence frequency.' }, { status: 400 });
+      }
+      if (data.recurrence.endDate) {
+        const endParsed = new Date(data.recurrence.endDate + 'T12:00:00');
+        if (isNaN(endParsed.getTime())) {
+          return NextResponse.json({ error: 'Invalid recurrence end date.' }, { status: 400 });
+        }
+        if (data.recurrence.endDate <= data.dateISO) {
+          return NextResponse.json({ error: 'Recurrence end date must be after the event start date.' }, { status: 400 });
+        }
+      }
+    }
+
     const uniqueSuffix = Date.now().toString(36);
     const id = `admin-evt-${uniqueSuffix}`;
     const slug = `${slugify(data.title)}-${uniqueSuffix}`;
@@ -58,6 +76,7 @@ export async function POST(request: Request) {
       imageUrl: data.imageUrl || undefined,
       signupLink: data.signupLink || undefined,
       category: data.category,
+      recurrence: data.recurrence || undefined,
       createdAt: now,
       updatedAt: now,
     };
@@ -76,7 +95,13 @@ export async function DELETE(request: Request) {
     if (!id) {
       return NextResponse.json({ error: 'Missing id parameter' }, { status: 400 });
     }
-    await deleteAdminEvent(id);
+    const date = searchParams.get('date');
+    if (date) {
+      // Exclude a single occurrence from a recurring series
+      await excludeEventOccurrence(id, date);
+    } else {
+      await deleteAdminEvent(id);
+    }
     return NextResponse.json({ success: true });
   } catch {
     return NextResponse.json({ error: 'Failed to delete event' }, { status: 500 });
