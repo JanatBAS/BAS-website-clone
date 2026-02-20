@@ -40,19 +40,8 @@ const authorNames: Record<string, string> = Object.fromEntries(
   Object.entries(authorIds).map(([name, id]) => [id, name])
 );
 
-const featuredPost: BlogPost = {
-  id: "featured",
-  author: "Phil Lojacono",
-  authorId: "672bdb3ae0672c1501f39ce8",
-  date: "31 May 2025",
-  timestamp: 1748649600000, // May 31, 2025
-  title: "Statement on the 12-Point Program for a Forward-Looking Digital Financial Center",
-  excerpt:
-    "The Bitcoin Association Switzerland supports the 12-point program jointly developed by leading industry associations to foster a strong and future-oriented environment for digital innovation in Switzerland. We believe this framework is an important step toward ensuring regulatory clarity, technological advancement, and an open, competitive financial system that empowers individuals and businesses alike.",
-  href: "/bitcoin-association-switzerland/2025/12/8/statement-on-12-point-program",
-  image:
-    "https://images.squarespace-cdn.com/content/v1/5895d62d2994ca86b0cd9807/1660148501401-GDNI2ZA03O3AI2DBF64S/header7.jpg?format=2500w",
-};
+const FEATURED_FALLBACK_IMAGE =
+  "https://images.squarespace-cdn.com/content/v1/5895d62d2994ca86b0cd9807/1660148501401-GDNI2ZA03O3AI2DBF64S/header7.jpg?format=2500w";
 
 const blogPosts: BlogPost[] = [
   {
@@ -723,6 +712,9 @@ export default async function BlogPage({ searchParams }: PageProps) {
   // Merge admin posts with hardcoded posts
   const allPosts = await getAllPostsWithAdmin(blogPosts);
 
+  // Featured post is always the newest post
+  const featuredPost = allPosts[0] ?? null;
+
   // Get author name from ID
   const authorName = authorFilter ? authorNames[authorFilter] : null;
 
@@ -737,7 +729,7 @@ export default async function BlogPage({ searchParams }: PageProps) {
   }
 
   // Check if featured post matches filter (or show if no filter and no offset)
-  const showFeaturedPost = !authorFilter && !offsetFilter || (authorFilter && featuredPost.authorId === authorFilter && !offsetFilter);
+  const showFeaturedPost = featuredPost && (!authorFilter && !offsetFilter || (authorFilter && featuredPost.authorId === authorFilter && !offsetFilter));
 
   // Get the timestamp of the last post for "Older Posts" link
   const lastPost = filteredPosts[filteredPosts.length - 1];
@@ -774,11 +766,12 @@ export default async function BlogPage({ searchParams }: PageProps) {
         {showFeaturedPost && (
           <div className="relative h-[400px] md:h-[500px] lg:h-[600px] overflow-hidden">
             <Image
-              src={featuredPost.image!}
+              src={featuredPost.image ?? FEATURED_FALLBACK_IMAGE}
               alt={featuredPost.title}
               fill
               className="object-cover"
               priority
+              unoptimized={featuredPost.unoptimizedImage}
             />
             <div className="absolute inset-0 bg-black/30" />
             <div className="absolute inset-0 flex items-center justify-center">
@@ -801,17 +794,6 @@ export default async function BlogPage({ searchParams }: PageProps) {
                 </h1>
                 <p className="text-sm md:text-base leading-relaxed max-w-3xl mx-auto">
                   {featuredPost.excerpt}
-                </p>
-                <p className="text-sm mt-4">
-                  The{" "}
-                  <Link
-                    href="https://www.bitcoinassociation.ch/s/2022-08-07-BAS-comment-on-BIS-final.pdf"
-                    className="underline hover:opacity-80"
-                    target="_blank"
-                  >
-                    letter
-                  </Link>{" "}
-                  we sent out this week is continuing this tradition.
                 </p>
               </div>
             </div>
