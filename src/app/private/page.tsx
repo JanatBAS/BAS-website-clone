@@ -1,165 +1,178 @@
 import Header from "@/components/Header";
-import Footer from "@/components/Footer";
+import FooterSimple from "@/components/FooterSimple";
 import Link from "next/link";
 
 export default function PrivateMembershipPage() {
   return (
     <>
       <Header />
-      <main className="pt-20 min-h-screen bg-white">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          <div className="flex flex-col md:flex-row gap-12">
+      <main className="pt-24 pb-16 bg-white min-h-screen">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col md:flex-row gap-8 md:gap-16">
             {/* Sidebar Navigation */}
-            <aside className="md:w-56 flex-shrink-0">
-              <nav>
-                <h2 className="text-[#c75b4a] text-base mb-4 font-normal">
-                  <Link href="/private" className="hover:underline">
-                    membership
-                  </Link>
-                </h2>
-                <ul className="space-y-2">
-                  <li>
-                    <span className="text-[#1a1a1a] text-xs font-semibold uppercase tracking-wider">
-                      PRIVATE
-                    </span>
-                  </li>
-                  <li>
-                    <Link
-                      href="/corporate"
-                      className="text-gray-500 text-xs uppercase tracking-wider hover:text-[#c75b4a] transition-colors"
-                    >
-                      CORPORATE
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      href="/our-corporate-members"
-                      className="text-gray-500 text-xs uppercase tracking-wider hover:text-[#c75b4a] transition-colors"
-                    >
-                      OUR CORPORATE MEMBERS
-                    </Link>
-                  </li>
-                </ul>
+            <aside className="md:w-48 flex-shrink-0">
+              <h2 className="text-[#2a9d8f] text-lg font-light mb-4 font-serif italic">
+                <Link href="/private" className="hover:underline">
+                  membership
+                </Link>
+              </h2>
+              <nav className="space-y-2">
+                <Link
+                  href="/private"
+                  className="block text-xs uppercase tracking-wider text-gray-900 font-semibold"
+                >
+                  Private
+                </Link>
+                <Link
+                  href="/corporate"
+                  className="block text-xs uppercase tracking-wider text-gray-500 hover:text-gray-900 transition-colors"
+                >
+                  Corporate
+                </Link>
+                <Link
+                  href="/our-corporate-members"
+                  className="block text-xs uppercase tracking-wider text-gray-500 hover:text-gray-900 transition-colors"
+                >
+                  Our Corporate Members
+                </Link>
               </nav>
             </aside>
 
             {/* Main Content */}
             <div className="flex-1 max-w-2xl">
-              <article className="prose prose-gray max-w-none">
-                <h1 className="text-3xl md:text-4xl font-normal text-[#1a1a1a] mb-8">
-                  New/Renew Membership (2024 - 2025 edition)
-                </h1>
+              <h1 className="text-3xl md:text-4xl font-light text-[#1a1a1a] font-serif mb-8">
+                Private Member
+              </h1>
 
-                <p className="text-[#666] leading-relaxed">
-                  <strong className="text-[#1a1a1a]">How do I renew my membership?</strong>
-                  <br />
-                  Pay your membership fee to the Bitcoin Association Switzerland&apos;s wallet address:
+              {/* NEW MEMBERSHIP */}
+              <section className="mb-10">
+                <h2 className="text-lg font-bold text-[#1a1a1a] uppercase tracking-wide mb-4">
+                  New Membership
+                </h2>
+
+                {/* STEP 1 */}
+                <h3 className="text-sm font-bold text-[#1a1a1a] uppercase tracking-wide mb-3">
+                  Step 1 &ndash; Register
+                </h3>
+                <p className="text-gray-600 text-sm leading-relaxed mb-1">
+                  Complete the online registration form:
                 </p>
-
-                <p className="text-[#1a1a1a] font-semibold break-all">
-                  bc1q4rw988vc977354c70qae7m6k4zj45plksm47g0sek36zhe3adv5ss7w9ju
-                </p>
-
-                <p className="text-[#666] leading-relaxed">
-                  Once payment is confirmed on-chain, go to the membership form submission page:
-                </p>
-
-                <p>
-                  <Link
-                    href="/membership-form"
-                    className="text-[#c75b4a] font-semibold hover:underline"
-                  >
-                    https://www.bitcoinassociation.ch/membership-form
-                  </Link>
-                </p>
-
-                <p className="text-[#666] leading-relaxed">
-                  Fill out the form in its entirety, entering your Transaction ID and, optionally, your Telegram handle to be added to the BAS members group. If possible, specify how many years of membership (minimum 1) you have paid for. The number of years of membership will be automatically calculated based on the amount of BTC paid.
-                </p>
-
-                <p className="text-[#666] leading-relaxed">
-                  Within 7 days, we will send you a confirmation that your membership status has been confirmed, or - if we have any doubts - we may ask you to provide additional information.
-                </p>
-
-                <p className="text-[#1a1a1a] font-semibold">
-                  No membership fees are returned if you fail to provide sufficient information.
-                </p>
-
-                <p className="text-[#1a1a1a] font-semibold mt-6">
-                  What&apos;s the membership fee?
-                </p>
-
-                <p className="text-[#666] leading-relaxed">
-                  The annual membership fee is CHF 21, payable in bitcoin on-chain (with secondary layer payment solutions coming soon).
-                </p>
-
-                <p className="text-[#1a1a1a] font-semibold mt-6">
-                  What if I haven&apos;t been a member before?
-                </p>
-
-                <p className="text-[#666] leading-relaxed">
-                  That&apos;s ok, we don&apos;t judge :-) you can follow the same process as outlined above. If we don&apos;t know you, chances are a little higher we ask for additional information.
-                </p>
-
-                <p className="text-[#1a1a1a] font-semibold mt-6">
-                  What about corporate members?
-                </p>
-
-                <p className="text-[#666] leading-relaxed">
-                  If you already are a corporate member (with your logo{" "}
-                  <Link href="/our-corporate-members" className="text-[#c75b4a] hover:underline">
-                    here
-                  </Link>
-                  ) and your membership is expired, you can complete the renewal payment and send us an email application with all the information indicated (Name, TransactionID, number of years paid etc.) at{" "}
+                <p className="mb-3">
                   <a
-                    href="mailto:info@bitcoinassociation.ch"
-                    className="text-[#c75b4a] hover:underline"
+                    href="https://bas.webling.ch/forms/memberform/f498cc5816d258744c98"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[#2a9d8f] text-sm hover:underline break-all"
                   >
-                    info@bitcoinassociation.ch
+                    https://bas.webling.ch/forms/memberform/f498cc5816d258744c98
                   </a>
-                  , the corporate membership fee is CHF 380.
+                </p>
+                <p className="text-gray-600 text-sm leading-relaxed mb-2">
+                  Please fill in all required fields.
+                </p>
+                <p className="text-gray-600 text-sm leading-relaxed mb-2">
+                  If you would like to join the BAS members Telegram group, you may optionally provide your Telegram username.
+                </p>
+                <p className="text-gray-600 text-sm leading-relaxed mb-6">
+                  We will review your application and confirm your membership by email.
                 </p>
 
-                <p className="text-[#666] leading-relaxed">
-                  If you are not a corporate member yet, you can send an application to{" "}
-                  <a
-                    href="mailto:info@bitcoinassociation.ch"
-                    className="text-[#c75b4a] hover:underline"
-                  >
-                    info@bitcoinassociation.ch
-                  </a>{" "}
-                  where you introduce your company and explain how you are connected to the Swiss ecosystem.
+                {/* STEP 2 */}
+                <h3 className="text-sm font-bold text-[#1a1a1a] uppercase tracking-wide mb-3">
+                  Step 2 &ndash; Receive Invoice
+                </h3>
+                <p className="text-gray-600 text-sm leading-relaxed mb-2">
+                  After confirmation, you will receive your annual membership invoice via email.
+                </p>
+                <p className="text-gray-600 text-sm leading-relaxed mb-6">
+                  You may pay your membership fee in CHF or BTC.
                 </p>
 
-                <p className="text-[#666] leading-relaxed">
-                  You will hear back within 14 days whether you&apos;ve been accepted or not. Once you have received confirmation that you have been accepted, you will need to send the equivalent of at least CHF 380 to the Bitcoin Association Switzerland&apos;s wallet:
-                </p>
+                {/* STEP 3 */}
+                <h3 className="text-sm font-bold text-[#1a1a1a] uppercase tracking-wide mb-3">
+                  Step 3 &ndash; Payment
+                </h3>
 
-                <p className="text-[#1a1a1a] font-semibold break-all">
+                {/* Payment in BTC */}
+                <h4 className="text-sm font-bold text-[#1a1a1a] mb-2">
+                  Payment in BTC
+                </h4>
+                <p className="text-gray-600 text-sm leading-relaxed mb-3">
+                  If you choose to pay in Bitcoin, please send the equivalent of CHF 21 (according to the invoice amount) on-chain to the official Bitcoin Association Switzerland wallet:
+                </p>
+                <p className="text-[#1a1a1a] text-sm font-semibold break-all mb-3">
                   bc1q4rw988vc977354c70qae7m6k4zj45plksm47g0sek36zhe3adv5ss7w9ju
                 </p>
-
-                <p className="text-[#666] leading-relaxed">
-                  followed by an email to the two addresses mentioned stating your Transaction ID.
+                <p className="text-gray-600 text-sm leading-relaxed mb-2">
+                  After your transaction has been confirmed on-chain:
+                </p>
+                <ol className="list-decimal list-inside text-gray-600 text-sm leading-relaxed mb-3 ml-4 space-y-1">
+                  <li>
+                    Log in to the member portal:{" "}
+                    <a
+                      href="https://bas.webling.ch/portal"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-[#2a9d8f] hover:underline"
+                    >
+                      https://bas.webling.ch/portal
+                    </a>
+                  </li>
+                  <li>Update the TxID field in your profile with the transaction ID of your payment.</li>
+                </ol>
+                <p className="text-gray-600 text-sm leading-relaxed mb-6">
+                  We will validate the transaction and confirm your membership activation.
                 </p>
 
-                <p className="text-[#666] leading-relaxed">
-                  Once we confirm receipt of the funds, you can send us the logo to be added to the website.
+                {/* Payment in CHF */}
+                <h4 className="text-sm font-bold text-[#1a1a1a] mb-2">
+                  Payment in CHF
+                </h4>
+                <p className="text-gray-600 text-sm leading-relaxed mb-2">
+                  If paying in CHF, simply settle the invoice using the provided QR-invoice.
                 </p>
+                <p className="text-gray-600 text-sm leading-relaxed">
+                  Please ensure that all required information is provided correctly. Membership fees cannot be refunded once processed.
+                </p>
+              </section>
 
-                <p className="text-[#666] leading-relaxed">
-                  The process is also outlined{" "}
-                  <Link href="/corporate" className="text-[#c75b4a] hover:underline">
-                    here
-                  </Link>
-                  .
+              {/* RENEW MEMBERSHIP */}
+              <section>
+                <h2 className="text-lg font-bold text-[#1a1a1a] uppercase tracking-wide mb-4">
+                  Renew Membership
+                </h2>
+                <p className="text-gray-600 text-sm leading-relaxed mb-2">
+                  To renew your membership:
                 </p>
-              </article>
+                <ol className="list-decimal list-inside text-gray-600 text-sm leading-relaxed ml-4 space-y-2 mb-3">
+                  <li>
+                    Log in to the member portal:{" "}
+                    <a
+                      href="https://bas.webling.ch/portal"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-[#2a9d8f] hover:underline"
+                    >
+                      https://bas.webling.ch/portal
+                    </a>
+                  </li>
+                  <li>
+                    Pay your annual invoice:
+                    <ul className="list-disc list-inside ml-6 mt-1 space-y-1">
+                      <li>BTC: Transfer the amount in BTC and update the TxID field in your profile.</li>
+                      <li>CHF: Pay the issued QR-invoice.</li>
+                    </ul>
+                  </li>
+                </ol>
+                <p className="text-gray-600 text-sm leading-relaxed">
+                  Once payment is validated, your membership will be extended automatically.
+                </p>
+              </section>
             </div>
           </div>
         </div>
       </main>
-      <Footer />
+      <FooterSimple />
     </>
   );
 }
