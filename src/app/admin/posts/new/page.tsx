@@ -4,18 +4,19 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import AdminNav from '@/components/admin/AdminNav';
 
-const authors = [
-  { name: 'Phil Lojacono', id: '672bdb3ae0672c1501f39ce8' },
-  { name: 'Roger Darin', id: '54edd73ae4b04709779918e4' },
-  { name: 'Luzius Meisser', id: '5a9907f3e4966b72996b9c31' },
-  { name: 'Lucas Betschart', id: '5895fa2e725e2525b0696fd4' },
-];
+const knownAuthors: Record<string, string> = {
+  'Phil Lojacono': '672bdb3ae0672c1501f39ce8',
+  'Roger Darin': '54edd73ae4b04709779918e4',
+  'Luzius Meisser': '5a9907f3e4966b72996b9c31',
+  'Lucas Betschart': '5895fa2e725e2525b0696fd4',
+};
 
 export default function NewPostPage() {
   const router = useRouter();
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
   const [tagsInput, setTagsInput] = useState('');
+  const [authorName, setAuthorName] = useState('');
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -23,8 +24,13 @@ export default function NewPostPage() {
     setError('');
 
     const form = new FormData(e.currentTarget);
-    const authorIndex = parseInt(form.get('authorIndex') as string);
-    const author = authors[authorIndex] || authors[0];
+    const name = authorName.trim();
+    if (!name) {
+      setError('Author name is required');
+      setSaving(false);
+      return;
+    }
+    const authorId = knownAuthors[name] || `custom-${Date.now().toString(36)}`;
 
     const tags = tagsInput
       .split(',')
@@ -33,8 +39,8 @@ export default function NewPostPage() {
 
     const body = {
       title: form.get('title'),
-      author: author.name,
-      authorId: author.id,
+      author: name,
+      authorId,
       date: form.get('date'),
       excerpt: form.get('excerpt'),
       htmlContent: form.get('htmlContent'),
@@ -76,11 +82,19 @@ export default function NewPostPage() {
           <div className="grid grid-cols-2 gap-4">
             <div>
               <label className={labelClass}>Author *</label>
-              <select name="authorIndex" required className={inputClass}>
-                {authors.map((a, i) => (
-                  <option key={a.id} value={i}>{a.name}</option>
+              <input
+                value={authorName}
+                onChange={(e) => setAuthorName(e.target.value)}
+                list="author-suggestions"
+                required
+                className={inputClass}
+                placeholder="Type or select a name"
+              />
+              <datalist id="author-suggestions">
+                {Object.keys(knownAuthors).map((name) => (
+                  <option key={name} value={name} />
                 ))}
-              </select>
+              </datalist>
             </div>
             <div>
               <label className={labelClass}>Date *</label>

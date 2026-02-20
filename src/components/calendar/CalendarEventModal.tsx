@@ -180,18 +180,20 @@ export function CalendarEventModal({ event, isOpen, onClose }: CalendarEventModa
 
           {/* Action buttons */}
           <div className="flex flex-col sm:flex-row gap-3">
-            {/* View event page */}
-            <Link
-              href={event.href}
-              className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-2.5
-                bg-[#c75b4a] text-white font-medium rounded-lg
-                hover:bg-[#b54a3a] transition-colors"
-            >
-              View Event
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-              </svg>
-            </Link>
+            {/* View event page (only for non-admin events that have dedicated pages) */}
+            {event.source !== 'admin' && (
+              <Link
+                href={event.href}
+                className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-2.5
+                  bg-[#c75b4a] text-white font-medium rounded-lg
+                  hover:bg-[#b54a3a] transition-colors"
+              >
+                View Event
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                </svg>
+              </Link>
+            )}
 
             {/* Signup link (for upcoming events) */}
             {!isPast && event.signupLink && (
@@ -199,9 +201,12 @@ export function CalendarEventModal({ event, isOpen, onClose }: CalendarEventModa
                 href={event.signupLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-2.5
-                  border-2 border-[#c75b4a] text-[#c75b4a] font-medium rounded-lg
-                  hover:bg-[#c75b4a]/10 transition-colors"
+                className={`flex-1 inline-flex items-center justify-center gap-2 px-4 py-2.5
+                  font-medium rounded-lg transition-colors
+                  ${event.source === 'admin'
+                    ? 'bg-[#c75b4a] text-white hover:bg-[#b54a3a]'
+                    : 'border-2 border-[#c75b4a] text-[#c75b4a] hover:bg-[#c75b4a]/10'
+                  }`}
               >
                 Sign Up
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
