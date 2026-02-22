@@ -50,7 +50,7 @@ export default function TwelvePointProgramPage() {
           {/* Download Links */}
           <div className="mt-8 space-y-2">
             <Link
-              href="https://www.bitcoinassociation.ch/s/12PointsForStrongFinancialCEntre_Manifest_EN.pdf"
+              href="/pdfs/12PointsForStrongFinancialCEntre_Manifest_EN.pdf"
               target="_blank"
               rel="noopener noreferrer"
               className="block text-[#c75b4a] hover:text-[#a84a3b] transition-colors"
@@ -58,7 +58,7 @@ export default function TwelvePointProgramPage() {
               Download ENG version
             </Link>
             <Link
-              href="https://www.bitcoinassociation.ch/s/12PointsForStrongFinancialCentres_Manifest_DE.pdf"
+              href="/pdfs/12PointsForStrongFinancialCentres_Manifest_DE.pdf"
               target="_blank"
               rel="noopener noreferrer"
               className="block text-[#c75b4a] hover:text-[#a84a3b] transition-colors"

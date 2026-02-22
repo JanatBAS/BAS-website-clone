@@ -133,7 +133,7 @@ export default function GeneralAssemblyPage() {
           {/* Download Link */}
           <div className="mt-8">
             <a
-              href="https://www.bitcoinassociation.ch/s/BAS_GeneralAssembly_06122025.pdf"
+              href="/pdfs/BAS_GeneralAssembly_06122025.pdf"
               target="_blank"
               rel="noopener noreferrer"
               className="text-[#5c8a8a] hover:underline text-sm"

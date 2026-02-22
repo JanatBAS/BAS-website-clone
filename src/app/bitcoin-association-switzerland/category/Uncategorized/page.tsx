@@ -297,7 +297,7 @@ export default function UncategorizedCategoryPage() {
               <p className="text-sm mt-4">
                 The{" "}
                 <Link
-                  href="https://www.bitcoinassociation.ch/s/2022-08-07-BAS-comment-on-BIS-final.pdf"
+                  href="/pdfs/2022-08-07-BAS-comment-on-BIS-final.pdf"
                   className="underline hover:opacity-80"
                   target="_blank"
                 >

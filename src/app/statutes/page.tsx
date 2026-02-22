@@ -52,7 +52,7 @@ export default function StatutesPage() {
                 {/* English Version Link */}
                 <p className="text-center">
                   <a
-                    href="https://www.bitcoinassociation.ch/s/Statutes_BAS_v11.pdf"
+                    href="/pdfs/Statutes_BAS_v11.pdf"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-[#5a9e9e] hover:text-[#4a8e8e] font-serif text-lg transition-colors"
@@ -64,7 +64,7 @@ export default function StatutesPage() {
                 {/* German Version Link */}
                 <p className="text-center">
                   <a
-                    href="https://www.bitcoinassociation.ch/s/Statuten_BAS_v11.pdf"
+                    href="/pdfs/Statuten_BAS_v11.pdf"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-[#5a9e9e] hover:text-[#4a8e8e] font-serif text-lg transition-colors"

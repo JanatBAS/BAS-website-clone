@@ -54,7 +54,7 @@ export default function PrudentialTreatmentCryptoassetExposuresII() {
             <p className="mb-8">
               The{" "}
               <a
-                href="https://www.bitcoinassociation.ch/s/2022-08-07-BAS-comment-on-BIS-final.pdf"
+                href="/pdfs/2022-08-07-BAS-comment-on-BIS-final.pdf"
                 className="text-[#c75b4a] hover:underline"
                 target="_blank"
                 rel="noopener noreferrer"

@@ -111,7 +111,7 @@ export default function HowToVotePage() {
                   </p>
                   <p className="text-gray-600 mb-2">
                     <a
-                      href="https://www.bitcoinassociation.ch/s/BAS-Voting-Form-Board-Election-2024-with-Email-Option.pdf"
+                      href="/pdfs/BAS-Voting-Form-Board-Election-2024-with-Email-Option.pdf"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-[#c75b4a] hover:underline"

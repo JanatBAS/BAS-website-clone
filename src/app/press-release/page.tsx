@@ -103,7 +103,7 @@ export default function PressReleasePage() {
 
             <p className="mb-8">
               <a
-                href="https://www.bitcoinassociation.ch/s/BAS_New-Board-for-BAS_NOV24.pdf"
+                href="/pdfs/BAS_New-Board-for-BAS_NOV24.pdf"
                 className="text-[#c75b4a] hover:underline"
                 target="_blank"
                 rel="noopener noreferrer"

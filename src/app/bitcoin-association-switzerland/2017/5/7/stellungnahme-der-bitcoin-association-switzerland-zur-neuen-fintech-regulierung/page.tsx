@@ -49,7 +49,7 @@ export default function RegulatoryCommentFintechPage() {
 
             <h2 className="text-xl font-normal text-[#c75b4a] text-center my-8">
               <a
-                href="https://www.bitcoinassociation.ch/s/StellungnahmeBitcoinAssociationSwitzerland.pdf"
+                href="/pdfs/StellungnahmeBitcoinAssociationSwitzerland.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hover:underline"

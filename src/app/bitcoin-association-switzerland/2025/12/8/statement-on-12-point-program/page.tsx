@@ -59,7 +59,7 @@ export default function StatementOn12PointProgramPage() {
 
             <p className="mb-2">
               <a
-                href="https://www.bitcoinassociation.ch/s/12PointsForStrongFinancialCEntre_Manifest_EN.pdf"
+                href="/pdfs/12PointsForStrongFinancialCEntre_Manifest_EN.pdf"
                 className="text-[#c75b4a] hover:underline"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -69,7 +69,7 @@ export default function StatementOn12PointProgramPage() {
             </p>
             <p className="mb-8">
               <a
-                href="https://www.bitcoinassociation.ch/s/12PointsForStrongFinancialCentres_Manifest_DE.pdf"
+                href="/pdfs/12PointsForStrongFinancialCentres_Manifest_DE.pdf"
                 className="text-[#c75b4a] hover:underline"
                 target="_blank"
                 rel="noopener noreferrer"

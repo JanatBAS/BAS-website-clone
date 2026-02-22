@@ -4,19 +4,19 @@ import Footer from "@/components/Footer";
 const candidates = [
   {
     name: "Adriano Bertini",
-    href: "https://www.bitcoinassociation.ch/s/AdrianoBertini_BAS_PresidentApplication_2025.pdf",
+    href: "/pdfs/AdrianoBertini_BAS_PresidentApplication_2025.pdf",
   },
   {
     name: "Jan Brzezek",
-    href: "https://www.bitcoinassociation.ch/s/JanBrzezek_BAS_PresidentApplication_2025.pdf",
+    href: "/pdfs/JanBrzezek_BAS_PresidentApplication_2025.pdf",
   },
   {
     name: "Alexandre Flory Samartino",
-    href: "https://www.bitcoinassociation.ch/s/AlexandreFlorySamartino_BAS_PresidentApplication_2025.pdf",
+    href: "/pdfs/AlexandreFlorySamartino_BAS_PresidentApplication_2025.pdf",
   },
   {
     name: "Rahim Taghizadegan",
-    href: "https://www.bitcoinassociation.ch/s/RahimTaghizagedan_BAS_PresidentApplication_2025.pdf",
+    href: "/pdfs/RahimTaghizagedan_BAS_PresidentApplication_2025.pdf",
   },
 ];
 

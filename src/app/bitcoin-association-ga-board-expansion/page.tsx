@@ -126,7 +126,7 @@ export default function BitcoinAssociationGABoardExpansionPage() {
 
               <p>
                 <a
-                  href="https://www.bitcoinassociation.ch/s/27NOV2024-Bitcoin-Association-GA-Board-Expansion-wcgk.pdf"
+                  href="/pdfs/27NOV2024-Bitcoin-Association-GA-Board-Expansion-wcgk.pdf"
                   className="text-[#5a9e9e] hover:underline"
                   target="_blank"
                   rel="noopener noreferrer"

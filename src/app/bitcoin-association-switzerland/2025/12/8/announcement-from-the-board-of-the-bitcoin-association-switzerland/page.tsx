@@ -180,7 +180,7 @@ export default function AnnouncementFromBoardPage() {
 
             <p className="mb-8">
               <a
-                href="https://www.bitcoinassociation.ch/s/BAS_Announcement_Oct27th2024-xxmm.pdf"
+                href="/pdfs/BAS_Announcement_Oct27th2024-xxmm.pdf"
                 className="text-[#c75b4a] hover:underline"
                 target="_blank"
                 rel="noopener noreferrer"
