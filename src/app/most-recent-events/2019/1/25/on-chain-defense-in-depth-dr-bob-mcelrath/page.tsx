@@ -11,7 +11,7 @@ export default function OnChainDefenseInDepthEventPage() {
         {/* Hero Banner */}
         <div className="relative h-[300px] md:h-[400px] overflow-hidden">
           <Image
-            src="https://images.squarespace-cdn.com/content/v1/5895d62d2994ca86b0cd9807/1555098023010-L99ESNM4E9YUE04P6595/dr.bob.jpeg?format=2500w"
+            src="/images/events/dr-bob.jpeg"
             alt="A BRIGHT NEW DAWN FOR DIGITAL TRANSFERS, SOUND MONEY AND PERSONAL FREEDOM."
             fill
             className="object-cover"

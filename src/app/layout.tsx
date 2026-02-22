@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "https://images.squarespace-cdn.com/content/v1/5895d62d2994ca86b0cd9807/1493573890585/logo_with_name.png",
+        url: "/images/branding/logo-with-name.png",
         width: 227,
         height: 237,
         alt: "Bitcoin Association Switzerland Logo",
@@ -37,10 +37,10 @@ export const metadata: Metadata = {
     card: "summary",
     title: "Bitcoin Association Switzerland",
     description: "The Bitcoin Association Switzerland forms an active community of enthusiasts with regular events.",
-    images: ["https://images.squarespace-cdn.com/content/v1/5895d62d2994ca86b0cd9807/1493573890585/logo_with_name.png"],
+    images: ["/images/branding/logo-with-name.png"],
   },
   icons: {
-    icon: "https://images.squarespace-cdn.com/content/v1/5895d62d2994ca86b0cd9807/1486215439062-YZIDK4S304980M1UUWGH/favicon.ico",
+    icon: "/favicon.ico",
   },
 };
 

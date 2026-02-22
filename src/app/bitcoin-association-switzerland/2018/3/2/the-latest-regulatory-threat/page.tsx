@@ -20,7 +20,7 @@ export default function TheLatestRegulatoryThreatPage() {
         <div className="relative w-full h-[300px] md:h-[400px]">
           {/* Background Image */}
           <Image
-            src="https://images.squarespace-cdn.com/content/v1/5895d62d2994ca86b0cd9807/1520018401057-PP4IGOKSSYDZZHRO7R8O/threat.jpg?format=2500w"
+            src="/images/blog/threat.jpg"
             alt="The Latest Regulatory Threat"
             fill
             className="object-cover"
@@ -216,7 +216,7 @@ export default function TheLatestRegulatoryThreatPage() {
             <div className="flex gap-4 mb-6 pb-6 border-b border-gray-100">
               <div className="w-10 h-10 rounded-full bg-gray-200 flex-shrink-0 overflow-hidden">
                 <Image
-                  src="https://assets.squarespace.com/universal/images-v6/default-avatar.png"
+                  src="/images/misc/default-avatar.png"
                   alt="charona"
                   width={40}
                   height={40}
@@ -249,7 +249,7 @@ export default function TheLatestRegulatoryThreatPage() {
                   rel="noopener noreferrer"
                 >
                   <Image
-                    src="https://assets.squarespace.com/universal/images-v6/default-avatar.png"
+                    src="/images/misc/default-avatar.png"
                     alt="David Gerard"
                     width={40}
                     height={40}
@@ -288,7 +288,7 @@ export default function TheLatestRegulatoryThreatPage() {
                   rel="noopener noreferrer"
                 >
                   <Image
-                    src="https://assets.squarespace.com/universal/images-v6/default-avatar.png"
+                    src="/images/misc/default-avatar.png"
                     alt="Urs"
                     width={40}
                     height={40}

@@ -54,7 +54,7 @@ export default function TzBTCPage() {
               {/* Logo */}
               <div className="flex justify-center mb-12">
                 <Image
-                  src="https://images.squarespace-cdn.com/content/v1/5895d62d2994ca86b0cd9807/1584471858726-YBDOCH4266YDPSLYBNE5/TZBTC+Logo"
+                  src="/images/misc/tzbtc-logo.webp"
                   alt="TZBTC Logo"
                   width={180}
                   height={178}

@@ -89,7 +89,7 @@ const roadshowEvents: RoadshowEvent[] = [
     href: "/roadshow-2025/2025/2/21/bas-roadshow-lausanne",
     hasImage: true,
     imageUrl:
-      "https://images.squarespace-cdn.com/content/v1/5895d62d2994ca86b0cd9807/6bb0f5c0-1021-4992-9b30-032a5cd98c92/BAS+Roadshow+2025.jpg",
+      "/images/branding/bas-roadshow-2025.jpg",
   },
   {
     id: "bern",

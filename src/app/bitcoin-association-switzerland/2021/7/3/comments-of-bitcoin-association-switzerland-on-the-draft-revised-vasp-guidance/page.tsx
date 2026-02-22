@@ -17,7 +17,7 @@ export default function PrudentialTreatmentCryptoassetExposures() {
       {/* Hero Banner */}
       <div className="relative w-full h-[300px] md:h-[400px] mt-20">
         <Image
-          src="https://images.squarespace-cdn.com/content/v1/5895d62d2994ca86b0cd9807/1625316894565-48R3KDJ62EIEK3979TFK/June.jpg?format=2500w"
+          src="/images/events/june-meetup.jpg"
           alt="Prudential Treatment of Cryptoasset Exposures"
           fill
           className="object-cover"

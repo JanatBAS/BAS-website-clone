@@ -216,7 +216,7 @@ export default function EventsPage() {
             <figure className="flex flex-col items-center">
               <div className="relative w-full max-w-2xl aspect-[3/2] overflow-hidden rounded-lg">
                 <Image
-                  src="https://images.squarespace-cdn.com/content/v1/5895d62d2994ca86b0cd9807/1509367420387-9GBUFUZ0Q7X0ICXBY0L3/andreas.jpeg"
+                  src="/images/blog/andreas.jpeg"
                   alt="Technologist, serial entrepreneur and author Andreas M. Antonopoulos speaking in Zurich."
                   fill
                   className="object-cover"

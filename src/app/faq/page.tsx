@@ -130,7 +130,7 @@ export default function FAQPage() {
       {/* Hero Banner Image */}
       <div className="relative w-full h-[200px] md:h-[300px] mt-20">
         <Image
-          src="https://images.squarespace-cdn.com/content/v1/5895d62d2994ca86b0cd9807/1722763103892-VLBSWTH5RGMHV9JL2E1R/faq.png"
+          src="/images/misc/faq.png"
           alt="FAQ"
           fill
           className="object-cover"

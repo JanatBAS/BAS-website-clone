@@ -17,7 +17,7 @@ export default function BaselCommitteeCommentPage() {
         {/* Hero Banner with City Image */}
         <div className="relative w-full h-[300px] md:h-[400px]">
           <Image
-            src="https://images.squarespace-cdn.com/content/v1/5895d62d2994ca86b0cd9807/1584017859238-JP46VXGK5XY26VO0H5X2/basel.jpg?format=2500w"
+            src="/images/blog/basel.jpg"
             alt="Our Comment on Designing a prudential treatment for cryptoassets of the Basel Committee on Banking Supervision"
             fill
             className="object-cover"
@@ -131,7 +131,7 @@ export default function BaselCommitteeCommentPage() {
               <div className="flex items-start gap-4">
                 <div className="w-10 h-10 rounded-full bg-gray-200 flex-shrink-0 overflow-hidden">
                   <Image
-                    src="https://assets.squarespace.com/universal/images-v6/default-avatar.png"
+                    src="/images/misc/default-avatar.png"
                     alt="Luzius Meisser"
                     width={40}
                     height={40}

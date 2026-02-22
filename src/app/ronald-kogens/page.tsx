@@ -58,7 +58,7 @@ export default function RonaldKogensPage() {
               {/* Profile Photo */}
               <div className="mb-6">
                 <Image
-                  src="https://images.squarespace-cdn.com/content/v1/5895d62d2994ca86b0cd9807/70fca5c0-4478-43cf-bd18-9d7c564bd2c6/1553447653904.jpeg"
+                  src="/images/candidates/candidate-1553447653904.jpeg"
                   alt="Ronald Kogens"
                   width={400}
                   height={400}

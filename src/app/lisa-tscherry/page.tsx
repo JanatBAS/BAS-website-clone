@@ -59,7 +59,7 @@ export default function LisaTscherryPage() {
               {/* Profile Image */}
               <div className="mb-6">
                 <Image
-                  src="https://images.squarespace-cdn.com/content/v1/5895d62d2994ca86b0cd9807/c327ab12-db94-44c4-b15f-86ca7f7a608a/1685636630658.jpeg"
+                  src="/images/candidates/candidate-1685636630658.jpeg"
                   alt="Lisa Tscherry"
                   width={280}
                   height={350}

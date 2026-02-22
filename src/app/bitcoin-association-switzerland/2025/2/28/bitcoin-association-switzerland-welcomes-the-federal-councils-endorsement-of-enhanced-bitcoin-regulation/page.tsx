@@ -68,7 +68,7 @@ export default function FederalCouncilEndorsementPage() {
             {/* Main Image */}
             <div className="my-8">
               <Image
-                src="https://images.squarespace-cdn.com/content/v1/5895d62d2994ca86b0cd9807/ce60abf1-c90f-4498-bf52-9fb4d8640164/Bas_people.jpg"
+                src="/images/branding/bas-people.jpg"
                 alt="Bitcoin Association Switzerland delegation"
                 width={800}
                 height={533}

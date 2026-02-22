@@ -92,7 +92,7 @@ export default function TimelinePage() {
       {/* Hero Banner Image */}
       <div className="relative w-full h-[200px] md:h-[300px] mt-20">
         <Image
-          src="https://images.squarespace-cdn.com/content/v1/5895d62d2994ca86b0cd9807/1722764266654-ROAUQDRVS2YED5Q5SE0M/timeline.png"
+          src="/images/misc/timeline.png"
           alt="Timeline"
           fill
           className="object-cover"

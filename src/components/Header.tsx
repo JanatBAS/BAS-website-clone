@@ -265,7 +265,7 @@ export default function Header() {
           {/* Logo */}
           <Link href="/" className="flex-shrink-0">
             <Image
-              src="https://images.squarespace-cdn.com/content/v1/5895d62d2994ca86b0cd9807/fe5fab46-02c5-44d0-8de7-74185cd0904c/Bitcoin+Association+Switzerland.png?format=500w"
+              src="/images/branding/logo-horizontal.png"
               alt="Bitcoin Association Switzerland"
               width={200}
               height={50}

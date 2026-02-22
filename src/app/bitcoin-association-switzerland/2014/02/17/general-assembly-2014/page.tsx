@@ -86,7 +86,7 @@ export default function GeneralAssembly2014Page() {
                 rel="noopener noreferrer"
               >
                 <Image
-                  src="http://static1.squarespace.com/static/5895d62d2994ca86b0cd9807/59025f1030454480d862303c/59025f1430454480d8623078/1493327636432/colab_zurich_logo.png?format=original"
+                  src="/images/blog/colab-zurich-logo.png"
                   alt="Colab Zurich Logo"
                   width={300}
                   height={150}

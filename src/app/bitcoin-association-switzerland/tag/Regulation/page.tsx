@@ -40,7 +40,7 @@ const regulationPosts: BlogPost[] = [
       "While the Bank for International Settlement / Basel Committee on Banking Supervision continues to propose regulation, they also have developed a habit of not addressing legitimate concerns from the community. That is highly regrettable, but no reason to throw in the towel. So the Bitcoin Association Switzerland continues to provide constructive feedback and - so we think - well argued suggestions on how to improve on the longterm goals of the BIS to make the space safer and allow for more innovation.\n\nThe letter we sent out this week is continuing this tradition.",
     href: "/bitcoin-association-switzerland/2022/8/10/prudential-treatment-of-cryptoasset-exposures-ii",
     image:
-      "https://images.squarespace-cdn.com/content/v1/5895d62d2994ca86b0cd9807/1660148501401-GDNI2ZA03O3AI2DBF64S/header7.jpg?format=2500w",
+      "/images/events/header7.jpg",
     commentCount: 3,
     likeCount: 10,
   },
@@ -53,7 +53,7 @@ const regulationPosts: BlogPost[] = [
       "The Bank for International Settlement (BIS) has recently published a consultative paper on the Prudential Treatment of Crytpoasset Exposure. Being good citizens, we were happy to follow the BIS' call for a response to their proposals with constructive feedback that not only points out where they err, but more importantly how some of the proposed principals will prove detrimental to the stability of the financial system they BIS is trying to protect. Never has a proverb being more fitting than this: the path to hell is paved with good intentions.",
     href: "/bitcoin-association-switzerland/2021/7/3/comments-of-bitcoin-association-switzerland-on-the-draft-revised-vasp-guidance",
     image:
-      "https://images.squarespace-cdn.com/content/v1/5895d62d2994ca86b0cd9807/1625316894565-48R3KDJ62EIEK3979TFK/June.jpg?format=2500w",
+      "/images/events/june-meetup.jpg",
     commentCount: 1,
     likeCount: 1,
   },
@@ -67,7 +67,7 @@ const regulationPosts: BlogPost[] = [
       'Today we sent the following letter to the Financial Stability Board of the G-20 commenting on their risk assessment for "global stablecoins":',
     href: "/bitcoin-association-switzerland/on-the-risk-assessment-for-global-stablecoins-of-the-g20s-financial-stability-board",
     image:
-      "https://images.squarespace-cdn.com/content/v1/5895d62d2994ca86b0cd9807/1592639163221-RXP2V0ZPFYHH8B88Z4Z5/fsb2.png?format=2500w",
+      "/images/blog/fsb2.png",
     commentCount: 1,
     likeCount: 7,
   },
@@ -80,7 +80,7 @@ const regulationPosts: BlogPost[] = [
       "On the 8th of April 2020 we sent the following comment to FINMA regarding the new money laundering ordinance...",
     href: "/bitcoin-association-switzerland/2020/4/9/our-comment-on-gwv-finma-adjustment-for-finsa-finia",
     image:
-      "https://images.squarespace-cdn.com/content/v1/5895d62d2994ca86b0cd9807/1590915938137-1C75QPLGN3SQ2KRXW0UQ/2020-04-07%2BBitcoin%2BAssociation%2BSwitzerland%2B-%2BFinma%2BComment.jpg?format=500w",
+      "/images/blog/finma-comment.jpg",
     commentCount: 1,
     likeCount: 4,
   },
@@ -94,7 +94,7 @@ const regulationPosts: BlogPost[] = [
       "In December 2019 the Basel Committee on Banking Supervision published a discussion paper on the design of a prudential treatment for crypto-assets and welcomed comments on its analyses and ideas. The comment submitted by the Bitcoin Association Switzerland are the following...",
     href: "/bitcoin-association-switzerland/our-comment-on-designing-a-prudential-treatment-for-cryptoassets-of-the-basel-committee-on-banking-supervision",
     image:
-      "https://images.squarespace-cdn.com/content/v1/5895d62d2994ca86b0cd9807/1584017859238-JP46VXGK5XY26VO0H5X2/basel.jpg?format=2500w",
+      "/images/blog/basel.jpg",
     commentCount: 1,
     likeCount: 6,
   },
@@ -118,7 +118,7 @@ const regulationPosts: BlogPost[] = [
       "In March, the Federal Council presented a draft for a number of legal adjustments and invited Bitcoin Association Switzerland to take part in the public consultation. The consultation phase ends this month and we have filed an extensive comment, in which we support the position of the Swiss Blockchain Federation and lay out some of our common concerns in more detail. In this blog post, I will summarize the content of the proposed law as well as the comments of both Blockchain Federation and Bitcoin Association.",
     href: "/bitcoin-association-switzerland/2019/6/27/our-comment-on-the-swiss-blockchain-law",
     image:
-      "https://images.squarespace-cdn.com/content/v1/5895d62d2994ca86b0cd9807/1561722207919-POHSK01LHZR0HKI1UBU1/bitcoin-regulation-cryptocurrency-exchange.jpg?format=1000w",
+      "/images/blog/bitcoin-regulation.jpg",
     commentCount: 2,
     likeCount: 11,
   },

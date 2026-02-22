@@ -12,7 +12,7 @@ export default function WhyStoringBitcoinsPage() {
         {/* Hero Banner */}
         <div className="relative h-[400px] md:h-[500px] overflow-hidden">
           <Image
-            src="https://images.squarespace-cdn.com/content/v1/5895d62d2994ca86b0cd9807/1527748625110-S7D6CZO6B91C41JI82GK/ADWhiteReadingRoom%2C_CornellUniversity.jpg?format=2500w"
+            src="/images/blog/cornell-reading-room.jpg"
             alt="Why storing Bitcoins for clients does not make you a bank"
             fill
             className="object-cover"

@@ -19,7 +19,7 @@ export default function VASPGuidanceCommentsPage() {
         {/* Hero Banner */}
         <div className="relative h-[400px] md:h-[500px] overflow-hidden">
           <Image
-            src="https://images.squarespace-cdn.com/content/v1/5895d62d2994ca86b0cd9807/1625317027225-0V2QI222IZBXZV25EUYN/april.jpg?format=2500w"
+            src="/images/events/april-meetup.jpg"
             alt="Comments of Bitcoin Association Switzerland on the draft revised VASP Guidance"
             fill
             className="object-cover"
@@ -247,7 +247,7 @@ export default function VASPGuidanceCommentsPage() {
               <div className="flex items-start gap-4">
                 <div className="w-10 h-10 rounded-full bg-gray-200 flex-shrink-0 overflow-hidden">
                   <Image
-                    src="https://assets.squarespace.com/universal/images-v6/default-avatar.png"
+                    src="/images/misc/default-avatar.png"
                     alt="Michael Bruggler"
                     width={40}
                     height={40}

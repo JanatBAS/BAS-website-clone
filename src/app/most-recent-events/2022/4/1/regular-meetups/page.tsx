@@ -11,7 +11,7 @@ export default function RegularMeetupsPage() {
       {/* Hero Image with Tagline Overlay */}
       <div className="relative w-full h-[300px] mt-20">
         <Image
-          src="https://images.squarespace-cdn.com/content/v1/5895d62d2994ca86b0cd9807/1555097535318-T2XJTHLGARGBMIHCZ5IK/regular_meetup.jpeg?format=2500w"
+          src="/images/events/regular-meetup.jpeg"
           alt="Regular Meetups"
           fill
           className="object-cover"

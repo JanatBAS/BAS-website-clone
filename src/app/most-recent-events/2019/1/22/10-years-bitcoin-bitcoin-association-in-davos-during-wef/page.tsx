@@ -12,7 +12,7 @@ export default function TenYearsBitcoinDavosPage() {
       <section className="relative w-full h-[200px] mt-20 bg-[#1a1a1a]">
         <div className="absolute inset-0">
           <Image
-            src="https://images.squarespace-cdn.com/content/v1/5895d62d2994ca86b0cd9807/1555097945124-YDELNBEU4JT5QNJP0Z1F/davos.jpg?format=2500w"
+            src="/images/events/davos.jpg"
             alt="10 Years Bitcoin - Davos"
             fill
             className="object-cover opacity-60"

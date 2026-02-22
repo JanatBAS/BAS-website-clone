@@ -14,11 +14,6 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'images.squarespace-cdn.com',
-        pathname: '/**',
-      },
-      {
-        protocol: 'https',
         hostname: 'coin-images.coingecko.com',
         pathname: '/**',
       },

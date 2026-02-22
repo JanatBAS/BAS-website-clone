@@ -14,7 +14,7 @@ interface FeatureCard {
 
 const cards: FeatureCard[] = [
   {
-    image: "https://images.squarespace-cdn.com/content/v1/5895d62d2994ca86b0cd9807/1563354199228-0X8V4KH8AJ67UZI0QY6Z/1.jpg",
+    image: "/images/events/antonopoulos-talk.jpg",
     imageAlt: "About Bitcoin Association Switzerland",
     title: "About",
     titleLink: "/about-1",
@@ -23,7 +23,7 @@ const cards: FeatureCard[] = [
     ctaLink: "/about-1",
   },
   {
-    image: "https://images.squarespace-cdn.com/content/v1/5895d62d2994ca86b0cd9807/1563354353803-U6B96VGNWCKLD4E8VRHD/bas_gv_2018_bw.jpeg",
+    image: "/images/branding/bas-gv-2018-bw.jpeg",
     imageAlt: "Join Bitcoin Association Switzerland",
     title: "Join US",
     titleLink: "/meetups-events",

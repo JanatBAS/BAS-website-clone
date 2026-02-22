@@ -57,7 +57,7 @@ export default function BitcoinOnRtsAndEuronewsPage() {
               rel="noopener noreferrer"
             >
               <Image
-                src="https://images.squarespace-cdn.com/content/5895d62d2994ca86b0cd9807/1493327692266-15IDXWZ20QV7CB8AULO1/euronews.jpg?content-type=image%2Fjpeg"
+                src="/images/blog/euronews.jpg"
                 alt="Luzius Meisser on euronews"
                 width={400}
                 height={300}

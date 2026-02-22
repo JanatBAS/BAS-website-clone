@@ -95,7 +95,7 @@ const blogPostRegistry: Record<string, BlogPostContent> = {
       tags: ["Regulation"],
       likeCount: 11,
       featuredImage:
-        "https://images.squarespace-cdn.com/content/v1/5895d62d2994ca86b0cd9807/1561722207919-POHSK01LHZR0HKI1UBU1/bitcoin-regulation-cryptocurrency-exchange.jpg?format=2500w",
+        "/images/blog/bitcoin-regulation.jpg",
       newerPost: {
         title: "Crypto Valley Association Issues Questionable Recommendations",
         href: "/bitcoin-association-switzerland/2019/12/3/crypto-valley-association-issues-questionable-recommendations",

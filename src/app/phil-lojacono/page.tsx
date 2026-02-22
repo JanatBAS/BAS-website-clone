@@ -58,7 +58,7 @@ export default function PhilLojaconoPage() {
               {/* Profile Photo */}
               <div className="mb-8">
                 <Image
-                  src="https://images.squarespace-cdn.com/content/v1/5895d62d2994ca86b0cd9807/b6648b44-0641-40c5-b313-4acd513f1332/Photo_PhilLojacono.jpg"
+                  src="/images/board/phil-lojacono.jpg"
                   alt="Phil Lojacono"
                   width={300}
                   height={400}

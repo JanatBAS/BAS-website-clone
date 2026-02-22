@@ -5,7 +5,7 @@ export default function Hero() {
     <section className="relative w-full h-[50vh] md:h-[55vh] lg:h-[60vh]">
       {/* Background Image */}
       <Image
-        src="https://images.squarespace-cdn.com/content/v1/5895d62d2994ca86b0cd9807/1731266806784-123YYCP5HJCJDHFQ19NH/BAS_background_winter1.jpg?format=2500w"
+        src="/images/branding/bas-background-winter.jpg"
         alt="Mountain sunrise landscape"
         fill
         className="object-cover"

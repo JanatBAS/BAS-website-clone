@@ -77,7 +77,7 @@ export default function WhoNeedsInternetEventPage() {
               {/* Event Image */}
               <div className="mb-6">
                 <Image
-                  src="https://images.squarespace-cdn.com/content/v1/5895d62d2994ca86b0cd9807/1580830028280-IM7APR9ZUNBI5YNURI4A/IMG_6354.jpeg?format=2500w"
+                  src="/images/events/christmas-meetup.jpeg"
                   alt="Who Needs the Internet Anyway: Taking Bitcoin Transactions Offline"
                   width={600}
                   height={400}

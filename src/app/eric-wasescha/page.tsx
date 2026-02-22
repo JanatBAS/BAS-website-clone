@@ -59,7 +59,7 @@ export default function EricWaseschaPage() {
               {/* Profile Image */}
               <div className="mb-6">
                 <Image
-                  src="https://images.squarespace-cdn.com/content/v1/5895d62d2994ca86b0cd9807/81991409-1930-4f46-8977-50ee2114a0ce/Eric+Wasescha.png"
+                  src="/images/candidates/eric-wasescha.png"
                   alt="Eric Wasescha"
                   width={280}
                   height={350}

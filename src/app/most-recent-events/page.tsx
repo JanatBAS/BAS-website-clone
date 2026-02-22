@@ -35,7 +35,7 @@ const events: Event[] = [
     description:
       "Every second Wednesday we meet in Zurich and every fourth Wednesday in Geneva. There are also Bitcoin meetups in other cities on a less regular schedule. Please contact us if you plan to start a meetup in your city and we will help you as good as we can!\n\nBesides our regular beer & Bitcoin meetups, we organize various events. You can find an overview of our past events for this year below.\n\nJoin us at meetup.com to sign up for our events!",
     image:
-      "https://images.squarespace-cdn.com/content/v1/5895d62d2994ca86b0cd9807/1555097535318-T2XJTHLGARGBMIHCZ5IK/regular_meetup.jpeg?format=500w",
+      "/images/events/regular-meetup.jpeg",
     likes: 1,
     googleCalendarUrl:
       "http://www.google.com/calendar/event?action=TEMPLATE&text=Regular%20Meetups&dates=20220401T170000Z/20220401T180000Z",
@@ -56,7 +56,7 @@ const events: Event[] = [
     description:
       'At this "Industry Insights" meetup, Elizabeth will give us some interesting insights into the Lightning Network. Short talk, no slides, q&a, causal get-together.',
     image:
-      "https://images.squarespace-cdn.com/content/v1/5895d62d2994ca86b0cd9807/1580830689343-1T2NDNX01ILN41SPXMLS/z.jpeg?format=500w",
+      "/images/events/meetup-z.jpeg",
     likes: 0,
     googleCalendarUrl:
       "http://www.google.com/calendar/event?action=TEMPLATE&text=Lightning%20Meetup%20with%20Elizabeth%20Stark%20%28CEO%20Lightning%20Labs%29&dates=20200113T180000Z/20200113T190000Z&location=Langstrasse%20136",
@@ -77,7 +77,7 @@ const events: Event[] = [
     description:
       "Bitcoin Association Switzerland invited for a Christmas Special Bitcoin Meetup Zurich.\n\nDouglas Bakkum, Co-founder and CEO of Shift Cryptosecurity gave us some exciting insights into the industry's cat and mouse game of securing private keys",
     image:
-      "https://images.squarespace-cdn.com/content/v1/5895d62d2994ca86b0cd9807/1580830436549-5ANR19EWCG0LJC0LPBQL/highres_486983933.jpeg?format=500w",
+      "/images/events/lightning-meetup.jpeg",
     likes: 0,
     googleCalendarUrl:
       "http://www.google.com/calendar/event?action=TEMPLATE&text=Bitcoin%20Christmas%20Meetup%20Z%C3%BCrich&dates=20191218T180000Z/20191218T225900Z&location=Langstrasse%20136",
@@ -98,7 +98,7 @@ const events: Event[] = [
     description:
       "Bitcoin is considered to be currency of the internet. But what happens if someone has a poor internet connection, or loses it entirely? Neil takes a look at the technologies being built to keep Bitcoin running regardless of network disruptions, including Blockstream Satellite and goTenna mesh networks.",
     image:
-      "https://images.squarespace-cdn.com/content/v1/5895d62d2994ca86b0cd9807/1580830028280-IM7APR9ZUNBI5YNURI4A/IMG_6354.jpeg?format=500w",
+      "/images/events/christmas-meetup.jpeg",
     likes: 0,
     googleCalendarUrl:
       "http://www.google.com/calendar/event?action=TEMPLATE&text=Who%20Needs%20the%20Internet%20Anyway%3A%20Taking%20Bitcoin%20Transactions%20Offline&dates=20191015T170000Z/20191015T180000Z",
@@ -120,7 +120,7 @@ const events: Event[] = [
     description:
       'With over 1\'500 signup this was the biggest Bitcoin meetup event ever in Europe.\n\nTalks:\n\nThoughts on The Future of Programmable Money - Andreas M. Antonopoulos\n\nAn enlightening speech about the future of programmable money ending with a standing ovation!\n\nA video of the speech can be found on YouTube.\n\nCryptoasset Inheritance Planning - Pamela Morgan\n\nWill your loved ones be able to access your bitcoin, ether, or other cryptoassets if something happens to you? For most cryptoasset owners, the answer is no. Attend this talk and learn how to start building a cryptoasset inheritance plan for your loved ones, without relying on a single third party, and without giving them your keys now.',
     image:
-      "https://images.squarespace-cdn.com/content/v1/5895d62d2994ca86b0cd9807/1563354131936-O9QJ0IL9KE0GRA33IFGE/1.jpg?format=500w",
+      "/images/events/antonopoulos-talk.jpg",
     likes: 1,
     googleCalendarUrl:
       "http://www.google.com/calendar/event?action=TEMPLATE&text=Andreas%20M.%20Antonopoulos%3A%20Thoughts%20on%20The%20Future%20of%20Programmable%20Money.&dates=20190623T170000Z/20190623T180000Z",
@@ -141,7 +141,7 @@ const events: Event[] = [
     description:
       "Drivechain is a proposed soft fork of Bitcoin that allows BTC to travel to and from any other piece of software. How does it work? Does it have any detrimental effects? Do we *want* some sidechains to fail (and why)?",
     image:
-      "https://images.squarespace-cdn.com/content/v1/5895d62d2994ca86b0cd9807/1563353920029-FNNDW3H0SC8JXSK4953P/paul.jpg?format=500w",
+      "/images/events/paul-sztorc.jpg",
     likes: 1,
     googleCalendarUrl:
       "http://www.google.com/calendar/event?action=TEMPLATE&text=Sidechains%20on%20BTC%20--%20Drivechain%20and%20Blind%20Merged%20Mining%20-%20Paul%20Sztorc&dates=20190606T170000Z/20190606T180000Z",
@@ -162,7 +162,7 @@ const events: Event[] = [
     description:
       "The members of the Bitcoin Association Switzerland came together to discuss and decide on various things.",
     image:
-      "https://images.squarespace-cdn.com/content/v1/5895d62d2994ca86b0cd9807/1563353801249-II3IT1HTUUTQO7E0WDSN/logo_with_name_next_to_it_big.png?format=500w",
+      "/images/branding/logo-with-name-big.png",
     likes: 1,
     googleCalendarUrl:
       "http://www.google.com/calendar/event?action=TEMPLATE&text=Annual%20General%20Assembly%20of%20the%20Bitcoin%20Association%20Switzerland%20-%202019&dates=20190522T170000Z/20190522T180000Z",
@@ -183,7 +183,7 @@ const events: Event[] = [
     description:
       'In this tech-talk we examined all current and proposed mechanisms for creating a "Bitcoin Vault".',
     image:
-      "https://images.squarespace-cdn.com/content/v1/5895d62d2994ca86b0cd9807/1555098023010-L99ESNM4E9YUE04P6595/dr.bob.jpeg?format=500w",
+      "/images/events/dr-bob.jpeg",
     likes: 1,
     googleCalendarUrl:
       "http://www.google.com/calendar/event?action=TEMPLATE&text=On-Chain%20Defense%20in%20Depth%20-%20Dr.%20Bob%20McElrath&dates=20190125T180000Z/20190125T190000Z",
@@ -204,7 +204,7 @@ const events: Event[] = [
     description:
       "The Bitcoin Association Switzerland hosted a 1 hour session in Davos, talking about Bitcoin, the past 10 years and its future.",
     image:
-      "https://images.squarespace-cdn.com/content/v1/5895d62d2994ca86b0cd9807/1555097945124-YDELNBEU4JT5QNJP0Z1F/davos.jpg?format=500w",
+      "/images/events/davos.jpg",
     likes: 1,
     googleCalendarUrl:
       "http://www.google.com/calendar/event?action=TEMPLATE&text=10%20Years%20Bitcoin%20-%20Bitcoin%20Association%20in%20Davos%20%28during%20WEF%29&dates=20190122T130000Z/20190122T140000Z&location=Davos",

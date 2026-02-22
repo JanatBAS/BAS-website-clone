@@ -244,7 +244,7 @@ export default function BitcoinGoldPage() {
             {/* Bitcoin Gold Logo */}
             <div className="my-8 text-center">
               <Image
-                src="https://images.squarespace-cdn.com/content/v1/5895d62d2994ca86b0cd9807/1509428658477-QRG2KUL1OPG5221EIPXV/gvSqOHmR_400x400.jpg"
+                src="/images/blog/tone-vays.jpg"
                 alt="Bitcoin Gold Logo"
                 width={400}
                 height={400}

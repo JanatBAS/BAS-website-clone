@@ -27,7 +27,7 @@ const featuredPost: BlogPost = {
     "The Bitcoin Association Switzerland supports the 12-point program jointly developed by leading industry associations to foster a strong and future-oriented environment for digital innovation in Switzerland. We believe this framework is an important step toward ensuring regulatory clarity, technological advancement, and an open, competitive financial system that empowers individuals and businesses alike.",
   href: "/bitcoin-association-switzerland/2025/12/8/statement-on-12-point-program",
   image:
-    "https://images.squarespace-cdn.com/content/v1/5895d62d2994ca86b0cd9807/1660148501401-GDNI2ZA03O3AI2DBF64S/header7.jpg?format=2500w",
+    "/images/events/header7.jpg",
 };
 
 const uncategorizedPosts: BlogPost[] = [
@@ -53,7 +53,7 @@ const uncategorizedPosts: BlogPost[] = [
       'Together with 23 co-signatories from all major parties, Swiss member of parliament Franz Gruter filed a parliamentary motion to reduce regulatory burdens of blockchain startups by restricting the legal definition of "client deposit". Today, firms that handle client money - regardless of whether in Swiss Francs, Bitcoin, or any other currency - get very quickly classified as banks, even if their risk profile fundamentally differs from that of typical banks. Being classified as a bank comes with regulatory and capital requirements that are practically impossible to fulfill for startups. That might be the primary reason why there is not a single operationally active cryptocurrency exchange in the style of bitstamp or bitfinex in Switzerland despite having an otherwise lively ecosystem of crypto startups. Luzius Meisser, founder of Bitcoin Association Switzerland comments: "This motion is a strong signal to blockchain startups all around the world that the Swiss parliament wants Switzerland to be at the forefront of fintech innovation."',
     href: "/bitcoin-association-switzerland/2016/06/20/swiss-parliamentary-motion-to-reduce-blockchain-regulation",
     image:
-      "http://static1.squarespace.com/static/5895d62d2994ca86b0cd9807/59025f1030454480d862303c/59025f1a30454480d86230c0/1493327642012/parliament.jpg?format=original",
+      "/images/blog/parliament.jpg",
     commentCount: 1,
     likeCount: 0,
   },
@@ -67,7 +67,7 @@ const uncategorizedPosts: BlogPost[] = [
       "The Bitcoin Assocation is invited to hold a talk about Bitcoin about twice per month at average. Here is a picture of one of the more notable events with 300 registered participants.",
     href: "/bitcoin-association-switzerland/2014/12/05/talk-at-sipug-day",
     image:
-      "http://static1.squarespace.com/static/5895d62d2994ca86b0cd9807/59025f1030454480d862303c/59025f1930454480d86230be/1493327641772/sipug.jpg?format=original",
+      "/images/blog/sipug.jpg",
     commentCount: 0,
     likeCount: 0,
   },
@@ -93,7 +93,7 @@ const uncategorizedPosts: BlogPost[] = [
       'The enormous computing power of the GHash.IO pool sparked another debate about 51%-attacks. Pools with such a large share of the total hash rate threaten Bitcoin\'s decentralized nature and make Bitcoin depend on the benevolence of the dominating pool - in this case GHash.IO. Obviously, it is not in the self-interest of miners to all mine in the same pool, as it undermines Bitcoins value. When asked, why they do so anyway, one frequent answer is "luck smoothing". In this post, I want to dispel this argument.',
     href: "/bitcoin-association-switzerland/2014/06/15/miners-luck-smoothing-excuse-does-not-hold-up-to-scrutiny",
     image:
-      "http://static1.squarespace.com/static/5895d62d2994ca86b0cd9807/59025f1030454480d862303c/59025f1730454480d862309c/1493327639051/pools.png?format=original",
+      "/images/blog/pools.png",
     commentCount: 2,
     likeCount: 1,
   },
@@ -131,7 +131,7 @@ const uncategorizedPosts: BlogPost[] = [
       'As announced, our general assembly will take place on 2014-02-23 at Colab Zurich (Zentralstrasse 37, colab-zurich.ch). The doors open at 14:00 and the assembly formally starts at 14:15. You can find the agenda and comment on it here.\nIn particular, I\'d like to point you to traktandum 7 (as we Swiss call agenda items) "Where to spend your Bitcoins?". Send me an image/screenshot of your favorite underappreciated Bitcoin service and we\'ll present it at the assembly. You may also use this opportunity to advertise own stuff for sale (e.g. your car).\n\nFurther highlights are an intro to Ethereum by the founders themselves and a quick presentation of Veeting, a Swiss secure video conference software accepting Bitcoin. Also, we have an ATM project getting more concrete and consider launching a Bureaucracy Relief Fund.\n\nThen, most importantly, we finally have our membership application form online on our join page. Fill it in to formally become a member!\n\nWe also would like to thank colab zurich for providing this excellent event location!',
     href: "/bitcoin-association-switzerland/2014/02/17/general-assembly-2014",
     image:
-      "http://static1.squarespace.com/static/5895d62d2994ca86b0cd9807/59025f1030454480d862303c/59025f1430454480d8623078/1493327636432/colab_zurich_logo.png?format=original",
+      "/images/blog/colab-zurich-logo.png",
     commentCount: 0,
     likeCount: 0,
   },
@@ -183,7 +183,7 @@ const uncategorizedPosts: BlogPost[] = [
       "I had a quick appearance on French-speaking Swiss TV RTS as well as on euronews.",
     href: "/bitcoin-association-switzerland/2013/11/07/bitcoin-on-rts-and-euronews",
     image:
-      "http://static1.squarespace.com/static/5895d62d2994ca86b0cd9807/59025f1030454480d862303c/59025f1230454480d8623057/1493327634184/euronews.jpg?format=original",
+      "/images/blog/euronews.jpg",
     commentCount: 0,
     likeCount: 0,
   },

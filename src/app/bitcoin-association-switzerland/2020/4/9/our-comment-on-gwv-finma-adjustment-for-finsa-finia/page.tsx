@@ -12,7 +12,7 @@ export default function BlogPostPage() {
         {/* Hero Banner */}
         <div className="relative h-[250px] md:h-[300px] overflow-hidden">
           <Image
-            src="https://images.squarespace-cdn.com/content/v1/5895d62d2994ca86b0cd9807/1590915938137-1C75QPLGN3SQ2KRXW0UQ/2020-04-07%2BBitcoin%2BAssociation%2BSwitzerland%2B-%2BFinma%2BComment.jpg?format=2500w"
+            src="/images/blog/finma-comment.jpg"
             alt="Our Comment on GWV-FINMA adjustment for FinSA / FinIA"
             fill
             className="object-cover"

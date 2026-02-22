@@ -107,7 +107,7 @@ export default function BASRoadshowLausannePage() {
               {/* Roadshow Image */}
               <div className="mt-8">
                 <Image
-                  src="https://images.squarespace-cdn.com/content/v1/5895d62d2994ca86b0cd9807/6bb0f5c0-1021-4992-9b30-032a5cd98c92/BAS+Roadshow+2025.jpg"
+                  src="/images/branding/bas-roadshow-2025.jpg"
                   alt="BAS Roadshow 2025"
                   width={500}
                   height={707}

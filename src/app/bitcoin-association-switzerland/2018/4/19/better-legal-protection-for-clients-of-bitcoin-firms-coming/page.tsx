@@ -20,7 +20,7 @@ export default function BetterLegalProtectionPage() {
         <div className="relative w-full h-[300px] md:h-[400px]">
           {/* Background Image */}
           <Image
-            src="https://images.squarespace-cdn.com/content/v1/5895d62d2994ca86b0cd9807/1523969241135-TUY8W4QZU5PR74BWYIRT/insurance-1991213_960_720.jpg?format=2500w"
+            src="/images/blog/insurance.jpg"
             alt="Better legal protection for clients of Bitcoin firms coming?"
             fill
             className="object-cover"

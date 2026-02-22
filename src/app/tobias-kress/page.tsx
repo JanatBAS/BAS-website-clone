@@ -32,7 +32,7 @@ export default function TobiasKressPage() {
       {/* Hero Banner Image */}
       <div className="relative w-full h-[200px] md:h-[300px] mt-20">
         <Image
-          src="https://images.squarespace-cdn.com/content/v1/5895d62d2994ca86b0cd9807/1722766386773-X47ITEA8Y3YR41UIER3J/candid.png"
+          src="/images/candidates/candid.png"
           alt="Candidates"
           fill
           className="object-cover"
@@ -76,7 +76,7 @@ export default function TobiasKressPage() {
               {/* Profile Photo */}
               <div className="mb-8">
                 <Image
-                  src="https://images.squarespace-cdn.com/content/v1/5895d62d2994ca86b0cd9807/26da665a-13b1-41e0-ab04-59f2496de542/Tobias_pic.jpg"
+                  src="/images/board/tobias-pic.jpg"
                   alt="Tobias Kress"
                   width={280}
                   height={350}

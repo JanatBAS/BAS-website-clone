@@ -107,7 +107,7 @@ export default function FederalCouncilReportPage() {
             <div className="flex gap-4 py-4 border-t border-gray-100">
               <div className="flex-shrink-0">
                 <Image
-                  src="https://assets.squarespace.com/universal/images-v6/default-avatar.png"
+                  src="/images/misc/default-avatar.png"
                   alt="Avatar"
                   width={40}
                   height={40}

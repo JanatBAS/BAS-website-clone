@@ -58,7 +58,7 @@ export default function RalphHofackerPage() {
               {/* Profile Image */}
               <div className="mb-6">
                 <Image
-                  src="https://images.squarespace-cdn.com/content/v1/5895d62d2994ca86b0cd9807/21b47e55-554a-4b33-a81a-ee737831f743/20200514-142411-_D1_1943-Portrait.jpg"
+                  src="/images/board/lucas-betschart.jpg"
                   alt="Ralph Hofacker"
                   width={280}
                   height={350}

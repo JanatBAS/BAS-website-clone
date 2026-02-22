@@ -101,7 +101,7 @@ export default function CryptoValleyAssociationPage() {
               <div className="flex items-start gap-4">
                 <div className="w-10 h-10 rounded-full bg-gray-200 flex-shrink-0 overflow-hidden">
                   <Image
-                    src="https://assets.squarespace.com/universal/images-v6/default-avatar.png"
+                    src="/images/misc/default-avatar.png"
                     alt="Crypto Valley Association"
                     width={40}
                     height={40}

@@ -76,12 +76,12 @@ export default function MinersLuckSmoothingPage() {
             {/* Pie Chart Image */}
             <div className="text-center my-8">
               <a
-                href="http://static1.squarespace.com/static/5895d62d2994ca86b0cd9807/59025f1030454480d862303c/59025f1730454480d862309c/1493327639051/pools.png?format=original"
+                href="/images/blog/pools.png"
                 target="_blank"
                 rel="noopener noreferrer"
               >
                 <Image
-                  src="http://static1.squarespace.com/static/5895d62d2994ca86b0cd9807/59025f1030454480d862303c/59025f1730454480d862309c/1493327639051/pools.png?format=original"
+                  src="/images/blog/pools.png"
                   alt="Mining pools distribution pie chart"
                   width={400}
                   height={300}
@@ -295,7 +295,7 @@ export default function MinersLuckSmoothingPage() {
             <div className="flex gap-4 py-4 border-t border-gray-100">
               <div className="flex-shrink-0">
                 <Image
-                  src="https://assets.squarespace.com/universal/images-v6/default-avatar.png"
+                  src="/images/misc/default-avatar.png"
                   alt="Avatar"
                   width={40}
                   height={40}
@@ -334,7 +334,7 @@ export default function MinersLuckSmoothingPage() {
             <div className="flex gap-4 py-4 border-t border-gray-100">
               <div className="flex-shrink-0">
                 <Image
-                  src="https://assets.squarespace.com/universal/images-v6/default-avatar.png"
+                  src="/images/misc/default-avatar.png"
                   alt="Avatar"
                   width={40}
                   height={40}

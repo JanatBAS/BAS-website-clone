@@ -32,7 +32,7 @@ export default function AdrianoBertiniPage() {
       {/* Hero Banner Image */}
       <div className="relative w-full h-[200px] md:h-[300px] mt-20">
         <Image
-          src="https://images.squarespace-cdn.com/content/v1/5895d62d2994ca86b0cd9807/1722766386773-X47ITEA8Y3YR41UIER3J/candid.png"
+          src="/images/candidates/candid.png"
           alt="Candidates"
           fill
           className="object-cover"
@@ -76,7 +76,7 @@ export default function AdrianoBertiniPage() {
               {/* Profile Photo */}
               <div className="mb-8">
                 <Image
-                  src="https://images.squarespace-cdn.com/content/v1/5895d62d2994ca86b0cd9807/adbc8159-837c-4676-8027-7a126bc4127e/1589621280083.jpeg"
+                  src="/images/candidates/candidate-1589621280083.jpeg"
                   alt="Adriano Bertini"
                   width={280}
                   height={350}

@@ -122,7 +122,7 @@ export default function DemelzaHaysPage() {
                 <div className="w-full lg:w-72 flex-shrink-0 order-1 lg:order-2">
                   <div className="relative w-full aspect-[3/4] lg:aspect-auto lg:h-80">
                     <Image
-                      src="https://images.squarespace-cdn.com/content/v1/5895d62d2994ca86b0cd9807/6868c6d0-0048-4fa8-a034-c63c69534345/demelza.png"
+                      src="/images/candidates/demelza.png"
                       alt="Demelza Hays"
                       fill
                       className="object-cover object-top"

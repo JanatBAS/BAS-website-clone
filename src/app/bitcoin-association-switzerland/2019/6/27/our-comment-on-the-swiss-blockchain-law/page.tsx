@@ -12,7 +12,7 @@ export default function SwissBlockchainLawCommentPage() {
         {/* Hero Banner */}
         <div className="relative h-[400px] md:h-[500px] overflow-hidden">
           <Image
-            src="https://images.squarespace-cdn.com/content/v1/5895d62d2994ca86b0cd9807/1561722207919-POHSK01LHZR0HKI1UBU1/bitcoin-regulation-cryptocurrency-exchange.jpg?format=2500w"
+            src="/images/blog/bitcoin-regulation.jpg"
             alt="Our Comment on the Swiss Blockchain Law"
             fill
             className="object-cover"
@@ -209,7 +209,7 @@ export default function SwissBlockchainLawCommentPage() {
               <div className="flex items-start gap-4">
                 <div className="w-10 h-10 rounded-full bg-gray-200 flex-shrink-0 overflow-hidden">
                   <Image
-                    src="https://assets.squarespace.com/universal/images-v6/default-avatar.png"
+                    src="/images/misc/default-avatar.png"
                     alt="Enrique"
                     width={40}
                     height={40}
@@ -235,7 +235,7 @@ export default function SwissBlockchainLawCommentPage() {
               <div className="flex items-start gap-4">
                 <div className="w-10 h-10 rounded-full bg-gray-200 flex-shrink-0 overflow-hidden">
                   <Image
-                    src="https://assets.squarespace.com/universal/images-v6/default-avatar.png"
+                    src="/images/misc/default-avatar.png"
                     alt="Luzius"
                     width={40}
                     height={40}

@@ -52,7 +52,7 @@ export default function SwissMoveToReduceBlockchainRegulationPage() {
           {/* Featured Image */}
           <div className="mb-8">
             <Image
-              src="http://static1.squarespace.com/static/5895d62d2994ca86b0cd9807/59025f1030454480d862303c/59025f1a30454480d86230c0/1493327642012/parliament.jpg?format=original"
+              src="/images/blog/parliament.jpg"
               alt="Swiss parliament"
               width={800}
               height={500}
@@ -167,7 +167,7 @@ export default function SwissMoveToReduceBlockchainRegulationPage() {
               <div className="flex gap-3">
                 <div className="flex-shrink-0">
                   <Image
-                    src="https://assets.squarespace.com/universal/images-v6/default-avatar.png"
+                    src="/images/misc/default-avatar.png"
                     alt="Karla G avatar"
                     width={40}
                     height={40}

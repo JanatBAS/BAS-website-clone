@@ -9,7 +9,7 @@ export default function Footer() {
       <div className="bg-white py-12 md:py-16">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-center">
           <Image
-            src="https://images.squarespace-cdn.com/content/v1/5895d62d2994ca86b0cd9807/1486226923132-GES7LLNU167XSPW77W83/image-asset.png"
+            src="/images/branding/logo-footer.png"
             alt="Bitcoin Association Switzerland"
             width={200}
             height={220}

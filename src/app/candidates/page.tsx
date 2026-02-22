@@ -68,7 +68,7 @@ export default function CandidatesPage() {
       {/* Hero Banner Image */}
       <div className="relative w-full h-[200px] md:h-[300px] mt-20">
         <Image
-          src="https://images.squarespace-cdn.com/content/v1/5895d62d2994ca86b0cd9807/1722766386773-X47ITEA8Y3YR41UIER3J/candid.png"
+          src="/images/candidates/candid.png"
           alt="Candidates"
           fill
           className="object-cover"

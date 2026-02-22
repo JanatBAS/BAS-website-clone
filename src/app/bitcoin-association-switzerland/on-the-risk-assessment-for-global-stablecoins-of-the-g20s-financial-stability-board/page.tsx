@@ -12,7 +12,7 @@ export default function BlogPostPage() {
         {/* Hero Banner */}
         <div className="relative h-[250px] md:h-[300px] overflow-hidden">
           <Image
-            src="https://images.squarespace-cdn.com/content/v1/5895d62d2994ca86b0cd9807/1592639163221-RXP2V0ZPFYHH8B88Z4Z5/fsb2.png?format=2500w"
+            src="/images/blog/fsb2.png"
             alt="Our Comment on the risk assessment for global Stablecoins of the G20's Financial Stability Board"
             fill
             className="object-cover"

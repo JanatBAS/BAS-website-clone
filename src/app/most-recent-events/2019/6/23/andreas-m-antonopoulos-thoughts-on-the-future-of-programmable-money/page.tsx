@@ -77,7 +77,7 @@ export default function AndreasAntonopoulosEventPage() {
               {/* Event Image */}
               <div className="mb-6">
                 <Image
-                  src="https://images.squarespace-cdn.com/content/v1/5895d62d2994ca86b0cd9807/1563354131936-O9QJ0IL9KE0GRA33IFGE/1.jpg?format=1500w"
+                  src="/images/events/antonopoulos-talk.jpg"
                   alt="Andreas M. Antonopoulos: Thoughts on The Future of Programmable Money"
                   width={600}
                   height={400}

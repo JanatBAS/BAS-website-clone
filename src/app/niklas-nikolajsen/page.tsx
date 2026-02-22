@@ -58,7 +58,7 @@ export default function NiklasNikolajsenPage() {
               {/* Profile Image */}
               <div className="mb-6">
                 <Image
-                  src="https://images.squarespace-cdn.com/content/v1/5895d62d2994ca86b0cd9807/40f1645a-bfcc-4595-bd65-37f6a32995e7/NINI_portrait.jpg"
+                  src="/images/board/nini-portrait.jpg"
                   alt="Niklas Nikolajsen"
                   width={280}
                   height={350}

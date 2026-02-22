@@ -12,7 +12,7 @@ export default function LightningMeetupElizabethStarkPage() {
       <section className="relative w-full h-[200px] mt-20 bg-[#1a1a1a]">
         <div className="absolute inset-0 opacity-30">
           <Image
-            src="https://images.squarespace-cdn.com/content/v1/5895d62d2994ca86b0cd9807/1580830689343-1T2NDNX01ILN41SPXMLS/z.jpeg?format=2500w"
+            src="/images/events/meetup-z.jpeg"
             alt="Lightning Meetup background"
             fill
             className="object-cover"
@@ -45,7 +45,7 @@ export default function LightningMeetupElizabethStarkPage() {
             <div className="flex-shrink-0 w-full md:w-[300px]">
               <div className="relative w-full aspect-[4/3] overflow-hidden">
                 <Image
-                  src="https://images.squarespace-cdn.com/content/v1/5895d62d2994ca86b0cd9807/1580830689343-1T2NDNX01ILN41SPXMLS/z.jpeg?format=500w"
+                  src="/images/events/meetup-z.jpeg"
                   alt="Lightning Meetup with Elizabeth Stark"
                   fill
                   className="object-cover"

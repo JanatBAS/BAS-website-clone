@@ -111,7 +111,7 @@ export default function ToneVaysMeetupPage() {
           {/* Hero Image */}
           <div className="mb-8">
             <Image
-              src="https://images.squarespace-cdn.com/content/v1/5895d62d2994ca86b0cd9807/1506873054155-MN9XEC0RHZLNGH2NL14A/highres_464511993.jpeg"
+              src="/images/blog/meetup-photo-highres.jpeg"
               alt="Tone Vays Meetup in Zurich September 2017"
               width={800}
               height={533}
@@ -236,14 +236,14 @@ export default function ToneVaysMeetupPage() {
             {/* Sponsor Logos */}
             <div className="flex items-center gap-8 my-8">
               <Image
-                src="https://images.squarespace-cdn.com/content/v1/5895d62d2994ca86b0cd9807/1506872868781-GZTO0FAM9JM19XA4HI1O/f.jpeg"
+                src="/images/blog/meetup-photo-f.jpeg"
                 alt="Froriep"
                 width={150}
                 height={50}
                 className="h-12 w-auto object-contain"
               />
               <Image
-                src="https://images.squarespace-cdn.com/content/v1/5895d62d2994ca86b0cd9807/1506872873414-HOQE3ZWRMVDBPORN3S9D/ey-2.gif"
+                src="/images/blog/ey-logo.gif"
                 alt="EY"
                 width={150}
                 height={50}

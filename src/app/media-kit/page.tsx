@@ -57,7 +57,7 @@ export default function MediaKitPage() {
               <div className="flex justify-center mb-12">
                 <div className="w-full max-w-md">
                   <Image
-                    src="https://images.squarespace-cdn.com/content/v1/5895d62d2994ca86b0cd9807/e9aa5392-b060-4164-93ad-2316f13d5fe4/BAS+LOGO500x500.png"
+                    src="/images/branding/bas-logo-500x500.png"
                     alt="Bitcoin Association Switzerland Logo"
                     width={500}
                     height={500}

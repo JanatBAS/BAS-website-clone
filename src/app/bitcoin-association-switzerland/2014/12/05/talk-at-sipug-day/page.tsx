@@ -64,7 +64,7 @@ export default function TalkAtSipugDayPage() {
               rel="noopener noreferrer"
             >
               <Image
-                src="http://static1.squarespace.com/static/5895d62d2994ca86b0cd9807/59025f1030454480d862303c/59025f1930454480d86230be/1493327641772/sipug.jpg?format=original"
+                src="/images/blog/sipug.jpg"
                 alt="SIPUG day presentation"
                 width={800}
                 height={500}

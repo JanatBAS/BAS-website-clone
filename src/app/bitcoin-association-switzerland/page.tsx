@@ -41,7 +41,7 @@ const authorNames: Record<string, string> = Object.fromEntries(
 );
 
 const FEATURED_FALLBACK_IMAGE =
-  "https://images.squarespace-cdn.com/content/v1/5895d62d2994ca86b0cd9807/1660148501401-GDNI2ZA03O3AI2DBF64S/header7.jpg?format=2500w";
+  "/images/events/header7.jpg";
 
 const blogPosts: BlogPost[] = [
   {
@@ -111,7 +111,7 @@ const blogPosts: BlogPost[] = [
       "While the Bank for International Settlement / Basel Committee on Banking Supervision continues to propose regulation, they also have developed a habit of not addressing legitimate concerns from the community. That is highly regrettable, but no reason to throw in the towel. So the Bitcoin Association Switzerland continues to provide constructive feedback and - so we think - well argued suggestions on how to improve on the longterm goals of the BIS to make the space safer and allow for more innovation.",
     href: "/bitcoin-association-switzerland/2022/8/10/prudential-treatment-of-cryptoasset-exposures-ii",
     image:
-      "https://images.squarespace-cdn.com/content/v1/5895d62d2994ca86b0cd9807/1660148501401-GDNI2ZA03O3AI2DBF64S/header7.jpg?format=2500w",
+      "/images/events/header7.jpg",
     tags: ["Regulation"],
     commentCount: 3,
     likeCount: 10,
@@ -127,7 +127,7 @@ const blogPosts: BlogPost[] = [
       "The Bank for International Settlement (BIS) has recently published a consultative paper on the Prudential Treatment of Crytpoasset Exposure. Being good citizens, we were happy to follow the BIS' call for a response to their proposals with constructive feedback that not only points out where they err, but more importantly how some of the proposed principals will prove detrimental to the stability of the financial system they BIS is trying to protect. Never has a proverb being more fitting than this: the path to hell is paved with good intentions.",
     href: "/bitcoin-association-switzerland/2021/7/3/comments-of-bitcoin-association-switzerland-on-the-draft-revised-vasp-guidance",
     image:
-      "https://images.squarespace-cdn.com/content/v1/5895d62d2994ca86b0cd9807/1625316894565-48R3KDJ62EIEK3979TFK/June.jpg?format=2500w",
+      "/images/events/june-meetup.jpg",
     tags: ["Regulation"],
     commentCount: 1,
     likeCount: 1,
@@ -144,7 +144,7 @@ const blogPosts: BlogPost[] = [
       'The Bitcoin Association Switzerland has sent a comment on the FATF\'s revised draft guidance on crypto assets. In a consciously "expansive" approach, the FATF proposes to classify participants in decentralized systems as financial intermediaries even if they do not engage in financial intermediation. This would erode the benefits of disintermediation and cause great harm to the nascent sector of Decentralized Finance (DeFi). We criticize this approach and suggest a number of measures to contain the potential damage of imprudent regulation.',
     href: "/bitcoin-association-switzerland/2021/6/23/comments-on-draft-revised-vasp-guidance",
     image:
-      "https://images.squarespace-cdn.com/content/v1/5895d62d2994ca86b0cd9807/1625317027225-0V2QI222IZBXZV25EUYN/april.jpg?format=2500w",
+      "/images/events/april-meetup.jpg",
     commentCount: 1,
     likeCount: 0,
   },
@@ -160,7 +160,7 @@ const blogPosts: BlogPost[] = [
       'Today we sent the following letter to the Financial Stability Board of the G-20 commenting on their risk assessment for "global stablecoins":',
     href: "/bitcoin-association-switzerland/on-the-risk-assessment-for-global-stablecoins-of-the-g20s-financial-stability-board",
     image:
-      "https://images.squarespace-cdn.com/content/v1/5895d62d2994ca86b0cd9807/1592639163221-RXP2V0ZPFYHH8B88Z4Z5/fsb2.png?format=2500w",
+      "/images/blog/fsb2.png",
     tags: ["Regulation"],
     commentCount: 1,
     likeCount: 7,
@@ -176,7 +176,7 @@ const blogPosts: BlogPost[] = [
       "On the 8th of April 2020 we sent the following comment to FINMA regarding the new money laundering ordinance...",
     href: "/bitcoin-association-switzerland/2020/4/9/our-comment-on-gwv-finma-adjustment-for-finsa-finia",
     image:
-      "https://images.squarespace-cdn.com/content/v1/5895d62d2994ca86b0cd9807/1590915938137-1C75QPLGN3SQ2KRXW0UQ/2020-04-07%2BBitcoin%2BAssociation%2BSwitzerland%2B-%2BFinma%2BComment.jpg?format=500w",
+      "/images/blog/finma-comment.jpg",
     tags: ["Regulation"],
     commentCount: 1,
     likeCount: 4,
@@ -193,7 +193,7 @@ const blogPosts: BlogPost[] = [
       "In December 2019 the Basel Committee on Banking Supervision published a discussion paper on the design of a prudential treatment for crypto-assets and welcomed comments on its analyses and ideas. The comment submitted by the Bitcoin Association Switzerland are the following...",
     href: "/bitcoin-association-switzerland/our-comment-on-designing-a-prudential-treatment-for-cryptoassets-of-the-basel-committee-on-banking-supervision",
     image:
-      "https://images.squarespace-cdn.com/content/v1/5895d62d2994ca86b0cd9807/1584017859238-JP46VXGK5XY26VO0H5X2/basel.jpg?format=2500w",
+      "/images/blog/basel.jpg",
     tags: ["Regulation"],
     commentCount: 1,
     likeCount: 6,
@@ -223,7 +223,7 @@ const blogPosts: BlogPost[] = [
       "In March, the Federal Council presented a draft for a number of legal adjustments and invited Bitcoin Association Switzerland to take part in the public consultation. The consultation phase ends this month and we have filed an extensive comment, in which we support the position of the Swiss Blockchain Federation and lay out some of our common concerns in more detail. In this blog post, I will summarize the content of the proposed law as well as the comments of both Blockchain Federation and Bitcoin Association.",
     href: "/bitcoin-association-switzerland/2019/6/27/our-comment-on-the-swiss-blockchain-law",
     image:
-      "https://images.squarespace-cdn.com/content/v1/5895d62d2994ca86b0cd9807/1561722207919-POHSK01LHZR0HKI1UBU1/bitcoin-regulation-cryptocurrency-exchange.jpg?format=1000w",
+      "/images/blog/bitcoin-regulation.jpg",
     tags: ["Regulation"],
     commentCount: 2,
     likeCount: 11,
@@ -264,7 +264,7 @@ const blogPosts: BlogPost[] = [
       "The last few weeks have been very busy in the regulatory debate about Bitcoin and its consequences within the legal framework.",
     href: "/bitcoin-association-switzerland/2018/5/31/why-storing-bitcoins-for-clients-does-not-make-you-a-bank",
     image:
-      "https://images.squarespace-cdn.com/content/v1/5895d62d2994ca86b0cd9807/1527748625110-S7D6CZO6B91C41JI82GK/ADWhiteReadingRoom%2C_CornellUniversity.jpg?format=2500w",
+      "/images/blog/cornell-reading-room.jpg",
     likeCount: 9,
   },
   {
@@ -290,7 +290,7 @@ const blogPosts: BlogPost[] = [
       "Marcel Dobler, member of the Swiss national parliament and co-founder of digitec.ch, proposed a law that could turn out to be very helpful for Crypto Nation Switzerland. It would give you the right to get your digital assets back in case you have stored them with a provider that goes bankrupt.",
     href: "/bitcoin-association-switzerland/2018/4/19/better-legal-protection-for-clients-of-bitcoin-firms-coming",
     image:
-      "https://images.squarespace-cdn.com/content/v1/5895d62d2994ca86b0cd9807/1523969241135-TUY8W4QZU5PR74BWYIRT/insurance-1991213_960_720.jpg?format=1000w",
+      "/images/blog/insurance.jpg",
     likeCount: 1,
   },
   {
@@ -305,7 +305,7 @@ const blogPosts: BlogPost[] = [
       "The Swiss government has proposed a law that inadvertently threatens Switzerland's excellent position in the international race for becoming the preferred jurisdiction for crypto startups.",
     href: "/bitcoin-association-switzerland/2018/3/2/the-latest-regulatory-threat",
     image:
-      "https://images.squarespace-cdn.com/content/v1/5895d62d2994ca86b0cd9807/1520018401057-PP4IGOKSSYDZZHRO7R8O/threat.jpg?format=750w",
+      "/images/blog/threat.jpg",
     commentCount: 3,
     likeCount: 20,
   },
@@ -446,7 +446,7 @@ const blogPosts: BlogPost[] = [
       "Together with 23 co-signatories from all major parties, Swiss member of parliament Franz Gruter filed a parliamentary motion to reduce regulatory burdens of blockchain startups by restricting the legal definition of 'client deposit'.",
     href: "/bitcoin-association-switzerland/2016/06/20/swiss-parliamentary-motion-to-reduce-blockchain-regulation",
     image:
-      "http://static1.squarespace.com/static/5895d62d2994ca86b0cd9807/59025f1030454480d862303c/59025f1a30454480d86230c0/1493327642012/parliament.jpg?format=original",
+      "/images/blog/parliament.jpg",
     commentCount: 1,
     likeCount: 0,
   },
@@ -491,7 +491,7 @@ const blogPosts: BlogPost[] = [
       "The enormous computing power of the GHash.IO pool sparked another debate about 51%-attacks. In this post, I want to dispel the 'luck smoothing' argument.",
     href: "/bitcoin-association-switzerland/2014/06/15/miners-luck-smoothing-excuse-does-not-hold-up-to-scrutiny",
     image:
-      "http://static1.squarespace.com/static/5895d62d2994ca86b0cd9807/59025f1030454480d862303c/59025f1730454480d862309c/1493327639051/pools.png?format=original",
+      "/images/blog/pools.png",
     commentCount: 2,
     likeCount: 0,
   },

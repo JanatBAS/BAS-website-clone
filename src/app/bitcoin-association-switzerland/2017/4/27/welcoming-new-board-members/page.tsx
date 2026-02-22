@@ -87,7 +87,7 @@ export default function WelcomingNewBoardMembersPage() {
             {/* Roger Darin Image */}
             <div className="my-8">
               <Image
-                src="https://images.squarespace-cdn.com/content/v1/5895d62d2994ca86b0cd9807/1493560038103-J4X9BK5DPAUFLUQQ294J/image-asset.jpeg"
+                src="/images/blog/blog-image-asset.jpeg"
                 alt="BAS Community Manager Roger Darin"
                 width={600}
                 height={400}
@@ -139,7 +139,7 @@ export default function WelcomingNewBoardMembersPage() {
             {/* Isabella Brom Image */}
             <div className="my-8">
               <Image
-                src="https://images.squarespace-cdn.com/content/v1/5895d62d2994ca86b0cd9807/1493563141223-9GV5AZ60BP58KIQRC3RF/image-asset.png"
+                src="/images/branding/blog-default.png"
                 alt="Isabella demonstrating the EY Bitcoin ATM in Zurich"
                 width={600}
                 height={400}

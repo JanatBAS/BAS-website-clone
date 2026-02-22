@@ -65,7 +65,7 @@ export default function MarcelRapoldPage() {
               {/* Profile Photo */}
               <div className="mb-8">
                 <Image
-                  src="https://images.squarespace-cdn.com/content/v1/5895d62d2994ca86b0cd9807/91c01ee1-e1c8-4981-80b8-48511d26bf39/1701080873156.jpeg"
+                  src="/images/candidates/candidate-1701080873156.jpeg"
                   alt="Marcel Rapold"
                   width={280}
                   height={350}

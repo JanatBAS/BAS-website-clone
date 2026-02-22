@@ -94,7 +94,7 @@ export default function GeneralAssembly2018Page() {
             <div className="my-8">
               <div className="relative w-full aspect-[4/3]">
                 <Image
-                  src="https://images.squarespace-cdn.com/content/v1/5895d62d2994ca86b0cd9807/1526559785447-VANN62ME50U15REWFE3R/Voting+at+the+General+Assembly"
+                  src="/images/blog/voting-general-assembly.webp"
                   alt="The Swiss have a thing for voting, you say?"
                   fill
                   className="object-cover"
@@ -148,7 +148,7 @@ export default function GeneralAssembly2018Page() {
             <div className="my-8">
               <div className="relative w-full aspect-[4/3]">
                 <Image
-                  src="https://images.squarespace-cdn.com/content/v1/5895d62d2994ca86b0cd9807/1526562983734-K8BWMPI2QAMNT4F0AKPT/giac.png"
+                  src="/images/partners/giac.png"
                   alt="Giacomo Talking to our Members"
                   fill
                   className="object-cover"

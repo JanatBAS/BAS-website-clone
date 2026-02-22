@@ -12,7 +12,7 @@ export default function SidechainsDrivechainEventPage() {
         <section className="relative w-full h-[200px] bg-[#1a1a1a]">
           <div className="absolute inset-0 opacity-30">
             <Image
-              src="https://images.squarespace-cdn.com/content/v1/5895d62d2994ca86b0cd9807/1563353920029-FNNDW3H0SC8JXSK4953P/paul.jpg?format=2500w"
+              src="/images/events/paul-sztorc.jpg"
               alt="Sidechains event background"
               fill
               className="object-cover"
@@ -34,7 +34,7 @@ export default function SidechainsDrivechainEventPage() {
               {/* Event Image */}
               <div className="relative w-full aspect-[4/3] mb-6">
                 <Image
-                  src="https://images.squarespace-cdn.com/content/v1/5895d62d2994ca86b0cd9807/1563353920029-FNNDW3H0SC8JXSK4953P/paul.jpg?format=500w"
+                  src="/images/events/paul-sztorc.jpg"
                   alt="Sidechains on BTC -- Drivechain and Blind Merged Mining - Paul Sztorc"
                   fill
                   className="object-cover"
