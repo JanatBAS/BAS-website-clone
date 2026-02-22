@@ -59,7 +59,7 @@ export default function LisaTscherryPage() {
               {/* Profile Image */}
               <div className="mb-6">
                 <Image
-                  src="/images/candidates/candidate-1685636630658.jpeg"
+                  src="/images/candidates/lisa-tscherry.jpeg"
                   alt="Lisa Tscherry"
                   width={280}
                   height={350}

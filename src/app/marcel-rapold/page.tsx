@@ -65,7 +65,7 @@ export default function MarcelRapoldPage() {
               {/* Profile Photo */}
               <div className="mb-8">
                 <Image
-                  src="/images/candidates/candidate-1701080873156.jpeg"
+                  src="/images/candidates/marcel-rapold.jpeg"
                   alt="Marcel Rapold"
                   width={280}
                   height={350}

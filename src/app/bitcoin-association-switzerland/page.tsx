@@ -41,7 +41,7 @@ const authorNames: Record<string, string> = Object.fromEntries(
 );
 
 const FEATURED_FALLBACK_IMAGE =
-  "/images/events/header7.jpg";
+  "/images/events/event-default-header.jpg";
 
 const blogPosts: BlogPost[] = [
   {
@@ -111,7 +111,7 @@ const blogPosts: BlogPost[] = [
       "While the Bank for International Settlement / Basel Committee on Banking Supervision continues to propose regulation, they also have developed a habit of not addressing legitimate concerns from the community. That is highly regrettable, but no reason to throw in the towel. So the Bitcoin Association Switzerland continues to provide constructive feedback and - so we think - well argued suggestions on how to improve on the longterm goals of the BIS to make the space safer and allow for more innovation.",
     href: "/bitcoin-association-switzerland/2022/8/10/prudential-treatment-of-cryptoasset-exposures-ii",
     image:
-      "/images/events/header7.jpg",
+      "/images/events/event-default-header.jpg",
     tags: ["Regulation"],
     commentCount: 3,
     likeCount: 10,
@@ -160,7 +160,7 @@ const blogPosts: BlogPost[] = [
       'Today we sent the following letter to the Financial Stability Board of the G-20 commenting on their risk assessment for "global stablecoins":',
     href: "/bitcoin-association-switzerland/on-the-risk-assessment-for-global-stablecoins-of-the-g20s-financial-stability-board",
     image:
-      "/images/blog/fsb2.png",
+      "/images/blog/g20-stablecoin-report.png",
     tags: ["Regulation"],
     commentCount: 1,
     likeCount: 7,

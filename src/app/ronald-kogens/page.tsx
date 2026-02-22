@@ -58,7 +58,7 @@ export default function RonaldKogensPage() {
               {/* Profile Photo */}
               <div className="mb-6">
                 <Image
-                  src="/images/candidates/candidate-1553447653904.jpeg"
+                  src="/images/candidates/ronald-kogens.jpeg"
                   alt="Ronald Kogens"
                   width={400}
                   height={400}

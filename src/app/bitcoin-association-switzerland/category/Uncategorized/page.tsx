@@ -27,7 +27,7 @@ const featuredPost: BlogPost = {
     "The Bitcoin Association Switzerland supports the 12-point program jointly developed by leading industry associations to foster a strong and future-oriented environment for digital innovation in Switzerland. We believe this framework is an important step toward ensuring regulatory clarity, technological advancement, and an open, competitive financial system that empowers individuals and businesses alike.",
   href: "/bitcoin-association-switzerland/2025/12/8/statement-on-12-point-program",
   image:
-    "/images/events/header7.jpg",
+    "/images/events/event-default-header.jpg",
 };
 
 const uncategorizedPosts: BlogPost[] = [

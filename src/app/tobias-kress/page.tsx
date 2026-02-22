@@ -32,7 +32,7 @@ export default function TobiasKressPage() {
       {/* Hero Banner Image */}
       <div className="relative w-full h-[200px] md:h-[300px] mt-20">
         <Image
-          src="/images/candidates/candid.png"
+          src="/images/candidates/candidates-banner.png"
           alt="Candidates"
           fill
           className="object-cover"
@@ -76,7 +76,7 @@ export default function TobiasKressPage() {
               {/* Profile Photo */}
               <div className="mb-8">
                 <Image
-                  src="/images/board/tobias-pic.jpg"
+                  src="/images/board/tobias-kress.jpg"
                   alt="Tobias Kress"
                   width={280}
                   height={350}

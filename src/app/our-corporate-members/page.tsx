@@ -12,12 +12,12 @@ const corporateMembers = [
   },
   {
     name: "Bitcoin Suisse",
-    logo: "/images/corporate-members/full-logo-new.png",
+    logo: "/images/corporate-members/bitcoin-suisse-logo.png",
     url: "https://www.bitcoinsuisse.com/",
   },
   {
     name: "Blockchain Source",
-    logo: "/images/corporate-members/logo-354x59.png",
+    logo: "/images/corporate-members/blockchain-source-logo.png",
     url: "https://blockchainsource.ch/",
   },
   {
@@ -27,7 +27,7 @@ const corporateMembers = [
   },
   {
     name: "21 Analytics",
-    logo: "/images/corporate-members/generic-logo.png",
+    logo: "/images/corporate-members/21-analytics-logo.png",
     url: "https://www.21analytics.ch/",
   },
   {
@@ -37,7 +37,7 @@ const corporateMembers = [
   },
   {
     name: "Apps with love",
-    logo: "/images/corporate-members/awl-logo.png",
+    logo: "/images/corporate-members/apps-with-love-logo.png",
     url: "https://appswithlove.com/",
   },
   {
@@ -47,7 +47,7 @@ const corporateMembers = [
   },
   {
     name: "Alephium",
-    logo: "/images/corporate-members/image-2021-11.png",
+    logo: "/images/corporate-members/alephium-logo.png",
     url: "https://alephium.org/",
   },
   {
@@ -57,17 +57,17 @@ const corporateMembers = [
   },
   {
     name: "21 Lectures",
-    logo: "/images/corporate-members/yellow-black.png",
+    logo: "/images/corporate-members/21-lectures-logo.png",
     url: "https://www.21lectures.com/",
   },
   {
     name: "Incore Bank",
-    logo: "/images/corporate-members/inc-logotype.jpg",
+    logo: "/images/corporate-members/incore-bank-logo.jpg",
     url: "https://incorebank.ch/",
   },
   {
     name: "Pocket",
-    logo: "/images/corporate-members/pocket-light.png",
+    logo: "/images/corporate-members/pocket-logo.png",
     url: null,
   },
   {
@@ -107,7 +107,7 @@ const corporateMembers = [
   },
   {
     name: "Lamassu",
-    logo: "/images/corporate-members/atms-logo.png",
+    logo: "/images/corporate-members/lamassu-logo.png",
     url: "https://lamassu.is/",
   },
   {
@@ -117,7 +117,7 @@ const corporateMembers = [
   },
   {
     name: "House of Test Swiss",
-    logo: "/images/corporate-members/hot-logotype.png",
+    logo: "/images/corporate-members/house-of-test-logo.png",
     url: "https://www.houseoftest.ch/",
   },
   {
@@ -142,12 +142,12 @@ const corporateMembers = [
   },
   {
     name: "NiceHash",
-    logo: "/images/corporate-members/logo-big-light.png",
+    logo: "/images/corporate-members/nicehash-logo.png",
     url: "https://www.nicehash.com/",
   },
   {
     name: "Pandora Prime",
-    logo: "/images/corporate-members/logo-small.png",
+    logo: "/images/corporate-members/pandora-prime-logo.png",
     url: "https://pandoraprime.ch/",
   },
   {
@@ -171,12 +171,12 @@ const partnerOrganizations = [
   },
   {
     name: "Swiss Blockchain Federation",
-    logo: "/images/corporate-members/sbf.png",
+    logo: "/images/corporate-members/swiss-blockchain-federation-logo.png",
     url: "https://blockchainfederation.ch/",
   },
   {
     name: "Avalbit",
-    logo: "/images/partners/a.png",
+    logo: "/images/partners/avalbit-logo.png",
     url: "https://avalbit.org/",
   },
   {
@@ -196,7 +196,7 @@ const partnerOrganizations = [
   },
   {
     name: "Blockchain for Europe",
-    logo: "/images/corporate-members/b4e-logo.png",
+    logo: "/images/corporate-members/blockchain-for-europe-logo.png",
     url: "https://www.blockchain4europe.eu/",
   },
 ];
@@ -205,7 +205,7 @@ const partnerOrganizations = [
 const locationPartners = [
   {
     name: "Trust Square",
-    logo: "/images/partners/tr.jpg",
+    logo: "/images/partners/trust-square-logo.jpg",
     url: "https://www.trustsquare.ch/",
   },
   {
@@ -215,7 +215,7 @@ const locationPartners = [
   },
   {
     name: "Finance 2.0",
-    logo: "/images/corporate-members/unnamed.jpg",
+    logo: "/images/corporate-members/finance-2-0-logo.jpg",
     url: "https://finance20.ch/",
   },
 ];

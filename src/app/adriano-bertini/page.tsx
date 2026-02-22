@@ -32,7 +32,7 @@ export default function AdrianoBertiniPage() {
       {/* Hero Banner Image */}
       <div className="relative w-full h-[200px] md:h-[300px] mt-20">
         <Image
-          src="/images/candidates/candid.png"
+          src="/images/candidates/candidates-banner.png"
           alt="Candidates"
           fill
           className="object-cover"
@@ -76,7 +76,7 @@ export default function AdrianoBertiniPage() {
               {/* Profile Photo */}
               <div className="mb-8">
                 <Image
-                  src="/images/candidates/candidate-1589621280083.jpeg"
+                  src="/images/candidates/adriano-bertini.jpeg"
                   alt="Adriano Bertini"
                   width={280}
                   height={350}

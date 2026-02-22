@@ -12,7 +12,7 @@ export default function AnnualGeneralAssembly2019EventPage() {
         <section className="relative w-full h-[200px] bg-[#1a1a1a]">
           <div className="absolute inset-0 opacity-30">
             <Image
-              src="/images/branding/logo-with-name-big.png"
+              src="/images/branding/logo-with-name-large.png"
               alt="BAS General Assembly background"
               fill
               className="object-contain"
@@ -34,7 +34,7 @@ export default function AnnualGeneralAssembly2019EventPage() {
               {/* Event Image */}
               <div className="relative w-full aspect-[4/3] mb-6">
                 <Image
-                  src="/images/branding/logo-with-name-big.png"
+                  src="/images/branding/logo-with-name-large.png"
                   alt="Annual General Assembly of the Bitcoin Association Switzerland - 2019"
                   fill
                   className="object-contain"

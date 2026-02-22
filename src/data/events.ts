@@ -19,7 +19,7 @@ const mostRecentEventsRaw = [
     description:
       'At this "Industry Insights" meetup, Elizabeth will give us some interesting insights into the Lightning Network. Short talk, no slides, q&a, causal get-together.',
     image:
-      "/images/events/meetup-z.jpeg",
+      "/images/events/elizabeth-stark-meetup.jpeg",
     googleCalendarUrl:
       "http://www.google.com/calendar/event?action=TEMPLATE&text=Lightning%20Meetup%20with%20Elizabeth%20Stark%20%28CEO%20Lightning%20Labs%29&dates=20200113T180000Z/20200113T190000Z&location=Langstrasse%20136",
     icsUrl:
@@ -135,7 +135,7 @@ const mostRecentEventsRaw = [
     description:
       "The members of the Bitcoin Association Switzerland came together to discuss and decide on various things.",
     image:
-      "/images/branding/logo-with-name-big.png",
+      "/images/branding/logo-with-name-large.png",
     googleCalendarUrl:
       "http://www.google.com/calendar/event?action=TEMPLATE&text=Annual%20General%20Assembly%20of%20the%20Bitcoin%20Association%20Switzerland%20-%202019&dates=20190522T170000Z/20190522T180000Z",
     icsUrl:
@@ -158,7 +158,7 @@ const mostRecentEventsRaw = [
     description:
       'In this tech-talk we examined all current and proposed mechanisms for creating a "Bitcoin Vault".',
     image:
-      "/images/events/dr-bob.jpeg",
+      "/images/events/bob-mcelrath-talk.jpeg",
     googleCalendarUrl:
       "http://www.google.com/calendar/event?action=TEMPLATE&text=On-Chain%20Defense%20in%20Depth%20-%20Dr.%20Bob%20McElrath&dates=20190125T180000Z/20190125T190000Z",
     icsUrl:

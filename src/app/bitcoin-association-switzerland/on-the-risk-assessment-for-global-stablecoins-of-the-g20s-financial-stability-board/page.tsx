@@ -12,7 +12,7 @@ export default function BlogPostPage() {
         {/* Hero Banner */}
         <div className="relative h-[250px] md:h-[300px] overflow-hidden">
           <Image
-            src="/images/blog/fsb2.png"
+            src="/images/blog/g20-stablecoin-report.png"
             alt="Our Comment on the risk assessment for global Stablecoins of the G20's Financial Stability Board"
             fill
             className="object-cover"

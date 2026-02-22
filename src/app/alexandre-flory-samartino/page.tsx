@@ -32,7 +32,7 @@ export default function AlexandreFlorySamartinoPage() {
       {/* Hero Banner Image */}
       <div className="relative w-full h-[200px] md:h-[300px] mt-20">
         <Image
-          src="/images/candidates/candid.png"
+          src="/images/candidates/candidates-banner.png"
           alt="Candidates"
           fill
           className="object-cover"

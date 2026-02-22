@@ -48,7 +48,7 @@ const boardMembers: BoardMember[] = [
     name: "Lisa Tscherry",
     role: undefined,
     image:
-      "/images/candidates/candidate-1685636630658.jpeg",
+      "/images/candidates/lisa-tscherry.jpeg",
     bio: [
       'Lisa Tscherry holds a Master\'s degree in Psychology and a Master\'s degree in Blockchain and Digital Currency, where she graduated as the top student from the University of Nicosia. With extensive experience in strategic HR roles, she has honed her expertise in conflict resolution, leadership development, and executive coaching, becoming a trusted advisor in navigating complex organizational challenges. Her skill in fostering community engagement and creating inclusive environments is matched by her strategic mindset. As an active advocate for Bitcoin adoption, Lisa is the founder of "SatoShe - Bitcoin for Women," an innovative initiative that empowers women through education, helping to onboard them into the world of Bitcoin and to bridge the gender gap in the space.',
     ],
@@ -59,7 +59,7 @@ const boardMembers: BoardMember[] = [
     name: "Adriano Bertini",
     role: undefined,
     image:
-      "/images/candidates/candidate-1589621280083.jpeg",
+      "/images/candidates/adriano-bertini.jpeg",
     bio: [
       "Adriano Bertini has a robust career in financial services, blockchain, and strategic consulting, currently serving as the Head of Product and Strategy at Ledger Enterprise. He has held various leadership roles in both established corporations and innovative tech companies, driving projects that bridge the gap between traditional finance and blockchain solutions. His experience spans project management, risk management, and regulatory compliance, with a focus on cutting-edge technology and cryptocurrency adoption. Adriano has been instrumental in promoting Bitcoin and blockchain technology through various strategic initiatives. His deep knowledge of both financial systems and blockchain solutions makes him a critical player in the integration of cryptocurrencies into institutional frameworks.",
     ],
@@ -69,7 +69,7 @@ const boardMembers: BoardMember[] = [
     name: "Rahim Taghizadegan",
     role: undefined,
     image:
-      "/images/board/rahim.jpg",
+      "/images/board/rahim-taghizadegan.jpg",
     bio: [
       "The last Austrian Austrian Economist in the direct tradition, teaching in Austria, Liechtenstein, Switzerland, and Germany. Best-selling book author, speaker, entrepreneur. Among the first economists to analyze and adopt Bitcoin in the earliest days. Founder of scholarium, chief economist of the Free Cities Foundation, investor in Bitcoin citadels.",
     ],
@@ -79,7 +79,7 @@ const boardMembers: BoardMember[] = [
     name: "Luzius Meisser",
     role: "Honorary Board Member",
     image:
-      "/images/candidates/candidate-1623673331849.jpeg",
+      "/images/candidates/luzius-meisser.jpeg",
     bio: [
       "Dr. Luzius Meisser has been a member of the Board of Directors of Bitcoin Suisse since 2017, including two and a half years as Chairman. He has been following Bitcoin since 2011 and founded the Bitcoin Association Switzerland in 2013. He is also a member of the Expert Council of the Swiss Blockchain Federation. After studying computer science at ETH, he co-founded the cloud service Wuala and began investing in Swiss start-ups after its sale. He also holds a master's degree in economics and a doctorate in banking & finance from the University of Zurich, chairs the tokenization service provider Aktionariat and is on the board of the Frankencoin Assocation.",
     ],

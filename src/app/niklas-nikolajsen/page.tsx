@@ -58,7 +58,7 @@ export default function NiklasNikolajsenPage() {
               {/* Profile Image */}
               <div className="mb-6">
                 <Image
-                  src="/images/board/nini-portrait.jpg"
+                  src="/images/board/niklas-nikolajsen.jpg"
                   alt="Niklas Nikolajsen"
                   width={280}
                   height={350}

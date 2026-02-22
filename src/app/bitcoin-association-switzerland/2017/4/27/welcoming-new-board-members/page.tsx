@@ -87,7 +87,7 @@ export default function WelcomingNewBoardMembersPage() {
             {/* Roger Darin Image */}
             <div className="my-8">
               <Image
-                src="/images/blog/blog-image-asset.jpeg"
+                src="/images/blog/roger-darin.jpeg"
                 alt="BAS Community Manager Roger Darin"
                 width={600}
                 height={400}

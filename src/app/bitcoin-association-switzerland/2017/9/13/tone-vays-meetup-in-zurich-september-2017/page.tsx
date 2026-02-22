@@ -111,7 +111,7 @@ export default function ToneVaysMeetupPage() {
           {/* Hero Image */}
           <div className="mb-8">
             <Image
-              src="/images/blog/meetup-photo-highres.jpeg"
+              src="/images/blog/tone-vays-meetup-highres.jpeg"
               alt="Tone Vays Meetup in Zurich September 2017"
               width={800}
               height={533}
@@ -236,7 +236,7 @@ export default function ToneVaysMeetupPage() {
             {/* Sponsor Logos */}
             <div className="flex items-center gap-8 my-8">
               <Image
-                src="/images/blog/meetup-photo-f.jpeg"
+                src="/images/blog/tone-vays-meetup-photo.jpeg"
                 alt="Froriep"
                 width={150}
                 height={50}
