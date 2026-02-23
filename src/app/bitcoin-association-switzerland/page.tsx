@@ -107,8 +107,6 @@ const blogPosts: BlogPost[] = [
     excerpt:
       "While the Bank for International Settlement / Basel Committee on Banking Supervision continues to propose regulation, they also have developed a habit of not addressing legitimate concerns from the community. That is highly regrettable, but no reason to throw in the towel. So the Bitcoin Association Switzerland continues to provide constructive feedback and - so we think - well argued suggestions on how to improve on the longterm goals of the BIS to make the space safer and allow for more innovation.",
     href: "/bitcoin-association-switzerland/2022/8/10/prudential-treatment-of-cryptoasset-exposures-ii",
-    image:
-      "/images/events/event-default-header.jpg",
     tags: ["Regulation"],
     commentCount: 3,
     likeCount: 10,
@@ -123,8 +121,6 @@ const blogPosts: BlogPost[] = [
     excerpt:
       "The Bank for International Settlement (BIS) has recently published a consultative paper on the Prudential Treatment of Crytpoasset Exposure. Being good citizens, we were happy to follow the BIS' call for a response to their proposals with constructive feedback that not only points out where they err, but more importantly how some of the proposed principals will prove detrimental to the stability of the financial system they BIS is trying to protect. Never has a proverb being more fitting than this: the path to hell is paved with good intentions.",
     href: "/bitcoin-association-switzerland/2021/7/3/comments-of-bitcoin-association-switzerland-on-the-draft-revised-vasp-guidance",
-    image:
-      "/images/events/june-meetup.jpg",
     tags: ["Regulation"],
     commentCount: 1,
     likeCount: 1,
@@ -140,8 +136,6 @@ const blogPosts: BlogPost[] = [
     excerpt:
       'The Bitcoin Association Switzerland has sent a comment on the FATF\'s revised draft guidance on crypto assets. In a consciously "expansive" approach, the FATF proposes to classify participants in decentralized systems as financial intermediaries even if they do not engage in financial intermediation. This would erode the benefits of disintermediation and cause great harm to the nascent sector of Decentralized Finance (DeFi). We criticize this approach and suggest a number of measures to contain the potential damage of imprudent regulation.',
     href: "/bitcoin-association-switzerland/2021/6/23/comments-on-draft-revised-vasp-guidance",
-    image:
-      "/images/events/april-meetup.jpg",
     commentCount: 1,
     likeCount: 0,
   },
@@ -156,8 +150,6 @@ const blogPosts: BlogPost[] = [
     excerpt:
       'Today we sent the following letter to the Financial Stability Board of the G-20 commenting on their risk assessment for "global stablecoins":',
     href: "/bitcoin-association-switzerland/on-the-risk-assessment-for-global-stablecoins-of-the-g20s-financial-stability-board",
-    image:
-      "/images/blog/g20-stablecoin-report.png",
     tags: ["Regulation"],
     commentCount: 1,
     likeCount: 7,
@@ -172,8 +164,6 @@ const blogPosts: BlogPost[] = [
     excerpt:
       "On the 8th of April 2020 we sent the following comment to FINMA regarding the new money laundering ordinance...",
     href: "/bitcoin-association-switzerland/2020/4/9/our-comment-on-gwv-finma-adjustment-for-finsa-finia",
-    image:
-      "/images/blog/finma-comment.jpg",
     tags: ["Regulation"],
     commentCount: 1,
     likeCount: 4,
