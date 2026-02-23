@@ -82,7 +82,7 @@ const corporateMembers = [
   },
   {
     name: "Infinity21",
-    logo: "/images/location-partners/infinity21.jpg",
+    logo: "/images/corporate-members/infinity21-logo.png",
     url: "https://infinity21.com/",
   },
   {
@@ -132,7 +132,7 @@ const corporateMembers = [
   },
   {
     name: "Bittr",
-    logo: "/images/corporate-members/bittr-logo.png",
+    logo: "/images/corporate-members/bittr-logo.svg",
     url: "https://getbittr.com/",
   },
   {
