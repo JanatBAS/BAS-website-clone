@@ -132,7 +132,7 @@ const corporateMembers = [
   },
   {
     name: "Bittr",
-    logo: "/images/corporate-members/bittr-logo.svg",
+    logo: "/images/corporate-members/bittr-logo.png",
     url: "https://getbittr.com/",
   },
   {
