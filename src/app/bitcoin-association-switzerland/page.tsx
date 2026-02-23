@@ -40,9 +40,6 @@ const authorNames: Record<string, string> = Object.fromEntries(
   Object.entries(authorIds).map(([name, id]) => [id, name])
 );
 
-const FEATURED_FALLBACK_IMAGE =
-  "/images/events/event-default-header.jpg";
-
 const blogPosts: BlogPost[] = [
   {
     id: "3",
@@ -764,16 +761,20 @@ export default async function BlogPage({ searchParams }: PageProps) {
 
         {/* Featured Post Banner - only show if no filter or matches author */}
         {showFeaturedPost && (
-          <div className="relative h-[400px] md:h-[500px] lg:h-[600px] overflow-hidden">
-            <Image
-              src={featuredPost.image ?? FEATURED_FALLBACK_IMAGE}
-              alt={featuredPost.title}
-              fill
-              className="object-cover"
-              priority
-              unoptimized={featuredPost.unoptimizedImage}
-            />
-            <div className="absolute inset-0 bg-black/30" />
+          <div className={`relative h-[400px] md:h-[500px] lg:h-[600px] overflow-hidden ${!featuredPost.image ? 'bg-[#2a9d8f]' : ''}`}>
+            {featuredPost.image && (
+              <>
+                <Image
+                  src={featuredPost.image}
+                  alt={featuredPost.title}
+                  fill
+                  className="object-cover"
+                  priority
+                  unoptimized={featuredPost.unoptimizedImage}
+                />
+                <div className="absolute inset-0 bg-black/30" />
+              </>
+            )}
             <div className="absolute inset-0 flex items-center justify-center">
               <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white">
                 <div className="text-sm uppercase tracking-wider mb-2">
