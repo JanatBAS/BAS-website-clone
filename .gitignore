@@ -5,6 +5,7 @@ BAS/
 /Images/
 old_squarespace.xml
 .claude/
+CLAUDE.md
 
 # Sensitive files
 token.txt
