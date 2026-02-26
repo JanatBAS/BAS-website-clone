@@ -144,7 +144,7 @@ export default function ShopProducts() {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch("https://dezentralshop.ch/embed/BAS.json");
+        const response = await fetch("/api/shop");
         if (!response.ok) {
           throw new Error(`Failed to load products (${response.status})`);
         }
