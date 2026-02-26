@@ -3,26 +3,22 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 
-interface ProductVariation {
-  id: number;
-  name: string;
-  price_chf: string;
-  price_sats: number | null;
-  in_stock: boolean;
-}
-
 interface Product {
   id: number;
   name: string;
-  slug: string;
   image_url: string;
   product_url: string;
-  price_chf: string;
-  price_sats: number | null;
+  price: string;
+  price_formatted: string;
   checkout_url: string;
   type: "simple" | "variable";
-  variations?: ProductVariation[];
-  in_stock: boolean;
+}
+
+interface ProductFeed {
+  ref: string;
+  generated_at: string;
+  currency: string;
+  products: Product[];
 }
 
 function isSafeUrl(url: string): boolean {
@@ -52,10 +48,17 @@ function ExternalLinkIcon() {
   );
 }
 
+function formatPrice(price: string): string {
+  const num = parseFloat(price);
+  if (isNaN(num) || num <= 0) return "";
+  return num.toFixed(2);
+}
+
 function ProductCard({ product }: { product: Product }) {
   const isVariable = product.type === "variable";
   const rawUrl = isVariable ? product.product_url : product.checkout_url;
   const linkUrl = isSafeUrl(rawUrl) ? rawUrl : null;
+  const displayPrice = formatPrice(product.price);
 
   return (
     <div className="group bg-white rounded-lg border border-gray-100 hover:border-gray-200 hover:shadow-sm overflow-hidden transition-all duration-200">
@@ -76,13 +79,6 @@ function ProductCard({ product }: { product: Product }) {
             </svg>
           </div>
         )}
-        {!product.in_stock && (
-          <div className="absolute inset-0 bg-white/75 backdrop-blur-[1px] flex items-center justify-center">
-            <span className="text-[10px] font-medium text-gray-500 uppercase tracking-widest bg-white/90 px-3 py-1 rounded-full border border-gray-200">
-              Sold Out
-            </span>
-          </div>
-        )}
       </div>
 
       {/* Product Info */}
@@ -93,18 +89,19 @@ function ProductCard({ product }: { product: Product }) {
 
         {/* Price */}
         <div className="mb-3">
-          <span className="text-base font-semibold text-gray-900">
-            CHF {product.price_chf}
-          </span>
-          {product.price_sats != null && (
-            <span className="block text-xs text-gray-400 mt-0.5">
-              ~{product.price_sats.toLocaleString()} sats
+          {displayPrice ? (
+            <span className="text-base font-semibold text-gray-900">
+              CHF {displayPrice}
+            </span>
+          ) : (
+            <span className="text-sm text-gray-500">
+              Price on request
             </span>
           )}
         </div>
 
         {/* Buy Button */}
-        {product.in_stock && linkUrl ? (
+        {linkUrl ? (
           <a
             href={linkUrl}
             target="_blank"
@@ -131,8 +128,7 @@ function ProductCardSkeleton() {
       <div className="p-3 sm:p-4">
         <div className="h-4 bg-gray-100 rounded mb-1.5 w-3/4 animate-pulse" />
         <div className="h-4 bg-gray-100 rounded mb-3 w-1/2 animate-pulse" />
-        <div className="h-5 bg-gray-100 rounded mb-1 w-1/3 animate-pulse" />
-        <div className="h-3 bg-gray-50 rounded mb-3 w-1/4 animate-pulse" />
+        <div className="h-5 bg-gray-100 rounded mb-3 w-1/3 animate-pulse" />
         <div className="h-[38px] bg-gray-100 rounded-md animate-pulse" />
       </div>
     </div>
@@ -147,15 +143,15 @@ export default function ShopProducts() {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch("https://dezentralshop.ch/embed/BAS.json");
+        const response = await fetch("https://staging.dezentralshop.ch/embed/BAS.json/");
         if (!response.ok) {
           throw new Error(`Failed to load products (${response.status})`);
         }
-        const data = await response.json();
-        if (!Array.isArray(data)) {
+        const data: ProductFeed = await response.json();
+        if (!Array.isArray(data?.products)) {
           throw new Error("Unexpected response format");
         }
-        setProducts(data);
+        setProducts(data.products);
       } catch (err) {
         setError(err instanceof Error ? err.message : "Failed to load products");
       } finally {

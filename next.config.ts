@@ -47,6 +47,11 @@ const nextConfig: NextConfig = {
         hostname: 'dezentralshop.ch',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'staging.dezentralshop.ch',
+        pathname: '/**',
+      },
     ],
   },
 };
