@@ -3,6 +3,11 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Link from "next/link";
 import Image from "next/image";
+import { Calendar } from "@/components/calendar";
+import { allEvents } from "@/data/events";
+import { getAllEventsWithAdmin } from "@/lib/merge-data";
+
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "Meetups & Events | Bitcoin Association Switzerland",
@@ -10,13 +15,7 @@ export const metadata: Metadata = {
     "Join our Bitcoin community events across Switzerland. View our calendar, roadshow dates, educational talks, and regional meetups in Zurich, Geneva, Luzern, and more.",
 };
 
-const quickNavCards = [
-  {
-    title: "Calendar",
-    description: "View all upcoming events and meetups",
-    href: "/calendar",
-    icon: CalendarIcon,
-  },
+const moreEventsCards = [
   {
     title: "Roadshow 2025",
     description: "Our nationwide Bitcoin education tour",
@@ -53,24 +52,6 @@ const regionalMeetups = [
     href: "https://www.meetup.com/bitcoin-meetup-basel/",
   },
 ];
-
-function CalendarIcon() {
-  return (
-    <svg
-      className="w-6 h-6"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth={1.5}
-      viewBox="0 0 24 24"
-    >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5"
-      />
-    </svg>
-  );
-}
 
 function MapIcon() {
   return (
@@ -126,7 +107,9 @@ function ExternalLinkIcon() {
   );
 }
 
-export default function EventsPage() {
+export default async function EventsPage() {
+  const events = await getAllEventsWithAdmin(allEvents);
+
   return (
     <>
       <Header />
@@ -146,29 +129,10 @@ export default function EventsPage() {
           </div>
         </section>
 
-        {/* Quick Navigation Cards */}
+        {/* Calendar Section */}
         <section className="bg-white py-12 md:py-16">
-          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-[#8b7355] text-lg font-light mb-8 font-serif italic">
-              Explore Our Events
-            </h2>
-            <div className="grid sm:grid-cols-3 gap-6">
-              {quickNavCards.map((card) => (
-                <Link
-                  key={card.href}
-                  href={card.href}
-                  className="group block p-6 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors border border-gray-100 hover:border-gray-200"
-                >
-                  <div className="text-[#c75b4a] mb-3 group-hover:text-[#b54a3a] transition-colors">
-                    <card.icon />
-                  </div>
-                  <h3 className="text-gray-900 font-medium text-sm mb-1">
-                    {card.title}
-                  </h3>
-                  <p className="text-gray-500 text-xs">{card.description}</p>
-                </Link>
-              ))}
-            </div>
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <Calendar events={events} />
           </div>
         </section>
 
@@ -227,6 +191,32 @@ export default function EventsPage() {
                 Antonopoulos speaking in Zurich.
               </figcaption>
             </figure>
+          </div>
+        </section>
+
+        {/* Roadshow & Education */}
+        <section className="bg-gray-50 py-12 md:py-16">
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 className="text-[#8b7355] text-lg font-light mb-8 font-serif italic">
+              More to Explore
+            </h2>
+            <div className="grid sm:grid-cols-2 gap-6">
+              {moreEventsCards.map((card) => (
+                <Link
+                  key={card.href}
+                  href={card.href}
+                  className="group block p-6 bg-white rounded-lg hover:bg-gray-100 transition-colors border border-gray-100 hover:border-gray-200"
+                >
+                  <div className="text-[#c75b4a] mb-3 group-hover:text-[#b54a3a] transition-colors">
+                    <card.icon />
+                  </div>
+                  <h3 className="text-gray-900 font-medium text-sm mb-1">
+                    {card.title}
+                  </h3>
+                  <p className="text-gray-500 text-xs">{card.description}</p>
+                </Link>
+              ))}
+            </div>
           </div>
         </section>
       </main>
