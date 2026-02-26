@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 
-const SHOP_ENDPOINT = "https://dezentralshop.ch/embed/BAS.json";
+const SHOP_ENDPOINT = "https://dezentralshop.ch/embed/BAS.json/";
 
 export async function GET() {
   try {
