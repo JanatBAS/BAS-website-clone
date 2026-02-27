@@ -4,6 +4,18 @@ import type { AdminEvent, AdminBlogPost } from '@/types/admin';
 const EVENTS_KEY = 'admin/events.json';
 const POSTS_KEY = 'admin/posts.json';
 
+interface StoredAdminEvent extends Omit<AdminEvent, 'category'> {
+  category?: string;
+}
+
+function normalizeEventCategory(category: string | undefined): AdminEvent['category'] {
+  if (category === 'roadshow') return 'conference';
+  if (category === 'meetup' || category === 'conference' || category === 'workshop' || category === 'general') {
+    return category;
+  }
+  return 'general';
+}
+
 async function readBlob<T>(key: string): Promise<T | null> {
   try {
     // Strip extension for prefix search: addRandomSuffix inserts suffix before
@@ -47,7 +59,11 @@ async function writeBlob<T>(key: string, data: T): Promise<void> {
 // --- Events ---
 
 export async function getAdminEvents(): Promise<AdminEvent[]> {
-  return (await readBlob<AdminEvent[]>(EVENTS_KEY)) || [];
+  const events = (await readBlob<StoredAdminEvent[]>(EVENTS_KEY)) || [];
+  return events.map((event) => ({
+    ...event,
+    category: normalizeEventCategory(event.category),
+  }));
 }
 
 export async function addAdminEvent(event: AdminEvent): Promise<void> {
