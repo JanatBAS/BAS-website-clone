@@ -65,20 +65,49 @@ function slugify(text: string): string {
   return text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
 }
 
+function compactDate(dateISO: string): string {
+  return dateISO.replace(/-/g, '');
+}
+
+function addDaysToDateISO(dateISO: string, days: number): string {
+  const date = new Date(`${dateISO}T00:00:00Z`);
+  date.setUTCDate(date.getUTCDate() + days);
+  const year = date.getUTCFullYear();
+  const month = String(date.getUTCMonth() + 1).padStart(2, '0');
+  const day = String(date.getUTCDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+}
+
+function timeToMinutes(time24: string): number {
+  const [h, m] = time24.split(':').map(Number);
+  return h * 60 + m;
+}
+
+function minutesToTimePart(minutes: number): string {
+  const normalized = ((minutes % 1440) + 1440) % 1440;
+  const h = Math.floor(normalized / 60);
+  const m = normalized % 60;
+  return `${String(h).padStart(2, '0')}${String(m).padStart(2, '0')}00`;
+}
+
 function buildGoogleCalendarUrl(event: MeetupEvent): string {
-  const startDate = event.dateISO.replace(/-/g, '');
+  const startDate = compactDate(event.dateISO);
   const startTime = event.startTime.replace(':', '') + '00';
+  const startMinutes = timeToMinutes(event.startTime);
   let endPart: string;
+
   if (event.endTime) {
-    const endDate = event.dateISO.replace(/-/g, '');
+    const endMinutes = timeToMinutes(event.endTime);
+    const dayOffset = endMinutes < startMinutes ? 1 : 0;
+    const endDate = compactDate(addDaysToDateISO(event.dateISO, dayOffset));
     const endTime = event.endTime.replace(':', '') + '00';
     endPart = `${endDate}T${endTime}`;
   } else {
-    // Default to 2 hours after start
-    const [h, m] = event.startTime.split(':').map(Number);
-    const endH = String(h + 2).padStart(2, '0');
-    const endM = String(m).padStart(2, '0');
-    endPart = `${startDate}T${endH}${endM}00`;
+    const endTotalMinutes = startMinutes + 120;
+    const dayOffset = Math.floor(endTotalMinutes / 1440);
+    const endDate = compactDate(addDaysToDateISO(event.dateISO, dayOffset));
+    const endTime = minutesToTimePart(endTotalMinutes);
+    endPart = `${endDate}T${endTime}`;
   }
 
   const params = new URLSearchParams({
@@ -135,20 +164,29 @@ function deduplicateMeetupEvents(
   meetupEvents: UnifiedEvent[],
   existingEvents: UnifiedEvent[],
 ): UnifiedEvent[] {
-  const existingKeys = new Set(
+  const seenKeys = new Set(
     existingEvents.map((e) => `${e.title.toLowerCase()}__${e.dateISO}`),
   );
-  return meetupEvents.filter(
-    (e) => !existingKeys.has(`${e.title.toLowerCase()}__${e.dateISO}`),
-  );
+
+  const deduped: UnifiedEvent[] = [];
+  for (const event of meetupEvents) {
+    const key = `${event.title.toLowerCase()}__${event.dateISO}`;
+    if (seenKeys.has(key)) continue;
+    seenKeys.add(key);
+    deduped.push(event);
+  }
+  return deduped;
 }
 
 export async function getAllEventsWithAdmin(hardcodedEvents: UnifiedEvent[]): Promise<UnifiedEvent[]> {
   try {
-    const [adminEvents, meetupRaw] = await Promise.all([
+    const [adminResult, meetupResult] = await Promise.allSettled([
       getAdminEvents(),
       getMeetupEvents(),
     ]);
+
+    const adminEvents = adminResult.status === 'fulfilled' ? adminResult.value : [];
+    const meetupRaw = meetupResult.status === 'fulfilled' ? meetupResult.value : [];
 
     const adminTransformed = adminEvents.flatMap(expandRecurringEvent).map(adminEventToUnified);
     const meetupTransformed = meetupRaw.map(meetupEventToUnified);

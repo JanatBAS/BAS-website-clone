@@ -8,7 +8,11 @@
  * (farthest future first), making it suitable for fetching upcoming events.
  */
 
+import { unstable_cache } from 'next/cache';
+
 const MEETUP_GQL_ENDPOINT = 'https://www.meetup.com/gql2';
+const MEETUP_FETCH_TIMEOUT_MS = 8000;
+const MEETUP_CACHE_TTL_SECONDS = 3600;
 
 const PERSISTED_QUERY_HASH =
   '9463f7c9ab5b08db3f2172223c806fb48993508781cd939184d9151c75214e3a';
@@ -36,11 +40,11 @@ interface MeetupPhoto {
 
 interface MeetupEventNode {
   id: string;
-  title: string;
-  eventUrl: string;
-  description: string;
+  title?: string | null;
+  eventUrl?: string | null;
+  description?: string | null;
   dateTime: string;  // ISO 8601 e.g. "2026-03-04T19:00:00+01:00"
-  endTime: string;
+  endTime?: string | null;
   venue: MeetupVenue | null;
   featuredEventPhoto: MeetupPhoto | null;
   isOnline: boolean;
@@ -96,7 +100,21 @@ function stripHtml(html: string): string {
 }
 
 function parseMeetupDateTime(isoString: string): { dateISO: string; time: string } {
+  // Keep Meetup's local wall-clock date/time from the ISO string itself.
+  // Avoid Date#getHours()/getDate() to prevent server-timezone shifts.
+  const match = isoString.match(/^(\d{4}-\d{2}-\d{2})T(\d{2}:\d{2})/);
+  if (match) {
+    return {
+      dateISO: match[1],
+      time: match[2],
+    };
+  }
+
+  // Fallback for unexpected formats.
   const date = new Date(isoString);
+  if (Number.isNaN(date.getTime())) {
+    throw new Error(`Invalid Meetup dateTime: ${isoString}`);
+  }
   const year = date.getFullYear();
   const month = String(date.getMonth() + 1).padStart(2, '0');
   const day = String(date.getDate()).padStart(2, '0');
@@ -125,13 +143,13 @@ function meetupNodeToEvent(node: MeetupEventNode, groupUrlname: string): MeetupE
 
   return {
     id: `meetup-${node.id}`,
-    title: node.title,
-    description: stripHtml(node.description),
+    title: node.title?.trim() || 'Meetup Event',
+    description: stripHtml(node.description || ''),
     dateISO: start.dateISO,
     startTime: start.time,
     endTime: end?.time,
     location: buildVenueString(node.venue),
-    eventUrl: node.eventUrl,
+    eventUrl: node.eventUrl || `https://www.meetup.com/${groupUrlname}/events/${node.id}/`,
     imageUrl: node.featuredEventPhoto?.highResUrl,
     groupUrlname,
   };
@@ -150,26 +168,51 @@ async function fetchGroupEvents(
       variables.after = cursor;
     }
 
-    const res = await fetch(MEETUP_GQL_ENDPOINT, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        operationName: 'getPastGroupEvents',
-        variables,
-        extensions: {
-          persistedQuery: {
-            version: 1,
-            sha256Hash: PERSISTED_QUERY_HASH,
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), MEETUP_FETCH_TIMEOUT_MS);
+
+    let res: Response;
+    try {
+      res = await fetch(MEETUP_GQL_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          operationName: 'getPastGroupEvents',
+          variables,
+          extensions: {
+            persistedQuery: {
+              version: 1,
+              sha256Hash: PERSISTED_QUERY_HASH,
+            },
           },
-        },
-      }),
-      next: { revalidate: 3600 }, // Cache for 1 hour
-    });
+        }),
+        signal: controller.signal,
+      });
+    } catch (error) {
+      const message = error instanceof Error ? error.message : 'Unknown fetch error';
+      console.warn(`[meetup] request failed for group "${urlname}": ${message}`);
+      break;
+    } finally {
+      clearTimeout(timeout);
+    }
 
-    if (!res.ok) break;
+    if (!res.ok) {
+      console.warn(`[meetup] non-OK response for group "${urlname}": ${res.status}`);
+      break;
+    }
 
-    const json: MeetupGqlResponse = await res.json();
-    if (json.errors || !json.data?.groupByUrlname?.events) break;
+    let json: MeetupGqlResponse;
+    try {
+      json = await res.json();
+    } catch (error) {
+      const message = error instanceof Error ? error.message : 'Invalid JSON';
+      console.warn(`[meetup] invalid JSON for group "${urlname}": ${message}`);
+      break;
+    }
+    if (json.errors || !json.data?.groupByUrlname?.events) {
+      console.warn(`[meetup] GraphQL errors for group "${urlname}"`);
+      break;
+    }
 
     const { edges, pageInfo } = json.data.groupByUrlname.events;
 
@@ -180,7 +223,13 @@ async function fetchGroupEvents(
         foundPastEvent = true;
         continue;
       }
-      events.push(meetupNodeToEvent(edge.node, urlname));
+      try {
+        events.push(meetupNodeToEvent(edge.node, urlname));
+      } catch (error) {
+        const id = edge.node?.id ?? 'unknown';
+        const message = error instanceof Error ? error.message : 'Unknown event parsing error';
+        console.warn(`[meetup] skipped malformed event "${id}" for group "${urlname}": ${message}`);
+      }
     }
 
     // Events are returned farthest-future first, so once we see a past
@@ -196,14 +245,26 @@ async function fetchGroupEvents(
  * Fetches upcoming events from all BAS Meetup groups in parallel.
  * Returns an empty array on failure (never throws).
  */
+async function fetchAllMeetupEvents(): Promise<MeetupEvent[]> {
+  const results = await Promise.allSettled(
+    MEETUP_GROUPS.map((group) => fetchGroupEvents(group.urlname)),
+  );
+
+  return results.flatMap((r) => (r.status === 'fulfilled' ? r.value : []));
+}
+
+const getCachedMeetupEvents = unstable_cache(
+  fetchAllMeetupEvents,
+  ['meetup-events-v1'],
+  { revalidate: MEETUP_CACHE_TTL_SECONDS },
+);
+
 export async function getMeetupEvents(): Promise<MeetupEvent[]> {
   try {
-    const results = await Promise.allSettled(
-      MEETUP_GROUPS.map((group) => fetchGroupEvents(group.urlname)),
-    );
-
-    return results.flatMap((r) => (r.status === 'fulfilled' ? r.value : []));
-  } catch {
+    return await getCachedMeetupEvents();
+  } catch (error) {
+    const message = error instanceof Error ? error.message : 'Unknown cache error';
+    console.warn(`[meetup] failed to load cached events: ${message}`);
     return [];
   }
 }
