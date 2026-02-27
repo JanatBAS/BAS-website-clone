@@ -38,7 +38,13 @@ export default function AdminPostsList({ posts }: { posts: AdminBlogPost[] }) {
               </td>
               <td className="py-3 pr-4 text-gray-400">{post.author}</td>
               <td className="py-3 pr-4 text-gray-400">{post.date}</td>
-              <td className="py-3 text-right">
+              <td className="py-3 text-right space-x-3">
+                <Link
+                  href={`/admin/posts/${post.id}/edit`}
+                  className="text-[#2a9d8f] hover:text-[#238b7f] text-xs"
+                >
+                  Edit
+                </Link>
                 <button
                   onClick={() => handleDelete(post.id)}
                   className="text-red-400 hover:text-red-300 text-xs"

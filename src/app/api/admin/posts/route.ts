@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { getAdminPosts, addAdminPost, deleteAdminPost } from '@/lib/blob-store';
+import { getAdminPosts, addAdminPost, deleteAdminPost, updateAdminPost, getAdminPostById } from '@/lib/blob-store';
 import type { AdminBlogPost, AdminBlogPostFormData } from '@/types/admin';
 
 export const dynamic = 'force-dynamic';
@@ -77,6 +77,61 @@ export async function POST(request: Request) {
     return NextResponse.json(post, { status: 201 });
   } catch {
     return NextResponse.json({ error: 'Failed to create post' }, { status: 500 });
+  }
+}
+
+export async function PUT(request: Request) {
+  try {
+    const { searchParams } = new URL(request.url);
+    const id = searchParams.get('id');
+    if (!id) {
+      return NextResponse.json({ error: 'Missing id parameter' }, { status: 400 });
+    }
+
+    const existing = await getAdminPostById(id);
+    if (!existing) {
+      return NextResponse.json({ error: 'Post not found' }, { status: 404 });
+    }
+
+    const data: AdminBlogPostFormData = await request.json();
+
+    if (!data.title || !data.author || !data.date || !data.excerpt || !data.htmlContent) {
+      return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
+    }
+
+    const dateISO = data.date;
+    const parsedDate = new Date(dateISO + 'T12:00:00');
+
+    if (isNaN(parsedDate.getTime())) {
+      return NextResponse.json({ error: 'Invalid date format. Use YYYY-MM-DD.' }, { status: 400 });
+    }
+
+    const [year, month, day] = dateISO.split('-').map(Number);
+    if (parsedDate.getFullYear() !== year || parsedDate.getMonth() + 1 !== month || parsedDate.getDate() !== day) {
+      return NextResponse.json({ error: 'Invalid calendar date.' }, { status: 400 });
+    }
+
+    const updated = await updateAdminPost(id, {
+      title: data.title,
+      author: data.author,
+      authorId: data.authorId || existing.authorId,
+      date: formatDisplayDate(dateISO),
+      timestamp: parsedDate.getTime(),
+      excerpt: data.excerpt,
+      htmlContent: data.htmlContent,
+      category: data.category || undefined,
+      tags: data.tags?.length ? data.tags : undefined,
+      imageUrl: data.imageUrl || undefined,
+      updatedAt: new Date().toISOString(),
+    });
+
+    if (!updated) {
+      return NextResponse.json({ error: 'Post not found' }, { status: 404 });
+    }
+
+    return NextResponse.json(updated);
+  } catch {
+    return NextResponse.json({ error: 'Failed to update post' }, { status: 500 });
   }
 }
 

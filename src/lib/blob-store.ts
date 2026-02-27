@@ -95,3 +95,17 @@ export async function getAdminPostBySlug(slug: string): Promise<AdminBlogPost | 
   const posts = await getAdminPosts();
   return posts.find((p) => p.slug === slug);
 }
+
+export async function getAdminPostById(id: string): Promise<AdminBlogPost | undefined> {
+  const posts = await getAdminPosts();
+  return posts.find((p) => p.id === id);
+}
+
+export async function updateAdminPost(id: string, updates: Partial<AdminBlogPost>): Promise<AdminBlogPost | null> {
+  const posts = await getAdminPosts();
+  const index = posts.findIndex((p) => p.id === id);
+  if (index === -1) return null;
+  posts[index] = { ...posts[index], ...updates };
+  await writeBlob(POSTS_KEY, posts);
+  return posts[index];
+}
