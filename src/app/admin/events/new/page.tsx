@@ -7,7 +7,6 @@ import type { EventCategory } from '@/types/calendar';
 
 const categories: { value: EventCategory; label: string }[] = [
   { value: 'meetup', label: 'Meetup' },
-  { value: 'roadshow', label: 'Roadshow' },
   { value: 'conference', label: 'Conference' },
   { value: 'workshop', label: 'Workshop' },
   { value: 'general', label: 'General' },

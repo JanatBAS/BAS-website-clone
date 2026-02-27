@@ -12,7 +12,7 @@ export const dynamic = "force-dynamic";
 export const metadata: Metadata = {
   title: "Meetups & Events | Bitcoin Association Switzerland",
   description:
-    "Join our Bitcoin community events across Switzerland. View our calendar, roadshow dates, educational talks, and regional meetups in Zurich, Geneva, Luzern, and more.",
+    "Join our Bitcoin community events across Switzerland. View our calendar, conferences, educational talks, and regional meetups in Zurich, Geneva, Luzern, and more.",
 };
 
 const moreEventsCards = [

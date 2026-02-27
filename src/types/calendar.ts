@@ -1,6 +1,6 @@
-export type EventCategory = 'roadshow' | 'meetup' | 'conference' | 'workshop' | 'general';
+export type EventCategory = 'meetup' | 'conference' | 'workshop' | 'general';
 export type EventStatus = 'upcoming' | 'past';
-export type EventSource = 'roadshow' | 'most-recent-events' | 'admin' | 'meetup.com';
+export type EventSource = 'most-recent-events' | 'admin' | 'meetup.com';
 export type CalendarView = 'month' | 'week' | 'list';
 
 export interface UnifiedEvent {
@@ -58,7 +58,6 @@ export interface CategoryFilter {
 }
 
 export const CATEGORY_COLORS: Record<EventCategory, string> = {
-  roadshow: '#c75b4a',
   meetup: '#3b82f6',
   conference: '#8b5cf6',
   workshop: '#10b981',
@@ -66,7 +65,6 @@ export const CATEGORY_COLORS: Record<EventCategory, string> = {
 };
 
 export const CATEGORY_LABELS: Record<EventCategory, string> = {
-  roadshow: 'Roadshow',
   meetup: 'Meetup',
   conference: 'Conference',
   workshop: 'Workshop',

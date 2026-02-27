@@ -9,7 +9,7 @@ export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
   title: 'Events Calendar | Bitcoin Association Switzerland',
-  description: 'View all Bitcoin Association Switzerland events, meetups, and roadshow dates in our interactive calendar.',
+  description: 'View all Bitcoin Association Switzerland events, meetups, and conferences in our interactive calendar.',
 };
 
 export default async function CalendarPage() {
@@ -26,7 +26,7 @@ export default async function CalendarPage() {
             Events Calendar
           </h1>
           <p className="text-gray-300 text-lg max-w-2xl">
-            Stay up to date with all Bitcoin Association Switzerland events, meetups, and roadshow dates.
+            Stay up to date with all Bitcoin Association Switzerland events, meetups, and conferences.
           </p>
         </div>
       </div>

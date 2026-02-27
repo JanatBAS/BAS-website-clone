@@ -373,10 +373,10 @@ const transformedRoadshowEvents: UnifiedEvent[] = roadshowEventsRaw.map(event =>
     signupLink: event.signupLink,
     googleCalendarUrl: gcalUrl,
     icsUrl: `${event.href}?format=ical`,
-    category: 'roadshow',
+    category: 'conference',
     status: determineEventStatus(event.dateISO),
-    source: 'roadshow',
-    accentColor: CATEGORY_COLORS.roadshow,
+    source: 'most-recent-events',
+    accentColor: CATEGORY_COLORS.conference,
   };
 });
 
@@ -389,7 +389,7 @@ export const allEvents: UnifiedEvent[] = [
 // Filtered views
 export const upcomingEvents = allEvents.filter(e => e.status === 'upcoming');
 export const pastEvents = allEvents.filter(e => e.status === 'past');
-export const roadshowEvents = allEvents.filter(e => e.category === 'roadshow');
+export const conferenceEvents = allEvents.filter(e => e.category === 'conference');
 export const meetupEvents = allEvents.filter(e => e.category === 'meetup');
 
 // Helper to get events by category

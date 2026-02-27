@@ -123,7 +123,7 @@ export function useCalendar({
 
   // Build category filters
   const categoryFilters = useMemo((): CategoryFilter[] => {
-    const categories: (EventCategory | 'all')[] = ['all', 'roadshow', 'meetup', 'conference', 'workshop', 'general'];
+    const categories: (EventCategory | 'all')[] = ['all', 'conference', 'meetup', 'workshop', 'general'];
 
     // Only include categories that have events
     const categoriesWithEvents = new Set(events.map(e => e.category));
