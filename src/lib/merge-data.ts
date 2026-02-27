@@ -217,6 +217,10 @@ interface BlogPost {
   unoptimizedImage?: boolean;
 }
 
+function stripHtmlTags(html: string): string {
+  return html.replace(/<[^>]*>/g, '').trim();
+}
+
 export function adminPostToMerged(post: AdminBlogPost): BlogPost {
   return {
     id: post.id,
@@ -226,7 +230,7 @@ export function adminPostToMerged(post: AdminBlogPost): BlogPost {
     timestamp: post.timestamp,
     category: post.category,
     title: post.title,
-    excerpt: post.excerpt,
+    excerpt: stripHtmlTags(post.excerpt),
     href: `/blog/${post.slug}`,
     image: post.imageUrl,
     tags: post.tags,
