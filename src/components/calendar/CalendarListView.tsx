@@ -52,7 +52,7 @@ export function CalendarListView({ events, onEventClick }: CalendarListViewProps
               alt={event.title}
               fill
               className="object-cover"
-              unoptimized={event.source === 'admin'}
+              unoptimized={event.source === 'admin' || event.source === 'meetup.com'}
             />
           </div>
         )}

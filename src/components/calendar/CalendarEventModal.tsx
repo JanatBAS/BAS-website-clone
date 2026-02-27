@@ -70,7 +70,7 @@ export function CalendarEventModal({ event, isOpen, onClose }: CalendarEventModa
               alt={event.title}
               fill
               className="object-cover"
-              unoptimized={event.source === 'admin'}
+              unoptimized={event.source === 'admin' || event.source === 'meetup.com'}
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
 
@@ -180,8 +180,8 @@ export function CalendarEventModal({ event, isOpen, onClose }: CalendarEventModa
 
           {/* Action buttons */}
           <div className="flex flex-col sm:flex-row gap-3">
-            {/* View event page (only for non-admin events that have dedicated pages) */}
-            {event.source !== 'admin' && (
+            {/* View event page (only for events that have dedicated local pages) */}
+            {event.source !== 'admin' && event.source !== 'meetup.com' && (
               <Link
                 href={event.href}
                 className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-2.5
@@ -203,7 +203,7 @@ export function CalendarEventModal({ event, isOpen, onClose }: CalendarEventModa
                 rel="noopener noreferrer"
                 className={`flex-1 inline-flex items-center justify-center gap-2 px-4 py-2.5
                   font-medium rounded-lg transition-colors
-                  ${event.source === 'admin'
+                  ${event.source === 'admin' || event.source === 'meetup.com'
                     ? 'bg-[#c75b4a] text-white hover:bg-[#b54a3a]'
                     : 'border-2 border-[#c75b4a] text-[#c75b4a] hover:bg-[#c75b4a]/10'
                   }`}
