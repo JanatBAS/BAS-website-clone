@@ -3,17 +3,26 @@
  * /gql2 persisted query endpoint (no authentication required).
  *
  * This uses the same endpoint that Meetup's own frontend uses internally.
- * The SHA256 hash identifies the `getPastGroupEvents` persisted query,
- * which despite its name returns events in reverse chronological order
- * (farthest future first), making it suitable for fetching upcoming events.
+ * The SHA256 hash identifies the `getUpcomingGroupEvents` persisted query,
+ * which returns events in ascending chronological order (earliest first).
+ * The `afterDateTime` variable filters to only future events.
+ *
+ * Meetup periodically rotates these hashes. If you get PersistedQueryNotFound
+ * errors, inspect the JS bundles at meetup.com for updated hashes — look for
+ * `getUpcomingGroupEvents` in the webpack chunks.
  */
 
 const MEETUP_GQL_ENDPOINT = 'https://www.meetup.com/gql2';
 const MEETUP_FETCH_TIMEOUT_MS = 8000;
 const MEETUP_CACHE_TTL_MS = 3600 * 1000; // 1 hour
 
-const PERSISTED_QUERY_HASH =
-  '9463f7c9ab5b08db3f2172223c806fb48993508781cd939184d9151c75214e3a';
+/** Hash for getUpcomingGroupEvents — returns events ascending (earliest first) */
+const UPCOMING_EVENTS_HASH =
+  '55bced4dca11114ce83c003609158f19b3ca289939c2e6c0b39ce728722756f4';
+
+/** Hash for getPastGroupEvents — returns events descending (latest first), used as fallback */
+const PAST_EVENTS_HASH =
+  '84d621b514d4bfad36d9b37d78f469ee558b01ebe97ba9fb9183fe958b2ad1f1';
 
 /** All BAS-affiliated Meetup groups */
 export const MEETUP_GROUPS = [
@@ -153,7 +162,121 @@ function meetupNodeToEvent(node: MeetupEventNode, groupUrlname: string): MeetupE
   };
 }
 
+/**
+ * Makes a single GraphQL request to the Meetup gql2 endpoint.
+ */
+async function meetupGqlRequest(
+  operationName: string,
+  variables: Record<string, unknown>,
+  sha256Hash: string,
+): Promise<MeetupGqlResponse> {
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), MEETUP_FETCH_TIMEOUT_MS);
+
+  try {
+    const res = await fetch(MEETUP_GQL_ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        operationName,
+        variables,
+        extensions: {
+          persistedQuery: {
+            version: 1,
+            sha256Hash,
+          },
+        },
+      }),
+      signal: controller.signal,
+    });
+
+    if (!res.ok) {
+      return { errors: [{ message: `HTTP ${res.status}` }] };
+    }
+
+    return await res.json();
+  } finally {
+    clearTimeout(timeout);
+  }
+}
+
+/**
+ * Fetches upcoming events using `getUpcomingGroupEvents` (ascending order,
+ * filtered by afterDateTime). Falls back to `getPastGroupEvents` (descending
+ * order, client-side future filtering) if the primary hash stops working.
+ */
 async function fetchGroupEvents(
+  urlname: string,
+): Promise<MeetupEvent[]> {
+  // Try primary: getUpcomingGroupEvents (returns only future events, ASC)
+  const primaryEvents = await fetchUpcomingGroupEvents(urlname);
+  if (primaryEvents !== null) return primaryEvents;
+
+  // Fallback: getPastGroupEvents (returns all events DESC, we filter)
+  console.warn(`[meetup] primary query failed for "${urlname}", trying fallback`);
+  return fetchPastGroupEventsFallback(urlname);
+}
+
+/**
+ * Primary strategy: use getUpcomingGroupEvents with afterDateTime filter.
+ * Returns null if the persisted query hash is no longer valid.
+ */
+async function fetchUpcomingGroupEvents(
+  urlname: string,
+): Promise<MeetupEvent[] | null> {
+  const events: MeetupEvent[] = [];
+  let cursor: string | null = null;
+  const afterDateTime = new Date().toISOString();
+
+  for (let page = 0; page < MAX_PAGES_PER_GROUP; page++) {
+    const variables: Record<string, unknown> = { urlname, afterDateTime };
+    if (cursor) {
+      variables.after = cursor;
+    }
+
+    let json: MeetupGqlResponse;
+    try {
+      json = await meetupGqlRequest('getUpcomingGroupEvents', variables, UPCOMING_EVENTS_HASH);
+    } catch (error) {
+      const message = error instanceof Error ? error.message : 'Unknown fetch error';
+      console.warn(`[meetup] request failed for group "${urlname}": ${message}`);
+      return null;
+    }
+
+    // PersistedQueryNotFound → hash rotated, signal caller to try fallback
+    if (json.errors?.some((e) => e.message === 'PersistedQueryNotFound')) {
+      return null;
+    }
+
+    if (json.errors || !json.data?.groupByUrlname?.events) {
+      console.warn(`[meetup] GraphQL errors for group "${urlname}"`);
+      return null;
+    }
+
+    const { edges, pageInfo } = json.data.groupByUrlname.events;
+
+    for (const edge of edges) {
+      try {
+        events.push(meetupNodeToEvent(edge.node, urlname));
+      } catch (error) {
+        const id = edge.node?.id ?? 'unknown';
+        const message = error instanceof Error ? error.message : 'Unknown event parsing error';
+        console.warn(`[meetup] skipped malformed event "${id}" for group "${urlname}": ${message}`);
+      }
+    }
+
+    if (!pageInfo.hasNextPage) break;
+    cursor = pageInfo.endCursor;
+  }
+
+  return events;
+}
+
+/**
+ * Fallback strategy: use getPastGroupEvents (returns events DESC, including
+ * future events). We filter client-side to keep only future events.
+ */
+async function fetchPastGroupEventsFallback(
   urlname: string,
 ): Promise<MeetupEvent[]> {
   const now = new Date();
@@ -166,49 +289,17 @@ async function fetchGroupEvents(
       variables.after = cursor;
     }
 
-    const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), MEETUP_FETCH_TIMEOUT_MS);
-
-    let res: Response;
-    try {
-      res = await fetch(MEETUP_GQL_ENDPOINT, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          operationName: 'getPastGroupEvents',
-          variables,
-          extensions: {
-            persistedQuery: {
-              version: 1,
-              sha256Hash: PERSISTED_QUERY_HASH,
-            },
-          },
-        }),
-        signal: controller.signal,
-      });
-    } catch (error) {
-      const message = error instanceof Error ? error.message : 'Unknown fetch error';
-      console.warn(`[meetup] request failed for group "${urlname}": ${message}`);
-      break;
-    } finally {
-      clearTimeout(timeout);
-    }
-
-    if (!res.ok) {
-      console.warn(`[meetup] non-OK response for group "${urlname}": ${res.status}`);
-      break;
-    }
-
     let json: MeetupGqlResponse;
     try {
-      json = await res.json();
+      json = await meetupGqlRequest('getPastGroupEvents', variables, PAST_EVENTS_HASH);
     } catch (error) {
-      const message = error instanceof Error ? error.message : 'Invalid JSON';
-      console.warn(`[meetup] invalid JSON for group "${urlname}": ${message}`);
+      const message = error instanceof Error ? error.message : 'Unknown fetch error';
+      console.warn(`[meetup] fallback request failed for group "${urlname}": ${message}`);
       break;
     }
+
     if (json.errors || !json.data?.groupByUrlname?.events) {
-      console.warn(`[meetup] GraphQL errors for group "${urlname}"`);
+      console.warn(`[meetup] fallback GraphQL errors for group "${urlname}"`);
       break;
     }
 
