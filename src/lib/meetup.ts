@@ -8,11 +8,9 @@
  * (farthest future first), making it suitable for fetching upcoming events.
  */
 
-import { unstable_cache } from 'next/cache';
-
 const MEETUP_GQL_ENDPOINT = 'https://www.meetup.com/gql2';
 const MEETUP_FETCH_TIMEOUT_MS = 8000;
-const MEETUP_CACHE_TTL_SECONDS = 3600;
+const MEETUP_CACHE_TTL_MS = 3600 * 1000; // 1 hour
 
 const PERSISTED_QUERY_HASH =
   '9463f7c9ab5b08db3f2172223c806fb48993508781cd939184d9151c75214e3a';
@@ -241,30 +239,32 @@ async function fetchGroupEvents(
   return events;
 }
 
+/** Simple in-memory cache to avoid refetching on every request within the same serverless instance. */
+let cachedEvents: MeetupEvent[] | null = null;
+let cacheTimestamp = 0;
+
 /**
  * Fetches upcoming events from all BAS Meetup groups in parallel.
+ * Results are cached in-memory for 1 hour per serverless instance.
  * Returns an empty array on failure (never throws).
  */
-async function fetchAllMeetupEvents(): Promise<MeetupEvent[]> {
-  const results = await Promise.allSettled(
-    MEETUP_GROUPS.map((group) => fetchGroupEvents(group.urlname)),
-  );
-
-  return results.flatMap((r) => (r.status === 'fulfilled' ? r.value : []));
-}
-
-const getCachedMeetupEvents = unstable_cache(
-  fetchAllMeetupEvents,
-  ['meetup-events-v1'],
-  { revalidate: MEETUP_CACHE_TTL_SECONDS },
-);
-
 export async function getMeetupEvents(): Promise<MeetupEvent[]> {
   try {
-    return await getCachedMeetupEvents();
+    if (cachedEvents && Date.now() - cacheTimestamp < MEETUP_CACHE_TTL_MS) {
+      return cachedEvents;
+    }
+
+    const results = await Promise.allSettled(
+      MEETUP_GROUPS.map((group) => fetchGroupEvents(group.urlname)),
+    );
+
+    const events = results.flatMap((r) => (r.status === 'fulfilled' ? r.value : []));
+    cachedEvents = events;
+    cacheTimestamp = Date.now();
+    return events;
   } catch (error) {
-    const message = error instanceof Error ? error.message : 'Unknown cache error';
-    console.warn(`[meetup] failed to load cached events: ${message}`);
-    return [];
+    const message = error instanceof Error ? error.message : 'Unknown error';
+    console.warn(`[meetup] failed to fetch events: ${message}`);
+    return cachedEvents ?? [];
   }
 }
