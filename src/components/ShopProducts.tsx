@@ -84,9 +84,14 @@ function ProductCard({ product }: { product: Product }) {
 
       {/* Product Info */}
       <div className="p-3 sm:p-4">
-        <h3 className="text-sm font-medium text-gray-900 line-clamp-2 mb-2 min-h-[2.5rem]">
+        <h3 className="text-sm font-medium text-gray-900 line-clamp-2 mb-1 min-h-[2.5rem]">
           {product.name}
         </h3>
+        {product.short_description && (
+          <p className="text-xs text-gray-500 line-clamp-2 mb-2">
+            {product.short_description}
+          </p>
+        )}
 
         {/* Price */}
         <div className="mb-3">
