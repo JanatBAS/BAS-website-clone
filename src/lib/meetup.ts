@@ -20,9 +20,12 @@ const MEETUP_CACHE_TTL_MS = 3600 * 1000; // 1 hour
 const UPCOMING_EVENTS_HASH =
   '55bced4dca11114ce83c003609158f19b3ca289939c2e6c0b39ce728722756f4';
 
-/** Hash for getPastGroupEvents — returns events descending (latest first), used as fallback */
-const PAST_EVENTS_HASH =
-  '84d621b514d4bfad36d9b37d78f469ee558b01ebe97ba9fb9183fe958b2ad1f1';
+/** Hashes for getPastGroupEvents — returns events descending (latest first), used as fallback.
+ *  Multiple hashes for resilience against intermittent PersistedQueryNotFound. */
+const PAST_EVENTS_HASHES = [
+  '84d621b514d4bfad36d9b37d78f469ee558b01ebe97ba9fb9183fe958b2ad1f1',
+  '9463f7c9ab5b08db3f2172223c806fb48993508781cd939184d9151c75214e3a',
+];
 
 /** All BAS-affiliated Meetup groups */
 export const MEETUP_GROUPS = [
@@ -275,10 +278,22 @@ async function fetchUpcomingGroupEvents(
 /**
  * Fallback strategy: use getPastGroupEvents (returns events DESC, including
  * future events). We filter client-side to keep only future events.
+ * Tries multiple hashes for resilience against intermittent failures.
  */
 async function fetchPastGroupEventsFallback(
   urlname: string,
 ): Promise<MeetupEvent[]> {
+  for (const hash of PAST_EVENTS_HASHES) {
+    const result = await fetchPastGroupEventsWithHash(urlname, hash);
+    if (result !== null) return result;
+  }
+  return [];
+}
+
+async function fetchPastGroupEventsWithHash(
+  urlname: string,
+  hash: string,
+): Promise<MeetupEvent[] | null> {
   const now = new Date();
   const events: MeetupEvent[] = [];
   let cursor: string | null = null;
@@ -291,16 +306,20 @@ async function fetchPastGroupEventsFallback(
 
     let json: MeetupGqlResponse;
     try {
-      json = await meetupGqlRequest('getPastGroupEvents', variables, PAST_EVENTS_HASH);
+      json = await meetupGqlRequest('getPastGroupEvents', variables, hash);
     } catch (error) {
       const message = error instanceof Error ? error.message : 'Unknown fetch error';
       console.warn(`[meetup] fallback request failed for group "${urlname}": ${message}`);
-      break;
+      return null;
+    }
+
+    if (json.errors?.some((e) => e.message === 'PersistedQueryNotFound')) {
+      return null; // Try next hash
     }
 
     if (json.errors || !json.data?.groupByUrlname?.events) {
       console.warn(`[meetup] fallback GraphQL errors for group "${urlname}"`);
-      break;
+      return null;
     }
 
     const { edges, pageInfo } = json.data.groupByUrlname.events;
@@ -334,9 +353,18 @@ async function fetchPastGroupEventsFallback(
 let cachedEvents: MeetupEvent[] | null = null;
 let cacheTimestamp = 0;
 
+async function fetchAllGroups(): Promise<MeetupEvent[]> {
+  const results = await Promise.allSettled(
+    MEETUP_GROUPS.map((group) => fetchGroupEvents(group.urlname)),
+  );
+  return results.flatMap((r) => (r.status === 'fulfilled' ? r.value : []));
+}
+
 /**
  * Fetches upcoming events from all BAS Meetup groups in parallel.
  * Results are cached in-memory for 1 hour per serverless instance.
+ * Empty results are NEVER cached — stale data is preferred over nothing,
+ * because Meetup's endpoint intermittently returns PersistedQueryNotFound.
  * Returns an empty array on failure (never throws).
  */
 export async function getMeetupEvents(): Promise<MeetupEvent[]> {
@@ -345,14 +373,22 @@ export async function getMeetupEvents(): Promise<MeetupEvent[]> {
       return cachedEvents;
     }
 
-    const results = await Promise.allSettled(
-      MEETUP_GROUPS.map((group) => fetchGroupEvents(group.urlname)),
-    );
+    let events = await fetchAllGroups();
 
-    const events = results.flatMap((r) => (r.status === 'fulfilled' ? r.value : []));
-    cachedEvents = events;
-    cacheTimestamp = Date.now();
-    return events;
+    // Meetup's endpoint intermittently fails — retry once after a short delay
+    if (events.length === 0) {
+      await new Promise((r) => setTimeout(r, 1500));
+      events = await fetchAllGroups();
+    }
+
+    // Only cache non-empty results. Stale data is better than nothing.
+    if (events.length > 0) {
+      cachedEvents = events;
+      cacheTimestamp = Date.now();
+      return events;
+    }
+
+    return cachedEvents ?? [];
   } catch (error) {
     const message = error instanceof Error ? error.message : 'Unknown error';
     console.warn(`[meetup] failed to fetch events: ${message}`);
