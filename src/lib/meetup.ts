@@ -15,6 +15,8 @@
 const MEETUP_GQL_ENDPOINT = 'https://www.meetup.com/gql2';
 const MEETUP_FETCH_TIMEOUT_MS = 8000;
 const MEETUP_CACHE_TTL_MS = 3600 * 1000; // 1 hour
+// NOTE: /events and /calendar now use revalidate=300. Keep monitoring that this
+// combined cache behavior does not hide missing Meetup entries during API hiccups.
 
 /** Hash for getUpcomingGroupEvents — returns events ascending (earliest first) */
 const UPCOMING_EVENTS_HASH =
