@@ -5,7 +5,7 @@ import { Calendar } from '@/components/calendar';
 import { allEvents } from '@/data/events';
 import { getAllEventsWithAdmin } from '@/lib/merge-data';
 
-export const dynamic = 'force-dynamic';
+export const revalidate = 300;
 
 export const metadata: Metadata = {
   title: 'Events Calendar | Bitcoin Association Switzerland',

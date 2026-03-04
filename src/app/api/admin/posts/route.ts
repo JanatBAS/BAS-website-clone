@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { getAdminPosts, addAdminPost, deleteAdminPost, updateAdminPost, getAdminPostById } from '@/lib/blob-store';
 import type { AdminBlogPost, AdminBlogPostFormData } from '@/types/admin';
+import { slugify } from '@/lib/utils';
 
 export const dynamic = 'force-dynamic';
 
@@ -11,10 +12,6 @@ export async function GET() {
   } catch {
     return NextResponse.json({ error: 'Failed to fetch posts' }, { status: 500 });
   }
-}
-
-function slugify(text: string): string {
-  return text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
 }
 
 function formatDisplayDate(dateISO: string): string {

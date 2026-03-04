@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { getAdminEvents, addAdminEvent, deleteAdminEvent, excludeEventOccurrence } from '@/lib/blob-store';
 import type { AdminEvent, AdminEventFormData } from '@/types/admin';
 import type { RecurrenceFrequency } from '@/types/admin';
+import { slugify } from '@/lib/utils';
 
 export const dynamic = 'force-dynamic';
 
@@ -12,10 +13,6 @@ export async function GET() {
   } catch {
     return NextResponse.json({ error: 'Failed to fetch events' }, { status: 500 });
   }
-}
-
-function slugify(text: string): string {
-  return text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
 }
 
 export async function POST(request: Request) {

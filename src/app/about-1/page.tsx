@@ -1,14 +1,14 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import Link from "next/link";
+import PageSidebar, { type SidebarItem } from "@/components/PageSidebar";
 
-const aboutNavItems = [
+const aboutNavItems: SidebarItem[] = [
   { label: "About", href: "/about-1", active: true },
-  { label: "Board", href: "/board", active: false },
-  { label: "Finances", href: "/finances", active: false },
-  { label: "Statutes", href: "/statutes", active: false },
-  { label: "Media Kit", href: "/media-kit", active: false },
-  { label: "Contact", href: "/contact-1", active: false },
+  { label: "Board", href: "/board" },
+  { label: "Finances", href: "/finances" },
+  { label: "Statutes", href: "/statutes" },
+  { label: "Media Kit", href: "/media-kit" },
+  { label: "Contact", href: "/contact-1" },
 ];
 
 interface Quote {
@@ -52,27 +52,7 @@ export default function AboutPage() {
       <main className="pt-24 pb-16 bg-white min-h-screen">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row gap-8 md:gap-16">
-            {/* Sidebar Navigation */}
-            <aside className="md:w-48 flex-shrink-0">
-              <h2 className="text-[#8b7355] text-lg font-light mb-4 font-serif italic">
-                About
-              </h2>
-              <nav className="space-y-2">
-                {aboutNavItems.map((item) => (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    className={`block text-xs uppercase tracking-wider transition-colors ${
-                      item.active
-                        ? "text-gray-900 font-semibold"
-                        : "text-gray-500 hover:text-gray-900"
-                    }`}
-                  >
-                    {item.label}
-                  </Link>
-                ))}
-              </nav>
-            </aside>
+            <PageSidebar title="About" items={aboutNavItems} />
 
             {/* Main Content */}
             <div className="flex-1 max-w-2xl">

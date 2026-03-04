@@ -4,29 +4,8 @@ import type { AdminEvent, AdminBlogPost } from '@/types/admin';
 import { getAdminEvents, getAdminPosts } from './blob-store';
 import { expandRecurringEvent } from './recurrence';
 import { getMeetupEvents, type MeetupEvent } from './meetup';
-
-function formatTimeDisplay(time24: string): string {
-  const [h, m] = time24.split(':').map(Number);
-  const period = h >= 12 ? 'pm' : 'am';
-  const hour12 = h % 12 || 12;
-  return `${hour12}:${m.toString().padStart(2, '0')} ${period}`;
-}
-
-function getDateInfo(dateISO: string) {
-  const date = new Date(dateISO + 'T12:00:00');
-  return {
-    dayOfWeek: date.toLocaleDateString('en-US', { weekday: 'long' }),
-    dayOfMonth: date.getDate().toString(),
-    monthShort: date.toLocaleDateString('en-US', { month: 'short' }),
-    monthLong: date.toLocaleDateString('en-US', { month: 'long' }),
-    year: date.getFullYear(),
-  };
-}
-
-function truncateDescription(description: string, maxLength = 150): string {
-  if (description.length <= maxLength) return description;
-  return description.substring(0, maxLength).trim() + '...';
-}
+import { slugify } from './utils';
+import { formatTimeDisplay, getDateInfo, truncateDescription } from './date-utils';
 
 export function adminEventToUnified(event: AdminEvent): UnifiedEvent {
   const dateInfo = getDateInfo(event.dateISO);
@@ -59,10 +38,6 @@ export function adminEventToUnified(event: AdminEvent): UnifiedEvent {
     source: 'admin',
     accentColor: CATEGORY_COLORS[event.category],
   };
-}
-
-function slugify(text: string): string {
-  return text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
 }
 
 function compactDate(dateISO: string): string {
