@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { debug } from "@/lib/debug";
 import Header from "@/components/Header";
 import FooterSimple from "@/components/FooterSimple";
 import PageSidebar, { type SidebarItem } from "@/components/PageSidebar";
@@ -34,7 +35,7 @@ export default function ContactPage() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // Form submission logic would go here
-    console.log("Form submitted:", formData);
+    debug("Form submitted:", formData);
   };
 
   return (

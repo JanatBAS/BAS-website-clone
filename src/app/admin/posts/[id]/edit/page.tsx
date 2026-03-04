@@ -15,15 +15,14 @@ export default function EditPostPage() {
   useEffect(() => {
     async function fetchPost() {
       try {
-        const res = await fetch('/api/admin/posts');
-        if (!res.ok) throw new Error('Failed to fetch posts');
-        const posts: AdminBlogPost[] = await res.json();
-        const found = posts.find((p) => p.id === id);
-        if (found) {
-          setPost(found);
-        } else {
+        const res = await fetch(`/api/admin/posts/${id}`);
+        if (res.status === 404) {
           setError('Post not found');
+          return;
         }
+        if (!res.ok) throw new Error('Failed to fetch post');
+        const found: AdminBlogPost = await res.json();
+        setPost(found);
       } catch {
         setError('Failed to load post');
       } finally {

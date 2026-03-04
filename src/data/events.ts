@@ -1,4 +1,5 @@
 import { UnifiedEvent, CATEGORY_COLORS } from '@/types/calendar';
+import { getDateInfo, truncateDescription } from '@/lib/date-utils';
 
 // Raw data from most-recent-events
 const mostRecentEventsRaw = [
@@ -276,32 +277,10 @@ const roadshowEventsRaw = [
   },
 ];
 
-function getDateInfo(dateISO: string): {
-  dayOfWeek: string;
-  dayOfMonth: string;
-  monthShort: string;
-  monthLong: string;
-  year: number;
-} {
-  const date = new Date(dateISO + 'T12:00:00'); // Add time to avoid timezone issues
-  return {
-    dayOfWeek: date.toLocaleDateString('en-US', { weekday: 'long' }),
-    dayOfMonth: date.getDate().toString(),
-    monthShort: date.toLocaleDateString('en-US', { month: 'short' }),
-    monthLong: date.toLocaleDateString('en-US', { month: 'long' }),
-    year: date.getFullYear(),
-  };
-}
-
 function determineEventStatus(dateISO: string): 'upcoming' | 'past' {
   const eventDate = new Date(dateISO + 'T23:59:59');
   const today = new Date();
   return eventDate >= today ? 'upcoming' : 'past';
-}
-
-function truncateDescription(description: string, maxLength = 150): string {
-  if (description.length <= maxLength) return description;
-  return description.substring(0, maxLength).trim() + '...';
 }
 
 // Transform most-recent-events to unified schema

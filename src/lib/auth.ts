@@ -1,20 +1,17 @@
 import { compare } from 'bcryptjs';
 import { SignJWT, jwtVerify } from 'jose';
 import { cookies } from 'next/headers';
+import { env } from './env';
 
 const COOKIE_NAME = 'admin-token';
 const JWT_EXPIRY = '7d';
 
 function getJwtSecret() {
-  const secret = process.env.JWT_SECRET;
-  if (!secret) throw new Error('JWT_SECRET environment variable is not set');
-  return new TextEncoder().encode(secret);
+  return new TextEncoder().encode(env.JWT_SECRET);
 }
 
 export async function verifyPassword(password: string): Promise<boolean> {
-  const hash = process.env.ADMIN_PASSWORD_HASH;
-  if (!hash) throw new Error('ADMIN_PASSWORD_HASH environment variable is not set');
-  return compare(password, hash);
+  return compare(password, env.ADMIN_PASSWORD_HASH);
 }
 
 export async function createToken(): Promise<string> {

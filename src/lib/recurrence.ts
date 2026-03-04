@@ -1,5 +1,8 @@
 import type { AdminEvent } from '@/types/admin';
 
+const RECURRENCE_PAST_MONTHS = 3;
+const RECURRENCE_FUTURE_MONTHS = 12;
+
 /**
  * Expand a recurring event into individual occurrences.
  * Non-recurring events are returned as-is in a single-element array.
@@ -12,9 +15,9 @@ export function expandRecurringEvent(event: AdminEvent): AdminEvent[] {
 
   const now = new Date();
   const windowStart = new Date(now);
-  windowStart.setMonth(windowStart.getMonth() - 3);
+  windowStart.setMonth(windowStart.getMonth() - RECURRENCE_PAST_MONTHS);
   const windowEnd = new Date(now);
-  windowEnd.setMonth(windowEnd.getMonth() + 12);
+  windowEnd.setMonth(windowEnd.getMonth() + RECURRENCE_FUTURE_MONTHS);
 
   const seriesEnd = endDate ? new Date(endDate + 'T23:59:59') : windowEnd;
   const cutoff = seriesEnd < windowEnd ? seriesEnd : windowEnd;
