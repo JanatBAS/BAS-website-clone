@@ -1,6 +1,9 @@
 import { Metadata } from "next";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import PageHero from "@/components/PageHero";
+import SectionHeader from "@/components/SectionHeader";
+import { GraduationCapIcon, MapIcon, ExternalLinkIcon } from "@/components/icons";
 import Link from "next/link";
 import Image from "next/image";
 import { Calendar } from "@/components/calendar";
@@ -53,59 +56,6 @@ const regionalMeetups = [
   },
 ];
 
-function MapIcon() {
-  return (
-    <svg
-      className="w-6 h-6"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth={1.5}
-      viewBox="0 0 24 24"
-    >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        d="M9 6.75V15m6-6v8.25m.503 3.498 4.875-2.437c.381-.19.622-.58.622-1.006V4.82c0-.836-.88-1.38-1.628-1.006l-3.869 1.934c-.317.159-.69.159-1.006 0L9.503 3.252a1.125 1.125 0 0 0-1.006 0L3.622 5.689C3.24 5.88 3 6.27 3 6.695V19.18c0 .836.88 1.38 1.628 1.006l3.869-1.934c.317-.159.69-.159 1.006 0l4.994 2.497c.317.158.69.158 1.006 0Z"
-      />
-    </svg>
-  );
-}
-
-function GraduationCapIcon() {
-  return (
-    <svg
-      className="w-6 h-6"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth={1.5}
-      viewBox="0 0 24 24"
-    >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        d="M4.26 10.147a60.438 60.438 0 0 0-.491 6.347A48.62 48.62 0 0 1 12 20.904a48.62 48.62 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.636 50.636 0 0 0-2.658-.813A59.906 59.906 0 0 1 12 3.493a59.903 59.903 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.717 50.717 0 0 1 12 13.489a50.702 50.702 0 0 1 7.74-3.342M6.75 15v3.75m10.5-3.75v3.75"
-      />
-    </svg>
-  );
-}
-
-function ExternalLinkIcon() {
-  return (
-    <svg
-      className="w-4 h-4 ml-1 inline"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth={2}
-      viewBox="0 0 24 24"
-    >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"
-      />
-    </svg>
-  );
-}
 
 export default async function EventsPage() {
   const events = await getAllEventsWithAdmin(allEvents);
@@ -114,20 +64,10 @@ export default async function EventsPage() {
     <>
       <Header />
       <main className="min-h-screen">
-        {/* Hero Section */}
-        <section className="bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 pt-32 pb-16 md:pt-40 md:pb-20">
-          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h1 className="text-3xl md:text-4xl font-light text-white mb-4">
-              Meetups & Events
-            </h1>
-            <p className="text-gray-300 text-lg max-w-2xl mx-auto">
-              Since 2013, we have organised talks and social gatherings where
-              people discuss and learn about Bitcoin. With more than 9&apos;000
-              members, we are one of the biggest local Bitcoin communities in
-              the world.
-            </p>
-          </div>
-        </section>
+        <PageHero
+          title="Meetups & Events"
+          description="Since 2013, we have organised talks and social gatherings where people discuss and learn about Bitcoin. With more than 9'000 members, we are one of the biggest local Bitcoin communities in the world."
+        />
 
         {/* Calendar Section */}
         <section className="bg-white py-12 md:py-16">
@@ -139,9 +79,7 @@ export default async function EventsPage() {
         {/* Regional Meetups Section */}
         <section className="bg-gray-50 py-12 md:py-16">
           <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-[#8b7355] text-lg font-light mb-4 font-serif italic">
-              Regional Meetups
-            </h2>
+            <SectionHeader>Regional Meetups</SectionHeader>
             <p className="text-gray-600 text-sm leading-relaxed mb-6 max-w-2xl">
               There are regular social events happening in cities across
               Switzerland. These meetups occur in local cafes, are free to
@@ -169,9 +107,7 @@ export default async function EventsPage() {
         {/* Featured Image Section */}
         <section className="bg-white py-12 md:py-16">
           <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 className="text-[#8b7355] text-lg font-light mb-4 font-serif italic">
-              World-Class Speakers
-            </h2>
+            <SectionHeader>World-Class Speakers</SectionHeader>
             <p className="text-gray-600 text-sm leading-relaxed mb-6 max-w-2xl mx-auto">
               Our events feature high-profile speakers from all over the world,
               covering many areas within and around Bitcoin. Whether you are new
@@ -197,9 +133,7 @@ export default async function EventsPage() {
         {/* Roadshow & Education */}
         <section className="bg-gray-50 py-12 md:py-16">
           <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-[#8b7355] text-lg font-light mb-8 font-serif italic">
-              More to Explore
-            </h2>
+            <SectionHeader className="mb-8">More to Explore</SectionHeader>
             <div className="grid sm:grid-cols-2 gap-6">
               {moreEventsCards.map((card) => (
                 <Link

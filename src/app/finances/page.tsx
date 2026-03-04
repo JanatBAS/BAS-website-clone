@@ -1,14 +1,14 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import Link from "next/link";
+import PageSidebar, { type SidebarItem } from "@/components/PageSidebar";
 
-const sidebarLinks = [
-  { label: "ABOUT", href: "/about-1", active: false },
-  { label: "BOARD", href: "/board", active: false },
-  { label: "FINANCES", href: "/finances", active: true },
-  { label: "STATUTES", href: "/statutes", active: false },
-  { label: "MEDIA KIT", href: "/media-kit", active: false },
-  { label: "CONTACT", href: "/contact-1", active: false },
+const sidebarLinks: SidebarItem[] = [
+  { label: "About", href: "/about-1" },
+  { label: "Board", href: "/board" },
+  { label: "Finances", href: "/finances", active: true },
+  { label: "Statutes", href: "/statutes" },
+  { label: "Media Kit", href: "/media-kit" },
+  { label: "Contact", href: "/contact-1" },
 ];
 
 export default function FinancesPage() {
@@ -18,25 +18,7 @@ export default function FinancesPage() {
       <main className="pt-20 min-h-screen bg-white">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
           <div className="flex flex-col md:flex-row gap-8 md:gap-16">
-            {/* Sidebar Navigation */}
-            <aside className="md:w-48 flex-shrink-0">
-              <h2 className="text-[#c75b4a] text-xl font-serif mb-4">About</h2>
-              <nav className="flex flex-col space-y-2">
-                {sidebarLinks.map((link) => (
-                  <Link
-                    key={link.href}
-                    href={link.href}
-                    className={`text-xs tracking-wider transition-colors ${
-                      link.active
-                        ? "text-gray-900 font-semibold"
-                        : "text-gray-500 hover:text-gray-700"
-                    }`}
-                  >
-                    {link.label}
-                  </Link>
-                ))}
-              </nav>
-            </aside>
+            <PageSidebar title="About" items={sidebarLinks} titleClassName="text-[#c75b4a]" />
 
             {/* Main Content */}
             <div className="flex-1 max-w-2xl">

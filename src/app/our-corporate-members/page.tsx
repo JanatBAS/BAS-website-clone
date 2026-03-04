@@ -1,7 +1,7 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Image from "next/image";
-import Link from "next/link";
+import PageSidebar, { type SidebarItem } from "@/components/PageSidebar";
 
 // Corporate Members data
 const corporateMembers = [
@@ -228,10 +228,9 @@ const generousDonors = [
   { name: "Thierry Fragniere", url: "https://thierryfragniere.ch/" },
 ];
 
-// Sidebar navigation items
-const sidebarNav = [
-  { label: "Private", href: "/private", active: false },
-  { label: "Corporate", href: "/corporate", active: false },
+const sidebarNav: SidebarItem[] = [
+  { label: "Private", href: "/private" },
+  { label: "Corporate", href: "/corporate" },
   { label: "Our Corporate Members", href: "/our-corporate-members", active: true },
 ];
 
@@ -331,30 +330,12 @@ export default function OurCorporateMembersPage() {
       <main className="pt-20 bg-white min-h-screen">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <div className="flex flex-col lg:flex-row gap-12">
-            {/* Sidebar Navigation */}
-            <aside className="lg:w-48 flex-shrink-0">
-              <nav>
-                <h3 className="text-[#c8a26b] text-sm font-medium mb-4 lowercase">
-                  membership
-                </h3>
-                <ul className="space-y-2">
-                  {sidebarNav.map((item) => (
-                    <li key={item.href}>
-                      <Link
-                        href={item.href}
-                        className={`text-sm uppercase tracking-wider ${
-                          item.active
-                            ? "text-black font-semibold"
-                            : "text-gray-400 hover:text-gray-600"
-                        }`}
-                      >
-                        {item.label}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </nav>
-            </aside>
+            <PageSidebar
+              title="membership"
+              titleHref="/private"
+              items={sidebarNav}
+              titleClassName="text-[#c8a26b]"
+            />
 
             {/* Main Content */}
             <div className="flex-1">

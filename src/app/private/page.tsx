@@ -1,6 +1,12 @@
 import Header from "@/components/Header";
 import FooterSimple from "@/components/FooterSimple";
-import Link from "next/link";
+import PageSidebar, { type SidebarItem } from "@/components/PageSidebar";
+
+const membershipNavItems: SidebarItem[] = [
+  { label: "Private", href: "/private", active: true },
+  { label: "Corporate", href: "/corporate" },
+  { label: "Our Corporate Members", href: "/our-corporate-members" },
+];
 
 export default function PrivateMembershipPage() {
   return (
@@ -9,34 +15,12 @@ export default function PrivateMembershipPage() {
       <main className="pt-24 pb-16 bg-white min-h-screen">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row gap-8 md:gap-16">
-            {/* Sidebar Navigation */}
-            <aside className="md:w-48 flex-shrink-0">
-              <h2 className="text-[#2a9d8f] text-lg font-light mb-4 font-serif italic">
-                <Link href="/private" className="hover:underline">
-                  membership
-                </Link>
-              </h2>
-              <nav className="space-y-2">
-                <Link
-                  href="/private"
-                  className="block text-xs uppercase tracking-wider text-gray-900 font-semibold"
-                >
-                  Private
-                </Link>
-                <Link
-                  href="/corporate"
-                  className="block text-xs uppercase tracking-wider text-gray-500 hover:text-gray-900 transition-colors"
-                >
-                  Corporate
-                </Link>
-                <Link
-                  href="/our-corporate-members"
-                  className="block text-xs uppercase tracking-wider text-gray-500 hover:text-gray-900 transition-colors"
-                >
-                  Our Corporate Members
-                </Link>
-              </nav>
-            </aside>
+            <PageSidebar
+              title="membership"
+              titleHref="/private"
+              items={membershipNavItems}
+              titleClassName="text-[#2a9d8f]"
+            />
 
             {/* Main Content */}
             <div className="flex-1 max-w-2xl">
