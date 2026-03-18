@@ -30,7 +30,7 @@ export default function CorporationsPage() {
               </h1>
 
               <p className="text-gray-600 text-sm leading-relaxed mb-8">
-                A corporate membership positions your organisation at the heart of Switzerland's
+                A corporate membership positions your organisation at the heart of Switzerland&apos;s
                 Bitcoin ecosystem. Gain visibility, access top talent, and build strategic
                 relationships with investors, peers, and the wider Bitcoin community.
               </p>
@@ -63,7 +63,7 @@ export default function CorporationsPage() {
                     </h3>
                     <p className="text-gray-600 text-sm leading-relaxed">
                       Access a pool of skilled professionals and passionate individuals from
-                      across Switzerland's Bitcoin community. Post openings directly to an
+                      across Switzerland&apos;s Bitcoin community. Post openings directly to an
                       engaged audience actively looking to work in the industry.
                     </p>
                   </div>
@@ -95,7 +95,7 @@ export default function CorporationsPage() {
                       Sponsor Events
                     </h3>
                     <p className="text-gray-600 text-sm leading-relaxed">
-                      Increase your brand's reach by sponsoring BAS events and meetups. Put
+                      Increase your brand&apos;s reach by sponsoring BAS events and meetups. Put
                       your company in front of a targeted audience of Bitcoin professionals,
                       investors, and enthusiasts across Switzerland.
                     </p>

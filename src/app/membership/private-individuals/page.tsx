@@ -31,7 +31,7 @@ export default function PrivateIndividualsPage() {
 
               <p className="text-gray-600 text-sm leading-relaxed mb-8">
                 Joining the Bitcoin Association Switzerland as a private member connects you with
-                Switzerland's most active Bitcoin community. Whether you are just getting started
+                Switzerland&apos;s most active Bitcoin community. Whether you are just getting started
                 or a seasoned Bitcoiner, membership gives you the tools, connections, and knowledge
                 to go further.
               </p>
@@ -50,7 +50,7 @@ export default function PrivateIndividualsPage() {
                     <p className="text-gray-600 text-sm leading-relaxed">
                       Connect directly with BAS corporate members and companies active in the
                       Bitcoin space. Membership opens doors to career opportunities across
-                      Switzerland's growing Bitcoin ecosystem.
+                      Switzerland&apos;s growing Bitcoin ecosystem.
                     </p>
                   </div>
 
@@ -60,7 +60,7 @@ export default function PrivateIndividualsPage() {
                     </h3>
                     <p className="text-gray-600 text-sm leading-relaxed">
                       Meet and network with professionals working in the Bitcoin industry across
-                      Switzerland. Build lasting relationships with developers, entrepreneurs,
+                      Switzerland&apos;s Bitcoin community. Build lasting relationships with developers, entrepreneurs,
                       researchers, and advocates who share your passion for Bitcoin.
                     </p>
                   </div>
@@ -72,7 +72,7 @@ export default function PrivateIndividualsPage() {
                     <p className="text-gray-600 text-sm leading-relaxed">
                       Display your BAS membership badge on your social media profiles and
                       personal website. Signal your commitment to Bitcoin and your membership
-                      of Switzerland's leading Bitcoin organisation.
+                      of Switzerland&apos;s leading Bitcoin organisation.
                     </p>
                   </div>
 
