@@ -229,8 +229,8 @@ const generousDonors = [
 ];
 
 const sidebarNav: SidebarItem[] = [
-  { label: "Private", href: "/private" },
-  { label: "Corporate", href: "/corporate" },
+  { label: "Private Individuals", href: "/membership/private-individuals" },
+  { label: "Corporations", href: "/membership/corporations" },
   { label: "Our Corporate Members", href: "/our-corporate-members", active: true },
 ];
 
