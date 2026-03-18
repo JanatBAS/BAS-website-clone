@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation";
 
 export default function RenewMembershipPage() {
-  redirect("/private");
+  redirect("/membership/private-individuals/register");
 }

@@ -63,8 +63,8 @@ const navigationItems: NavItem[] = [
   {
     label: "Membership",
     dropdown: [
-      { label: "Private", href: "/private" },
-      { label: "Corporate", href: "/corporate" },
+      { label: "Private Individuals", href: "/membership/private-individuals" },
+      { label: "Corporations", href: "/membership/corporations" },
       { label: "Our Corporate Members", href: "/our-corporate-members" },
     ],
   },
