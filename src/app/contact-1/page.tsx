@@ -57,10 +57,10 @@ export default function ContactPage() {
               <p className="text-[#8b7355] mb-4 font-serif text-lg">
                 Press Inquiries:{" "}
                 <a
-                  href="mailto:phil@bitcoinassociation.ch"
+                  href="mailto:info@bitcoinassociation.ch"
                   className="text-[#4a7c9b] hover:underline"
                 >
-                  phil@bitcoinassociation.ch
+                  info@bitcoinassociation.ch
                 </a>
               </p>
 
