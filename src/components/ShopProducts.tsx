@@ -62,7 +62,7 @@ function ProductCard({ product }: { product: Product }) {
   const displayPrice = formatPrice(product.price);
 
   return (
-    <div className="group bg-white rounded-lg border border-gray-100 hover:border-gray-200 hover:shadow-sm overflow-hidden transition-all duration-200">
+    <div className="group flex flex-col bg-white rounded-lg border border-gray-100 hover:border-gray-200 hover:shadow-sm overflow-hidden transition-all duration-200">
       {/* Product Image */}
       <div className="relative aspect-square bg-gray-50 overflow-hidden">
         {product.image_url ? (
@@ -83,18 +83,18 @@ function ProductCard({ product }: { product: Product }) {
       </div>
 
       {/* Product Info */}
-      <div className="p-3 sm:p-4">
+      <div className="flex flex-col flex-1 p-3 sm:p-4">
         <h3 className="text-sm font-medium text-gray-900 line-clamp-2 mb-1 min-h-[2.5rem]">
           {product.name}
         </h3>
         {product.short_description && (
-          <p className="text-xs text-gray-500 mb-2">
+          <p className="text-xs text-gray-500 mb-2 flex-1">
             {product.short_description}
           </p>
         )}
 
         {/* Price */}
-        <div className="mb-3">
+        <div className="mb-3 mt-auto">
           {displayPrice ? (
             <span className="text-base font-semibold text-gray-900">
               CHF {displayPrice}
