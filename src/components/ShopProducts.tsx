@@ -88,7 +88,7 @@ function ProductCard({ product }: { product: Product }) {
           {product.name}
         </h3>
         {product.short_description && (
-          <p className="text-xs text-gray-500 line-clamp-2 mb-2">
+          <p className="text-xs text-gray-500 mb-2">
             {product.short_description}
           </p>
         )}
