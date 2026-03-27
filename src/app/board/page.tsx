@@ -19,6 +19,8 @@ interface BoardMember {
   linkedin?: string;
 }
 
+const placeholderBoardImage = "/images/misc/default-avatar.png";
+
 const boardMembers: BoardMember[] = [
   {
     name: "Jan Brzezek",
@@ -33,18 +35,6 @@ const boardMembers: BoardMember[] = [
     email: "jan@bitcoinassociation.ch",
   },
   {
-    name: "Phil Lojacono",
-    role: "Vice President",
-    image:
-      "/images/candidates/phil.png",
-    bio: [
-      "Phil Lojacono is a seasoned entrepreneur with extensive experience in fintech and business development. He is the founder of Berglinde AG, a self-funded Bitcoin company aimed at onboarding businesses to a Bitcoin standard. Previously, Phil served as CEO of Liiva AG, a joint venture between Switzerland's largest bank (Raiffeisen) and its leading insurance company (Mobiliar), where he led the development of a digital real estate platform. Phil also co-founded Advanon AG, a working capital financing platform for SMEs, which he successfully scaled across two juristictions and later sold.",
-      "In parallel he started writing the Berglinde (formerly Coprnic) newsletter three years ago with which he regularly writes about Bitcoin and its effects on macroeconomics and politics. He's a regular guest on Bitcoin podcasts with the aim to onboard the next few thousand Bitcoiners.",
-    ],
-    email: "phil@bitcoinassociation.ch",
-    linkedin: "https://www.linkedin.com/in/phillojacono/",
-  },
-  {
     name: "Lisa Tscherry",
     role: undefined,
     image:
@@ -56,34 +46,34 @@ const boardMembers: BoardMember[] = [
     linkedin: "https://www.linkedin.com/in/lisa-tscherry/",
   },
   {
-    name: "Adriano Bertini",
-    role: undefined,
-    image:
-      "/images/candidates/adriano-bertini.jpeg",
+    name: "Lewin Boehnke",
+    role: "Board Member",
+    image: placeholderBoardImage,
     bio: [
-      "Adriano Bertini has a robust career in financial services, blockchain, and strategic consulting, currently serving as the Head of Product and Strategy at Ledger Enterprise. He has held various leadership roles in both established corporations and innovative tech companies, driving projects that bridge the gap between traditional finance and blockchain solutions. His experience spans project management, risk management, and regulatory compliance, with a focus on cutting-edge technology and cryptocurrency adoption. Adriano has been instrumental in promoting Bitcoin and blockchain technology through various strategic initiatives. His deep knowledge of both financial systems and blockchain solutions makes him a critical player in the integration of cryptocurrencies into institutional frameworks.",
+      "Dr. Lewin Boehnke is Chief Strategy Officer at Crypto Finance, part of Deutsche Boerse Group, where he focuses on long-term strategy, innovation, and the evolution of digital asset market infrastructure.",
+      "He joined Crypto Finance in 2017 as one of its first employees and initially served as Head of Research and Chief Technology Officer of the crypto infrastructure division, leading the build-out of institutional-grade crypto custody and security systems.",
+      "Lewin holds a PhD in theoretical and computational physics and has been active in the Bitcoin space since 2011. He brings deep hands-on experience across Bitcoin, cryptography, and financial infrastructure, with a strong interest in sound money, open networks, and building robust, scalable foundations for Bitcoin adoption.",
     ],
-    linkedin: "https://www.linkedin.com/in/adriano-bertini/",
   },
   {
-    name: "Rahim Taghizadegan",
-    role: undefined,
-    image:
-      "/images/board/rahim-taghizadegan.jpg",
+    name: "Ronald Kogens",
+    role: "Secretary of the Board",
+    image: placeholderBoardImage,
     bio: [
-      "The last Austrian Austrian Economist in the direct tradition, teaching in Austria, Liechtenstein, Switzerland, and Germany. Best-selling book author, speaker, entrepreneur. Among the first economists to analyze and adopt Bitcoin in the earliest days. Founder of scholarium, chief economist of the Free Cities Foundation, investor in Bitcoin citadels.",
+      "Ronald Kogens is a Swiss lawyer specializing in Bitcoin and Web3 with over 10 years of experience in the digital asset space.",
+      "He is a strong advocate of Bitcoin maximalism and economic freedom and focuses on legal frameworks that preserve Bitcoin's integrity and decentralized nature.",
+      "He serves as Secretary of the Board of the Bitcoin Association Switzerland.",
     ],
-    linkedin: "https://www.linkedin.com/in/rahimt/",
   },
   {
-    name: "Luzius Meisser",
-    role: "Honorary Board Member",
-    image:
-      "/images/candidates/luzius-meisser.jpeg",
+    name: "Timo Frick",
+    role: "Head of Regulation & Policy",
+    image: placeholderBoardImage,
     bio: [
-      "Dr. Luzius Meisser has been a member of the Board of Directors of Bitcoin Suisse since 2017, including two and a half years as Chairman. He has been following Bitcoin since 2011 and founded the Bitcoin Association Switzerland in 2013. He is also a member of the Expert Council of the Swiss Blockchain Federation. After studying computer science at ETH, he co-founded the cloud service Wuala and began investing in Swiss start-ups after its sale. He also holds a master's degree in economics and a doctorate in banking & finance from the University of Zurich, chairs the tokenization service provider Aktionariat and is on the board of the Frankencoin Assocation.",
+      "Timo Frick is an attorney at law and founder of frick.legal, a boutique law firm in Liechtenstein focusing on Bitcoin, financial regulation and dispute resolution, as well as selected mandates for private clients. He gained industry experience at Bank Frick AG and Bitcoin Suisse AG.",
+      "Bitcoin has accompanied him since the beginning of his studies, academically, professionally and out of conviction. At the intersection of Bitcoin and international arbitration, his core interests converge: to him, Bitcoin means the separation of state and money, arbitration the separation of state and law.",
+      "As Head of Regulation & Policy of the Bitcoin Association Switzerland, he advocates for technology-neutral, risk-based regulatory frameworks and supports initiatives that strengthen Switzerland's standing as a Bitcoin hub.",
     ],
-    linkedin: "https://www.linkedin.com/in/luziusmeisser/",
   },
 ];
 
