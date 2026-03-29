@@ -4,7 +4,7 @@ import Header from '@/components/Header';
 import FooterSimple from '@/components/FooterSimple';
 import { getAdminPostBySlug } from '@/lib/blob-store';
 
-export const dynamic = 'force-dynamic';
+export const revalidate = 300;
 
 interface PageProps {
   params: Promise<{ slug: string }>;
