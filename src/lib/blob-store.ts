@@ -5,19 +5,10 @@ import { env } from '@/lib/env';
 
 const EVENTS_KEY = 'admin/events.json';
 const POSTS_KEY = 'admin/posts.json';
-const DATA_CACHE_TTL_MS = 60 * 1000;
 
 interface StoredAdminEvent extends Omit<AdminEvent, 'category'> {
   category?: string;
 }
-
-interface DatasetCacheEntry<T> {
-  value: T;
-  expiresAt: number;
-}
-
-let eventsCache: DatasetCacheEntry<StoredAdminEvent[]> | null = null;
-let postsCache: DatasetCacheEntry<AdminBlogPost[]> | null = null;
 
 function normalizeEventCategory(category: string | undefined): AdminEvent['category'] {
   if (category === 'roadshow') return 'conference';
@@ -30,7 +21,7 @@ function normalizeEventCategory(category: string | undefined): AdminEvent['categ
 async function readBlob<T>(key: string): Promise<T | null> {
   try {
     const result = await get(key, {
-      access: 'public',
+      access: 'private',
       token: env.BLOB_READ_WRITE_TOKEN,
       useCache: false,
     });
@@ -46,9 +37,10 @@ async function readLegacyBlob<T>(key: string): Promise<T | null> {
   try {
     const prefix = key.replace(/\.[^.]+$/, '');
     const { blobs } = await list({ prefix });
-    if (blobs.length === 0) return null;
+    const legacyBlobs = blobs.filter((blob) => blob.pathname !== key);
+    if (legacyBlobs.length === 0) return null;
 
-    const latest = blobs
+    const latest = legacyBlobs
       .slice()
       .sort((a, b) => new Date(b.uploadedAt).getTime() - new Date(a.uploadedAt).getTime())[0];
 
@@ -60,66 +52,24 @@ async function readLegacyBlob<T>(key: string): Promise<T | null> {
   }
 }
 
-function getCachedValue<T>(entry: DatasetCacheEntry<T> | null): T | null {
-  if (!entry) return null;
-  if (Date.now() >= entry.expiresAt) return null;
-  return entry.value;
-}
-
-function setEventsCache(value: StoredAdminEvent[]): void {
-  eventsCache = {
-    value,
-    expiresAt: Date.now() + DATA_CACHE_TTL_MS,
-  };
-}
-
-function setPostsCache(value: AdminBlogPost[]): void {
-  postsCache = {
-    value,
-    expiresAt: Date.now() + DATA_CACHE_TTL_MS,
-  };
-}
-
-function clearEventsCache(): void {
-  eventsCache = null;
-}
-
-function clearPostsCache(): void {
-  postsCache = null;
-}
-
 async function writeBlob<T>(key: string, data: T): Promise<void> {
   await put(key, JSON.stringify(data), {
-    access: 'public',
+    access: 'private',
     contentType: 'application/json',
     addRandomSuffix: false,
     allowOverwrite: true,
-    // Keep the cache lifetime low for mutable JSON content.
-    cacheControlMaxAge: 60,
   });
 }
 
 async function readEventsDataset(): Promise<StoredAdminEvent[]> {
-  const cached = getCachedValue(eventsCache);
-  if (cached) return cached;
-
   const stableData = await readBlob<StoredAdminEvent[]>(EVENTS_KEY);
-  if (stableData) {
-    setEventsCache(stableData);
-    return stableData;
-  }
+  if (stableData) return stableData;
 
   const legacyData = await readLegacyBlob<StoredAdminEvent[]>(EVENTS_KEY);
-  if (!legacyData) {
-    setEventsCache([]);
-    return [];
-  }
-
-  setEventsCache(legacyData);
+  if (!legacyData) return [];
 
   try {
     await writeBlob(EVENTS_KEY, legacyData);
-    setEventsCache(legacyData);
   } catch {
     // Legacy data was readable, so returning it is still the correct behavior.
   }
@@ -128,26 +78,14 @@ async function readEventsDataset(): Promise<StoredAdminEvent[]> {
 }
 
 async function readPostsDataset(): Promise<AdminBlogPost[]> {
-  const cached = getCachedValue(postsCache);
-  if (cached) return cached;
-
   const stableData = await readBlob<AdminBlogPost[]>(POSTS_KEY);
-  if (stableData) {
-    setPostsCache(stableData);
-    return stableData;
-  }
+  if (stableData) return stableData;
 
   const legacyData = await readLegacyBlob<AdminBlogPost[]>(POSTS_KEY);
-  if (!legacyData) {
-    setPostsCache([]);
-    return [];
-  }
-
-  setPostsCache(legacyData);
+  if (!legacyData) return [];
 
   try {
     await writeBlob(POSTS_KEY, legacyData);
-    setPostsCache(legacyData);
   } catch {
     // Legacy data was readable, so returning it is still the correct behavior.
   }
@@ -176,17 +114,13 @@ export async function getAdminEvents(): Promise<AdminEvent[]> {
 export async function addAdminEvent(event: AdminEvent): Promise<void> {
   const events = await getAdminEventsUncached();
   events.push(event);
-  clearEventsCache();
   await writeBlob(EVENTS_KEY, events);
-  setEventsCache(events);
 }
 
 export async function deleteAdminEvent(id: string): Promise<void> {
   const events = await getAdminEventsUncached();
   const filtered = events.filter((e) => e.id !== id);
-  clearEventsCache();
   await writeBlob(EVENTS_KEY, filtered);
-  setEventsCache(filtered);
 }
 
 export async function excludeEventOccurrence(id: string, date: string): Promise<void> {
@@ -197,9 +131,7 @@ export async function excludeEventOccurrence(id: string, date: string): Promise<
   if (!event.excludedDates.includes(date)) {
     event.excludedDates.push(date);
   }
-  clearEventsCache();
   await writeBlob(EVENTS_KEY, events);
-  setEventsCache(events);
 }
 
 // --- Blog Posts ---
@@ -219,17 +151,13 @@ export async function getAdminPosts(): Promise<AdminBlogPost[]> {
 export async function addAdminPost(post: AdminBlogPost): Promise<void> {
   const posts = await getAdminPostsUncached();
   posts.push(post);
-  clearPostsCache();
   await writeBlob(POSTS_KEY, posts);
-  setPostsCache(posts);
 }
 
 export async function deleteAdminPost(id: string): Promise<void> {
   const posts = await getAdminPostsUncached();
   const filtered = posts.filter((p) => p.id !== id);
-  clearPostsCache();
   await writeBlob(POSTS_KEY, filtered);
-  setPostsCache(filtered);
 }
 
 export async function getAdminPostBySlug(slug: string): Promise<AdminBlogPost | undefined> {
@@ -247,8 +175,6 @@ export async function updateAdminPost(id: string, updates: Partial<AdminBlogPost
   const index = posts.findIndex((p) => p.id === id);
   if (index === -1) return null;
   posts[index] = { ...posts[index], ...updates };
-  clearPostsCache();
   await writeBlob(POSTS_KEY, posts);
-  setPostsCache(posts);
   return posts[index];
 }
