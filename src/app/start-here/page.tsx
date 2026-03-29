@@ -23,18 +23,21 @@ export default function StartHerePage() {
               What Is Bitcoin?
             </h2>
             <p className="text-gray-600 text-sm leading-relaxed mb-3">
-              Bitcoin is a decentralised digital currency — the first of its kind. Created in
-              2009 by the pseudonymous Satoshi Nakamoto, it operates without any central
-              authority: no government, no bank, no company controls it.
+              Bitcoin is money for the internet, the first digital currency not controlled or 
+              issued by any central authority: no government, bank, or company controls it.
             </p>
             <p className="text-gray-600 text-sm leading-relaxed mb-3">
-              Transactions are verified by a global network of computers and recorded
-              permanently on a public ledger called the blockchain. The rules of the network
-              are enforced by software, not by people.
+              But Bitcoin is more than a currency. It also functions as a secure, 
+              distributed network of peers, where security comes from a process called{" "}
+              <a href="https://learnmeabitcoin.com/beginners/guide/mining/" target="_blank" className="text-blue-500 hover:underline">mining</a>, 
+              the same process by which new Bitcoin is issued and by which it derives its value.
             </p>
             <p className="text-gray-600 text-sm leading-relaxed">
-              There will only ever be 21 million Bitcoin — a fixed supply hardcoded into the
-              protocol. This scarcity is one of Bitcoin&apos;s most important properties.
+              Through mining, a digital object (a bitcoin unit) is tied to real-world cost: 
+              it is expensive to produce because of the energy required to generate it. 
+              This creates, for the first time in distributed computing, a direct link 
+              between a digital asset and physical cost, a genuinely revolutionary 
+              technological advancement.
             </p>
           </section>
 
@@ -44,14 +47,20 @@ export default function StartHerePage() {
               Why It Matters
             </h2>
             <div className="space-y-4">
+              <p className="text-gray-600 text-sm leading-relaxed">
+                Bitcoin is the first time in history that people have access to digital 
+                money that nobody controls. As more of our lives move online, 
+                the internet needs a public, neutral money, one that doesn't belong 
+                to any single company, government, or group. Bitcoin is that money.
+              </p>
               <div>
                 <h3 className="text-sm font-bold text-[#1a1a1a] uppercase tracking-wide mb-1">
                   Sound Money
                 </h3>
                 <p className="text-gray-600 text-sm leading-relaxed">
-                  Traditional currencies lose purchasing power over time as more money is
-                  printed. Bitcoin&apos;s fixed supply makes inflation impossible by design —
-                  no authority can devalue it.
+                  Traditional currencies lose purchasing power over time as governments 
+                  print more of them. Bitcoin is different, its supply is fixed, so no 
+                  authority can inflate it away or quietly devalue your savings.
                 </p>
               </div>
               <div>
@@ -59,9 +68,9 @@ export default function StartHerePage() {
                   Financial Sovereignty
                 </h3>
                 <p className="text-gray-600 text-sm leading-relaxed">
-                  With Bitcoin, you can hold and transfer value globally without needing a
-                  bank account or permission from any institution. You are the sole custodian
-                  of your own money.
+                  With Bitcoin, you can hold and send money anywhere in the world without a 
+                  bank account, without asking permission, and without anyone being able to 
+                  stop you. You are the sole custodian of your own wealth.
                 </p>
               </div>
               <div>
@@ -69,8 +78,9 @@ export default function StartHerePage() {
                   Censorship Resistance
                 </h3>
                 <p className="text-gray-600 text-sm leading-relaxed">
-                  No one can freeze your Bitcoin or block a transaction. The network is
-                  open to anyone and has operated continuously since 2009.
+                  No one can freeze your Bitcoin. No one can block your transaction. 
+                  The network is open to everyone and has run continuously, 
+                  without interruption, since 2009.
                 </p>
               </div>
             </div>
