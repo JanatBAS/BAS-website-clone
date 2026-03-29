@@ -1,6 +1,12 @@
 import { NextResponse } from 'next/server';
 import { revalidatePath } from 'next/cache';
-import { getAdminEvents, addAdminEvent, deleteAdminEvent, excludeEventOccurrence } from '@/lib/blob-store';
+import {
+  getAdminEvents,
+  addAdminEvent,
+  deleteAdminEvent,
+  excludeEventOccurrence,
+  invalidateAdminEventsCache,
+} from '@/lib/blob-store';
 import type { AdminEvent, AdminEventFormData } from '@/types/admin';
 import type { RecurrenceFrequency } from '@/types/admin';
 import { slugify } from '@/lib/utils';
@@ -80,6 +86,7 @@ export async function POST(request: Request) {
     };
 
     await addAdminEvent(event);
+    invalidateAdminEventsCache();
     revalidatePath('/calendar');
     revalidatePath('/events');
     return NextResponse.json(event, { status: 201 });
@@ -102,6 +109,7 @@ export async function DELETE(request: Request) {
     } else {
       await deleteAdminEvent(id);
     }
+    invalidateAdminEventsCache();
     revalidatePath('/calendar');
     revalidatePath('/events');
     return NextResponse.json({ success: true });

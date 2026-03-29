@@ -1,6 +1,13 @@
 import { NextResponse } from 'next/server';
 import { revalidatePath } from 'next/cache';
-import { getAdminPosts, addAdminPost, deleteAdminPost, updateAdminPost, getAdminPostById } from '@/lib/blob-store';
+import {
+  getAdminPosts,
+  addAdminPost,
+  deleteAdminPost,
+  updateAdminPost,
+  getAdminPostById,
+  invalidateAdminPostsCache,
+} from '@/lib/blob-store';
 import type { AdminBlogPost, AdminBlogPostFormData } from '@/types/admin';
 import { slugify } from '@/lib/utils';
 
@@ -72,6 +79,7 @@ export async function POST(request: Request) {
     };
 
     await addAdminPost(post);
+    invalidateAdminPostsCache();
     revalidatePath('/bitcoin-association-switzerland');
     revalidatePath(`/blog/${post.slug}`);
     return NextResponse.json(post, { status: 201 });
@@ -129,6 +137,7 @@ export async function PUT(request: Request) {
       return NextResponse.json({ error: 'Post not found' }, { status: 404 });
     }
 
+    invalidateAdminPostsCache();
     revalidatePath('/bitcoin-association-switzerland');
     revalidatePath(`/blog/${updated.slug}`);
     return NextResponse.json(updated);
@@ -146,6 +155,7 @@ export async function DELETE(request: Request) {
     }
     const existing = await getAdminPostById(id);
     await deleteAdminPost(id);
+    invalidateAdminPostsCache();
     revalidatePath('/bitcoin-association-switzerland');
     if (existing) {
       revalidatePath(`/blog/${existing.slug}`);
