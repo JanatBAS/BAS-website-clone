@@ -12,6 +12,31 @@ const aboutNavItems = [
   { label: "Contact", href: "/contact-1" },
 ];
 
+const mediaKitArchiveHref = "/media-kit/BAS-Media-Kit.zip";
+
+const mediaKitDownloads = [
+  {
+    title: "Without Text",
+    files: [
+      { label: "PNG", href: "/media-kit/bas-logo-without-text.png" },
+      { label: "GIF", href: "/media-kit/bas-logo-without-text.gif" },
+      { label: "PDF", href: "/media-kit/bas-logo-without-text.pdf" },
+      { label: "JPG", href: "/media-kit/bas-logo-without-text.jpg" },
+      { label: "TIF", href: "/media-kit/bas-logo-without-text.tif" },
+    ],
+  },
+  {
+    title: "With Text",
+    files: [
+      { label: "PNG", href: "/media-kit/bas-logo-with-text.png" },
+      { label: "GIF", href: "/media-kit/bas-logo-with-text.gif" },
+      { label: "PDF", href: "/media-kit/bas-logo-with-text.pdf" },
+      { label: "JPG", href: "/media-kit/bas-logo-with-text.jpg" },
+      { label: "TIF", href: "/media-kit/bas-logo-with-text.tif" },
+    ],
+  },
+];
+
 export default function MediaKitPage() {
   return (
     <div className="min-h-screen flex flex-col bg-white">
@@ -57,7 +82,7 @@ export default function MediaKitPage() {
               <div className="flex justify-center mb-12">
                 <div className="w-full max-w-md">
                   <Image
-                    src="/images/branding/bas-logo-square.png"
+                    src="/media-kit/bas-logo-without-text.png"
                     alt="Bitcoin Association Switzerland Logo"
                     width={500}
                     height={500}
@@ -101,14 +126,35 @@ export default function MediaKitPage() {
                 <p className="text-sm mb-6">
                   <span className="mr-1">👉</span>
                   <a
-                    href="https://www.bitcoinassociation.ch/s/BAS-LOGO.rar"
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    href={mediaKitArchiveHref}
+                    download
                     className="text-[#c75b4a] hover:text-[#a84a3b] font-bold transition-colors"
                   >
-                    [Download Logos Here]
+                    [Download Media Kit ZIP]
                   </a>
                 </p>
+
+                <div className="grid gap-4 sm:grid-cols-2 mb-6">
+                  {mediaKitDownloads.map((group) => (
+                    <div key={group.title} className="border border-gray-200 rounded-lg p-4">
+                      <h4 className="text-xs font-bold uppercase tracking-widest text-gray-800 mb-3">
+                        {group.title}
+                      </h4>
+                      <div className="flex flex-wrap gap-2">
+                        {group.files.map((file) => (
+                          <a
+                            key={file.href}
+                            href={file.href}
+                            download
+                            className="inline-flex items-center rounded border border-gray-300 px-3 py-1 text-xs font-semibold tracking-widest text-gray-700 hover:border-[#c75b4a] hover:text-[#c75b4a] transition-colors"
+                          >
+                            {file.label}
+                          </a>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+                </div>
 
                 <p className="text-gray-600 text-sm">
                   If you need additional formats or have any questions, feel free to contact us.

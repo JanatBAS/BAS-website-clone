@@ -6,6 +6,8 @@ BAS/
 old_squarespace.xml
 .claude/
 CLAUDE.md
+vercel-next-best-practices.md
+vercel-react-best-practices.md
 
 # Sensitive files
 token.txt
