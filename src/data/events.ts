@@ -283,6 +283,33 @@ function determineEventStatus(dateISO: string): 'upcoming' | 'past' {
   return eventDate >= today ? 'upcoming' : 'past';
 }
 
+const basMembersMeetupDescription = [
+  "Dear BAS members,",
+  "",
+  "We have decided resp. voted to host a series of member meetups alongside selected Bitcoin conferences this year.",
+  "",
+  "Our first stop will be at the Swiss Bitcoin Conference in Kreuzlingen.",
+  "",
+  "We would like to invite you to a simple member get-together:",
+  "",
+  "Date: Saturday, 25 April 2026",
+  "Time: from 17:00",
+  "Location: Kreuzlingen (at the conference venue - exact spot to be shared)",
+  "",
+  "This will be an informal meetup to connect with fellow members, exchange ideas, and spend some time together during the conference.",
+  "",
+  "Save the date and feel free to join us if you are attending.",
+  "",
+  "Registration (required for catering planning): https://www.meetup.com/de-de/bitcoin-meetup-switzerland/events/314034144/",
+  "",
+  "Conference information: https://swiss-bitcoin-conference.com/",
+  "",
+  "Looking forward to seeing many of you there.",
+  "",
+  "Lisa",
+  "on behalf of the BAS Board",
+].join("\n");
+
 // Transform most-recent-events to unified schema
 const transformedMostRecentEvents: UnifiedEvent[] = mostRecentEventsRaw.map(event => {
   const dateInfo = getDateInfo(event.dateISO);
@@ -359,8 +386,57 @@ const transformedRoadshowEvents: UnifiedEvent[] = roadshowEventsRaw.map(event =>
   };
 });
 
+const transformedBasMembersMeetup: UnifiedEvent[] = [
+  (() => {
+    const dateISO = "2026-04-25";
+    const title = "BAS Members Meetup at the Swiss Bitcoin Conference";
+    const location = "Kreuzlingen (conference venue, exact spot to be shared)";
+    const signupLink =
+      "https://www.meetup.com/de-de/bitcoin-meetup-switzerland/events/314034144/";
+    const href =
+      "/most-recent-events/2026/4/25/bas-members-meetup-swiss-bitcoin-conference";
+    const dateInfo = getDateInfo(dateISO);
+    const calendarDetails = [
+      `Registration required: ${signupLink}`,
+      "Conference info: https://swiss-bitcoin-conference.com/",
+    ].join("\n");
+    const googleCalendarUrl =
+      `https://www.google.com/calendar/event?action=TEMPLATE&text=${encodeURIComponent(title)}` +
+      `&dates=20260425T170000/20260425T190000&ctz=Europe/Zurich` +
+      `&location=${encodeURIComponent(location)}` +
+      `&details=${encodeURIComponent(calendarDetails)}`;
+
+    return {
+      id: "bas-members-meetup-kreuzlingen-2026",
+      slug: "bas-members-meetup-swiss-bitcoin-conference",
+      title,
+      description: basMembersMeetupDescription,
+      shortDescription: truncateDescription(basMembersMeetupDescription),
+      dateISO,
+      startTime: "17:00",
+      startTimeDisplay: "5:00 pm",
+      dayOfWeek: dateInfo.dayOfWeek,
+      dayOfMonth: dateInfo.dayOfMonth,
+      monthShort: dateInfo.monthShort,
+      monthLong: dateInfo.monthLong,
+      year: dateInfo.year,
+      location,
+      locationUrl: "https://maps.google.com/?q=Kreuzlingen,+Switzerland",
+      imageUrl: "/images/branding/bas-people.jpg",
+      href,
+      signupLink,
+      googleCalendarUrl,
+      category: "meetup",
+      status: determineEventStatus(dateISO),
+      source: "most-recent-events",
+      accentColor: CATEGORY_COLORS.meetup,
+    };
+  })(),
+];
+
 // Combine all events
 export const allEvents: UnifiedEvent[] = [
+  ...transformedBasMembersMeetup,
   ...transformedRoadshowEvents,
   ...transformedMostRecentEvents,
 ].sort((a, b) => b.dateISO.localeCompare(a.dateISO)); // Sort by date descending

@@ -139,15 +139,46 @@ function deduplicateMeetupEvents(
   meetupEvents: UnifiedEvent[],
   existingEvents: UnifiedEvent[],
 ): UnifiedEvent[] {
+  const normalizeComparableEventLink = (url: string): string => {
+    try {
+      const parsed = new URL(url);
+      const meetupEventMatch = parsed.hostname.includes('meetup.com')
+        ? parsed.pathname.match(/\/events\/(\d+)/)
+        : null;
+
+      if (meetupEventMatch) {
+        return `meetup:${meetupEventMatch[1]}`;
+      }
+
+      const normalizedPath = parsed.pathname.replace(/\/+$/, '');
+      return `${parsed.hostname.toLowerCase()}${normalizedPath}`;
+    } catch {
+      return url.trim().replace(/\/+$/, '');
+    }
+  };
+
   const seenKeys = new Set(
     existingEvents.map((e) => `${e.title.toLowerCase()}__${e.dateISO}`),
+  );
+  const seenLinks = new Set(
+    existingEvents.flatMap((event) =>
+      [event.signupLink, event.href]
+        .filter((value): value is string => Boolean(value))
+        .map(normalizeComparableEventLink),
+    ),
   );
 
   const deduped: UnifiedEvent[] = [];
   for (const event of meetupEvents) {
     const key = `${event.title.toLowerCase()}__${event.dateISO}`;
     if (seenKeys.has(key)) continue;
+    const comparableLinks = [event.signupLink, event.href]
+      .filter((value): value is string => Boolean(value))
+      .map(normalizeComparableEventLink);
+    if (comparableLinks.some((link) => seenLinks.has(link))) continue;
+
     seenKeys.add(key);
+    comparableLinks.forEach((link) => seenLinks.add(link));
     deduped.push(event);
   }
   return deduped;

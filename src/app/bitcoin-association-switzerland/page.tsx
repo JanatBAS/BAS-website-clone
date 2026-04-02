@@ -29,6 +29,7 @@ interface BlogPost {
 const authorIds: Record<string, string> = {
   "kronrod": "59025f1030454480d862303f",
   "Phil Lojacono": "672bdb3ae0672c1501f39ce8",
+  "Lisa Tscherry": "lisa-tscherry",
   "Roger Darin": "54edd73ae4b04709779918e4",
   "Luzius Meisser": "5a9907f3e4966b72996b9c31",
   "Lucas Betschart": "5895fa2e725e2525b0696fd4",
@@ -41,6 +42,21 @@ const authorNames: Record<string, string> = Object.fromEntries(
 );
 
 const blogPosts: BlogPost[] = [
+  {
+    id: "1",
+    author: "Lisa Tscherry",
+    authorId: "lisa-tscherry",
+    date: "2 April 2026",
+    timestamp: 1775131200000, // Apr 2, 2026
+    category: "Events",
+    title: "BAS Members Meetup at the Swiss Bitcoin Conference",
+    excerpt:
+      "Dear BAS members, we are launching a series of member meetups alongside selected Bitcoin conferences this year. Our first stop will be at the Swiss Bitcoin Conference in Kreuzlingen, where we invite you to an informal BAS member get-together on Saturday, 25 April 2026 from 17:00.",
+    href: "/bitcoin-association-switzerland/2026/4/2/bas-members-meetup-at-the-swiss-bitcoin-conference",
+    image: "/images/branding/bas-people.jpg",
+    commentCount: 0,
+    likeCount: 0,
+  },
   {
     id: "3",
     author: "Phil Lojacono",
