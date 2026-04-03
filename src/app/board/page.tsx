@@ -19,8 +19,6 @@ interface BoardMember {
   linkedin?: string;
 }
 
-const placeholderBoardImage = "/images/misc/default-avatar.png";
-
 const boardMembers: BoardMember[] = [
   {
     name: "Jan Brzezek",
@@ -33,6 +31,7 @@ const boardMembers: BoardMember[] = [
       "As President of the Bitcoin Association Switzerland, Jan aims to bring clarity, transparency and professionalism to the organisation while empowering members and supporting initiatives that drive meaningful Bitcoin adoption.",
     ],
     email: "jan@bitcoinassociation.ch",
+    linkedin: "https://www.linkedin.com/in/jan-brzezek/",
   },
   {
     name: "Lisa Tscherry",
@@ -48,32 +47,38 @@ const boardMembers: BoardMember[] = [
   {
     name: "Lewin Boehnke",
     role: "Board Member",
-    image: placeholderBoardImage,
+    image: "/images/board/lewin-boehnke.jpg",
     bio: [
       "Dr. Lewin Boehnke is Chief Strategy Officer at Crypto Finance, part of Deutsche Boerse Group, where he focuses on long-term strategy, innovation, and the evolution of digital asset market infrastructure.",
       "He joined Crypto Finance in 2017 as one of its first employees and initially served as Head of Research and Chief Technology Officer of the crypto infrastructure division, leading the build-out of institutional-grade crypto custody and security systems.",
       "Lewin holds a PhD in theoretical and computational physics and has been active in the Bitcoin space since 2011. He brings deep hands-on experience across Bitcoin, cryptography, and financial infrastructure, with a strong interest in sound money, open networks, and building robust, scalable foundations for Bitcoin adoption.",
     ],
+    email: "lewin@bitcoinassociation.ch",
+    linkedin: "https://www.linkedin.com/in/lewinboehnke/",
   },
   {
     name: "Ronald Kogens",
     role: "Secretary of the Board",
-    image: placeholderBoardImage,
+    image: "/images/board/ronald-kogens.jpg",
     bio: [
       "Ronald Kogens is a Swiss lawyer specializing in Bitcoin and Web3 with over 10 years of experience in the digital asset space.",
       "He is a strong advocate of Bitcoin maximalism and economic freedom and focuses on legal frameworks that preserve Bitcoin's integrity and decentralized nature.",
       "He serves as Secretary of the Board of the Bitcoin Association Switzerland.",
     ],
+    email: "ronald@bitcoinassociation.ch",
+    linkedin: "https://www.linkedin.com/in/ronald-kogens/",
   },
   {
     name: "Timo Frick",
     role: "Head of Regulation & Policy",
-    image: placeholderBoardImage,
+    image: "/images/board/timo-frick.jpg",
     bio: [
       "Timo Frick is an attorney at law and founder of frick.legal, a boutique law firm in Liechtenstein focusing on Bitcoin, financial regulation and dispute resolution, as well as selected mandates for private clients. He gained industry experience at Bank Frick AG and Bitcoin Suisse AG.",
       "Bitcoin has accompanied him since the beginning of his studies, academically, professionally and out of conviction. At the intersection of Bitcoin and international arbitration, his core interests converge: to him, Bitcoin means the separation of state and money, arbitration the separation of state and law.",
       "As Head of Regulation & Policy of the Bitcoin Association Switzerland, he advocates for technology-neutral, risk-based regulatory frameworks and supports initiatives that strengthen Switzerland's standing as a Bitcoin hub.",
     ],
+    email: "timo@bitcoinassociation.ch",
+    linkedin: "https://www.linkedin.com/in/timofrick/",
   },
 ];
 
