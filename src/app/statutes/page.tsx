@@ -49,7 +49,6 @@ export default function StatutesPage() {
             {/* Main Content */}
             <div className="flex-1">
               <div className="space-y-4">
-                {/* English Version Link */}
                 <p className="text-center">
                   <a
                     href="/pdfs/Statutes_BAS_v11.pdf"
@@ -57,19 +56,7 @@ export default function StatutesPage() {
                     rel="noopener noreferrer"
                     className="text-[#5a9e9e] hover:text-[#4a8e8e] font-serif text-lg transition-colors"
                   >
-                    Download STATUTES PDF English version
-                  </a>
-                </p>
-
-                {/* German Version Link */}
-                <p className="text-center">
-                  <a
-                    href="/pdfs/Statuten_BAS_v11.pdf"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-[#5a9e9e] hover:text-[#4a8e8e] font-serif text-lg transition-colors"
-                  >
-                    Download STATUTES PDF German version
+                    Download STATUTES PDF (German + English)
                   </a>
                 </p>
               </div>
