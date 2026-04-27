@@ -1,5 +1,5 @@
 import { unstable_cache, revalidateTag } from 'next/cache';
-import { del, list, put } from '@vercel/blob';
+import { del, get, list, put } from '@vercel/blob';
 import type { AdminEvent, AdminBlogPost } from '@/types/admin';
 
 const EVENTS_KEY = 'admin/events.json';
@@ -33,7 +33,21 @@ function isVersionedBlobPath(pathname: string, key: string): boolean {
   return pathname.startsWith(`${prefix}-`) && pathname.endsWith(extension);
 }
 
-async function readVersionedBlob<T>(key: string): Promise<T | null> {
+async function readStableBlob<T>(key: string): Promise<T | null> {
+  try {
+    const result = await get(key, {
+      access: 'public',
+      useCache: false,
+    });
+
+    if (!result || result.statusCode !== 200) return null;
+    return await new Response(result.stream).json() as T;
+  } catch {
+    return null;
+  }
+}
+
+async function readLegacyVersionedBlob<T>(key: string): Promise<T | null> {
   try {
     const versionedBlobs = await listVersionedBlobs(key);
     if (versionedBlobs.length === 0) return null;
@@ -52,6 +66,16 @@ async function readVersionedBlob<T>(key: string): Promise<T | null> {
   }
 }
 
+async function writeStableBlob<T>(key: string, data: T): Promise<void> {
+  await put(key, JSON.stringify(data), {
+    access: 'public',
+    contentType: 'application/json',
+    addRandomSuffix: false,
+    allowOverwrite: true,
+    cacheControlMaxAge: 60,
+  });
+}
+
 async function writeVersionedBlob<T>(key: string, data: T): Promise<void> {
   const newBlob = await put(key, JSON.stringify(data), {
     access: 'public',
@@ -60,6 +84,32 @@ async function writeVersionedBlob<T>(key: string, data: T): Promise<void> {
   });
 
   await pruneOldVersions(key, newBlob.url);
+}
+
+async function writeDatasetBlob<T>(key: string, data: T): Promise<void> {
+  await writeStableBlob(key, data);
+
+  try {
+    await writeVersionedBlob(key, data);
+  } catch {
+    // Versioned snapshots are a rollback aid. The stable blob is the source of truth.
+  }
+}
+
+async function readDatasetBlob<T>(key: string): Promise<T | null> {
+  const stableData = await readStableBlob<T>(key);
+  if (stableData) return stableData;
+
+  const legacyData = await readLegacyVersionedBlob<T>(key);
+  if (!legacyData) return null;
+
+  try {
+    await writeStableBlob(key, legacyData);
+  } catch {
+    // Returning readable legacy data is still correct if the backfill fails.
+  }
+
+  return legacyData;
 }
 
 async function listVersionedBlobs(key: string) {
@@ -97,7 +147,7 @@ async function pruneOldVersions(key: string, newestBlobUrl: string): Promise<voi
 }
 
 async function getAdminEventsUncached(): Promise<AdminEvent[]> {
-  const events = (await readVersionedBlob<StoredAdminEvent[]>(EVENTS_KEY)) ?? [];
+  const events = (await readDatasetBlob<StoredAdminEvent[]>(EVENTS_KEY)) ?? [];
   return events.map((event) => ({
     ...event,
     category: normalizeEventCategory(event.category),
@@ -124,13 +174,13 @@ export function invalidateAdminEventsCache(): void {
 export async function addAdminEvent(event: AdminEvent): Promise<void> {
   const events = await getAdminEventsUncached();
   events.push(event);
-  await writeVersionedBlob(EVENTS_KEY, events);
+  await writeDatasetBlob(EVENTS_KEY, events);
 }
 
 export async function deleteAdminEvent(id: string): Promise<void> {
   const events = await getAdminEventsUncached();
   const filtered = events.filter((e) => e.id !== id);
-  await writeVersionedBlob(EVENTS_KEY, filtered);
+  await writeDatasetBlob(EVENTS_KEY, filtered);
 }
 
 export async function excludeEventOccurrence(id: string, date: string): Promise<void> {
@@ -141,11 +191,11 @@ export async function excludeEventOccurrence(id: string, date: string): Promise<
   if (!event.excludedDates.includes(date)) {
     event.excludedDates.push(date);
   }
-  await writeVersionedBlob(EVENTS_KEY, events);
+  await writeDatasetBlob(EVENTS_KEY, events);
 }
 
 async function getAdminPostsUncached(): Promise<AdminBlogPost[]> {
-  return (await readVersionedBlob<AdminBlogPost[]>(POSTS_KEY)) ?? [];
+  return (await readDatasetBlob<AdminBlogPost[]>(POSTS_KEY)) ?? [];
 }
 
 const getAdminPostsCached = unstable_cache(
@@ -168,13 +218,13 @@ export function invalidateAdminPostsCache(): void {
 export async function addAdminPost(post: AdminBlogPost): Promise<void> {
   const posts = await getAdminPostsUncached();
   posts.push(post);
-  await writeVersionedBlob(POSTS_KEY, posts);
+  await writeDatasetBlob(POSTS_KEY, posts);
 }
 
 export async function deleteAdminPost(id: string): Promise<void> {
   const posts = await getAdminPostsUncached();
   const filtered = posts.filter((p) => p.id !== id);
-  await writeVersionedBlob(POSTS_KEY, filtered);
+  await writeDatasetBlob(POSTS_KEY, filtered);
 }
 
 export async function getAdminPostBySlug(slug: string): Promise<AdminBlogPost | undefined> {
@@ -192,6 +242,6 @@ export async function updateAdminPost(id: string, updates: Partial<AdminBlogPost
   const index = posts.findIndex((p) => p.id === id);
   if (index === -1) return null;
   posts[index] = { ...posts[index], ...updates };
-  await writeVersionedBlob(POSTS_KEY, posts);
+  await writeDatasetBlob(POSTS_KEY, posts);
   return posts[index];
 }
