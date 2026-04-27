@@ -6,7 +6,7 @@ import Image from "next/image";
 import { Separator } from "@/components/ui/separator";
 import { getAllPostsWithAdmin } from "@/lib/merge-data";
 
-export const dynamic = 'force-dynamic';
+export const revalidate = 300;
 
 interface BlogPost {
   id: string;
