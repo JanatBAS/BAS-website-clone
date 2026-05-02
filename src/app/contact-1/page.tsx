@@ -1,7 +1,5 @@
 "use client";
 
-import { useState } from "react";
-import { debug } from "@/lib/debug";
 import Header from "@/components/Header";
 import FooterSimple from "@/components/FooterSimple";
 import PageSidebar, { type SidebarItem } from "@/components/PageSidebar";
@@ -16,26 +14,36 @@ const sidebarLinks: SidebarItem[] = [
   { label: "Contact", href: "/contact-1", active: true },
 ];
 
-export default function ContactPage() {
-  const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    subject: "",
-    message: "",
-  });
+const contactEmail = "info@bitcoinassociation.ch";
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+function getFormValue(formData: FormData, name: string): string {
+  const value = formData.get(name);
+  return typeof value === "string" ? value.trim() : "";
+}
+
+export default function ContactPage() {
+  const buildMailtoHref = (formData: FormData) => {
+    const firstName = getFormValue(formData, "firstName");
+    const lastName = getFormValue(formData, "lastName");
+    const email = getFormValue(formData, "email");
+    const subject = getFormValue(formData, "subject") || "BAS contact request";
+    const message = getFormValue(formData, "message");
+    const body = [
+      "Submitted via the BAS contact form",
+      "",
+      `Name: ${firstName} ${lastName}`,
+      `Email: ${email}`,
+      "",
+      message,
+    ].join("\n");
+
+    return `mailto:${contactEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // Form submission logic would go here
-    debug("Form submitted:", formData);
+
+    window.location.href = buildMailtoHref(new FormData(e.currentTarget));
   };
 
   return (
@@ -85,7 +93,13 @@ export default function ContactPage() {
                   Please complete the form below
                 </h3>
 
-                <form onSubmit={handleSubmit} className="space-y-6">
+                <form
+                  action={`mailto:${contactEmail}?subject=BAS%20contact%20request`}
+                  method="post"
+                  encType="text/plain"
+                  onSubmit={handleSubmit}
+                  className="space-y-6"
+                >
                   {/* Name Fields */}
                   <div>
                     <label className="block text-sm text-[#1a1a1a] mb-1">
@@ -100,8 +114,6 @@ export default function ContactPage() {
                         <input
                           type="text"
                           name="firstName"
-                          value={formData.firstName}
-                          onChange={handleChange}
                           required
                           className="w-full px-3 py-2 border border-gray-300 rounded-none focus:outline-none focus:border-gray-400 text-sm bg-white"
                         />
@@ -113,8 +125,6 @@ export default function ContactPage() {
                         <input
                           type="text"
                           name="lastName"
-                          value={formData.lastName}
-                          onChange={handleChange}
                           required
                           className="w-full px-3 py-2 border border-gray-300 rounded-none focus:outline-none focus:border-gray-400 text-sm bg-white"
                         />
@@ -131,8 +141,6 @@ export default function ContactPage() {
                     <input
                       type="email"
                       name="email"
-                      value={formData.email}
-                      onChange={handleChange}
                       required
                       className="w-full px-3 py-2 border border-gray-300 rounded-none focus:outline-none focus:border-gray-400 text-sm bg-white"
                     />
@@ -147,8 +155,6 @@ export default function ContactPage() {
                     <input
                       type="text"
                       name="subject"
-                      value={formData.subject}
-                      onChange={handleChange}
                       required
                       className="w-full px-3 py-2 border border-gray-300 rounded-none focus:outline-none focus:border-gray-400 text-sm bg-white"
                     />
@@ -162,8 +168,6 @@ export default function ContactPage() {
                     </label>
                     <textarea
                       name="message"
-                      value={formData.message}
-                      onChange={handleChange}
                       required
                       rows={5}
                       className="w-full px-3 py-2 border border-gray-300 rounded-none focus:outline-none focus:border-gray-400 text-sm bg-white resize-y"
