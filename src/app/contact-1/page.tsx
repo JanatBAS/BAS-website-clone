@@ -15,6 +15,7 @@ const sidebarLinks: SidebarItem[] = [
 ];
 
 const contactEmail = "info@bitcoinassociation.ch";
+const fallbackMailtoHref = `mailto:${contactEmail}?subject=BAS%20contact%20request`;
 
 function getFormValue(formData: FormData, name: string): string {
   const value = formData.get(name);
@@ -94,9 +95,6 @@ export default function ContactPage() {
                 </h3>
 
                 <form
-                  action={`mailto:${contactEmail}?subject=BAS%20contact%20request`}
-                  method="post"
-                  encType="text/plain"
                   onSubmit={handleSubmit}
                   className="space-y-6"
                 >
@@ -183,6 +181,17 @@ export default function ContactPage() {
                       Submit
                     </Button>
                   </div>
+
+                  <p className="text-[#8b7355] font-serif text-sm">
+                    You can also email{" "}
+                    <a
+                      href={fallbackMailtoHref}
+                      className="text-[#4a7c9b] hover:underline"
+                    >
+                      {contactEmail}
+                    </a>
+                    .
+                  </p>
                 </form>
               </div>
             </div>
