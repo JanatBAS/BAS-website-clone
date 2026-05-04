@@ -104,8 +104,11 @@ export default function MembershipFormPage() {
             {/* Telegram Username Field */}
             <div>
               <label className="block text-sm text-[#1a1a1a] mb-1">
-                Telegram Username (To be added to our BAS chat)
+                Telegram Username
               </label>
+              <p className="text-gray-500 text-xs leading-relaxed mb-2">
+                Please add your Telegram handle here; most BAS member communication takes place on Telegram.
+              </p>
               <input
                 type="text"
                 name="telegram"

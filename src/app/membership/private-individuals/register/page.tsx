@@ -55,7 +55,7 @@ export default function PrivateMembershipPage() {
                   Please fill in all required fields.
                 </p>
                 <p className="text-gray-600 text-sm leading-relaxed mb-2">
-                  If you would like to join the BAS members Telegram group, you may optionally provide your Telegram username.
+                  Please include your Telegram handle when registering; most BAS member communication takes place on Telegram.
                 </p>
                 <p className="text-gray-600 text-sm leading-relaxed mb-6">
                   We will review your application and confirm your membership by email.

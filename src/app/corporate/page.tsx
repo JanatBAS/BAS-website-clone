@@ -68,7 +68,7 @@ export default function CorporatePage() {
                   Please complete all required company and billing details carefully to ensure proper invoicing.
                 </p>
                 <p className="text-gray-600 text-sm leading-relaxed mb-2">
-                  You may optionally provide a Telegram username for inclusion in the BAS members group.
+                  Please include your Telegram handle when registering; most BAS member communication takes place on Telegram.
                 </p>
                 <p className="text-gray-600 text-sm leading-relaxed mb-6">
                   We will review your application and confirm your membership by email.
