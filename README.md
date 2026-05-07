@@ -43,6 +43,8 @@ Three environment variables are required:
 | `JWT_SECRET` | Signs auth tokens | `node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"` |
 | `BLOB_READ_WRITE_TOKEN` | Vercel Blob access | Auto-created when connecting a Blob store in the Vercel dashboard |
 
+`CRON_SECRET` is optional. If set, Vercel cron requests must include `Authorization: Bearer $CRON_SECRET`.
+
 ### Vercel Blob Setup
 
 1. In the Vercel dashboard, go to your project's **Storage** tab
