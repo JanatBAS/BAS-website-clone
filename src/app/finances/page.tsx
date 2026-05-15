@@ -39,12 +39,12 @@ export default function FinancesPage() {
                 <p>
                   OLD WALLET:{" "}
                   <a
-                    href="https://blockstream.info/address/35TTXLEtU8ZKAeTEBkx6qG7Cox8RyDw3uW"
+                    href="https://blockstream.info/address/bc1q4rw988vc977354c70qae7m6k4zj45plksm47g0sek36zhe3adv5ss7w9ju"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-[#6b9b8a] hover:underline break-all"
                   >
-                    35TTXLEtU8ZKAeTEBkx6qG7Cox8RyDw3uW
+                    bc1q4rw988vc977354c70qae7m6k4zj45plksm47g0sek36zhe3adv5ss7w9ju
                   </a>
                 </p>
 
