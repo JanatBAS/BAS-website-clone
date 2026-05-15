@@ -80,13 +80,13 @@ const faqItems: FAQItem[] = [
     question: "How do I pay my membership dues (individuals)?",
     answer: (
       <>
-        Send the equivalent of at least CHF 21 to the Bitcoin Association Switzerland&apos;s wallet (bc1q4rw988vc977354c70qae7m6k4zj45plksm47g0sek36zhe3adv5ss7w9ju) and send an email with your name to info@bitcoinassociation.ch and roger@bitcoinassociation.ch stating your TX number. You will get a brief email confirmation of your membership within 7 days, unless there have been reasons to reject you, in which case you will also hear back from us within 7 days (possible reasons for a rejection include fake names, or a history of hostility towards Bitcoin). More on signing up can be found <Link href="/renew-membership" className="text-[#c75b4a] hover:underline">here</Link>.
+        Send the equivalent of at least CHF 21 to the Bitcoin Association Switzerland&apos;s wallet (bc1qt0y4sz95wdfnd99tugs2z7njxm2uxpxkey8wxz0p5hhfm07j05sq3hd6ks) and send an email with your name to info@bitcoinassociation.ch and roger@bitcoinassociation.ch stating your TX number. You will get a brief email confirmation of your membership within 7 days, unless there have been reasons to reject you, in which case you will also hear back from us within 7 days (possible reasons for a rejection include fake names, or a history of hostility towards Bitcoin). More on signing up can be found <Link href="/renew-membership" className="text-[#c75b4a] hover:underline">here</Link>.
       </>
     ),
   },
   {
     question: "How do I pay my membership dues (corporates)?",
-    answer: "Apply for membership to info@bitcoinassociation.ch and roger@bitcoinassociation.ch where you introduce your company and explain how you are connected to the Swiss ecosystem. You will hear back within 14 days whether you've been accepted or not. If you have been accepted, you send the equivalent of at least CHF 380 to Bitcoin Association Switzerland's wallet (bc1q4rw988vc977354c70qae7m6k4zj45plksm47g0sek36zhe3adv5ss7w9ju) followed by an email to the two addresses mentioned stating your TX number. Once we confirm receipt of the funds, you can send us the logo to be added to the website.",
+    answer: "Apply for membership to info@bitcoinassociation.ch and roger@bitcoinassociation.ch where you introduce your company and explain how you are connected to the Swiss ecosystem. You will hear back within 14 days whether you've been accepted or not. If you have been accepted, you send the equivalent of at least CHF 380 to Bitcoin Association Switzerland's wallet (bc1qt0y4sz95wdfnd99tugs2z7njxm2uxpxkey8wxz0p5hhfm07j05sq3hd6ks) followed by an email to the two addresses mentioned stating your TX number. Once we confirm receipt of the funds, you can send us the logo to be added to the website.",
   },
   {
     question: "I PAID MY FEES IN LATE 2023. IS THAT STILL VALID?",

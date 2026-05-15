@@ -85,7 +85,7 @@ export default function PrivateMembershipPage() {
                   If you choose to pay in Bitcoin, please send the equivalent of CHF 21 (according to the invoice amount) on-chain to the official Bitcoin Association Switzerland wallet:
                 </p>
                 <p className="text-[#1a1a1a] text-sm font-semibold break-all mb-3">
-                  bc1q4rw988vc977354c70qae7m6k4zj45plksm47g0sek36zhe3adv5ss7w9ju
+                  bc1qt0y4sz95wdfnd99tugs2z7njxm2uxpxkey8wxz0p5hhfm07j05sq3hd6ks
                 </p>
                 <p className="text-gray-600 text-sm leading-relaxed mb-2">
                   After your transaction has been confirmed on-chain:

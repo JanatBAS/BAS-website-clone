@@ -51,12 +51,12 @@ export default function FinancesPage() {
                 <p>
                   NEW WALLET:{" "}
                   <a
-                    href="https://blockstream.info/address/bc1q4rw988vc977354c70qae7m6k4zj45plksm47g0sek36zhe3adv5ss7w9ju"
+                    href="https://blockstream.info/address/bc1qt0y4sz95wdfnd99tugs2z7njxm2uxpxkey8wxz0p5hhfm07j05sq3hd6ks"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-[#6b9b8a] hover:underline break-all"
                   >
-                    bc1q4rw988vc977354c70qae7m6k4zj45plksm47g0sek36zhe3adv5ss7w9ju
+                    bc1qt0y4sz95wdfnd99tugs2z7njxm2uxpxkey8wxz0p5hhfm07j05sq3hd6ks
                   </a>
                 </p>
 
