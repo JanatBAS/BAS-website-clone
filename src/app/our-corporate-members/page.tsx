@@ -32,6 +32,11 @@ const corporateMembers: LogoItem[] = [
     url: "https://badgr.digital/",
   },
   {
+    name: "bcation gmbh",
+    logo: "/images/corporate-members/bcation-logo.png",
+    url: "https://bcation.com/",
+  },
+  {
     name: "Berglinde AG",
     logo: "/images/location-partners/berglinde.jpg",
     url: "https://www.berglinde.com/",
