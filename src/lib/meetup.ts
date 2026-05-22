@@ -25,6 +25,7 @@ export interface MeetupEvent {
   title: string;
   description: string;
   dateISO: string;      // "2026-03-04"
+  endDateISO?: string;  // "2026-03-06" for multi-day events
   startTime: string;    // "19:00"
   endTime?: string;     // "23:00"
   location?: string;
@@ -149,6 +150,7 @@ function meetupNodeToEvent(
   const start = parseMeetupDateTime(dateTime);
   const endTime = getString(node.endTime);
   const end = endTime ? parseMeetupDateTime(endTime) : undefined;
+  const endDateISO = end && end.dateISO !== start.dateISO ? end.dateISO : undefined;
   const venue = readVenue(state, getRef(node.venue));
   const photoUrl =
     readPhotoUrl(state, getRef(node.featuredEventPhoto)) ??
@@ -159,6 +161,7 @@ function meetupNodeToEvent(
     title: getString(node.title)?.trim() || 'Meetup Event',
     description: stripHtml(getString(node.description) ?? ''),
     dateISO: start.dateISO,
+    endDateISO,
     startTime: start.time,
     endTime: end?.time,
     location: buildVenueString(venue),

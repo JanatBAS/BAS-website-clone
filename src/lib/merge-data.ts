@@ -9,7 +9,8 @@ import { formatTimeDisplay, getDateInfo, truncateDescription } from './date-util
 
 export function adminEventToUnified(event: AdminEvent): UnifiedEvent {
   const dateInfo = getDateInfo(event.dateISO);
-  const eventDate = new Date(event.dateISO + 'T23:59:59');
+  const eventEndDateISO = event.endDateISO || event.dateISO;
+  const eventDate = new Date(eventEndDateISO + 'T23:59:59');
   const status = eventDate >= new Date() ? 'upcoming' : 'past';
 
   return {
@@ -19,6 +20,7 @@ export function adminEventToUnified(event: AdminEvent): UnifiedEvent {
     description: event.description,
     shortDescription: event.shortDescription || truncateDescription(event.description),
     dateISO: event.dateISO,
+    endDateISO: event.endDateISO,
     startTime: event.startTime,
     endTime: event.endTime,
     startTimeDisplay: formatTimeDisplay(event.startTime),
@@ -74,7 +76,7 @@ function buildGoogleCalendarUrl(event: MeetupEvent): string {
   if (event.endTime) {
     const endMinutes = timeToMinutes(event.endTime);
     const dayOffset = endMinutes < startMinutes ? 1 : 0;
-    const endDate = compactDate(addDaysToDateISO(event.dateISO, dayOffset));
+    const endDate = compactDate(event.endDateISO || addDaysToDateISO(event.dateISO, dayOffset));
     const endTime = event.endTime.replace(':', '') + '00';
     endPart = `${endDate}T${endTime}`;
   } else {
@@ -99,7 +101,8 @@ function buildGoogleCalendarUrl(event: MeetupEvent): string {
 
 export function meetupEventToUnified(event: MeetupEvent): UnifiedEvent {
   const dateInfo = getDateInfo(event.dateISO);
-  const eventDate = new Date(event.dateISO + 'T23:59:59');
+  const eventEndDateISO = event.endDateISO || event.dateISO;
+  const eventDate = new Date(eventEndDateISO + 'T23:59:59');
   const status = eventDate >= new Date() ? 'upcoming' : 'past';
 
   return {
@@ -109,6 +112,7 @@ export function meetupEventToUnified(event: MeetupEvent): UnifiedEvent {
     description: event.description,
     shortDescription: truncateDescription(event.description),
     dateISO: event.dateISO,
+    endDateISO: event.endDateISO,
     startTime: event.startTime,
     endTime: event.endTime,
     startTimeDisplay: formatTimeDisplay(event.startTime),

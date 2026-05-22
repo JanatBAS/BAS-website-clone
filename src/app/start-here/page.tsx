@@ -50,7 +50,7 @@ export default function StartHerePage() {
               <p className="text-gray-600 text-sm leading-relaxed">
                 Bitcoin is the first time in history that people have access to digital 
                 money that nobody controls. As more of our lives move online, 
-                the internet needs a public, neutral money, one that doesn't belong 
+                the internet needs a public, neutral money, one that doesn&apos;t belong
                 to any single company, government, or group. Bitcoin is that money.
               </p>
               <div>

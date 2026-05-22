@@ -1,4 +1,5 @@
 import type { AdminEvent } from '@/types/admin';
+import { addDaysToDateISO, daysBetweenDateISO } from './event-dates';
 
 const RECURRENCE_PAST_MONTHS = 3;
 const RECURRENCE_FUTURE_MONTHS = 12;
@@ -23,6 +24,8 @@ export function expandRecurringEvent(event: AdminEvent): AdminEvent[] {
   const cutoff = seriesEnd < windowEnd ? seriesEnd : windowEnd;
 
   const startDate = new Date(event.dateISO + 'T12:00:00');
+  const hasEndDate = Boolean(event.endDateISO && event.endDateISO >= event.dateISO);
+  const durationDays = hasEndDate ? daysBetweenDateISO(event.dateISO, event.endDateISO!) : 0;
   const occurrences: AdminEvent[] = [];
 
   let current = new Date(startDate);
@@ -35,6 +38,7 @@ export function expandRecurringEvent(event: AdminEvent): AdminEvent[] {
         ...event,
         id: `${event.id}__${iso}`,
         dateISO: iso,
+        endDateISO: hasEndDate ? addDaysToDateISO(iso, durationDays) : undefined,
       });
     }
 

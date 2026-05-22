@@ -10,6 +10,7 @@ export interface UnifiedEvent {
   description: string;
   shortDescription: string;
   dateISO: string;           // "2025-02-21"
+  endDateISO?: string;       // "2025-02-23" for multi-day events
   startTime: string;         // "18:00"
   endTime?: string;
   startTimeDisplay: string;  // "6:00 pm"

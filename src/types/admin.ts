@@ -14,6 +14,7 @@ export interface AdminEvent {
   description: string;
   shortDescription: string;
   dateISO: string;
+  endDateISO?: string;
   startTime: string;
   endTime?: string;
   location?: string;
@@ -47,6 +48,7 @@ export interface AdminBlogPost {
 export interface AdminEventFormData {
   title: string;
   dateISO: string;
+  endDateISO?: string;
   startTime: string;
   endTime?: string;
   location?: string;

@@ -16,7 +16,6 @@ import {
   getStartOfWeek,
   addMonths,
   addWeeks,
-  getEventsForDateRange,
   sortEventsByDate,
 } from '@/lib/calendar-utils';
 
@@ -103,16 +102,16 @@ export function useCalendar({
     const today = new Date();
     today.setHours(0, 0, 0, 0);
 
-    // Get events from today onwards, sorted ascending
+    // Get events that have not ended yet, sorted ascending by start date
     const upcoming = filteredEvents.filter(event => {
-      const eventDate = new Date(event.dateISO + 'T00:00:00');
-      return eventDate >= today;
+      const eventEndDate = new Date((event.endDateISO || event.dateISO) + 'T00:00:00');
+      return eventEndDate >= today;
     });
 
-    // Get all past events, sorted descending (most recent first)
+    // Get all fully past events, sorted descending by start date (most recent first)
     const past = filteredEvents.filter(event => {
-      const eventDate = new Date(event.dateISO + 'T00:00:00');
-      return eventDate < today;
+      const eventEndDate = new Date((event.endDateISO || event.dateISO) + 'T00:00:00');
+      return eventEndDate < today;
     });
 
     return [

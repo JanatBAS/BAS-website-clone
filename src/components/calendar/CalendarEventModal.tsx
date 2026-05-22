@@ -4,6 +4,7 @@ import { useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { UnifiedEvent, CATEGORY_COLORS, CATEGORY_LABELS } from '@/types/calendar';
+import { formatEventDateRange } from '@/lib/event-dates';
 
 interface CalendarEventModalProps {
   event: UnifiedEvent | null;
@@ -136,7 +137,7 @@ export function CalendarEventModal({ event, isOpen, onClose }: CalendarEventModa
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
             </svg>
             <span>
-              {event.dayOfWeek}, {event.dayOfMonth} {event.monthLong} {event.year}
+              {formatEventDateRange(event.dateISO, event.endDateISO)}
             </span>
           </div>
 

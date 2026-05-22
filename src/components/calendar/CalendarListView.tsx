@@ -1,8 +1,8 @@
 "use client";
 
-import Link from 'next/link';
 import Image from 'next/image';
 import { UnifiedEvent, CATEGORY_COLORS, CATEGORY_LABELS } from '@/types/calendar';
+import { formatEventDateRange } from '@/lib/event-dates';
 
 interface CalendarListViewProps {
   events: UnifiedEvent[];
@@ -85,7 +85,7 @@ export function CalendarListView({ events, onEventClick }: CalendarListViewProps
           {/* Meta info */}
           <div className="flex flex-wrap items-center gap-x-4 gap-y-1 mt-1 text-sm text-gray-500">
             <span>
-              {event.dayOfWeek}, {event.dayOfMonth} {event.monthLong} {event.year}
+              {formatEventDateRange(event.dateISO, event.endDateISO)}
             </span>
             {event.location && (
               <span className="flex items-center gap-1">

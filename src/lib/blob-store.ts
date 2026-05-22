@@ -183,6 +183,20 @@ export async function deleteAdminEvent(id: string): Promise<void> {
   await writeDatasetBlob(EVENTS_KEY, filtered);
 }
 
+export async function getAdminEventById(id: string): Promise<AdminEvent | undefined> {
+  const events = await getAdminEvents();
+  return events.find((event) => event.id === id);
+}
+
+export async function updateAdminEvent(id: string, updates: Partial<AdminEvent>): Promise<AdminEvent | null> {
+  const events = await getAdminEventsUncached();
+  const index = events.findIndex((event) => event.id === id);
+  if (index === -1) return null;
+  events[index] = { ...events[index], ...updates };
+  await writeDatasetBlob(EVENTS_KEY, events);
+  return events[index];
+}
+
 export async function excludeEventOccurrence(id: string, date: string): Promise<void> {
   const events = await getAdminEventsUncached();
   const event = events.find((e) => e.id === id);

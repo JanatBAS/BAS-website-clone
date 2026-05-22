@@ -1,4 +1,5 @@
 import { CalendarDay, CalendarWeek, CalendarMonth, UnifiedEvent } from '@/types/calendar';
+import { eventOverlapsDateRange, isDateWithinEventRange } from './event-dates';
 
 export function getMonthName(month: number, format: 'long' | 'short' = 'long'): string {
   const date = new Date(2000, month, 1);
@@ -80,7 +81,7 @@ export function parseISODate(dateStr: string): Date {
 
 export function getEventsForDate(events: UnifiedEvent[], date: Date): UnifiedEvent[] {
   const dateISO = formatDateISO(date);
-  return events.filter(event => event.dateISO === dateISO);
+  return sortEventsByDate(events.filter(event => isDateWithinEventRange(event, dateISO)), true);
 }
 
 export function getEventsForDateRange(
@@ -90,7 +91,7 @@ export function getEventsForDateRange(
 ): UnifiedEvent[] {
   const startISO = formatDateISO(startDate);
   const endISO = formatDateISO(endDate);
-  return events.filter(event => event.dateISO >= startISO && event.dateISO <= endISO);
+  return events.filter(event => eventOverlapsDateRange(event, startISO, endISO));
 }
 
 export function generateCalendarMonth(

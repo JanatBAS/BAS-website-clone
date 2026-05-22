@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useState, useEffect, useRef } from 'react';
+import { useCallback, useRef } from 'react';
 import { UnifiedEvent, CalendarDay as CalendarDayType } from '@/types/calendar';
 import { useCalendar } from '@/hooks/useCalendar';
 import { CalendarHeader } from './CalendarHeader';

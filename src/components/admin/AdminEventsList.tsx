@@ -1,7 +1,15 @@
 'use client';
 
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import type { AdminEvent } from '@/types/admin';
+
+function formatAdminDateRange(event: AdminEvent): string {
+  if (event.endDateISO && event.endDateISO !== event.dateISO) {
+    return `${event.dateISO} → ${event.endDateISO}`;
+  }
+  return event.dateISO;
+}
 
 export default function AdminEventsList({ events }: { events: AdminEvent[] }) {
   const router = useRouter();
@@ -22,7 +30,7 @@ export default function AdminEventsList({ events }: { events: AdminEvent[] }) {
         <thead>
           <tr className="border-b border-gray-800 text-left text-gray-400">
             <th className="pb-2 pr-4">Title</th>
-            <th className="pb-2 pr-4">Date</th>
+            <th className="pb-2 pr-4">Dates</th>
             <th className="pb-2 pr-4">Category</th>
             <th className="pb-2"></th>
           </tr>
@@ -32,7 +40,7 @@ export default function AdminEventsList({ events }: { events: AdminEvent[] }) {
             <tr key={event.id} className="border-b border-gray-800/50">
               <td className="py-3 pr-4">{event.title}</td>
               <td className="py-3 pr-4 text-gray-400">
-                {event.dateISO}
+                {formatAdminDateRange(event)}
                 {event.recurrence && (
                   <span className="ml-2 text-xs text-[#2a9d8f]">
                     (repeats {event.recurrence.frequency === 'biweekly' ? 'biweekly' : event.recurrence.frequency})
@@ -40,7 +48,19 @@ export default function AdminEventsList({ events }: { events: AdminEvent[] }) {
                 )}
               </td>
               <td className="py-3 pr-4 text-gray-400 capitalize">{event.category}</td>
-              <td className="py-3 text-right">
+              <td className="py-3 text-right whitespace-nowrap space-x-3">
+                <Link
+                  href={`/admin/events/${event.id}/edit`}
+                  className="text-[#2a9d8f] hover:text-[#238b7f] text-xs"
+                >
+                  Edit
+                </Link>
+                <Link
+                  href={`/admin/events/${event.id}/duplicate`}
+                  className="text-[#2a9d8f] hover:text-[#238b7f] text-xs"
+                >
+                  Duplicate
+                </Link>
                 <button
                   onClick={() => handleDelete(event.id)}
                   className="text-red-400 hover:text-red-300 text-xs"
