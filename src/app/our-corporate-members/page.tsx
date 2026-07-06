@@ -77,6 +77,11 @@ const corporateMembers: LogoItem[] = [
     url: "https://dezentralshop.ch/",
   },
   {
+    name: "FinchTrade",
+    logo: "/images/corporate-members/finchtrade-logo.png",
+    url: "https://finchtrade.com/",
+  },
+  {
     name: "Hodling SA",
     logo: "/images/corporate-members/hodling-logo.png",
     url: "https://hodling.ch/",
