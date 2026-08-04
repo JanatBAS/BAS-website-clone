@@ -132,6 +132,11 @@ const corporateMembers: LogoItem[] = [
     url: "https://relai.app/",
   },
   {
+    name: "Rex Change Sàrl",
+    logo: "/images/corporate-members/rex-change-logo.svg",
+    url: "https://rexchange.ch/",
+  },
+  {
     name: "Saynode Operations AG",
     logo: "/images/corporate-members/saynode-logo.png",
     url: "https://www.saynode.ch/",
