@@ -193,9 +193,12 @@ const sidebarNav: SidebarItem[] = [
 
 function LogoGrid({ items }: { items: LogoItem[] }) {
   return (
-    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-5">
+    <div className="flex flex-wrap justify-center gap-5">
       {items.map((item) => (
-        <div key={item.name} className="flex items-center justify-center p-2">
+        <div
+          key={item.name}
+          className="flex w-[calc((100%_-_1.25rem)/2)] items-center justify-center p-2 sm:w-[calc((100%_-_2.5rem)/3)] md:w-[calc((100%_-_3.75rem)/4)] lg:w-[calc((100%_-_5rem)/5)]"
+        >
           {item.url ? (
             <a
               href={item.url}
