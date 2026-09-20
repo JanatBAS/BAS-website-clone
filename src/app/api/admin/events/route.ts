@@ -13,6 +13,7 @@ import type { AdminEvent, AdminEventFormData, RecurrenceRule } from '@/types/adm
 import type { EventCategory } from '@/types/calendar';
 import { isValidDateISO } from '@/lib/event-dates';
 import { slugify } from '@/lib/utils';
+import { safeHttpUrl } from '@/lib/safe-url';
 
 export const dynamic = 'force-dynamic';
 
@@ -38,6 +39,14 @@ interface ValidatedEventFields {
 
 function optionalString(value: unknown): string | undefined {
   return typeof value === 'string' && value.trim() ? value.trim() : undefined;
+}
+
+/** Optional URL field: empty is fine, otherwise it must be an http(s) URL or site-relative path. */
+function optionalUrl(value: unknown, label: string): { url?: string; error?: string } {
+  const input = optionalString(value);
+  if (!input) return {};
+  const url = safeHttpUrl(input);
+  return url ? { url } : { error: `${label} must be an http(s) URL.` };
 }
 
 function requiredString(value: unknown): string {
@@ -123,6 +132,13 @@ function validateEventData(data: AdminEventFormData): { fields?: ValidatedEventF
   const recurrenceResult = validateRecurrence({ ...data, dateISO });
   if (recurrenceResult.error) return { error: recurrenceResult.error };
 
+  const locationUrl = optionalUrl(data.locationUrl, 'Location URL');
+  if (locationUrl.error) return { error: locationUrl.error };
+  const imageUrl = optionalUrl(data.imageUrl, 'Image URL');
+  if (imageUrl.error) return { error: imageUrl.error };
+  const signupLink = optionalUrl(data.signupLink, 'Signup link');
+  if (signupLink.error) return { error: signupLink.error };
+
   return {
     fields: {
       title,
@@ -133,9 +149,9 @@ function validateEventData(data: AdminEventFormData): { fields?: ValidatedEventF
       startTime,
       endTime,
       location: optionalString(data.location),
-      locationUrl: optionalString(data.locationUrl),
-      imageUrl: optionalString(data.imageUrl),
-      signupLink: optionalString(data.signupLink),
+      locationUrl: locationUrl.url,
+      imageUrl: imageUrl.url,
+      signupLink: signupLink.url,
       category: data.category,
       recurrence: recurrenceResult.recurrence,
     },
@@ -229,6 +245,9 @@ export async function DELETE(request: Request) {
       return NextResponse.json({ error: 'Missing id parameter' }, { status: 400 });
     }
     const date = searchParams.get('date');
+    if (date && !isValidDateISO(date)) {
+      return NextResponse.json({ error: 'Invalid date format. Use YYYY-MM-DD.' }, { status: 400 });
+    }
     if (date) {
       // Exclude a single occurrence from a recurring series
       await excludeEventOccurrence(id, date);

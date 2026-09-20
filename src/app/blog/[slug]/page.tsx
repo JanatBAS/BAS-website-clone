@@ -3,6 +3,8 @@ import Link from 'next/link';
 import Header from '@/components/Header';
 import FooterSimple from '@/components/FooterSimple';
 import { getAdminPostBySlug } from '@/lib/blob-store';
+import { sanitizePostHtml } from '@/lib/sanitize-html';
+import { safeHttpUrl } from '@/lib/safe-url';
 
 export const revalidate = 300;
 
@@ -16,16 +18,22 @@ export default async function AdminBlogPostPage({ params }: PageProps) {
 
   if (!post) notFound();
 
+  // Defense in depth: content is sanitized on save, and again here so posts
+  // stored before sanitization existed are covered too.
+  const safeHtml = sanitizePostHtml(post.htmlContent);
+  const imageUrl = safeHttpUrl(post.imageUrl);
+  const authorHref = `/bitcoin-association-switzerland?author=${encodeURIComponent(post.authorId)}`;
+
   return (
     <>
       <Header />
       <main className="pt-20 min-h-screen bg-white">
         {/* Featured Image Banner — uses plain img to support arbitrary hosts */}
-        {post.imageUrl && (
+        {imageUrl && (
           <div className="relative h-[300px] md:h-[400px] lg:h-[500px] overflow-hidden">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src={post.imageUrl}
+              src={imageUrl}
               alt={post.title}
               className="absolute inset-0 w-full h-full object-cover"
             />
@@ -36,10 +44,7 @@ export default async function AdminBlogPostPage({ params }: PageProps) {
               </h1>
               <div className="mt-4 text-white/90 text-sm">{post.date}</div>
               <div className="mt-1 text-white/90 text-sm">
-                <Link
-                  href={`/bitcoin-association-switzerland?author=${post.authorId}`}
-                  className="hover:underline"
-                >
+                <Link href={authorHref} className="hover:underline">
                   {post.author}
                 </Link>
               </div>
@@ -49,27 +54,24 @@ export default async function AdminBlogPostPage({ params }: PageProps) {
 
         <article className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           {/* Header when no featured image */}
-          {!post.imageUrl && (
+          {!imageUrl && (
             <header className="mb-8">
               <div className="text-sm text-[#8b7355] mb-3">{post.date}</div>
               <h1 className="text-2xl md:text-3xl font-semibold text-gray-900 tracking-wide mb-4">
                 {post.title}
               </h1>
               <div className="text-sm text-gray-600">
-                <Link
-                  href={`/bitcoin-association-switzerland?author=${post.authorId}`}
-                  className="hover:text-[#c75b4a]"
-                >
+                <Link href={authorHref} className="hover:text-[#c75b4a]">
                   {post.author}
                 </Link>
               </div>
             </header>
           )}
 
-          {/* Post content */}
+          {/* Post content (sanitized) */}
           <div
             className="prose prose-lg max-w-none prose-headings:text-gray-900 prose-p:text-gray-700 prose-p:leading-relaxed prose-a:text-[#c75b4a] prose-a:no-underline hover:prose-a:underline prose-li:text-gray-700"
-            dangerouslySetInnerHTML={{ __html: post.htmlContent }}
+            dangerouslySetInnerHTML={{ __html: safeHtml }}
           />
 
           {/* Tags — plain text (no links) since admin tags may not have matching pages */}

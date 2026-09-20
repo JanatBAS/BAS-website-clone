@@ -5,6 +5,7 @@ import { getAdminEvents, getAdminPosts } from './blob-store';
 import { expandRecurringEvent } from './recurrence';
 import { getMeetupEvents, type MeetupEvent } from './meetup';
 import { slugify } from './utils';
+import { safeHttpUrl } from './safe-url';
 import { formatTimeDisplay, getDateInfo, truncateDescription } from './date-utils';
 
 export function adminEventToUnified(event: AdminEvent): UnifiedEvent {
@@ -31,10 +32,10 @@ export function adminEventToUnified(event: AdminEvent): UnifiedEvent {
     monthLong: dateInfo.monthLong,
     year: dateInfo.year,
     location: event.location,
-    locationUrl: event.locationUrl,
-    imageUrl: event.imageUrl,
+    locationUrl: safeHttpUrl(event.locationUrl),
+    imageUrl: safeHttpUrl(event.imageUrl),
     href: `/calendar#${event.slug}`,
-    signupLink: event.signupLink,
+    signupLink: safeHttpUrl(event.signupLink),
     category: event.category,
     status,
     source: 'admin',
@@ -123,9 +124,9 @@ export function meetupEventToUnified(event: MeetupEvent): UnifiedEvent {
     monthLong: dateInfo.monthLong,
     year: dateInfo.year,
     location: event.location,
-    imageUrl: event.imageUrl,
-    href: event.eventUrl,
-    signupLink: event.eventUrl,
+    imageUrl: safeHttpUrl(event.imageUrl),
+    href: safeHttpUrl(event.eventUrl) ?? 'https://www.meetup.com/',
+    signupLink: safeHttpUrl(event.eventUrl),
     googleCalendarUrl: buildGoogleCalendarUrl(event),
     category: 'meetup',
     status,
@@ -242,7 +243,7 @@ export function adminPostToMerged(post: AdminBlogPost): BlogPost {
     title: post.title,
     excerpt: stripHtmlTags(post.excerpt),
     href: `/blog/${post.slug}`,
-    image: post.imageUrl,
+    image: safeHttpUrl(post.imageUrl),
     tags: post.tags,
     commentCount: 0,
     likeCount: 0,

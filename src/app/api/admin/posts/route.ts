@@ -10,16 +10,54 @@ import {
 } from '@/lib/blob-store';
 import type { AdminBlogPost, AdminBlogPostFormData } from '@/types/admin';
 import { slugify } from '@/lib/utils';
+import { sanitizePostHtml } from '@/lib/sanitize-html';
+import { safeHttpUrl } from '@/lib/safe-url';
 
 export const dynamic = 'force-dynamic';
 
-export async function GET() {
-  try {
-    const posts = await getAdminPosts();
-    return NextResponse.json(posts);
-  } catch {
-    return NextResponse.json({ error: 'Failed to fetch posts' }, { status: 500 });
-  }
+const DEFAULT_AUTHOR_ID = '672bdb3ae0672c1501f39ce8';
+const MAX_TITLE_LENGTH = 300;
+const MAX_AUTHOR_LENGTH = 200;
+const MAX_EXCERPT_LENGTH = 2000;
+const MAX_HTML_LENGTH = 500_000;
+const MAX_TAGS = 30;
+const AUTHOR_ID_PATTERN = /^[A-Za-z0-9_-]{1,64}$/;
+
+interface ValidatedPostFields {
+  title: string;
+  author: string;
+  authorId?: string;
+  dateISO: string;
+  timestamp: number;
+  excerpt: string;
+  htmlContent: string;
+  category?: string;
+  tags?: string[];
+  imageUrl?: string;
+}
+
+function requiredString(value: unknown, max: number): string | null {
+  if (typeof value !== 'string') return null;
+  const trimmed = value.trim();
+  if (!trimmed || trimmed.length > max) return null;
+  return trimmed;
+}
+
+function optionalString(value: unknown, max: number): string | undefined {
+  if (typeof value !== 'string') return undefined;
+  const trimmed = value.trim();
+  if (!trimmed) return undefined;
+  return trimmed.slice(0, max);
+}
+
+function validateTags(value: unknown): string[] | undefined {
+  if (!Array.isArray(value)) return undefined;
+  const tags = value
+    .filter((tag): tag is string => typeof tag === 'string')
+    .map((tag) => tag.trim())
+    .filter(Boolean)
+    .slice(0, MAX_TAGS);
+  return tags.length > 0 ? tags : undefined;
 }
 
 function formatDisplayDate(dateISO: string): string {
@@ -31,49 +69,99 @@ function formatDisplayDate(dateISO: string): string {
   });
 }
 
+function validatePostData(data: AdminBlogPostFormData): { fields?: ValidatedPostFields; error?: string } {
+  const title = requiredString(data.title, MAX_TITLE_LENGTH);
+  const author = requiredString(data.author, MAX_AUTHOR_LENGTH);
+  const excerpt = requiredString(data.excerpt, MAX_EXCERPT_LENGTH);
+  const dateISO = typeof data.date === 'string' ? data.date.trim() : '';
+  const rawHtml = typeof data.htmlContent === 'string' ? data.htmlContent : '';
+
+  if (!title || !author || !dateISO || !excerpt || !rawHtml.trim()) {
+    return { error: 'Missing required fields' };
+  }
+  if (rawHtml.length > MAX_HTML_LENGTH) {
+    return { error: 'Post content is too long.' };
+  }
+
+  // date field is YYYY-MM-DD from a date input
+  const parsedDate = new Date(dateISO + 'T12:00:00');
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(dateISO) || isNaN(parsedDate.getTime())) {
+    return { error: 'Invalid date format. Use YYYY-MM-DD.' };
+  }
+
+  // Strict validation: reject impossible dates like Feb 31 (Node normalizes them silently)
+  const [year, month, day] = dateISO.split('-').map(Number);
+  if (parsedDate.getFullYear() !== year || parsedDate.getMonth() + 1 !== month || parsedDate.getDate() !== day) {
+    return { error: 'Invalid calendar date.' };
+  }
+
+  const authorId = optionalString(data.authorId, 64);
+  if (authorId && !AUTHOR_ID_PATTERN.test(authorId)) {
+    return { error: 'Invalid author id.' };
+  }
+
+  const imageUrlInput = optionalString(data.imageUrl, 2048);
+  const imageUrl = imageUrlInput ? safeHttpUrl(imageUrlInput) : undefined;
+  if (imageUrlInput && !imageUrl) {
+    return { error: 'Image URL must be an http(s) URL.' };
+  }
+
+  const htmlContent = sanitizePostHtml(rawHtml);
+  if (!htmlContent.trim()) {
+    return { error: 'Post content is empty after removing unsupported HTML.' };
+  }
+
+  return {
+    fields: {
+      title,
+      author,
+      authorId,
+      dateISO,
+      timestamp: parsedDate.getTime(),
+      excerpt,
+      htmlContent,
+      category: optionalString(data.category, 100),
+      tags: validateTags(data.tags),
+      imageUrl,
+    },
+  };
+}
+
+export async function GET() {
+  try {
+    const posts = await getAdminPosts();
+    return NextResponse.json(posts);
+  } catch {
+    return NextResponse.json({ error: 'Failed to fetch posts' }, { status: 500 });
+  }
+}
+
 export async function POST(request: Request) {
   try {
     const data: AdminBlogPostFormData = await request.json();
+    const validation = validatePostData(data);
 
-    if (!data.title || !data.author || !data.date || !data.excerpt || !data.htmlContent) {
-      return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
+    if (!validation.fields) {
+      return NextResponse.json({ error: validation.error || 'Invalid post data' }, { status: 400 });
     }
 
-    // date field is now YYYY-MM-DD from a date input
-    const dateISO = data.date;
-    const parsedDate = new Date(dateISO + 'T12:00:00');
-
-    if (isNaN(parsedDate.getTime())) {
-      return NextResponse.json({ error: 'Invalid date format. Use YYYY-MM-DD.' }, { status: 400 });
-    }
-
-    // Strict validation: reject impossible dates like Feb 31 (Node normalizes them silently)
-    const [year, month, day] = dateISO.split('-').map(Number);
-    if (parsedDate.getFullYear() !== year || parsedDate.getMonth() + 1 !== month || parsedDate.getDate() !== day) {
-      return NextResponse.json({ error: 'Invalid calendar date.' }, { status: 400 });
-    }
-
-    const displayDate = formatDisplayDate(dateISO);
-    const timestamp = parsedDate.getTime();
-
+    const { fields } = validation;
     const uniqueSuffix = Date.now().toString(36);
-    const id = `admin-post-${uniqueSuffix}`;
-    const slug = `${slugify(data.title)}-${uniqueSuffix}`;
     const now = new Date().toISOString();
 
     const post: AdminBlogPost = {
-      id,
-      slug,
-      title: data.title,
-      author: data.author,
-      authorId: data.authorId || '672bdb3ae0672c1501f39ce8',
-      date: displayDate,
-      timestamp,
-      excerpt: data.excerpt,
-      htmlContent: data.htmlContent,
-      category: data.category || undefined,
-      tags: data.tags?.length ? data.tags : undefined,
-      imageUrl: data.imageUrl || undefined,
+      id: `admin-post-${uniqueSuffix}`,
+      slug: `${slugify(fields.title)}-${uniqueSuffix}`,
+      title: fields.title,
+      author: fields.author,
+      authorId: fields.authorId || DEFAULT_AUTHOR_ID,
+      date: formatDisplayDate(fields.dateISO),
+      timestamp: fields.timestamp,
+      excerpt: fields.excerpt,
+      htmlContent: fields.htmlContent,
+      category: fields.category,
+      tags: fields.tags,
+      imageUrl: fields.imageUrl,
       createdAt: now,
       updatedAt: now,
     };
@@ -102,34 +190,24 @@ export async function PUT(request: Request) {
     }
 
     const data: AdminBlogPostFormData = await request.json();
+    const validation = validatePostData(data);
 
-    if (!data.title || !data.author || !data.date || !data.excerpt || !data.htmlContent) {
-      return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
+    if (!validation.fields) {
+      return NextResponse.json({ error: validation.error || 'Invalid post data' }, { status: 400 });
     }
 
-    const dateISO = data.date;
-    const parsedDate = new Date(dateISO + 'T12:00:00');
-
-    if (isNaN(parsedDate.getTime())) {
-      return NextResponse.json({ error: 'Invalid date format. Use YYYY-MM-DD.' }, { status: 400 });
-    }
-
-    const [year, month, day] = dateISO.split('-').map(Number);
-    if (parsedDate.getFullYear() !== year || parsedDate.getMonth() + 1 !== month || parsedDate.getDate() !== day) {
-      return NextResponse.json({ error: 'Invalid calendar date.' }, { status: 400 });
-    }
-
+    const { fields } = validation;
     const updated = await updateAdminPost(id, {
-      title: data.title,
-      author: data.author,
-      authorId: data.authorId || existing.authorId,
-      date: formatDisplayDate(dateISO),
-      timestamp: parsedDate.getTime(),
-      excerpt: data.excerpt,
-      htmlContent: data.htmlContent,
-      category: data.category || undefined,
-      tags: data.tags?.length ? data.tags : undefined,
-      imageUrl: data.imageUrl || undefined,
+      title: fields.title,
+      author: fields.author,
+      authorId: fields.authorId || existing.authorId,
+      date: formatDisplayDate(fields.dateISO),
+      timestamp: fields.timestamp,
+      excerpt: fields.excerpt,
+      htmlContent: fields.htmlContent,
+      category: fields.category,
+      tags: fields.tags,
+      imageUrl: fields.imageUrl,
       updatedAt: new Date().toISOString(),
     });
 

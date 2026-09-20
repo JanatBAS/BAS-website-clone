@@ -1,46 +1,35 @@
 import { compare } from 'bcryptjs';
-import { SignJWT, jwtVerify } from 'jose';
 import { cookies } from 'next/headers';
 import { env } from './env';
-
-const COOKIE_NAME = 'admin-token';
-const JWT_EXPIRY = '7d';
-
-function getJwtSecret() {
-  return new TextEncoder().encode(env.JWT_SECRET);
-}
+import {
+  ADMIN_COOKIE_NAME,
+  ADMIN_TOKEN_TTL_SECONDS,
+  signAdminToken,
+  verifyAdminToken,
+} from './auth-token';
 
 export async function verifyPassword(password: string): Promise<boolean> {
   return compare(password, env.ADMIN_PASSWORD_HASH);
 }
 
 export async function createToken(): Promise<string> {
-  return new SignJWT({ role: 'admin' })
-    .setProtectedHeader({ alg: 'HS256' })
-    .setIssuedAt()
-    .setExpirationTime(JWT_EXPIRY)
-    .sign(getJwtSecret());
+  return signAdminToken(env.JWT_SECRET, env.ADMIN_PASSWORD_HASH);
 }
 
 export async function verifyToken(token: string): Promise<boolean> {
-  try {
-    await jwtVerify(token, getJwtSecret());
-    return true;
-  } catch {
-    return false;
-  }
+  return verifyAdminToken(token, env.JWT_SECRET, env.ADMIN_PASSWORD_HASH);
 }
 
 export const cookieConfig = {
-  name: COOKIE_NAME,
+  name: ADMIN_COOKIE_NAME,
   httpOnly: true,
   secure: process.env.NODE_ENV === 'production',
   sameSite: 'lax' as const,
   path: '/',
-  maxAge: 60 * 60 * 24 * 7, // 7 days
+  maxAge: ADMIN_TOKEN_TTL_SECONDS,
 };
 
 export async function getTokenFromCookies(): Promise<string | undefined> {
   const cookieStore = await cookies();
-  return cookieStore.get(COOKIE_NAME)?.value;
+  return cookieStore.get(ADMIN_COOKIE_NAME)?.value;
 }

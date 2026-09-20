@@ -26,6 +26,8 @@ function LoginForm() {
         const redirect = searchParams.get('redirect') || '/admin';
         const safeRedirect = redirect.startsWith('/admin') ? redirect : '/admin';
         router.push(safeRedirect);
+      } else if (res.status === 429) {
+        setError('Too many attempts. Please wait a few minutes and try again.');
       } else {
         setError('Invalid password');
       }
