@@ -5,15 +5,12 @@ import type { BlogPost } from '@/types/blog';
 import { getAdminEvents, getAdminPosts } from './blob-store';
 import { expandRecurringEvent } from './recurrence';
 import { getMeetupEvents, type MeetupEvent } from './meetup';
-import { slugify } from './utils';
+import { slugify, stripHtml } from './utils';
 import { safeHttpUrl } from './safe-url';
 import { formatTimeDisplay, getDateInfo, truncateDescription } from './date-utils';
 
 export function adminEventToUnified(event: AdminEvent): UnifiedEvent {
   const dateInfo = getDateInfo(event.dateISO);
-  const eventEndDateISO = event.endDateISO || event.dateISO;
-  const eventDate = new Date(eventEndDateISO + 'T23:59:59');
-  const status = eventDate >= new Date() ? 'upcoming' : 'past';
 
   return {
     id: event.id,
@@ -38,74 +35,13 @@ export function adminEventToUnified(event: AdminEvent): UnifiedEvent {
     href: `/calendar#${event.slug}`,
     signupLink: safeHttpUrl(event.signupLink),
     category: event.category,
-    status,
     source: 'admin',
     accentColor: CATEGORY_COLORS[event.category],
   };
 }
 
-function compactDate(dateISO: string): string {
-  return dateISO.replace(/-/g, '');
-}
-
-function addDaysToDateISO(dateISO: string, days: number): string {
-  const date = new Date(`${dateISO}T00:00:00Z`);
-  date.setUTCDate(date.getUTCDate() + days);
-  const year = date.getUTCFullYear();
-  const month = String(date.getUTCMonth() + 1).padStart(2, '0');
-  const day = String(date.getUTCDate()).padStart(2, '0');
-  return `${year}-${month}-${day}`;
-}
-
-function timeToMinutes(time24: string): number {
-  const [h, m] = time24.split(':').map(Number);
-  return h * 60 + m;
-}
-
-function minutesToTimePart(minutes: number): string {
-  const normalized = ((minutes % 1440) + 1440) % 1440;
-  const h = Math.floor(normalized / 60);
-  const m = normalized % 60;
-  return `${String(h).padStart(2, '0')}${String(m).padStart(2, '0')}00`;
-}
-
-function buildGoogleCalendarUrl(event: MeetupEvent): string {
-  const startDate = compactDate(event.dateISO);
-  const startTime = event.startTime.replace(':', '') + '00';
-  const startMinutes = timeToMinutes(event.startTime);
-  let endPart: string;
-
-  if (event.endTime) {
-    const endMinutes = timeToMinutes(event.endTime);
-    const dayOffset = endMinutes < startMinutes ? 1 : 0;
-    const endDate = compactDate(event.endDateISO || addDaysToDateISO(event.dateISO, dayOffset));
-    const endTime = event.endTime.replace(':', '') + '00';
-    endPart = `${endDate}T${endTime}`;
-  } else {
-    const endTotalMinutes = startMinutes + 120;
-    const dayOffset = Math.floor(endTotalMinutes / 1440);
-    const endDate = compactDate(addDaysToDateISO(event.dateISO, dayOffset));
-    const endTime = minutesToTimePart(endTotalMinutes);
-    endPart = `${endDate}T${endTime}`;
-  }
-
-  const params = new URLSearchParams({
-    action: 'TEMPLATE',
-    text: event.title,
-    dates: `${startDate}T${startTime}/${endPart}`,
-    ctz: 'Europe/Zurich',
-  });
-  if (event.location) params.set('location', event.location);
-  if (event.eventUrl) params.set('details', `RSVP: ${event.eventUrl}`);
-
-  return `https://www.google.com/calendar/event?${params.toString()}`;
-}
-
 export function meetupEventToUnified(event: MeetupEvent): UnifiedEvent {
   const dateInfo = getDateInfo(event.dateISO);
-  const eventEndDateISO = event.endDateISO || event.dateISO;
-  const eventDate = new Date(eventEndDateISO + 'T23:59:59');
-  const status = eventDate >= new Date() ? 'upcoming' : 'past';
 
   return {
     id: event.id,
@@ -128,9 +64,7 @@ export function meetupEventToUnified(event: MeetupEvent): UnifiedEvent {
     imageUrl: safeHttpUrl(event.imageUrl),
     href: safeHttpUrl(event.eventUrl) ?? 'https://www.meetup.com/',
     signupLink: safeHttpUrl(event.eventUrl),
-    googleCalendarUrl: buildGoogleCalendarUrl(event),
     category: 'meetup',
-    status,
     source: 'meetup.com',
     accentColor: CATEGORY_COLORS.meetup,
   };
@@ -190,32 +124,24 @@ function deduplicateMeetupEvents(
   return deduped;
 }
 
+/**
+ * Static, admin and Meetup events for the calendar pages. A failed admin read
+ * throws on purpose: the cached page then keeps its last good version instead
+ * of being regenerated without the admin events. Meetup failures are handled
+ * inside getMeetupEvents().
+ */
 export async function getAllEventsWithAdmin(hardcodedEvents: UnifiedEvent[]): Promise<UnifiedEvent[]> {
-  try {
-    const [adminResult, meetupResult] = await Promise.allSettled([
-      getAdminEvents(),
-      getMeetupEvents(),
-    ]);
+  const [adminEvents, meetupRaw] = await Promise.all([getAdminEvents(), getMeetupEvents()]);
 
-    const adminEvents = adminResult.status === 'fulfilled' ? adminResult.value : [];
-    const meetupRaw = meetupResult.status === 'fulfilled' ? meetupResult.value : [];
+  const adminTransformed = adminEvents.flatMap(expandRecurringEvent).map(adminEventToUnified);
+  const meetupTransformed = meetupRaw.map(meetupEventToUnified);
 
-    const adminTransformed = adminEvents.flatMap(expandRecurringEvent).map(adminEventToUnified);
-    const meetupTransformed = meetupRaw.map(meetupEventToUnified);
+  const baseEvents = [...hardcodedEvents, ...adminTransformed];
+  const dedupedMeetup = deduplicateMeetupEvents(meetupTransformed, baseEvents);
 
-    const baseEvents = [...hardcodedEvents, ...adminTransformed];
-    const dedupedMeetup = deduplicateMeetupEvents(meetupTransformed, baseEvents);
-
-    return [...baseEvents, ...dedupedMeetup].sort((a, b) => b.dateISO.localeCompare(a.dateISO));
-  } catch {
-    return hardcodedEvents;
-  }
+  return [...baseEvents, ...dedupedMeetup].sort((a, b) => b.dateISO.localeCompare(a.dateISO));
 }
 
-
-function stripHtmlTags(html: string): string {
-  return html.replace(/<[^>]*>/g, '').trim();
-}
 
 export function adminPostToMerged(post: AdminBlogPost): BlogPost {
   return {
@@ -226,7 +152,7 @@ export function adminPostToMerged(post: AdminBlogPost): BlogPost {
     timestamp: post.timestamp,
     category: post.category,
     title: post.title,
-    excerpt: stripHtmlTags(post.excerpt),
+    excerpt: stripHtml(post.excerpt),
     href: `/blog/${post.slug}`,
     image: safeHttpUrl(post.imageUrl),
     tags: post.tags,
@@ -236,12 +162,9 @@ export function adminPostToMerged(post: AdminBlogPost): BlogPost {
   };
 }
 
+/** Static and admin posts, newest first. A failed admin read throws (see above). */
 export async function getAllPostsWithAdmin(hardcodedPosts: BlogPost[]): Promise<BlogPost[]> {
-  try {
-    const adminPosts = await getAdminPosts();
-    const transformed = adminPosts.map(adminPostToMerged);
-    return [...transformed, ...hardcodedPosts].sort((a, b) => b.timestamp - a.timestamp);
-  } catch {
-    return hardcodedPosts;
-  }
+  const adminPosts = await getAdminPosts();
+  const transformed = adminPosts.map(adminPostToMerged);
+  return [...transformed, ...hardcodedPosts].sort((a, b) => b.timestamp - a.timestamp);
 }

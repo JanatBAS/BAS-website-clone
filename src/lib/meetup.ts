@@ -1,18 +1,30 @@
+import { unstable_cache, revalidateTag } from 'next/cache';
 import { get, put } from '@vercel/blob';
+import { MEETUP_GROUPS } from '@/data/meetup-groups';
+import { stripHtml } from './utils';
+
+/**
+ * Meetup events are scraped from each group's public events page once a day
+ * by /api/cron/sync-meetup and stored as one JSON file in Vercel Blob.
+ *
+ * Blob operation budget (keep it this way):
+ * - The daily sync reads the stored file once and writes it only when the
+ *   event list changed.
+ * - Pages read the stored file through `unstable_cache`; the sync expires that
+ *   cache only after a write, so page rebuilds normally cost no Blob operation.
+ */
 
 const MEETUP_FETCH_TIMEOUT_MS = 8000;
-const MEETUP_CACHE_TTL_MS = 3600 * 1000; // 1 hour per serverless instance
+const MEETUP_MEMORY_TTL_MS = 3600 * 1000; // fallback cache per serverless instance
 const MEETUP_CACHE_KEY = 'cache/meetup-events.json';
 const MEETUP_CACHE_VERSION = 1;
+const MEETUP_EVENTS_TAG = 'meetup-events';
 
-/** All BAS-affiliated Meetup groups */
-export const MEETUP_GROUPS = [
-  { urlname: 'bitcoin-meetup-switzerland', city: 'Zurich' },
-  { urlname: 'bitcoin-meetup-geneva', city: 'Geneva' },
-  { urlname: 'bitcoin-meetup-luzern', city: 'Luzern' },
-  { urlname: 'bitcoin-meetup-neuchatel', city: 'Neuchatel' },
-  { urlname: 'bitcoin-meetup-basel', city: 'Basel' },
-];
+/**
+ * Past meetups stay in the calendar for this long, so it does not go blank
+ * between the end of one batch and the publication of the next.
+ */
+const MEETUP_PAST_WINDOW_DAYS = 90;
 
 interface MeetupVenue {
   name?: string;
@@ -47,12 +59,14 @@ export interface MeetupSyncResult {
   eventCount: number;
   syncedAt: string;
   groups: string[];
+  /** Groups that could not be fetched; their previously stored events were kept. */
+  failedGroups: string[];
 }
 
 type ApolloState = Record<string, unknown>;
 
-let cachedEvents: MeetupEvent[] | null = null;
-let cacheTimestamp = 0;
+let memoryEvents: MeetupEvent[] | null = null;
+let memoryTimestamp = 0;
 
 function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === 'object' && value !== null;
@@ -67,19 +81,15 @@ function getRef(value: unknown): string | undefined {
   return getString(value.__ref);
 }
 
-function stripHtml(html: string): string {
-  return html
-    .replace(/<br\s*\/?>/gi, '\n')
-    .replace(/<\/p>/gi, '\n\n')
-    .replace(/<[^>]+>/g, '')
-    .replace(/&amp;/g, '&')
-    .replace(/&lt;/g, '<')
-    .replace(/&gt;/g, '>')
-    .replace(/&quot;/g, '"')
-    .replace(/&#39;/g, "'")
-    .replace(/&nbsp;/g, ' ')
-    .replace(/\n{3,}/g, '\n\n')
-    .trim();
+/** First date (YYYY-MM-DD, UTC) that is still shown. */
+function pastWindowStartISO(now = new Date()): string {
+  const start = new Date(now.getTime() - MEETUP_PAST_WINDOW_DAYS * 24 * 60 * 60 * 1000);
+  return start.toISOString().slice(0, 10);
+}
+
+function withinWindow(events: MeetupEvent[], now = new Date()): MeetupEvent[] {
+  const startISO = pastWindowStartISO(now);
+  return events.filter((event) => (event.endDateISO || event.dateISO) >= startISO);
 }
 
 function parseMeetupDateTime(isoString: string): { dateISO: string; time: string } {
@@ -208,6 +218,11 @@ async function fetchWithTimeout(url: string, cacheMode: RequestCache): Promise<R
   }
 }
 
+/**
+ * Published events of one group: upcoming ones plus recent past ones (the
+ * public events page embeds the next events and the ten most recent).
+ * Drafts and cancelled events are skipped.
+ */
 async function fetchGroupEvents(urlname: string, cacheMode: RequestCache): Promise<MeetupEvent[]> {
   const response = await fetchWithTimeout(`https://www.meetup.com/${urlname}/events/`, cacheMode);
   if (!response.ok) {
@@ -215,15 +230,12 @@ async function fetchGroupEvents(urlname: string, cacheMode: RequestCache): Promi
   }
 
   const state = extractApolloState(await response.text());
-  const now = new Date();
   const events: MeetupEvent[] = [];
 
   for (const [key, node] of Object.entries(state)) {
     if (!key.startsWith('Event:') || !isRecord(node)) continue;
-    if (getString(node.status) && getString(node.status) !== 'ACTIVE') continue;
-
-    const dateTime = getString(node.dateTime);
-    if (!dateTime || new Date(dateTime) < now) continue;
+    const status = getString(node.status);
+    if (status && status !== 'ACTIVE' && status !== 'PAST') continue;
 
     try {
       events.push(meetupNodeToEvent(node, state, urlname));
@@ -250,44 +262,60 @@ function normalizeEvents(events: MeetupEvent[]): MeetupEvent[] {
   });
 }
 
-async function fetchAllGroups(cacheMode: RequestCache): Promise<MeetupEvent[]> {
+interface GroupFetchResult {
+  events: MeetupEvent[];
+  failedGroups: string[];
+}
+
+/**
+ * Fetches every group. A group that fails falls back to `previous` (its last
+ * stored events), so one unreachable group no longer blocks all updates.
+ */
+async function fetchAllGroups(cacheMode: RequestCache, previous: MeetupEvent[] = []): Promise<GroupFetchResult> {
   const results = await Promise.allSettled(
     MEETUP_GROUPS.map((group) => fetchGroupEvents(group.urlname, cacheMode)),
   );
 
-  const failures = results.flatMap((result, index) => {
-    if (result.status === 'fulfilled') return [];
-    const reason = result.reason instanceof Error ? result.reason.message : String(result.reason);
-    return [`${MEETUP_GROUPS[index].urlname} (${reason})`];
-  });
+  const events: MeetupEvent[] = [];
+  const failedGroups: string[] = [];
 
-  if (failures.length > 0) {
-    throw new Error(`Meetup sync failed for groups: ${failures.join(', ')}`);
-  }
-
-  return normalizeEvents(results.flatMap((result) => (
-    result.status === 'fulfilled' ? result.value : []
-  )));
-}
-
-async function readMeetupCache(): Promise<MeetupEventsCache | null> {
-  try {
-    const result = await get(MEETUP_CACHE_KEY, {
-      access: 'public',
-      useCache: false,
-    });
-
-    if (!result || result.statusCode !== 200) return null;
-
-    const cache = await new Response(result.stream).json() as MeetupEventsCache;
-    if (cache.version !== MEETUP_CACHE_VERSION || !Array.isArray(cache.events)) {
-      return null;
+  results.forEach((result, index) => {
+    const { urlname } = MEETUP_GROUPS[index];
+    if (result.status === 'fulfilled') {
+      events.push(...result.value);
+      return;
     }
 
-    return cache;
-  } catch {
+    const reason = result.reason instanceof Error ? result.reason.message : String(result.reason);
+    console.warn(`[meetup] could not fetch group "${urlname}": ${reason}`);
+    failedGroups.push(urlname);
+    events.push(...previous.filter((event) => event.groupUrlname === urlname));
+  });
+
+  return { events: normalizeEvents(withinWindow(events)), failedGroups };
+}
+
+/** Reads the stored events. A missing file returns null; other failures throw. */
+async function readMeetupCache(): Promise<MeetupEventsCache | null> {
+  // Local builds and CI have no store configured.
+  if (!process.env.BLOB_READ_WRITE_TOKEN) return null;
+
+  const result = await get(MEETUP_CACHE_KEY, {
+    access: 'public',
+    useCache: false,
+  });
+
+  if (!result) return null;
+  if (result.statusCode !== 200 || !result.stream) {
+    throw new Error(`Unexpected Blob response ${result.statusCode} for ${MEETUP_CACHE_KEY}`);
+  }
+
+  const cache = await new Response(result.stream).json() as MeetupEventsCache;
+  if (cache.version !== MEETUP_CACHE_VERSION || !Array.isArray(cache.events)) {
     return null;
   }
+
+  return cache;
 }
 
 async function writeMeetupCache(events: MeetupEvent[], syncedAt: string): Promise<void> {
@@ -308,9 +336,18 @@ async function writeMeetupCache(events: MeetupEvent[], syncedAt: string): Promis
   });
 }
 
-function cacheEventsInMemory(events: MeetupEvent[]): void {
-  cachedEvents = events;
-  cacheTimestamp = Date.now();
+const readStoredMeetupEvents = unstable_cache(
+  async (): Promise<MeetupEvent[] | null> => (await readMeetupCache())?.events ?? null,
+  ['meetup-events-stored'],
+  {
+    tags: [MEETUP_EVENTS_TAG],
+    revalidate: false,
+  },
+);
+
+function rememberInMemory(events: MeetupEvent[]): void {
+  memoryEvents = events;
+  memoryTimestamp = Date.now();
 }
 
 function canonicalizeEvents(events: MeetupEvent[]): string {
@@ -318,12 +355,18 @@ function canonicalizeEvents(events: MeetupEvent[]): string {
 }
 
 /**
- * Fetches upcoming Meetup events for a scheduled sync. Throws on any group
- * failure so the previous durable cache remains the last known good dataset.
+ * Daily sync. Fetches all groups, keeps the stored events of groups that
+ * failed, and writes only when the list changed. Throws (and keeps the stored
+ * list) when the stored list cannot be read or every group failed.
  */
 export async function syncMeetupEventsCache(): Promise<MeetupSyncResult> {
-  const events = await fetchAllGroups('no-store');
   const currentCache = await readMeetupCache();
+  const { events, failedGroups } = await fetchAllGroups('no-store', currentCache?.events ?? []);
+
+  if (failedGroups.length === MEETUP_GROUPS.length) {
+    throw new Error('Meetup sync failed for every group');
+  }
+
   const syncedAt = new Date().toISOString();
   const status = canonicalizeEvents(currentCache?.events ?? []) === canonicalizeEvents(events)
     ? 'unchanged'
@@ -331,41 +374,47 @@ export async function syncMeetupEventsCache(): Promise<MeetupSyncResult> {
 
   if (status === 'updated') {
     await writeMeetupCache(events, syncedAt);
+    revalidateTag(MEETUP_EVENTS_TAG, { expire: 0 });
   }
 
-  cacheEventsInMemory(events);
+  rememberInMemory(events);
 
   return {
     status,
     eventCount: events.length,
     syncedAt,
     groups: MEETUP_GROUPS.map((group) => group.urlname),
+    failedGroups,
   };
 }
 
 /**
- * Returns the last known good Meetup events. Public pages read from the durable
- * Blob cache first; live Meetup fetching is only a bootstrap fallback when the
- * cache has not been created yet.
+ * Meetup events for the calendar pages. Reads the stored list (cached); only
+ * when none exists yet or it cannot be read, falls back to fetching Meetup
+ * directly. Never throws.
  */
 export async function getMeetupEvents(): Promise<MeetupEvent[]> {
-  const storedCache = await readMeetupCache();
-  if (storedCache) {
-    cacheEventsInMemory(storedCache.events);
-    return storedCache.events;
-  }
-
-  if (cachedEvents && Date.now() - cacheTimestamp < MEETUP_CACHE_TTL_MS) {
-    return cachedEvents;
-  }
-
   try {
-    const events = await fetchAllGroups('force-cache');
-    cacheEventsInMemory(events);
-    return events;
+    const stored = await readStoredMeetupEvents();
+    if (stored) {
+      rememberInMemory(stored);
+      return withinWindow(stored);
+    }
   } catch (error) {
     const message = error instanceof Error ? error.message : 'Unknown error';
-    console.warn(`[meetup] failed to fetch events and no durable cache is available: ${message}`);
-    return cachedEvents ?? [];
+    console.warn(`[meetup] could not read stored events: ${message}`);
   }
+
+  if (memoryEvents && Date.now() - memoryTimestamp < MEETUP_MEMORY_TTL_MS) {
+    return withinWindow(memoryEvents);
+  }
+
+  const { events, failedGroups } = await fetchAllGroups('force-cache');
+  if (failedGroups.length === MEETUP_GROUPS.length) {
+    console.warn('[meetup] no stored list is available and every group failed to load');
+    return memoryEvents ? withinWindow(memoryEvents) : [];
+  }
+
+  rememberInMemory(events);
+  return events;
 }

@@ -3,6 +3,8 @@
 import { useCallback, useRef } from 'react';
 import { UnifiedEvent, CalendarDay as CalendarDayType } from '@/types/calendar';
 import { useCalendar } from '@/hooks/useCalendar';
+import { isEventPast } from '@/lib/event-dates';
+import { MEETUP_GROUPS, meetupGroupUrl } from '@/data/meetup-groups';
 import { CalendarHeader } from './CalendarHeader';
 import { CalendarFilters } from './CalendarFilters';
 import { CalendarGrid } from './CalendarGrid';
@@ -12,11 +14,14 @@ import { CalendarEventModal } from './CalendarEventModal';
 
 interface CalendarProps {
   events: UnifiedEvent[];
+  /** Today (YYYY-MM-DD) at server render time; the browser's date takes over after hydration. */
+  initialTodayISO: string;
 }
 
-export function Calendar({ events }: CalendarProps) {
+export function Calendar({ events, initialTodayISO }: CalendarProps) {
   const {
     currentDate,
+    todayISO,
     currentView,
     selectedEvent,
     isModalOpen,
@@ -33,7 +38,11 @@ export function Calendar({ events }: CalendarProps) {
     openModal,
     closeModal,
     toggleCategory,
-  } = useCalendar({ events });
+  } = useCalendar({ events, initialTodayISO });
+
+  const hasUpcomingMeetup = events.some(
+    (event) => event.category === 'meetup' && !isEventPast(event, todayISO),
+  );
 
   // Track swipe gestures for mobile
   const containerRef = useRef<HTMLDivElement>(null);
@@ -115,6 +124,27 @@ export function Calendar({ events }: CalendarProps) {
         onToggle={toggleCategory}
       />
 
+      {/* Meetups are synced from Meetup.com once they are published there */}
+      {!hasUpcomingMeetup && (
+        <p className="mb-4 text-sm text-gray-600">
+          No upcoming meetups are published yet. New dates appear here automatically once the
+          organizers publish them on Meetup:{' '}
+          {MEETUP_GROUPS.map((group, index) => (
+            <span key={group.urlname}>
+              {index > 0 && ' · '}
+              <a
+                href={meetupGroupUrl(group.urlname)}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[#c75b4a] hover:underline"
+              >
+                {group.city}
+              </a>
+            </span>
+          ))}
+        </p>
+      )}
+
       {/* Calendar view */}
       <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
         {currentView === 'month' && (
@@ -138,6 +168,7 @@ export function Calendar({ events }: CalendarProps) {
           <div className="p-4">
             <CalendarListView
               events={listEvents}
+              todayISO={todayISO}
               onEventClick={openModal}
             />
           </div>
@@ -149,6 +180,7 @@ export function Calendar({ events }: CalendarProps) {
         event={selectedEvent}
         isOpen={isModalOpen}
         onClose={closeModal}
+        todayISO={todayISO}
       />
     </div>
   );

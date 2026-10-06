@@ -47,17 +47,14 @@ export function isDateWithinEventRange(event: Pick<UnifiedEvent, 'dateISO' | 'en
   return event.dateISO <= dateISO && dateISO <= endDateISO;
 }
 
-export function eventOverlapsDateRange(
-  event: Pick<UnifiedEvent, 'dateISO' | 'endDateISO'>,
-  startDateISO: string,
-  endDateISO: string,
-): boolean {
-  const eventEndDateISO = event.endDateISO || event.dateISO;
-  return event.dateISO <= endDateISO && eventEndDateISO >= startDateISO;
+/** Today's date (YYYY-MM-DD) in Switzerland, for server-side rendering. */
+export function swissTodayISO(now: Date = new Date()): string {
+  return new Intl.DateTimeFormat('en-CA', { timeZone: 'Europe/Zurich' }).format(now);
 }
 
-export function hasMultiDayRange(event: Pick<UnifiedEvent, 'dateISO' | 'endDateISO'>): boolean {
-  return Boolean(event.endDateISO && event.endDateISO !== event.dateISO);
+/** True once the event's last day is before `todayISO` (YYYY-MM-DD, local date). */
+export function isEventPast(event: Pick<UnifiedEvent, 'dateISO' | 'endDateISO'>, todayISO: string): boolean {
+  return (event.endDateISO || event.dateISO) < todayISO;
 }
 
 export function formatEventDateRange(startDateISO: string, endDateISO?: string): string {

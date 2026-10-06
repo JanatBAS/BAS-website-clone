@@ -2,20 +2,21 @@
 
 import Image from 'next/image';
 import { UnifiedEvent, CATEGORY_COLORS, CATEGORY_LABELS } from '@/types/calendar';
-import { formatEventDateRange } from '@/lib/event-dates';
+import { formatEventDateRange, isEventPast } from '@/lib/event-dates';
 
 interface CalendarListViewProps {
   events: UnifiedEvent[];
+  todayISO: string;
   onEventClick: (event: UnifiedEvent) => void;
 }
 
-export function CalendarListView({ events, onEventClick }: CalendarListViewProps) {
+export function CalendarListView({ events, todayISO, onEventClick }: CalendarListViewProps) {
   // Group events by status (upcoming first, then past)
-  const upcomingEvents = events.filter(e => e.status === 'upcoming');
-  const pastEvents = events.filter(e => e.status === 'past');
+  const upcomingEvents = events.filter(e => !isEventPast(e, todayISO));
+  const pastEvents = events.filter(e => isEventPast(e, todayISO));
 
   const EventCard = ({ event }: { event: UnifiedEvent }) => {
-    const isPast = event.status === 'past';
+    const isPast = isEventPast(event, todayISO);
 
     return (
       <article

@@ -9,6 +9,8 @@ import Image from "next/image";
 import { Calendar } from "@/components/calendar";
 import { allEvents } from "@/data/events";
 import { getAllEventsWithAdmin } from "@/lib/merge-data";
+import { swissTodayISO } from "@/lib/event-dates";
+import { MEETUP_GROUPS, meetupGroupUrl } from "@/data/meetup-groups";
 
 export const revalidate = 86400;
 
@@ -33,30 +35,6 @@ const moreEventsCards = [
   },
 ];
 
-const regionalMeetups = [
-  {
-    city: "Zurich",
-    href: "https://www.meetup.com/bitcoin-meetup-switzerland/",
-  },
-  {
-    city: "Geneva",
-    href: "https://www.meetup.com/bitcoin-meetup-geneva/",
-  },
-  {
-    city: "Luzern",
-    href: "https://www.meetup.com/bitcoin-meetup-luzern/",
-  },
-  {
-    city: "Neuchatel",
-    href: "https://www.meetup.com/bitcoin-meetup-neuchatel/",
-  },
-  {
-    city: "Basel",
-    href: "https://www.meetup.com/bitcoin-meetup-basel/",
-  },
-];
-
-
 export default async function EventsPage() {
   const events = await getAllEventsWithAdmin(allEvents);
 
@@ -72,7 +50,7 @@ export default async function EventsPage() {
         {/* Calendar Section */}
         <section className="bg-white py-12 md:py-16">
           <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <Calendar events={events} />
+            <Calendar events={events} initialTodayISO={swissTodayISO()} />
           </div>
         </section>
 
@@ -88,10 +66,10 @@ export default async function EventsPage() {
               point to learn more about Bitcoin.
             </p>
             <div className="flex flex-wrap gap-3">
-              {regionalMeetups.map((meetup) => (
+              {MEETUP_GROUPS.map((meetup) => (
                 <a
-                  key={meetup.city}
-                  href={meetup.href}
+                  key={meetup.urlname}
+                  href={meetupGroupUrl(meetup.urlname)}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center px-4 py-2 bg-white rounded-full text-sm text-gray-700 hover:text-[#c75b4a] border border-gray-200 hover:border-[#c75b4a] transition-colors"

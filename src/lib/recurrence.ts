@@ -1,5 +1,6 @@
-import type { AdminEvent } from '@/types/admin';
+import type { AdminEvent, RecurrenceRule } from '@/types/admin';
 import { addDaysToDateISO, daysBetweenDateISO } from './event-dates';
+import { formatDateISO, getEndOfMonth } from './calendar-utils';
 
 const RECURRENCE_PAST_MONTHS = 3;
 const RECURRENCE_FUTURE_MONTHS = 12;
@@ -28,10 +29,10 @@ export function expandRecurringEvent(event: AdminEvent): AdminEvent[] {
   const durationDays = hasEndDate ? daysBetweenDateISO(event.dateISO, event.endDateISO!) : 0;
   const occurrences: AdminEvent[] = [];
 
-  let current = new Date(startDate);
-
-  while (current <= cutoff) {
-    const iso = toISO(current);
+  for (let index = 0; ; index++) {
+    const current = occurrenceDate(startDate, frequency, index);
+    if (current > cutoff) break;
+    const iso = formatDateISO(current);
 
     if (current >= windowStart && !excluded.has(iso)) {
       occurrences.push({
@@ -41,40 +42,24 @@ export function expandRecurringEvent(event: AdminEvent): AdminEvent[] {
         endDateISO: hasEndDate ? addDaysToDateISO(iso, durationDays) : undefined,
       });
     }
-
-    current = nextDate(current, startDate, frequency);
   }
 
   return occurrences;
 }
 
-function nextDate(
-  current: Date,
-  origin: Date,
-  frequency: 'weekly' | 'biweekly' | 'monthly',
-): Date {
-  const next = new Date(current);
-  if (frequency === 'weekly') {
-    next.setDate(next.getDate() + 7);
-  } else if (frequency === 'biweekly') {
-    next.setDate(next.getDate() + 14);
-  } else {
-    // monthly: same day-of-month, clamped for short months
-    next.setMonth(next.getMonth() + 1);
-    const targetDay = origin.getDate();
-    const maxDay = daysInMonth(next.getFullYear(), next.getMonth());
-    next.setDate(Math.min(targetDay, maxDay));
+/**
+ * The `index`-th occurrence counted from the series start. Monthly series keep
+ * the start's day of month, clamped to short months (Jan 31 -> Feb 28 -> Mar 31),
+ * so no month is skipped and the day never drifts.
+ */
+function occurrenceDate(origin: Date, frequency: RecurrenceRule['frequency'], index: number): Date {
+  if (frequency === 'monthly') {
+    const year = origin.getFullYear();
+    const month = origin.getMonth() + index;
+    const lastDay = getEndOfMonth(year, month).getDate();
+    return new Date(year, month, Math.min(origin.getDate(), lastDay), 12);
   }
-  return next;
-}
 
-function daysInMonth(year: number, month: number): number {
-  return new Date(year, month + 1, 0).getDate();
-}
-
-function toISO(d: Date): string {
-  const y = d.getFullYear();
-  const m = String(d.getMonth() + 1).padStart(2, '0');
-  const day = String(d.getDate()).padStart(2, '0');
-  return `${y}-${m}-${day}`;
+  const days = (frequency === 'weekly' ? 7 : 14) * index;
+  return new Date(origin.getFullYear(), origin.getMonth(), origin.getDate() + days, 12);
 }

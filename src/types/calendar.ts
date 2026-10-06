@@ -28,7 +28,8 @@ export interface UnifiedEvent {
   googleCalendarUrl?: string;
   icsUrl?: string;
   category: EventCategory;
-  status: EventStatus;
+  /** Snapshot at build time; the calendar UI derives live status from today's date. */
+  status?: EventStatus;
   source: EventSource;
   accentColor?: string;
 }

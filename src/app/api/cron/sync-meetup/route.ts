@@ -1,17 +1,29 @@
+import { timingSafeEqual } from 'node:crypto';
 import { revalidatePath } from 'next/cache';
 import { NextResponse } from 'next/server';
 import { syncMeetupEventsCache } from '@/lib/meetup';
 
 export const dynamic = 'force-dynamic';
 
+/**
+ * Vercel Cron sends `Authorization: Bearer $CRON_SECRET`. Without a configured
+ * secret the endpoint stays closed, so nobody can trigger syncs (and the Blob
+ * read each sync costs) from outside.
+ */
 function isAuthorized(request: Request): boolean {
   const cronSecret = process.env.CRON_SECRET;
-  if (!cronSecret) return true;
-  return request.headers.get('authorization') === `Bearer ${cronSecret}`;
+  if (!cronSecret) return false;
+
+  const expected = Buffer.from(`Bearer ${cronSecret}`);
+  const received = Buffer.from(request.headers.get('authorization') ?? '');
+  return received.length === expected.length && timingSafeEqual(received, expected);
 }
 
 export async function GET(request: Request) {
   if (!isAuthorized(request)) {
+    if (!process.env.CRON_SECRET) {
+      console.error('[meetup-sync] CRON_SECRET is not configured; refusing to run');
+    }
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 

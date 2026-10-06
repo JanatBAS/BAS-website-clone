@@ -4,15 +4,34 @@ import { useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { UnifiedEvent, CATEGORY_COLORS, CATEGORY_LABELS } from '@/types/calendar';
-import { formatEventDateRange } from '@/lib/event-dates';
+import { formatEventDateRange, isEventPast } from '@/lib/event-dates';
+import { googleCalendarUrl, icsDataUrl, icsFileName, type IcsEventInput } from '@/lib/ics';
+
+const SITE_URL = 'https://www.bitcoinassociation.ch';
 
 interface CalendarEventModalProps {
   event: UnifiedEvent | null;
   isOpen: boolean;
   onClose: () => void;
+  todayISO: string;
 }
 
-export function CalendarEventModal({ event, isOpen, onClose }: CalendarEventModalProps) {
+function toCalendarInput(event: UnifiedEvent): IcsEventInput {
+  const pageUrl = event.signupLink ?? (event.href.startsWith('/') ? `${SITE_URL}${event.href}` : event.href);
+  return {
+    uid: event.id,
+    title: event.title,
+    dateISO: event.dateISO,
+    endDateISO: event.endDateISO,
+    startTime: event.startTime,
+    endTime: event.endTime,
+    location: event.location,
+    description: event.shortDescription,
+    url: pageUrl,
+  };
+}
+
+export function CalendarEventModal({ event, isOpen, onClose, todayISO }: CalendarEventModalProps) {
   // Handle escape key
   const handleKeyDown = useCallback(
     (e: KeyboardEvent) => {
@@ -37,7 +56,8 @@ export function CalendarEventModal({ event, isOpen, onClose }: CalendarEventModa
 
   if (!event) return null;
 
-  const isPast = event.status === 'past';
+  const isPast = isEventPast(event, todayISO);
+  const calendarInput = toCalendarInput(event);
 
   return (
     <>
@@ -196,6 +216,20 @@ export function CalendarEventModal({ event, isOpen, onClose }: CalendarEventModa
               </Link>
             )}
 
+            {/* Past Meetup events: link to the event on Meetup */}
+            {isPast && event.source === 'meetup.com' && (
+              <a
+                href={event.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-2.5
+                  border-2 border-[#c75b4a] text-[#c75b4a] font-medium rounded-lg
+                  hover:bg-[#c75b4a]/10 transition-colors"
+              >
+                View on Meetup
+              </a>
+            )}
+
             {/* Signup link (for upcoming events) */}
             {!isPast && event.signupLink && (
               <a
@@ -217,32 +251,29 @@ export function CalendarEventModal({ event, isOpen, onClose }: CalendarEventModa
             )}
           </div>
 
-          {/* Calendar links */}
-          <div className="mt-4 pt-4 border-t border-gray-100">
-            <p className="text-xs text-gray-500 mb-2">Add to calendar:</p>
-            <div className="flex gap-3">
-              {event.googleCalendarUrl && (
+          {/* Calendar links (upcoming events only) */}
+          {!isPast && (
+            <div className="mt-4 pt-4 border-t border-gray-100">
+              <p className="text-xs text-gray-500 mb-2">Add to calendar:</p>
+              <div className="flex gap-3">
                 <a
-                  href={event.googleCalendarUrl}
+                  href={event.googleCalendarUrl ?? googleCalendarUrl(calendarInput)}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-sm text-[#c75b4a] hover:underline"
                 >
                   Google Calendar
                 </a>
-              )}
-              {event.icsUrl && (
                 <a
-                  href={event.icsUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  href={icsDataUrl(calendarInput)}
+                  download={icsFileName(event.slug)}
                   className="text-sm text-[#c75b4a] hover:underline"
                 >
                   ICS / Outlook
                 </a>
-              )}
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
     </>

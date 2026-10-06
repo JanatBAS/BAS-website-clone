@@ -4,6 +4,7 @@ import FooterSimple from '@/components/FooterSimple';
 import { Calendar } from '@/components/calendar';
 import { allEvents } from '@/data/events';
 import { getAllEventsWithAdmin } from '@/lib/merge-data';
+import { swissTodayISO } from '@/lib/event-dates';
 
 export const revalidate = 86400;
 
@@ -34,7 +35,7 @@ export default async function CalendarPage() {
       {/* Calendar section */}
       <main className="flex-1 py-8 sm:py-12">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <Calendar events={events} />
+          <Calendar events={events} initialTodayISO={swissTodayISO()} />
         </div>
       </main>
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, useMemo } from 'react';
+import { useState, useCallback, useMemo, useSyncExternalStore } from 'react';
 import {
   CalendarView,
   CalendarMonth,
@@ -16,18 +16,23 @@ import {
   getStartOfWeek,
   addMonths,
   addWeeks,
+  formatDateISO,
   sortEventsByDate,
 } from '@/lib/calendar-utils';
+import { isEventPast } from '@/lib/event-dates';
 
 interface UseCalendarOptions {
   events: UnifiedEvent[];
+  /** Today (YYYY-MM-DD) when the page was rendered on the server. */
+  initialTodayISO: string;
   initialView?: CalendarView;
-  initialDate?: Date;
 }
 
 interface UseCalendarReturn {
   // Current state
   currentDate: Date;
+  /** Today in the visitor's time zone (the server's value until hydration). */
+  todayISO: string;
   currentView: CalendarView;
   selectedEvent: UnifiedEvent | null;
   isModalOpen: boolean;
@@ -56,12 +61,30 @@ interface UseCalendarReturn {
   setActiveCategories: (categories: Set<EventCategory | 'all'>) => void;
 }
 
+const noSubscription = () => () => {};
+
+function dateFromISO(dateISO: string): Date {
+  const [year, month, day] = dateISO.split('-').map(Number);
+  return new Date(year, month - 1, day);
+}
+
 export function useCalendar({
   events,
+  initialTodayISO,
   initialView = 'month',
-  initialDate = new Date(),
 }: UseCalendarOptions): UseCalendarReturn {
-  const [currentDate, setCurrentDate] = useState(initialDate);
+  // Cached pages can be a day old, so "today" comes from the browser. The
+  // server value is used for the server render and hydration, which keeps the
+  // two identical; React re-renders with the browser's date right after.
+  const todayISO = useSyncExternalStore(
+    noSubscription,
+    () => formatDateISO(new Date()),
+    () => initialTodayISO,
+  );
+
+  // null = follow today; set once the visitor navigates.
+  const [navigatedDate, setNavigatedDate] = useState<Date | null>(null);
+  const currentDate = useMemo(() => navigatedDate ?? dateFromISO(todayISO), [navigatedDate, todayISO]);
   const [currentView, setCurrentView] = useState<CalendarView>(initialView);
   const [selectedEvent, setSelectedEvent] = useState<UnifiedEvent | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -85,40 +108,30 @@ export function useCalendar({
       generateCalendarMonth(
         currentDate.getFullYear(),
         currentDate.getMonth(),
-        filteredEvents
+        filteredEvents,
+        todayISO
       ),
-    [currentDate, filteredEvents]
+    [currentDate, filteredEvents, todayISO]
   );
 
   // Generate week days for week view
   const weekStart = useMemo(() => getStartOfWeek(currentDate), [currentDate]);
   const weekDays = useMemo(
-    () => generateWeekDays(weekStart, filteredEvents),
-    [weekStart, filteredEvents]
+    () => generateWeekDays(weekStart, filteredEvents, todayISO),
+    [weekStart, filteredEvents, todayISO]
   );
 
   // Get list of events for list view (all events, upcoming first then past)
   const listEvents = useMemo(() => {
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-
-    // Get events that have not ended yet, sorted ascending by start date
-    const upcoming = filteredEvents.filter(event => {
-      const eventEndDate = new Date((event.endDateISO || event.dateISO) + 'T00:00:00');
-      return eventEndDate >= today;
-    });
-
-    // Get all fully past events, sorted descending by start date (most recent first)
-    const past = filteredEvents.filter(event => {
-      const eventEndDate = new Date((event.endDateISO || event.dateISO) + 'T00:00:00');
-      return eventEndDate < today;
-    });
+    // Events that have not ended yet, ascending; then past events, most recent first
+    const upcoming = filteredEvents.filter(event => !isEventPast(event, todayISO));
+    const past = filteredEvents.filter(event => isEventPast(event, todayISO));
 
     return [
       ...sortEventsByDate(upcoming, true),
       ...sortEventsByDate(past, false),
     ];
-  }, [filteredEvents]);
+  }, [filteredEvents, todayISO]);
 
   // Build category filters
   const categoryFilters = useMemo((): CategoryFilter[] => {
@@ -139,24 +152,24 @@ export function useCalendar({
 
   // Navigation actions
   const goToToday = useCallback(() => {
-    setCurrentDate(new Date());
+    setNavigatedDate(null);
   }, []);
 
   const goToNextMonth = useCallback(() => {
-    setCurrentDate(prev => addMonths(prev, 1));
-  }, []);
+    setNavigatedDate(addMonths(currentDate, 1));
+  }, [currentDate]);
 
   const goToPrevMonth = useCallback(() => {
-    setCurrentDate(prev => addMonths(prev, -1));
-  }, []);
+    setNavigatedDate(addMonths(currentDate, -1));
+  }, [currentDate]);
 
   const goToNextWeek = useCallback(() => {
-    setCurrentDate(prev => addWeeks(prev, 1));
-  }, []);
+    setNavigatedDate(addWeeks(currentDate, 1));
+  }, [currentDate]);
 
   const goToPrevWeek = useCallback(() => {
-    setCurrentDate(prev => addWeeks(prev, -1));
-  }, []);
+    setNavigatedDate(addWeeks(currentDate, -1));
+  }, [currentDate]);
 
   const setView = useCallback((view: CalendarView) => {
     setCurrentView(view);
@@ -203,6 +216,7 @@ export function useCalendar({
 
   return {
     currentDate,
+    todayISO,
     currentView,
     selectedEvent,
     isModalOpen,

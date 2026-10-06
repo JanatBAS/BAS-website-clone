@@ -64,18 +64,6 @@ function formatLocal(dateISO: string, minutes: number): string {
  * times, so they are emitted with TZID=Europe/Zurich.
  */
 export function buildIcs(event: IcsEventInput): string {
-  const startMinutes = toMinutes(event.startTime);
-  const endDateISO = event.endDateISO || event.dateISO;
-  let end: string;
-
-  if (event.endTime) {
-    const endMinutes = toMinutes(event.endTime);
-    const crossesMidnight = !event.endDateISO && endMinutes < startMinutes;
-    end = formatLocal(endDateISO, endMinutes + (crossesMidnight ? 1440 : 0));
-  } else {
-    end = formatLocal(event.dateISO, startMinutes + DEFAULT_DURATION_MINUTES);
-  }
-
   const description = [event.description, event.url].filter(Boolean).join('\n\n');
   const lines = [
     'BEGIN:VCALENDAR',
@@ -85,8 +73,8 @@ export function buildIcs(event: IcsEventInput): string {
     'BEGIN:VEVENT',
     `UID:${event.uid}@bitcoinassociation.ch`,
     `DTSTAMP:${event.dateISO.replace(/-/g, '')}T000000Z`,
-    `DTSTART;TZID=Europe/Zurich:${formatLocal(event.dateISO, startMinutes)}`,
-    `DTEND;TZID=Europe/Zurich:${end}`,
+    `DTSTART;TZID=Europe/Zurich:${formatLocal(event.dateISO, toMinutes(event.startTime))}`,
+    `DTEND;TZID=Europe/Zurich:${eventEnd(event)}`,
     `SUMMARY:${escapeText(event.title)}`,
     event.location ? `LOCATION:${escapeText(event.location)}` : '',
     description ? `DESCRIPTION:${escapeText(description)}` : '',
@@ -96,6 +84,31 @@ export function buildIcs(event: IcsEventInput): string {
   ].filter(Boolean);
 
   return lines.map(foldLine).join('\r\n') + '\r\n';
+}
+
+function eventEnd(event: IcsEventInput): string {
+  const startMinutes = toMinutes(event.startTime);
+  if (!event.endTime) {
+    return formatLocal(event.dateISO, startMinutes + DEFAULT_DURATION_MINUTES);
+  }
+
+  const endMinutes = toMinutes(event.endTime);
+  const crossesMidnight = !event.endDateISO && endMinutes < startMinutes;
+  return formatLocal(event.endDateISO || event.dateISO, endMinutes + (crossesMidnight ? 1440 : 0));
+}
+
+/** Google Calendar "add event" link with Swiss local times. */
+export function googleCalendarUrl(event: IcsEventInput): string {
+  const params = new URLSearchParams({
+    action: 'TEMPLATE',
+    text: event.title,
+    dates: `${formatLocal(event.dateISO, toMinutes(event.startTime))}/${eventEnd(event)}`,
+    ctz: 'Europe/Zurich',
+  });
+  if (event.location) params.set('location', event.location);
+  if (event.url) params.set('details', `RSVP: ${event.url}`);
+
+  return `https://www.google.com/calendar/event?${params.toString()}`;
 }
 
 /** A `data:` URL for an `<a download>` link, so no server route is needed. */

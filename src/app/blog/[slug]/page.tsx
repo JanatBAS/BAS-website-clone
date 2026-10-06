@@ -1,3 +1,4 @@
+import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import Header from '@/components/Header';
@@ -5,11 +6,26 @@ import FooterSimple from '@/components/FooterSimple';
 import { getAdminPostBySlug } from '@/lib/blob-store';
 import { sanitizePostHtml } from '@/lib/sanitize-html';
 import { safeHttpUrl } from '@/lib/safe-url';
-
-export const revalidate = 300;
+import { stripHtml } from '@/lib/utils';
 
 interface PageProps {
   params: Promise<{ slug: string }>;
+}
+
+// Nothing is pre-rendered at build time; each post is rendered on its first
+// visit and then served from cache until the admin API revalidates it.
+export function generateStaticParams(): { slug: string }[] {
+  return [];
+}
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const post = await getAdminPostBySlug(slug);
+  if (!post) return {};
+  return {
+    title: post.title,
+    description: stripHtml(post.excerpt).slice(0, 300),
+  };
 }
 
 export default async function AdminBlogPostPage({ params }: PageProps) {
@@ -22,7 +38,7 @@ export default async function AdminBlogPostPage({ params }: PageProps) {
   // stored before sanitization existed are covered too.
   const safeHtml = sanitizePostHtml(post.htmlContent);
   const imageUrl = safeHttpUrl(post.imageUrl);
-  const authorHref = `/bitcoin-association-switzerland?author=${encodeURIComponent(post.authorId)}`;
+  const authorHref = `/bitcoin-association-switzerland/author/${encodeURIComponent(post.authorId)}`;
 
   return (
     <>
