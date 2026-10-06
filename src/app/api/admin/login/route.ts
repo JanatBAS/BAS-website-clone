@@ -1,14 +1,18 @@
 import { NextResponse } from 'next/server';
 import { verifyPassword, createToken, cookieConfig } from '@/lib/auth';
-import { checkRateLimit, clearRateLimit, recordRateLimitHit } from '@/lib/rate-limit';
+import { checkRateLimit, clearRateLimit, consumeRateLimit, recordRateLimitHit } from '@/lib/rate-limit';
 
 export const dynamic = 'force-dynamic';
 
-// Per client IP: 5 failed attempts per 15 minutes.
+// Per client IP: 5 attempts per 15 minutes; a successful login resets it.
 const PER_IP_LIMIT = { limit: 5, windowMs: 15 * 60 * 1000 };
-// Across all clients: 30 failed attempts per 15 minutes (slows distributed guessing).
-const GLOBAL_LIMIT = { limit: 30, windowMs: 15 * 60 * 1000 };
+// Across all clients: after 30 failures in 15 minutes every further failure is
+// answered more slowly. This slows distributed guessing without letting anyone
+// lock the real admin out, which a hard global block would allow.
+const GLOBAL_SLOWDOWN = { limit: 30, windowMs: 15 * 60 * 1000 };
 const GLOBAL_KEY = 'login:global';
+const FAILURE_DELAY_MS = 1000;
+const SLOW_FAILURE_DELAY_MS = 5000;
 const MAX_PASSWORD_LENGTH = 200;
 const MIN_RESPONSE_MS = 500;
 
@@ -36,10 +40,10 @@ export async function POST(request: Request) {
   const startTime = Date.now();
   const ipKey = clientKey(request);
 
-  const ipStatus = checkRateLimit(ipKey, PER_IP_LIMIT);
-  const globalStatus = checkRateLimit(GLOBAL_KEY, GLOBAL_LIMIT);
-  if (!ipStatus.allowed || !globalStatus.allowed) {
-    return tooManyAttempts(Math.max(ipStatus.retryAfterSeconds, globalStatus.retryAfterSeconds));
+  // Counted before any await, so parallel requests cannot skip the limit.
+  const ipStatus = consumeRateLimit(ipKey, PER_IP_LIMIT);
+  if (!ipStatus.allowed) {
+    return tooManyAttempts(ipStatus.retryAfterSeconds);
   }
 
   try {
@@ -60,10 +64,10 @@ export async function POST(request: Request) {
     const valid = await verifyPassword(password);
 
     if (!valid) {
-      recordRateLimitHit(ipKey, PER_IP_LIMIT);
-      recordRateLimitHit(GLOBAL_KEY, GLOBAL_LIMIT);
+      const underAttack = !checkRateLimit(GLOBAL_KEY, GLOBAL_SLOWDOWN).allowed;
+      recordRateLimitHit(GLOBAL_KEY, GLOBAL_SLOWDOWN);
       // Extra delay on failure to slow brute-force attempts
-      await new Promise((r) => setTimeout(r, 1000));
+      await new Promise((r) => setTimeout(r, underAttack ? SLOW_FAILURE_DELAY_MS : FAILURE_DELAY_MS));
       return NextResponse.json({ error: 'Invalid password' }, { status: 401 });
     }
 

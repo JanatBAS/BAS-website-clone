@@ -53,6 +53,18 @@ export function checkRateLimit(key: string, options: RateLimitOptions): RateLimi
   return { allowed: false, remaining: 0, retryAfterSeconds };
 }
 
+/**
+ * Check and record in one synchronous step, so concurrent requests cannot all
+ * pass the check before any of them is recorded. A refused attempt is not
+ * recorded.
+ */
+export function consumeRateLimit(key: string, options: RateLimitOptions): RateLimitResult {
+  const status = checkRateLimit(key, options);
+  if (!status.allowed) return status;
+  recordRateLimitHit(key, options);
+  return { ...status, remaining: status.remaining - 1 };
+}
+
 /** Record one hit for `key`. */
 export function recordRateLimitHit(key: string, options: RateLimitOptions): void {
   const now = Date.now();

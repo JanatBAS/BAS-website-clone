@@ -23,10 +23,3 @@ export function safeHttpUrl(value: unknown): string | undefined {
   }
 }
 
-/** True when the value is empty/undefined or a safe http(s)/relative URL. */
-export function isOptionalSafeUrl(value: unknown): boolean {
-  if (value === undefined || value === null) return true;
-  if (typeof value !== 'string') return false;
-  if (!value.trim()) return true;
-  return safeHttpUrl(value) !== undefined;
-}
