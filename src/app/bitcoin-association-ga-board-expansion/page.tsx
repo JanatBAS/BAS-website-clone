@@ -1,6 +1,12 @@
 import Header from "@/components/Header";
 import FooterSimple from "@/components/FooterSimple";
-import Link from "next/link";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Bitcoin Association GA Board Expansion",
+  description:
+    "At the general assembly on Dec 7th 2024, members shall be asked to vote on determining the exact number of board members of the Board of the Bitcoin Association Switzerland.",
+};
 
 export default function BitcoinAssociationGABoardExpansionPage() {
   return (
