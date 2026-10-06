@@ -652,10 +652,10 @@ export default function ProofOfWorkNotProofOfStakePage() {
 
       <div className="my-6">
         <Image
-          src="http://i.imgur.com/nAcekfj.png"
+          src="/images/blog/craig-wright-response.png"
           alt="Craig Wright response"
           width={600}
-          height={100}
+          height={89}
           className="max-w-full h-auto"
         />
       </div>

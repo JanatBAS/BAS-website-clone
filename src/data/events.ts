@@ -354,6 +354,11 @@ const eventRecords: EventRecord[] = [
 ];
 
 /** Returns the event with the given slug; throws at build time for an unknown slug. */
+/** Every event that has its own page. */
+export function getEventPages(): EventRecord[] {
+  return eventRecords;
+}
+
 export function getEvent(slug: string): EventRecord {
   const event = eventRecords.find(e => e.slug === slug);
   if (!event) throw new Error(`Unknown event slug: ${slug}`);

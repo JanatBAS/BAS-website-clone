@@ -93,6 +93,27 @@ const nextConfig: NextConfig = {
       { source: '/candidate-:number(\\d+)', destination: '/candidates', permanent: true },
       { source: '/home', destination: '/', permanent: true },
       { source: '/home-updated', destination: '/', permanent: true },
+      // Top-level copies of News posts.
+      {
+        source: '/press-release',
+        destination: '/bitcoin-association-switzerland/2025/12/8/bitcoin-association-switzerland-appoints-new-board-sets-bold-vision-for-the-future',
+        permanent: true,
+      },
+      {
+        source: '/announcement-from-the-new-board',
+        destination: '/bitcoin-association-switzerland/2025/12/8/announcement-from-the-board-of-the-bitcoin-association-switzerland',
+        permanent: true,
+      },
+      {
+        source: '/bas-welcomes-federal-councils-endorsement',
+        destination: '/bitcoin-association-switzerland/2025/2/28/bitcoin-association-switzerland-welcomes-the-federal-councils-endorsement-of-enhanced-bitcoin-regulation',
+        permanent: true,
+      },
+      {
+        source: '/12-point-program',
+        destination: '/bitcoin-association-switzerland/2025/12/8/statement-on-12-point-program',
+        permanent: true,
+      },
       ...Object.entries(LEGACY_EVENT_PATHS).map(([slug, destination]) => ({
         source: `/most-recent-events/${slug}`,
         destination,
