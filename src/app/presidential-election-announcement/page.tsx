@@ -59,7 +59,7 @@ export default function PresidentialElectionAnnouncementPage() {
                 </p>
                 <p>
                   <Link
-                    href="/candidates"
+                    href="/presidential-election-2025-candidates"
                     className="text-[#5c8a8a] hover:underline text-sm"
                   >
                     Presidential Election 2025 Candidates

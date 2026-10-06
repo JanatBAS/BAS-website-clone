@@ -41,6 +41,13 @@ const securityHeaders = [
   { key: 'X-DNS-Prefetch-Control', value: 'on' },
 ];
 
+const LEGACY_AUTHOR_SLUGS: Record<string, string> = {
+  kronrod: '59025f1030454480d862303f',
+  'phil-lojacono': '672bdb3ae0672c1501f39ce8',
+  'roger-darin': '54edd73ae4b04709779918e4',
+  'luzius-meisser': '5a9907f3e4966b72996b9c31',
+};
+
 const nextConfig: NextConfig = {
   poweredByHeader: false,
   async headers() {
@@ -72,6 +79,13 @@ const nextConfig: NextConfig = {
       { source: '/candidate-:number(\\d+)', destination: '/candidates', permanent: true },
       { source: '/home', destination: '/', permanent: true },
       { source: '/home-updated', destination: '/', permanent: true },
+      // Old listing pages linked a few authors by name instead of by id.
+      ...Object.entries(LEGACY_AUTHOR_SLUGS).map(([slug, id]) => ({
+        source: '/bitcoin-association-switzerland',
+        has: [{ type: 'query' as const, key: 'author', value: slug }],
+        destination: `/bitcoin-association-switzerland/author/${id}`,
+        permanent: true,
+      })),
       {
         // The News author filter moved from a query string to static pages.
         source: '/bitcoin-association-switzerland',
