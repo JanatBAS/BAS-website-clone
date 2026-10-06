@@ -1,16 +1,25 @@
-import BlogPostLayout from "@/components/BlogPostLayout";
+import BlogPostLayout, { BlogPostData } from "@/components/BlogPostLayout";
+import { Metadata } from "next";
 
-const post = {
+const post: BlogPostData = {
   title: "BAS Members Meetup at the Swiss Bitcoin Conference",
   date: "2 April 2026",
   author: "Lisa Tscherry",
   authorId: "lisa-tscherry",
+  href: "/bitcoin-association-switzerland/2026/4/2/bas-members-meetup-at-the-swiss-bitcoin-conference",
+  likeCount: 0,
   featuredImage: "/images/branding/bas-people.jpg",
   olderPost: {
     title:
       "Statement on the 12-Point Program for a Forward-Looking Digital Financial Center",
     href: "/bitcoin-association-switzerland/2025/12/8/statement-on-12-point-program",
   },
+};
+
+export const metadata: Metadata = {
+  title: post.title,
+  description:
+    "Our first BAS member meetup alongside a Bitcoin conference this year takes place at the Swiss Bitcoin Conference in Kreuzlingen on Saturday, 25 April 2026.",
 };
 
 export default function BASMembersMeetupAtTheSwissBitcoinConferencePostPage() {

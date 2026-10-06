@@ -1,135 +1,79 @@
-import Header from "@/components/Header";
-import FooterSimple from "@/components/FooterSimple";
-import Link from "next/link";
-import ShareButton from "@/components/ShareButton";
+import BlogPostLayout, { BlogPostData } from "@/components/BlogPostLayout";
 import Image from "next/image";
 import { Metadata } from "next";
 
-export const metadata: Metadata = {
+const post: BlogPostData = {
   title: "Marc Faber points readers to Bitcoin",
+  date: "5 December 2013",
+  author: "kronrod",
+  authorId: "59025f1030454480d862303f",
+  href: "/bitcoin-association-switzerland/2013/12/05/marc-faber-points-readers-to-bitcoin",
+  categories: ["Uncategorized"],
+  comments: [],
+  olderPost: {
+    title: "Bitcoin in Echo der Zeit",
+    href: "/bitcoin-association-switzerland/2013/12/04/bitcoin-in-echo-der-zeit",
+  },
+};
+
+export const metadata: Metadata = {
+  title: post.title,
   description:
-    "Swiss investment guru Marc Faber publishes a monthly market commentary. Along with the June commentary, he sent his subscribers a report on Bitcoin.",
+    "Along with his June market commentary, Swiss investment guru Marc Faber sent his subscribers a report on Bitcoin titled \"Dispelling the Myths of Bitcoin\".",
 };
 
 export default function MarcFaberPointsReadersToBitcoinPage() {
   return (
-    <>
-      <Header />
-      <main className="pt-20 min-h-screen bg-white">
-        <article className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          {/* Date */}
-          <div className="text-sm text-[#c75b4a] mb-2">
-            5 December 2013
-          </div>
+    <BlogPostLayout post={post}>
+      <div className="mb-8">
+        <Image
+          src="/images/blog/marc-faber.jpg"
+          alt="Marc Faber"
+          width={400}
+          height={300}
+          className="max-w-full h-auto"
+        />
+      </div>
 
-          {/* Title */}
-          <h1 className="text-2xl md:text-3xl font-normal text-gray-800 mb-4 leading-tight">
-            Marc Faber points readers to Bitcoin
-          </h1>
-
-          {/* Author and Category */}
-          <div className="text-sm text-gray-500 mb-8">
-            <Link
-              href="/bitcoin-association-switzerland?author=59025f1030454480d862303f"
-              className="text-[#c75b4a] hover:underline"
-            >
-              kronrod
-            </Link>
-            <span className="mx-2">-</span>
-            <Link
-              href="/bitcoin-association-switzerland/category/Uncategorized"
-              className="text-[#c75b4a] hover:underline"
-            >
-              Uncategorized
-            </Link>
-          </div>
-
-          {/* Featured Image */}
-          <div className="mb-8">
-            <Image
-              src="http://static4.businessinsider.com/image/4d40343ccadcbb1d1a010000/marc-faber-moral-decay-among-the-elites-proves-america-is-a-failed-state.jpg"
-              alt="Marc Faber"
-              width={600}
-              height={400}
-              className="max-w-full h-auto"
-              unoptimized
-            />
-          </div>
-
-          {/* Content */}
-          <div className="prose prose-sm max-w-none text-gray-700 leading-relaxed space-y-6">
-            <p>
-              Swiss investment guru{" "}
-              <a
-                href="http://en.wikipedia.org/wiki/Marc_Faber"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-[#c75b4a] hover:underline"
-              >
-                Marc Faber
-              </a>{" "}
-              publishes a monthly market commentary. Along with the June commentary, he sent his subscribers a report on Bitcoin, titled &quot;Dispelling the Myths of Bitcoin&quot; and written by{" "}
-              <a
-                href="http://www.altanawealth.com/our-team/lee-robinson"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-[#c75b4a] hover:underline"
-              >
-                Lee Robinson
-              </a>{" "}
-              from Atlana wealth. I already was in contact with Faber last autumn suggesting that he should send{" "}
-              <a
-                href="http://bitcoinassociation.ch/Bitcoin-A_Promise_of_Freedom.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-[#c75b4a] hover:underline"
-              >
-                my report on Bitcoin
-              </a>{" "}
-              to his readers - which he unfortunately did not even though he indicated interest. The report he finally attached is an interesting read, containing an excellent collection of quotes (e.g. &quot;Every informed person needs to know about Bitcoin because it might be one of the world&apos;s most important developments.&quot; by Nobel price winner Leon Louw) and showing various charts copied from the internet (e.g. this{" "}
-              <a
-                href="https://bitcointalk.org/index.php?topic=292068.0"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-[#c75b4a] hover:underline"
-              >
-                Bitcoin Ecosystem Snapshot
-              </a>
-              ). It lists three scenarios and attaches long-term values between 5&apos;714 USD and 119&apos;000 USD per Bitcoin. For the latter, the author randomly assumes that Bitcoin can capture 1% of the global money supply - not a very profound analysis. Nevertheless, I find it notable that Marc Faber finally decided to inform his readers about Bitcoin (without endorsing it). It is a symptom of raising awareness among investors and a good sign for the future.
-            </p>
-          </div>
-
-          {/* Share */}
-          <div className="mt-8 flex items-center gap-6 text-sm text-gray-500">
-            <ShareButton title="Marc Faber points readers to Bitcoin" />
-          </div>
-
-          {/* Comments Section */}
-          <div className="mt-12 pt-8 border-t border-gray-200">
-            <div className="mb-6">
-              <h3 className="text-sm font-medium text-gray-900 uppercase tracking-wider">Comments (0)</h3>
-            </div>
-          </div>
-
-          {/* Post Navigation */}
-          <div className="mt-12 pt-8 border-t border-gray-200">
-            <div className="flex justify-end items-start">
-              <div className="text-right">
-                <div className="text-xs text-gray-500 uppercase tracking-wider mb-1">
-                  Older Post
-                </div>
-                <Link
-                  href="/bitcoin-association-switzerland/2013/12/04/bitcoin-in-echo-der-zeit"
-                  className="text-sm text-[#c75b4a] hover:underline"
-                >
-                  Bitcoin in Echo der Zeit
-                </Link>
-              </div>
-            </div>
-          </div>
-        </article>
-      </main>
-      <FooterSimple />
-    </>
+      <p>
+        Swiss investment guru{" "}
+        <a
+          href="http://en.wikipedia.org/wiki/Marc_Faber"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-[#c75b4a] hover:underline"
+        >
+          Marc Faber
+        </a>{" "}
+        publishes a monthly market commentary. Along with the June commentary, he sent his subscribers a report on Bitcoin, titled &quot;Dispelling the Myths of Bitcoin&quot; and written by{" "}
+        <a
+          href="http://www.altanawealth.com/our-team/lee-robinson"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-[#c75b4a] hover:underline"
+        >
+          Lee Robinson
+        </a>{" "}
+        from Atlana wealth. I already was in contact with Faber last autumn suggesting that he should send{" "}
+        <a
+          href="http://bitcoinassociation.ch/Bitcoin-A_Promise_of_Freedom.pdf"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-[#c75b4a] hover:underline"
+        >
+          my report on Bitcoin
+        </a>{" "}
+        to his readers - which he unfortunately did not even though he indicated interest. The report he finally attached is an interesting read, containing an excellent collection of quotes (e.g. &quot;Every informed person needs to know about Bitcoin because it might be one of the world&apos;s most important developments.&quot; by Nobel price winner Leon Louw) and showing various charts copied from the internet (e.g. this{" "}
+        <a
+          href="https://bitcointalk.org/index.php?topic=292068.0"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-[#c75b4a] hover:underline"
+        >
+          Bitcoin Ecosystem Snapshot
+        </a>
+        ). It lists three scenarios and attaches long-term values between 5&apos;714 USD and 119&apos;000 USD per Bitcoin. For the latter, the author randomly assumes that Bitcoin can capture 1% of the global money supply - not a very profound analysis. Nevertheless, I find it notable that Marc Faber finally decided to inform his readers about Bitcoin (without endorsing it). It is a symptom of raising awareness among investors and a good sign for the future.
+      </p>
+    </BlogPostLayout>
   );
 }
