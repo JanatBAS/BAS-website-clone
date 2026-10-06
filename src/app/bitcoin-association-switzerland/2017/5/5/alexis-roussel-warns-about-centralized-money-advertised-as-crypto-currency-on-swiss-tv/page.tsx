@@ -5,7 +5,7 @@ import ShareButton from "@/components/ShareButton";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Alexis Roussel, CEO of Bity SA, warns about centralized money advertised as Crypto Currency on Swiss TV - Bitcoin Association Switzerland",
+  title: "Alexis Roussel, CEO of Bity SA, warns about centralized money advertised as Crypto Currency on Swiss TV",
   description:
     "Alexis Roussel, cofondateur de Bity, discusses the difference between true cryptocurrencies like Bitcoin and centralized alternatives on Leman Bleu TV.",
 };

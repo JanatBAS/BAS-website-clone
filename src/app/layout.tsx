@@ -13,7 +13,12 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Bitcoin Association Switzerland",
+  metadataBase: new URL("https://www.bitcoinassociation.ch"),
+  title: {
+    default: "Bitcoin Association Switzerland",
+    // Child pages set a plain title; the site name is appended here.
+    template: "%s - Bitcoin Association Switzerland",
+  },
   description: "The Bitcoin Association Switzerland forms an active community of enthusiasts with regular events, try to resolve open legal questions, and educate the public by providing a contact point for media inquiries.",
   keywords: ["Bitcoin", "Switzerland", "Cryptocurrency", "Association", "Community", "Meetup"],
   authors: [{ name: "Bitcoin Association Switzerland" }],

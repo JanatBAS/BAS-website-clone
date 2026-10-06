@@ -3,7 +3,7 @@ import FooterSimple from "@/components/FooterSimple";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "General Assembly - Bitcoin Association Switzerland",
+  title: "General Assembly",
   description: "General Assembly of Bitcoin Association Switzerland 2025",
 };
 

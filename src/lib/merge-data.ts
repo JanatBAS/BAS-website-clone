@@ -1,6 +1,7 @@
 import type { UnifiedEvent } from '@/types/calendar';
 import { CATEGORY_COLORS } from '@/types/calendar';
 import type { AdminEvent, AdminBlogPost } from '@/types/admin';
+import type { BlogPost } from '@/types/blog';
 import { getAdminEvents, getAdminPosts } from './blob-store';
 import { expandRecurringEvent } from './recurrence';
 import { getMeetupEvents, type MeetupEvent } from './meetup';
@@ -211,22 +212,6 @@ export async function getAllEventsWithAdmin(hardcodedEvents: UnifiedEvent[]): Pr
   }
 }
 
-interface BlogPost {
-  id: string;
-  author: string;
-  authorId: string;
-  date: string;
-  timestamp: number;
-  category?: string;
-  title: string;
-  excerpt: string;
-  href: string;
-  image?: string;
-  tags?: string[];
-  commentCount?: number;
-  likeCount?: number;
-  unoptimizedImage?: boolean;
-}
 
 function stripHtmlTags(html: string): string {
   return html.replace(/<[^>]*>/g, '').trim();

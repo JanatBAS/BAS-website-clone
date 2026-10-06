@@ -6,7 +6,7 @@ import SectionHeader from "@/components/SectionHeader";
 import ShopProducts from "@/components/ShopProducts";
 
 export const metadata: Metadata = {
-  title: "Shop | Bitcoin Association Switzerland",
+  title: "Shop",
   description:
     "Browse and buy Bitcoin merchandise from the Bitcoin Association Switzerland. T-shirts, hoodies, accessories and more — powered by dezentralshop.ch.",
 };

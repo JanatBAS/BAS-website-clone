@@ -4,7 +4,7 @@ import Link from "next/link";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy - Bitcoin Association Switzerland",
+  title: "Privacy Policy",
   description:
     "Privacy Policy for the Bitcoin Association Switzerland website. Learn how we collect, use, and protect your personal data.",
 };

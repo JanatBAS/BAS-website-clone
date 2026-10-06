@@ -4,7 +4,7 @@ import Link from "next/link";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Presidential Election Announcement - Bitcoin Association Switzerland",
+  title: "Presidential Election Announcement",
   description: "Election of the next President and Board of Bitcoin Association Switzerland",
 };
 

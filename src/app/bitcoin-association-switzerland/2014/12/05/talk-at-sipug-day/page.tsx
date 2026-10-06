@@ -6,7 +6,7 @@ import Image from "next/image";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Talk at SIPUG day - Bitcoin Association Switzerland",
+  title: "Talk at SIPUG day",
   description:
     "The Bitcoin Association is invited to hold a talk about Bitcoin about twice per month at average. Here is a picture of one of the more notable events with 300 registered participants.",
 };

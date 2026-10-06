@@ -5,7 +5,7 @@ import ShareButton from "@/components/ShareButton";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "On the Federal Council Report - Bitcoin Association Switzerland",
+  title: "On the Federal Council Report",
   description:
     "The federal council published its 170-page report on the legal foundations of the blockchain in Switzerland. It incorporates the findings of the consultation that took place in September and to which the Bitcoin Association also provided some inputs.",
 };

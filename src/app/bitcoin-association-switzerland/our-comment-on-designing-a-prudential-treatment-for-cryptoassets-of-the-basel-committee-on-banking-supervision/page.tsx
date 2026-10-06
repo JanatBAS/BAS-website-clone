@@ -5,7 +5,7 @@ import ShareButton from "@/components/ShareButton";
 import Image from "next/image";
 
 export const metadata = {
-  title: 'Our Comment on "Designing a prudential treatment for cryptoassets" of the Basel Committee on Banking Supervision - Bitcoin Association Switzerland',
+  title: 'Our Comment on "Designing a prudential treatment for cryptoassets" of the Basel Committee on Banking Supervision',
   description: "Bitcoin Association Switzerland's comment on the Basel Committee on Banking Supervision's discussion paper on the design of a prudential treatment for crypto-assets.",
 };
 

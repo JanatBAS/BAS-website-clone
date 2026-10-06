@@ -5,7 +5,7 @@ import ShareButton from "@/components/ShareButton";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "The MtGox debacle would not have happened in a free market - Bitcoin Association Switzerland",
+  title: "The MtGox debacle would not have happened in a free market",
   description:
     "As other places reported, MtGox failed spectacularly and ceased operations today. Some will blame this on a lack of regulation. Nothing could be further from the truth.",
 };

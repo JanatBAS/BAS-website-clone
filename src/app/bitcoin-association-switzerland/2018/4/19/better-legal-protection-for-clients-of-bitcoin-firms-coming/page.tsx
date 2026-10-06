@@ -6,7 +6,7 @@ import ShareButton from "@/components/ShareButton";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Better legal protection for clients of Bitcoin firms coming? - Bitcoin Association Switzerland",
+  title: "Better legal protection for clients of Bitcoin firms coming?",
   description:
     "Marcel Dobler, member of the Swiss national parliament and co-founder of digitec.ch, proposed a law that could turn out to be very helpful for Crypto Nation Switzerland.",
 };

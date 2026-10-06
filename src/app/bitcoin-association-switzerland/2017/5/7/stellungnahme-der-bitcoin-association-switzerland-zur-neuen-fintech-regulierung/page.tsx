@@ -5,7 +5,7 @@ import ShareButton from "@/components/ShareButton";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Our Regulatory Comment on the new Fintech-Regulation - Bitcoin Association Switzerland",
+  title: "Our Regulatory Comment on the new Fintech-Regulation",
   description:
     "The Bitcoin Association Switzerland comments on the latest proposal to improve regulation for fintech startups in Switzerland.",
 };

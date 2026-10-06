@@ -4,7 +4,7 @@ import Link from "next/link";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Terms and Conditions - Bitcoin Association Switzerland",
+  title: "Terms and Conditions",
   description: "Terms and Conditions for the Bitcoin Association Switzerland website.",
 };
 

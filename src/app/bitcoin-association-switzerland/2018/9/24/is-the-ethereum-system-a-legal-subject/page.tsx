@@ -5,7 +5,7 @@ import ShareButton from "@/components/ShareButton";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Is the Ethereum system a legal subject? - Bitcoin Association Switzerland",
+  title: "Is the Ethereum system a legal subject?",
   description:
     "There are some hints that abstract systems like Ethereum should legally be treated like their own entities. The latest such hints comes from the context of value-added tax (VAT or MWST in German).",
 };

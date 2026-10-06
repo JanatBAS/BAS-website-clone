@@ -5,7 +5,7 @@ import ShareButton from "@/components/ShareButton";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Self-made - Bitcoin Association Switzerland",
+  title: "Self-made",
   description:
     "Lakeside Partners joins the Bitcoin Association Switzerland by mining their own Bitcoin to pay membership fees.",
 };

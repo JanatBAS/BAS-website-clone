@@ -6,7 +6,7 @@ import BitcoinWidgets from "@/components/BitcoinWidgets";
 import Footer from "@/components/Footer";
 
 export const metadata = {
-  title: "Home (updated) - Bitcoin Association Switzerland",
+  title: "Home (updated)",
 };
 
 export default function HomeUpdated() {

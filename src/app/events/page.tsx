@@ -13,7 +13,7 @@ import { getAllEventsWithAdmin } from "@/lib/merge-data";
 export const revalidate = 86400;
 
 export const metadata: Metadata = {
-  title: "Meetups & Events | Bitcoin Association Switzerland",
+  title: "Meetups & Events",
   description:
     "Join our Bitcoin community events across Switzerland. View our calendar, conferences, educational talks, and regional meetups in Zurich, Geneva, Luzern, and more.",
 };

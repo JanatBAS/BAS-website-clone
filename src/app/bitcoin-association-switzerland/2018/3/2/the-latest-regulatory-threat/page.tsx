@@ -6,7 +6,7 @@ import ShareButton from "@/components/ShareButton";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "The Latest Regulatory Threat - Bitcoin Association Switzerland",
+  title: "The Latest Regulatory Threat",
   description:
     "The Swiss government has proposed a law that inadvertently threatens Switzerland's excellent position in the international race for becoming the preferred jurisdiction for crypto startups.",
 };

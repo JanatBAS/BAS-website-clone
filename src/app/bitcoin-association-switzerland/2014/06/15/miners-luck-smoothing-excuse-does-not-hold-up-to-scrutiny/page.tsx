@@ -7,7 +7,7 @@ import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title:
-    "Miner's \"luck smoothing\" excuse does not hold up to scrutiny - Bitcoin Association Switzerland",
+    "Miner's \"luck smoothing\" excuse does not hold up to scrutiny",
   description:
     "The enormous computing power of the GHash.IO pool sparked another debate about 51%-attacks. In this post, I want to dispel the 'luck smoothing' argument.",
 };

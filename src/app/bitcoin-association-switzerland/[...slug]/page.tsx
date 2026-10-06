@@ -234,7 +234,7 @@ export async function generateMetadata({
 
   if (!blogPost) {
     return {
-      title: "Post Not Found | Bitcoin Association Switzerland",
+      title: "Post Not Found",
     };
   }
 

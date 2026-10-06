@@ -6,7 +6,7 @@ import Image from "next/image";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "General Assembly 2014 - Bitcoin Association Switzerland",
+  title: "General Assembly 2014",
   description:
     "Our general assembly will take place on 2014-02-23 at Colab Zurich. Highlights include an intro to Ethereum and membership application form.",
 };

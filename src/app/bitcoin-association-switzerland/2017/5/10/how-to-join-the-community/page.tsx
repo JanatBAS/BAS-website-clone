@@ -5,7 +5,7 @@ import ShareButton from "@/components/ShareButton";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "How to participate in the local Bitcoin community - Bitcoin Association Switzerland",
+  title: "How to participate in the local Bitcoin community",
   description:
     "Learn how to get involved with the Bitcoin community in Switzerland through meetups, Telegram, Twitter, membership, and donations.",
 };

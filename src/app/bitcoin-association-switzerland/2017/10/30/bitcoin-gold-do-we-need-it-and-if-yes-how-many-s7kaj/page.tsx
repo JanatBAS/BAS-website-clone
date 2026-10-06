@@ -6,7 +6,7 @@ import Image from "next/image";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Bitcoin Gold - Do we need it and if yes, how many? - Bitcoin Association Switzerland",
+  title: "Bitcoin Gold - Do we need it and if yes, how many?",
   description:
     "BCash/Bitcoin cash did it on August 1st 2017, Bitcoin2x/Segwit2x does it at block 494,784. For better or worse, creating a new cryptocurrency by forking off of Bitcoin seems to be this season's fashion.",
 };

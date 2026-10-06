@@ -5,7 +5,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
 export const metadata = {
-  title: "Prudential Treatment of Cryptoasset Exposures II - Bitcoin Association Switzerland",
+  title: "Prudential Treatment of Cryptoasset Exposures II",
   description: "While the Bank for International Settlement / Basel Committee on Banking Supervision continues to propose regulation, they also have developed a habit of not addressing legitimate concerns from the community.",
 };
 

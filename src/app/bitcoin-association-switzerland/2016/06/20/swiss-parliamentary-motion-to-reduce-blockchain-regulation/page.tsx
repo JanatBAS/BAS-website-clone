@@ -6,7 +6,7 @@ import Image from "next/image";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Swiss Move to Reduce Blockchain Regulation - Bitcoin Association Switzerland",
+  title: "Swiss Move to Reduce Blockchain Regulation",
   description:
     "Together with 23 co-signatories from all major parties, Swiss member of parliament Franz Gruter filed a parliamentary motion to reduce regulatory burdens of blockchain startups by restricting the legal definition of client deposit.",
 };

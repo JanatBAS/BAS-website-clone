@@ -6,7 +6,7 @@ import Image from "next/image";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Op Ed: Proof of Work, not Proof of Stake - Bitcoin Association Switzerland",
+  title: "Op Ed: Proof of Work, not Proof of Stake",
   description:
     "A personal journey through the Bitcoin world, exploring encounters with key figures and investigating the identity of Satoshi Nakamoto.",
 };

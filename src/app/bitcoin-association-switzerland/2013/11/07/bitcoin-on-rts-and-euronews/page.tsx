@@ -6,7 +6,7 @@ import Image from "next/image";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Bitcoin on RTS and Euronews - Bitcoin Association Switzerland",
+  title: "Bitcoin on RTS and Euronews",
   description:
     "Luzius Meisser had a quick appearance on French-speaking Swiss TV RTS as well as on euronews.",
 };

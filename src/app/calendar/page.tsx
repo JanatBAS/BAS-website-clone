@@ -8,7 +8,7 @@ import { getAllEventsWithAdmin } from '@/lib/merge-data';
 export const revalidate = 86400;
 
 export const metadata: Metadata = {
-  title: 'Events Calendar | Bitcoin Association Switzerland',
+  title: 'Events Calendar',
   description: 'View all Bitcoin Association Switzerland events, meetups, and conferences in our interactive calendar.',
 };
 

@@ -5,7 +5,7 @@ import ShareButton from "@/components/ShareButton";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "FinTech Made in Switzerland - Bitcoin Association Switzerland",
+  title: "FinTech Made in Switzerland",
   description:
     "Manual Stagars is creating a Swiss FinTech documentary and talked to Luzius Meisser about the blockchain and opportunities for Switzerland.",
 };

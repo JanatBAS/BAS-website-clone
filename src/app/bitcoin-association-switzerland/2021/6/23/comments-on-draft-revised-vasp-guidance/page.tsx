@@ -6,7 +6,7 @@ import Image from "next/image";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Comments of Bitcoin Association Switzerland on the draft revised VASP Guidance - Bitcoin Association Switzerland",
+  title: "Comments of Bitcoin Association Switzerland on the draft revised VASP Guidance",
   description:
     "The Financial Action Task Force has recently published a revised draft for VASP guidance. Once finalised, this guidance will likely become de-facto law in numerous countries, so it is very important to get the guidance right.",
 };

@@ -6,7 +6,7 @@ import Image from "next/image";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Tone Vays Meetup in Zurich September 2017 - Bitcoin Association Switzerland",
+  title: "Tone Vays Meetup in Zurich September 2017",
   description:
     "Record attendance for Bitcoin Meetup with Tony Vays in Zurich. The event with Tony Vays was attended by more than 330 Bitcoin enthusiast in Volkshaus Zurich.",
 };

@@ -6,7 +6,7 @@ import Image from "next/image";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Marc Faber points readers to Bitcoin - Bitcoin Association Switzerland",
+  title: "Marc Faber points readers to Bitcoin",
   description:
     "Swiss investment guru Marc Faber publishes a monthly market commentary. Along with the June commentary, he sent his subscribers a report on Bitcoin.",
 };

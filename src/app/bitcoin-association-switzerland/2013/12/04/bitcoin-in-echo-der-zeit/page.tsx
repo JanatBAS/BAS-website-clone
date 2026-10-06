@@ -5,7 +5,7 @@ import ShareButton from "@/components/ShareButton";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Bitcoin in Echo der Zeit - Bitcoin Association Switzerland",
+  title: "Bitcoin in Echo der Zeit",
   description:
     "One of the most relevant news segments on Swiss national radio - Echo der Zeit - reported about Bitcoin and talked to Luzius Meisser.",
 };

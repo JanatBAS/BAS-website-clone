@@ -5,7 +5,7 @@ import ShareButton from "@/components/ShareButton";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "General Discussion Meetup - Bitcoin Association Switzerland",
+  title: "General Discussion Meetup",
   description:
     "The November 20th meetup will be dedicated to discussing our association. If you want to help shaping its future, please join us on that evening.",
 };

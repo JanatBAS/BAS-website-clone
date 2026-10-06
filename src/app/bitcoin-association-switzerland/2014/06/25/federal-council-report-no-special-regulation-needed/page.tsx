@@ -7,7 +7,7 @@ import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title:
-    "Federal Council report: No special regulation needed - Bitcoin Association Switzerland",
+    "Federal Council report: No special regulation needed",
   description:
     "In a report published today, the Swiss government answers questions raised in two parliamentary postulates. The report concludes that Bitcoin is covered by existing laws and that no new regulation is needed.",
 };

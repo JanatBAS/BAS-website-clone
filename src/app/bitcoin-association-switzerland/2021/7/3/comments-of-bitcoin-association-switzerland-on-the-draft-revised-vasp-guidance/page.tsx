@@ -5,7 +5,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
 export const metadata = {
-  title: "Prudential Treatment of Cryptoasset Exposures - Bitcoin Association Switzerland",
+  title: "Prudential Treatment of Cryptoasset Exposures",
   description: "Comments of Bitcoin Association Switzerland on the draft prudential treatment of cryptoasset exposures by the Basel Committee on Banking Supervision.",
 };
 
