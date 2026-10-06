@@ -1,5 +1,4 @@
 export type EventCategory = 'meetup' | 'conference' | 'workshop' | 'general';
-export type EventStatus = 'upcoming' | 'past';
 export type EventSource = 'most-recent-events' | 'admin' | 'meetup.com';
 export type CalendarView = 'month' | 'week' | 'list';
 
@@ -26,10 +25,7 @@ export interface UnifiedEvent {
   href: string;
   signupLink?: string;
   googleCalendarUrl?: string;
-  icsUrl?: string;
   category: EventCategory;
-  /** Snapshot at build time; the calendar UI derives live status from today's date. */
-  status?: EventStatus;
   source: EventSource;
   accentColor?: string;
 }
