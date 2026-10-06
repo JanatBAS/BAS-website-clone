@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Image from "next/image";
@@ -5,128 +6,44 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import ShareButton from "@/components/ShareButton";
+import IcsLink from "@/components/events/IcsLink";
+import { formatEventDate, getEventBadge } from "@/components/events/event-format";
+import { formatTimeDisplay } from "@/lib/date-utils";
+import { getSeriesEvents, type EventRecord } from "@/data/events";
 
-interface RoadshowEvent {
-  id: string;
-  title: string;
-  date: string;
-  dayOfWeek: string;
-  day: string;
-  month: string;
-  startTime: string;
-  endTime: string;
-  startTime24: string;
-  endTime24: string;
-  location?: string;
-  mapLink?: string;
-  description: string[];
-  signupLink: string;
-  signupText: string;
-  href: string;
-  hasImage?: boolean;
-  imageUrl?: string;
+export const metadata: Metadata = {
+  title: "Roadshow 2025",
+  description:
+    "The Bitcoin Association Switzerland's official Roadshow 2025, with stops in Bern, Lausanne, Lake Zurich and Basel.",
+};
+
+const roadshowEvents = getSeriesEvents("roadshow-2025");
+
+// As published on this page: the Swiss local times are marked as UTC (Z).
+function googleCalendarUrl(event: EventRecord): string {
+  const date = event.dateISO.replace(/-/g, "");
+  const start = event.startTime.replace(":", "");
+  const end = (event.endTime ?? event.startTime).replace(":", "");
+  return `http://www.google.com/calendar/event?action=TEMPLATE&text=${encodeURIComponent(event.title)}&dates=${date}T${start}00Z/${date}T${end}00Z`;
 }
 
-const roadshowEvents: RoadshowEvent[] = [
-  {
-    id: "basel",
-    title: "BAS Roadshow - Basel",
-    date: "2025-09-21",
-    dayOfWeek: "Sunday",
-    day: "21",
-    month: "Sept",
-    startTime: "6:00 pm",
-    endTime: "10:30 pm",
-    startTime24: "18:00",
-    endTime24: "22:30",
-    description: [
-      "The Bitcoin Association Switzerland invites you: Roadshow in Basel on September, 21, 2025",
-      "Time: 18:00 22:30",
-      "The Bitcoin Association Switzerland is launching its official Roadshow 2025, and the next stop will take place in the great city of Basel!",
-    ],
-    signupLink: "https://luma.com/7pewjjp3",
-    signupText: "Sign up for the roadshow event in Lausanne",
-    href: "/roadshow-2025/2025/9/21/bas-roadshow-basel",
-  },
-  {
-    id: "lake-zurich",
-    title: "BAS Roadshow Lake Zurich",
-    date: "2025-03-21",
-    dayOfWeek: "Friday",
-    day: "21",
-    month: "Mar",
-    startTime: "6:30 pm",
-    endTime: "11:00 pm",
-    startTime24: "18:30",
-    endTime24: "23:00",
-    description: [
-      "The Roadshow is coming to Lake Zurich!",
-      "The Bitcoin Association Switzerland invites you to the next BAS Roadshow - this time on a boat in Rapperswil on March 21, 2025, starting at 6:30 PM.",
-    ],
-    signupLink: "https://lu.ma/pa1cmg9y",
-    signupText: "Sign up for the roadshow event in Lake Zurich",
-    href: "/roadshow-2025/2025/3/21/bas-roadshow-lake-zurich",
-  },
-  {
-    id: "lausanne",
-    title: "BAS Roadshow - Lausanne",
-    date: "2025-02-21",
-    dayOfWeek: "Friday",
-    day: "21",
-    month: "Feb",
-    startTime: "6:00 pm",
-    endTime: "11:00 pm",
-    startTime24: "18:00",
-    endTime24: "23:00",
-    location: "BAS Roadshow",
-    mapLink: "http://maps.google.com/?q=%20Lausanne",
-    description: [
-      "The Bitcoin Association Switzerland invites you: Roadshow in Lausanne on February 21, 2025",
-      "The Bitcoin Association Switzerland is launching its official Roadshow 2025, and the next stop will take place in the vibrant city of Lausanne!",
-    ],
-    signupLink: "https://lu.ma/t5cz4fos",
-    signupText: "Sign up for the roadshow event in Lausanne",
-    href: "/roadshow-2025/2025/2/21/bas-roadshow-lausanne",
-    hasImage: true,
-    imageUrl:
-      "/images/branding/bas-roadshow-2025.jpg",
-  },
-  {
-    id: "bern",
-    title: "BAS Roadshow - Bern",
-    date: "2025-01-21",
-    dayOfWeek: "Tuesday",
-    day: "21",
-    month: "Jan",
-    startTime: "6:00 pm",
-    endTime: "11:00 pm",
-    startTime24: "18:00",
-    endTime24: "23:00",
-    mapLink: "https://maps.app.goo.gl/4JqGTXYT8Xe3ZnbR8",
-    description: [
-      "The Bitcoin Association Switzerland invites you: Roadshow in Bern on January, 21, 2025",
-      "Time: 18:00 23:00",
-      "The Bitcoin Association Switzerland is launching its first official Roadshow 2025, and the first stop will take place in the capital - Bern!",
-    ],
-    signupLink: "https://luma.com/8tsyroom",
-    signupText: "Sign up for the roadshow event in Bern",
-    href: "/roadshow-2025/2025/1/21/bas-roadshow-bern",
-  },
-];
+function EventCard({ event }: { event: EventRecord }) {
+  const badge = getEventBadge(event);
+  const location = event.venue ?? event.location;
+  const paragraphs = event.description.split("\n\n");
 
-function EventCard({ event }: { event: RoadshowEvent }) {
   return (
     <article className="flex gap-6 py-8">
       {/* Date Tag */}
       <Link href={event.href} className="flex-shrink-0">
         <div className="w-20 text-center">
           <div className="text-[#c75b4a] text-xs uppercase tracking-wider font-medium">
-            {event.month}
+            {badge.month}
           </div>
-          <div className="text-[#c75b4a] text-3xl font-light">{event.day}</div>
+          <div className="text-[#c75b4a] text-3xl font-light">{badge.day}</div>
           <div className="text-gray-400 text-xs mt-1">
-            <span className="hidden sm:inline">{event.startTime}</span>
-            <span className="sm:hidden">{event.startTime24}</span>
+            <span className="hidden sm:inline">{formatTimeDisplay(event.startTime)}</span>
+            <span className="sm:hidden">{event.startTime}</span>
           </div>
         </div>
       </Link>
@@ -145,25 +62,23 @@ function EventCard({ event }: { event: RoadshowEvent }) {
 
         {/* Meta Info */}
         <ul className="text-xs text-gray-500 space-y-1 mb-4">
-          <li>
-            {event.dayOfWeek} {event.day}{" "}
-            {new Date(event.date).toLocaleString("en-GB", { month: "long" })}{" "}
-            {new Date(event.date).getFullYear()}
-          </li>
-          <li>
-            <span className="hidden sm:inline">
-              {event.startTime} - {event.endTime}
-            </span>
-            <span className="sm:hidden">
-              {event.startTime24} - {event.endTime24}
-            </span>
-          </li>
-          {event.location && (
+          <li>{formatEventDate(event.dateISO)}</li>
+          {event.endTime && (
             <li>
-              {event.location}{" "}
-              {event.mapLink && (
+              <span className="hidden sm:inline">
+                {formatTimeDisplay(event.startTime)} - {formatTimeDisplay(event.endTime)}
+              </span>
+              <span className="sm:hidden">
+                {event.startTime} - {event.endTime}
+              </span>
+            </li>
+          )}
+          {location && (
+            <li>
+              {location}{" "}
+              {event.locationUrl && (
                 <a
-                  href={event.mapLink}
+                  href={event.locationUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-[#c75b4a] hover:underline"
@@ -173,11 +88,11 @@ function EventCard({ event }: { event: RoadshowEvent }) {
               )}
             </li>
           )}
-          {!event.location && event.mapLink && (
+          {!location && event.locationUrl && (
             <li>
               Location:{" "}
               <a
-                href={event.mapLink}
+                href={event.locationUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-[#c75b4a] hover:underline"
@@ -188,7 +103,7 @@ function EventCard({ event }: { event: RoadshowEvent }) {
           )}
           <li className="flex gap-2 items-center">
             <a
-              href={`http://www.google.com/calendar/event?action=TEMPLATE&text=${encodeURIComponent(event.title)}&dates=${event.date.replace(/-/g, "")}T${event.startTime24.replace(":", "")}00Z/${event.date.replace(/-/g, "")}T${event.endTime24.replace(":", "")}00Z`}
+              href={googleCalendarUrl(event)}
               target="_blank"
               rel="noopener noreferrer"
               className="text-[#c75b4a] hover:underline"
@@ -196,30 +111,30 @@ function EventCard({ event }: { event: RoadshowEvent }) {
               Google Calendar
             </a>
             <span className="text-gray-300">|</span>
-            <a href={`${event.href}?format=ical`} className="text-[#c75b4a] hover:underline">
-              ICS
-            </a>
+            <IcsLink event={event} className="text-[#c75b4a] hover:underline" />
           </li>
         </ul>
 
         {/* Description */}
         <div className="text-sm text-gray-600 space-y-3 mb-4">
-          {event.description.map((paragraph, index) => (
+          {paragraphs.map((paragraph, index) => (
             <p key={index}>
               {index === 0 ? <strong>{paragraph}</strong> : paragraph}
             </p>
           ))}
-          <p>
-            <strong>{event.signupText}</strong>{" "}
-            <a
-              href={event.signupLink}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-[#c75b4a] hover:underline font-semibold"
-            >
-              here
-            </a>
-          </p>
+          {event.signupLink && (
+            <p>
+              <strong>{event.signupText}</strong>{" "}
+              <a
+                href={event.signupLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[#c75b4a] hover:underline font-semibold"
+              >
+                here
+              </a>
+            </p>
+          )}
           <p>
             <strong>Best regards,</strong>
             <br />
@@ -227,8 +142,8 @@ function EventCard({ event }: { event: RoadshowEvent }) {
           </p>
         </div>
 
-        {/* Roadshow Image (only for Lausanne event) */}
-        {event.hasImage && event.imageUrl && (
+        {/* Roadshow Image */}
+        {event.imageUrl && (
           <div className="my-6">
             <Image
               src={event.imageUrl}
