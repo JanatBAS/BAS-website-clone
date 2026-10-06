@@ -16,7 +16,11 @@ export default function AdminEventsList({ events }: { events: AdminEvent[] }) {
 
   const handleDelete = async (id: string) => {
     if (!confirm('Delete this event?')) return;
-    await fetch(`/api/admin/events?id=${id}`, { method: 'DELETE' });
+    const res = await fetch(`/api/admin/events?id=${encodeURIComponent(id)}`, { method: 'DELETE' });
+    if (!res.ok) {
+      const data = await res.json().catch(() => ({}));
+      alert(data.error || 'Failed to delete event');
+    }
     router.refresh();
   };
 

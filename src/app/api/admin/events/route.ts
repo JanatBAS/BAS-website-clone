@@ -1,11 +1,11 @@
 import { NextResponse } from 'next/server';
 import { revalidatePath } from 'next/cache';
 import {
+  AdminDataConflictError,
   getAdminEvents,
   addAdminEvent,
   deleteAdminEvent,
   excludeEventOccurrence,
-  getAdminEventById,
   updateAdminEvent,
   invalidateAdminEventsCache,
 } from '@/lib/blob-store';
@@ -14,6 +14,7 @@ import type { EventCategory } from '@/types/calendar';
 import { isValidDateISO } from '@/lib/event-dates';
 import { slugify } from '@/lib/utils';
 import { safeHttpUrl } from '@/lib/safe-url';
+import { truncateDescription } from '@/lib/date-utils';
 
 export const dynamic = 'force-dynamic';
 
@@ -57,12 +58,6 @@ function isValidTime(value: string): boolean {
   if (!TIME_PATTERN.test(value)) return false;
   const [hours, minutes] = value.split(':').map(Number);
   return hours >= 0 && hours <= 23 && minutes >= 0 && minutes <= 59;
-}
-
-function shortDescriptionFrom(description: string): string {
-  return description.length > 150
-    ? description.substring(0, 150).trim() + '...'
-    : description;
 }
 
 function validateRecurrence(data: AdminEventFormData): { recurrence?: RecurrenceRule; error?: string } {
@@ -143,7 +138,7 @@ function validateEventData(data: AdminEventFormData): { fields?: ValidatedEventF
     fields: {
       title,
       description,
-      shortDescription: shortDescriptionFrom(description),
+      shortDescription: truncateDescription(description),
       dateISO,
       endDateISO,
       startTime,
@@ -162,6 +157,13 @@ function revalidateEventPages(): void {
   invalidateAdminEventsCache();
   revalidatePath('/calendar');
   revalidatePath('/events');
+}
+
+function saveFailed(error: unknown, message: string): NextResponse {
+  if (error instanceof AdminDataConflictError) {
+    return NextResponse.json({ error: error.message }, { status: 409 });
+  }
+  return NextResponse.json({ error: message }, { status: 500 });
 }
 
 export async function GET() {
@@ -195,8 +197,8 @@ export async function POST(request: Request) {
     await addAdminEvent(event);
     revalidateEventPages();
     return NextResponse.json(event, { status: 201 });
-  } catch {
-    return NextResponse.json({ error: 'Failed to create event' }, { status: 500 });
+  } catch (error) {
+    return saveFailed(error, 'Failed to create event');
   }
 }
 
@@ -208,11 +210,6 @@ export async function PUT(request: Request) {
       return NextResponse.json({ error: 'Missing id parameter' }, { status: 400 });
     }
 
-    const existing = await getAdminEventById(id);
-    if (!existing) {
-      return NextResponse.json({ error: 'Event not found' }, { status: 404 });
-    }
-
     const data: AdminEventFormData = await request.json();
     const validation = validateEventData(data);
 
@@ -220,11 +217,14 @@ export async function PUT(request: Request) {
       return NextResponse.json({ error: validation.error || 'Invalid event data' }, { status: 400 });
     }
 
-    const updated = await updateAdminEvent(id, {
-      ...validation.fields,
-      excludedDates: validation.fields.recurrence ? existing.excludedDates : undefined,
+    const fields = validation.fields;
+    const updated = await updateAdminEvent(id, (existing) => ({
+      ...existing,
+      ...fields,
+      // Hidden occurrences only make sense while the event still recurs.
+      excludedDates: fields.recurrence ? existing.excludedDates : undefined,
       updatedAt: new Date().toISOString(),
-    });
+    }));
 
     if (!updated) {
       return NextResponse.json({ error: 'Event not found' }, { status: 404 });
@@ -232,8 +232,8 @@ export async function PUT(request: Request) {
 
     revalidateEventPages();
     return NextResponse.json(updated);
-  } catch {
-    return NextResponse.json({ error: 'Failed to update event' }, { status: 500 });
+  } catch (error) {
+    return saveFailed(error, 'Failed to update event');
   }
 }
 
@@ -248,15 +248,14 @@ export async function DELETE(request: Request) {
     if (date && !isValidDateISO(date)) {
       return NextResponse.json({ error: 'Invalid date format. Use YYYY-MM-DD.' }, { status: 400 });
     }
-    if (date) {
-      // Exclude a single occurrence from a recurring series
-      await excludeEventOccurrence(id, date);
-    } else {
-      await deleteAdminEvent(id);
+    // With a date, only that occurrence of a recurring series is hidden.
+    const found = date ? await excludeEventOccurrence(id, date) : await deleteAdminEvent(id);
+    if (!found) {
+      return NextResponse.json({ error: 'Event not found' }, { status: 404 });
     }
     revalidateEventPages();
     return NextResponse.json({ success: true });
-  } catch {
-    return NextResponse.json({ error: 'Failed to delete event' }, { status: 500 });
+  } catch (error) {
+    return saveFailed(error, 'Failed to delete event');
   }
 }

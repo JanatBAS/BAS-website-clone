@@ -1,11 +1,11 @@
 import { NextResponse } from 'next/server';
 import { revalidatePath } from 'next/cache';
 import {
+  AdminDataConflictError,
   getAdminPosts,
   addAdminPost,
   deleteAdminPost,
   updateAdminPost,
-  getAdminPostById,
   invalidateAdminPostsCache,
 } from '@/lib/blob-store';
 import type { AdminBlogPost, AdminBlogPostFormData } from '@/types/admin';
@@ -127,6 +127,23 @@ function validatePostData(data: AdminBlogPostFormData): { fields?: ValidatedPost
   };
 }
 
+/** Expires every page that lists or shows admin posts. */
+function revalidatePostPages(slugs: string[]): void {
+  invalidateAdminPostsCache();
+  revalidatePath('/bitcoin-association-switzerland');
+  revalidatePath('/bitcoin-association-switzerland/author/[authorId]', 'page');
+  for (const slug of slugs) {
+    revalidatePath(`/blog/${slug}`);
+  }
+}
+
+function saveFailed(error: unknown, message: string): NextResponse {
+  if (error instanceof AdminDataConflictError) {
+    return NextResponse.json({ error: error.message }, { status: 409 });
+  }
+  return NextResponse.json({ error: message }, { status: 500 });
+}
+
 export async function GET() {
   try {
     const posts = await getAdminPosts();
@@ -167,12 +184,10 @@ export async function POST(request: Request) {
     };
 
     await addAdminPost(post);
-    invalidateAdminPostsCache();
-    revalidatePath('/bitcoin-association-switzerland');
-    revalidatePath(`/blog/${post.slug}`);
+    revalidatePostPages([post.slug]);
     return NextResponse.json(post, { status: 201 });
-  } catch {
-    return NextResponse.json({ error: 'Failed to create post' }, { status: 500 });
+  } catch (error) {
+    return saveFailed(error, 'Failed to create post');
   }
 }
 
@@ -184,11 +199,6 @@ export async function PUT(request: Request) {
       return NextResponse.json({ error: 'Missing id parameter' }, { status: 400 });
     }
 
-    const existing = await getAdminPostById(id);
-    if (!existing) {
-      return NextResponse.json({ error: 'Post not found' }, { status: 404 });
-    }
-
     const data: AdminBlogPostFormData = await request.json();
     const validation = validatePostData(data);
 
@@ -197,7 +207,8 @@ export async function PUT(request: Request) {
     }
 
     const { fields } = validation;
-    const updated = await updateAdminPost(id, {
+    const updated = await updateAdminPost(id, (existing) => ({
+      ...existing,
       title: fields.title,
       author: fields.author,
       authorId: fields.authorId || existing.authorId,
@@ -209,18 +220,16 @@ export async function PUT(request: Request) {
       tags: fields.tags,
       imageUrl: fields.imageUrl,
       updatedAt: new Date().toISOString(),
-    });
+    }));
 
     if (!updated) {
       return NextResponse.json({ error: 'Post not found' }, { status: 404 });
     }
 
-    invalidateAdminPostsCache();
-    revalidatePath('/bitcoin-association-switzerland');
-    revalidatePath(`/blog/${updated.slug}`);
+    revalidatePostPages([updated.slug]);
     return NextResponse.json(updated);
-  } catch {
-    return NextResponse.json({ error: 'Failed to update post' }, { status: 500 });
+  } catch (error) {
+    return saveFailed(error, 'Failed to update post');
   }
 }
 
@@ -231,15 +240,13 @@ export async function DELETE(request: Request) {
     if (!id) {
       return NextResponse.json({ error: 'Missing id parameter' }, { status: 400 });
     }
-    const existing = await getAdminPostById(id);
-    await deleteAdminPost(id);
-    invalidateAdminPostsCache();
-    revalidatePath('/bitcoin-association-switzerland');
-    if (existing) {
-      revalidatePath(`/blog/${existing.slug}`);
+    const deleted = await deleteAdminPost(id);
+    if (!deleted) {
+      return NextResponse.json({ error: 'Post not found' }, { status: 404 });
     }
+    revalidatePostPages([deleted.slug]);
     return NextResponse.json({ success: true });
-  } catch {
-    return NextResponse.json({ error: 'Failed to delete post' }, { status: 500 });
+  } catch (error) {
+    return saveFailed(error, 'Failed to delete post');
   }
 }
