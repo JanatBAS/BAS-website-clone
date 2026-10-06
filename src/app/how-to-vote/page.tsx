@@ -1,29 +1,19 @@
+import type { Metadata } from "next";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Image from "next/image";
 import Link from "next/link";
 import { Separator } from "@/components/ui/separator";
+import {
+  boardElectionNavItems,
+  boardElectionNavTitle,
+} from "@/data/board-election-nav";
 
-// Sidebar navigation items for the Board Election 2024 section
-const sidebarNavItems = [
-  { label: "FAQ", href: "/faq" },
-  { label: "Timeline", href: "/timeline" },
-  { label: "Candidates", href: "/candidates" },
-  { label: "- Adriano Bertini", href: "/adriano-bertini" },
-  { label: "- Dario Duran", href: "/dario-duran" },
-  { label: "- Bastian Feder", href: "/bastian-feder" },
-  { label: "- Demelza Hays", href: "/demelza-hays" },
-  { label: "- Ralph Hofacker", href: "/ralph-hofacker" },
-  { label: "- Ronald Kogens", href: "/ronald-kogens" },
-  { label: "- Tobias Kress", href: "/tobias-kress" },
-  { label: "- Phil Lojacono", href: "/phil-lojacono" },
-  { label: "- Niklas Nikolajsen", href: "/niklas-nikolajsen" },
-  { label: "- Marcel Rapold", href: "/marcel-rapold" },
-  { label: "- Alexandre Flory Samartino", href: "/alexandre-flory-samartino" },
-  { label: "- Lisa Tscherry", href: "/lisa-tscherry" },
-  { label: "- Eric Wasescha", href: "/eric-wasescha" },
-  { label: "How to vote", href: "/how-to-vote", active: true },
-];
+export const metadata: Metadata = {
+  title: "How to Vote",
+  description:
+    "How members could cast their vote in the Bitcoin Association Switzerland Board Election 2024, in person or by mail, and how the voting rounds work.",
+};
 
 export default function HowToVotePage() {
   return (
@@ -50,18 +40,19 @@ export default function HowToVotePage() {
             <aside className="md:w-64 flex-shrink-0">
               <nav className="sticky top-24">
                 <h2 className="text-[#c75b4a] font-semibold text-sm uppercase tracking-wider mb-4">
-                  Board Election 2024
+                  {boardElectionNavTitle}
                 </h2>
                 <ul className="space-y-1">
-                  {sidebarNavItems.map((item) => (
+                  {boardElectionNavItems.map((item) => (
                     <li key={item.href}>
                       <Link
                         href={item.href}
+                        aria-current={item.href === "/how-to-vote" ? "page" : undefined}
                         className={`block py-1.5 text-sm transition-colors ${
-                          item.active
+                          item.href === "/how-to-vote"
                             ? "text-[#c75b4a] font-medium"
                             : "text-gray-600 hover:text-[#c75b4a]"
-                        } ${item.label.startsWith("-") ? "pl-4" : ""}`}
+                        } ${item.indent ? "pl-4" : ""}`}
                       >
                         {item.label}
                       </Link>

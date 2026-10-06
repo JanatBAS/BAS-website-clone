@@ -1,27 +1,15 @@
+import type { Metadata } from "next";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Image from "next/image";
 import Link from "next/link";
+import BoardElectionNav from "@/components/candidates/BoardElectionNav";
 
-const boardElectionNavItems = [
-  { label: "FAQ", href: "/faq", active: true },
-  { label: "Timeline", href: "/timeline" },
-  { label: "Candidates", href: "/candidates" },
-  { label: "- Adriano Bertini", href: "/adriano-bertini", indent: true },
-  { label: "- Dario Duran", href: "/dario-duran", indent: true },
-  { label: "- Bastian Feder", href: "/bastian-feder", indent: true },
-  { label: "- Demelza Hays", href: "/demelza-hays", indent: true },
-  { label: "- Ralph Hofacker", href: "/ralph-hofacker", indent: true },
-  { label: "- Ronald Kogens", href: "/ronald-kogens", indent: true },
-  { label: "- Tobias Kress", href: "/tobias-kress", indent: true },
-  { label: "- Phil Lojacono", href: "/phil-lojacono", indent: true },
-  { label: "- Niklas Nikolajsen", href: "/niklas-nikolajsen", indent: true },
-  { label: "- Marcel Rapold", href: "/marcel-rapold", indent: true },
-  { label: "- Alexandre Flory Samartino", href: "/alexandre-flory-samartino", indent: true },
-  { label: "- Lisa Tscherry", href: "/lisa-tscherry", indent: true },
-  { label: "- Eric Wasescha", href: "/eric-wasescha", indent: true },
-  { label: "How to vote", href: "/how-to-vote" },
-];
+export const metadata: Metadata = {
+  title: "Board Election FAQ",
+  description:
+    "Answers to frequently asked questions about the Bitcoin Association Switzerland Board Election 2024 and about membership.",
+};
 
 interface FAQItem {
   question: string;
@@ -149,27 +137,7 @@ export default function FAQPage() {
       <main className="py-12 bg-white min-h-screen">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row gap-8 md:gap-12">
-            {/* Sidebar Navigation */}
-            <aside className="md:w-56 flex-shrink-0">
-              <h2 className="text-[#8b7355] text-base font-light mb-4 font-serif italic">
-                Board Election 2024
-              </h2>
-              <nav className="space-y-1">
-                {boardElectionNavItems.map((item) => (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    className={`block text-xs tracking-wider transition-colors ${
-                      item.active
-                        ? "text-gray-900 font-semibold"
-                        : "text-gray-500 hover:text-gray-900"
-                    } ${item.indent ? "pl-2" : ""}`}
-                  >
-                    {item.label}
-                  </Link>
-                ))}
-              </nav>
-            </aside>
+            <BoardElectionNav activeHref="/faq" />
 
             {/* Main Content */}
             <div className="flex-1 max-w-3xl">
