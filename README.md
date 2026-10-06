@@ -43,7 +43,15 @@ Three environment variables are required:
 | `JWT_SECRET` | Signs auth tokens | `node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"` |
 | `BLOB_READ_WRITE_TOKEN` | Vercel Blob access | Auto-created when connecting a Blob store in the Vercel dashboard |
 
-`CRON_SECRET` is optional. If set, Vercel cron requests must include `Authorization: Bearer $CRON_SECRET`.
+`CRON_SECRET` is required for the daily Meetup sync (`/api/cron/sync-meetup`, see `vercel.json`). Vercel Cron sends it as `Authorization: Bearer $CRON_SECRET`; without it the endpoint refuses every request.
+
+### Meetup events
+
+Once a day the cron job reads the public events pages of the groups in `src/data/meetup-groups.ts` and stores published upcoming and last-90-days events in one Blob file. The calendar shows a meetup only after the organizers publish it on Meetup (drafts are not public), so a new date can take up to a day to appear.
+
+### Vercel Blob usage
+
+Keep Blob operations to a minimum: an admin save is one read plus one write, and public pages read Blob only through the Next.js data cache, which the admin API and the Meetup sync expire after a write. A local `next build` or `next dev` with the production `BLOB_READ_WRITE_TOKEN` in `.env.local` reads (and, on admin saves, writes) the production store, so leave the token out unless you need it. Without a token, admin data is simply empty locally.
 
 ### Vercel Blob Setup
 
