@@ -1,6 +1,13 @@
+import type { Metadata } from "next";
 import Header from "@/components/Header";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+
+export const metadata: Metadata = {
+  title: "Remote Voting",
+  description:
+    "Remote voting link for the Bitcoin Association Switzerland General Assembly on 7 December 2024.",
+};
 
 export default function RemoteVotingPage() {
   return (

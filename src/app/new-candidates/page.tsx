@@ -1,12 +1,20 @@
+import type { Metadata } from "next";
 import Header from "@/components/Header";
 import Link from "next/link";
 
-const candidates = [
-  { name: "CEDRIC A. SCHMID", href: "/candidate-1" },
-  { name: "TOBIAS KRESS", href: "/candidate-2" },
-  { name: "RALPH HOFACKER", href: "/candidate-3" },
-  { name: "RAHIM TAGHIZADEGAN", href: "/candidate-4" },
-  { name: "ALEXANDRE FLORY SAMARTINO", href: "/candidate-5" },
+export const metadata: Metadata = {
+  title: "New Board Candidates",
+  description:
+    "Five candidates stand for election to the board of the Bitcoin Association Switzerland at the general assembly: Cedric A. Schmid, Tobias Kress, Ralph Hofacker, Rahim Taghizadegan and Alexandre Flory Samartino.",
+};
+
+// Names link to the candidate's Board Election 2024 profile where one exists.
+const candidates: { name: string; href?: string }[] = [
+  { name: "CEDRIC A. SCHMID" },
+  { name: "TOBIAS KRESS", href: "/tobias-kress" },
+  { name: "RALPH HOFACKER", href: "/ralph-hofacker" },
+  { name: "RAHIM TAGHIZADEGAN" },
+  { name: "ALEXANDRE FLORY SAMARTINO", href: "/alexandre-flory-samartino" },
 ];
 
 export default function NewCandidatesPage() {
@@ -24,14 +32,20 @@ export default function NewCandidatesPage() {
           {/* Candidates List */}
           <ul className="space-y-2 ml-4">
             {candidates.map((candidate) => (
-              <li key={candidate.href} className="flex items-start">
+              <li key={candidate.name} className="flex items-start">
                 <span className="text-[#40c4b4] mr-3 font-bold">&#8226;</span>
-                <Link
-                  href={candidate.href}
-                  className="text-[#40c4b4] hover:underline font-semibold text-sm tracking-wide uppercase"
-                >
-                  {candidate.name}
-                </Link>
+                {candidate.href ? (
+                  <Link
+                    href={candidate.href}
+                    className="text-[#40c4b4] hover:underline font-semibold text-sm tracking-wide uppercase"
+                  >
+                    {candidate.name}
+                  </Link>
+                ) : (
+                  <span className="text-gray-800 font-semibold text-sm tracking-wide uppercase">
+                    {candidate.name}
+                  </span>
+                )}
               </li>
             ))}
           </ul>

@@ -1,5 +1,12 @@
+import type { Metadata } from "next";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+
+export const metadata: Metadata = {
+  title: "Presidential Election 2025 Candidates",
+  description:
+    "Application documents of the four candidates for the 2025 presidential election of the Bitcoin Association Switzerland.",
+};
 
 const candidates = [
   {
