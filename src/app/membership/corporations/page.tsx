@@ -1,7 +1,13 @@
+import type { Metadata } from "next";
 import Header from "@/components/Header";
 import FooterSimple from "@/components/FooterSimple";
 import PageSidebar, { type SidebarItem } from "@/components/PageSidebar";
 import Link from "next/link";
+
+export const metadata: Metadata = {
+  title: "Corporate Membership",
+  description: "A corporate membership positions your organisation at the heart of Switzerland's Bitcoin ecosystem.",
+};
 
 const membershipNavItems: SidebarItem[] = [
   { label: "Private Individuals", href: "/membership/private-individuals" },

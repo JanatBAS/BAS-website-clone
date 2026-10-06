@@ -1,8 +1,14 @@
+import type { Metadata } from "next";
 import Header from "@/components/Header";
 import FooterSimple from "@/components/FooterSimple";
 import Link from "next/link";
 import Image from "next/image";
 import { Separator } from "@/components/ui/separator";
+
+export const metadata: Metadata = {
+  title: "tzBTC",
+  description: "tzBTC brings the liquidity and stability of Bitcoin to the Tezos network.",
+};
 
 export default function TzBTCPage() {
   return (

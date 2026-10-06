@@ -1,6 +1,12 @@
+import type { Metadata } from "next";
 import Header from "@/components/Header";
 import FooterSimple from "@/components/FooterSimple";
 import PageSidebar, { type SidebarItem } from "@/components/PageSidebar";
+
+export const metadata: Metadata = {
+  title: "Corporate Member Registration",
+  description: "Register your company as a corporate member of the Bitcoin Association Switzerland.",
+};
 
 const membershipNavItems: SidebarItem[] = [
   { label: "Private Individuals", href: "/membership/private-individuals" },
@@ -17,7 +23,7 @@ export default function CorporatePage() {
           <div className="flex flex-col md:flex-row gap-8 md:gap-16">
             <PageSidebar
               title="membership"
-              titleHref="/private"
+              titleHref="/membership/private-individuals"
               items={membershipNavItems}
               titleClassName="text-[#2a9d8f]"
             />

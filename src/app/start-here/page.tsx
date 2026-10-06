@@ -1,6 +1,12 @@
+import type { Metadata } from "next";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Link from "next/link";
+
+export const metadata: Metadata = {
+  title: "Start Here",
+  description: "New to Bitcoin? Work through the basics at your own pace, from what Bitcoin is to safely storing your first Bitcoin.",
+};
 
 export default function StartHerePage() {
   return (
@@ -296,7 +302,7 @@ export default function StartHerePage() {
                 <p className="text-gray-600 text-sm leading-relaxed">
                   That&apos;s us. We organise regular meetups across Switzerland, run working
                   groups, and connect individuals and companies around Bitcoin. Check our{" "}
-                  <Link href="/meetups-events" className="text-[#2a9d8f] hover:underline">
+                  <Link href="/events" className="text-[#2a9d8f] hover:underline">
                     events page
                   </Link>{" "}
                   for upcoming gatherings.
@@ -320,7 +326,7 @@ export default function StartHerePage() {
           {/* CTA */}
           <div className="border-t border-gray-100 pt-8 flex flex-col sm:flex-row gap-4">
             <Link
-              href="/meetups-events"
+              href="/events"
               className="inline-block bg-[#2a9d8f] text-white text-sm font-semibold px-6 py-3 hover:bg-[#218275] transition-colors"
             >
               Attend a Meetup

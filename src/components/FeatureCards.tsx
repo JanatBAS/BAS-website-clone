@@ -35,10 +35,10 @@ const cards: FeatureCard[] = [
     image: "/images/branding/bas-gv-2018-bw.jpeg",
     imageAlt: "Join Bitcoin Association Switzerland",
     title: "Become a member",
-    titleLink: "/meetups-events",
+    titleLink: "/events",
     description: "You can become a contributor to our cause, or participate yourself.",
     ctaText: "Find Out How",
-    ctaLink: "/meetups-events",
+    ctaLink: "/events",
   },
 ];
 

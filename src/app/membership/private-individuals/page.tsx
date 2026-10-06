@@ -1,7 +1,13 @@
+import type { Metadata } from "next";
 import Header from "@/components/Header";
 import FooterSimple from "@/components/FooterSimple";
 import PageSidebar, { type SidebarItem } from "@/components/PageSidebar";
 import Link from "next/link";
+
+export const metadata: Metadata = {
+  title: "Private Membership",
+  description: "Joining the Bitcoin Association Switzerland as a private member connects you with Switzerland's most active Bitcoin community.",
+};
 
 const membershipNavItems: SidebarItem[] = [
   { label: "Private Individuals", href: "/membership/private-individuals", active: true },

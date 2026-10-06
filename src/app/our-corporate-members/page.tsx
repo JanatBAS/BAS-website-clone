@@ -1,7 +1,13 @@
+import type { Metadata } from "next";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Image from "next/image";
 import PageSidebar, { type SidebarItem } from "@/components/PageSidebar";
+
+export const metadata: Metadata = {
+  title: "Corporate Members",
+  description: "The organizations that support the work of the Bitcoin Association Switzerland through a corporate membership, and our location partners.",
+};
 
 type LogoItem = {
   name: string;
@@ -266,7 +272,7 @@ export default function OurCorporateMembersPage() {
           <div className="flex flex-col lg:flex-row gap-12">
             <PageSidebar
               title="membership"
-              titleHref="/private"
+              titleHref="/membership/private-individuals"
               items={sidebarNav}
               titleClassName="text-[#c8a26b]"
             />

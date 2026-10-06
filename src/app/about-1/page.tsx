@@ -1,6 +1,12 @@
+import type { Metadata } from "next";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import PageSidebar, { type SidebarItem } from "@/components/PageSidebar";
+
+export const metadata: Metadata = {
+  title: "About",
+  description: "Founded in late 2013, the Bitcoin Association Switzerland is the oldest Fintech association in Switzerland and one of the oldest still active Bitcoin associations in the world.",
+};
 
 const aboutNavItems: SidebarItem[] = [
   { label: "About", href: "/about-1", active: true },

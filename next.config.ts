@@ -19,7 +19,7 @@ const contentSecurityPolicy = [
   // Admin-created events/posts and Meetup events may reference images on any https host.
   "img-src 'self' data: blob: https:",
   "font-src 'self' data:",
-  `connect-src 'self' https://api.coingecko.com https://vercel.live${isDev ? ' ws: wss:' : ''}`,
+  `connect-src 'self' https://vercel.live${isDev ? ' ws: wss:' : ''}`,
   "frame-src https://www.youtube.com https://www.youtube-nocookie.com https://player.vimeo.com https://vercel.live",
   "media-src 'self' https:",
   "object-src 'none'",
@@ -58,15 +58,25 @@ const nextConfig: NextConfig = {
   },
   async redirects() {
     return [
+      // Old and duplicate URLs, kept working for external links and bookmarks.
+      { source: '/meetups-events', destination: '/events', permanent: true },
+      { source: '/meetups-events-copy', destination: '/events', permanent: true },
+      // Legacy Squarespace form page; membership registration lives on Webling.
+      { source: '/membership-form', destination: '/membership/private-individuals/register', permanent: true },
+      { source: '/private', destination: '/membership/private-individuals', permanent: true },
+      { source: '/join', destination: '/membership/private-individuals', permanent: true },
+      { source: '/individual-membership', destination: '/membership/private-individuals', permanent: true },
+      { source: '/renew-membership', destination: '/membership/private-individuals/register', permanent: true },
+      { source: '/corporate', destination: '/membership/corporations', permanent: true },
+      { source: '/board-1', destination: '/board', permanent: true },
+      { source: '/candidate-:number(\\d+)', destination: '/candidates', permanent: true },
+      { source: '/home', destination: '/', permanent: true },
+      { source: '/home-updated', destination: '/', permanent: true },
       {
-        source: '/meetups-events',
-        destination: '/events',
-        permanent: true,
-      },
-      {
-        // Legacy Squarespace form page; membership registration lives on Webling.
-        source: '/membership-form',
-        destination: '/membership/private-individuals/register',
+        // The News author filter moved from a query string to static pages.
+        source: '/bitcoin-association-switzerland',
+        has: [{ type: 'query', key: 'author', value: '(?<author>[A-Za-z0-9_-]+)' }],
+        destination: '/bitcoin-association-switzerland/author/:author',
         permanent: true,
       },
     ];
@@ -74,43 +84,9 @@ const nextConfig: NextConfig = {
   images: {
     remotePatterns: [
       {
-        protocol: 'https',
-        hostname: 'coin-images.coingecko.com',
-        pathname: '/**',
-      },
-      {
-        protocol: 'https',
-        hostname: 's2.coinmarketcap.com',
-        pathname: '/**',
-      },
-      {
-        protocol: 'https',
-        hostname: 'static.coingecko.com',
-        pathname: '/**',
-      },
-      {
-        protocol: 'http',
-        hostname: 'static4.businessinsider.com',
-        pathname: '/**',
-      },
-      {
-        protocol: 'https',
-        hostname: 'img.youtube.com',
-        pathname: '/**',
-      },
-      {
-        protocol: 'https',
-        hostname: '*.public.blob.vercel-storage.com',
-        pathname: '/**',
-      },
-      {
+        // Shop product images
         protocol: 'https',
         hostname: 'dezentralshop.ch',
-        pathname: '/**',
-      },
-      {
-        protocol: 'https',
-        hostname: 'staging.dezentralshop.ch',
         pathname: '/**',
       },
     ],

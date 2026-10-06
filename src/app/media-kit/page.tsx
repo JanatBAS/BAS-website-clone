@@ -1,7 +1,13 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+
+export const metadata: Metadata = {
+  title: "Media Kit",
+  description: "Download the Bitcoin Association Switzerland logo in various formats for press and partnership use.",
+};
 
 const aboutNavItems = [
   { label: "About", href: "/about-1" },

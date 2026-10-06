@@ -1,9 +1,15 @@
+import type { Metadata } from "next";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import PageHero from "@/components/PageHero";
 import SectionHeader from "@/components/SectionHeader";
 import { GraduationCapIcon } from "@/components/icons";
 import { Button } from "@/components/ui/button";
+
+export const metadata: Metadata = {
+  title: "Bitcoin Education",
+  description: "Talks from a decade of Swiss Bitcoin meetups and conferences.",
+};
 
 const featuredVideos = [
   {

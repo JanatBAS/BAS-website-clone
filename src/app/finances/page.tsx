@@ -1,6 +1,12 @@
+import type { Metadata } from "next";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import PageSidebar, { type SidebarItem } from "@/components/PageSidebar";
+
+export const metadata: Metadata = {
+  title: "Finances",
+  description: "How the Bitcoin Association Switzerland is financed and the Bitcoin addresses that hold its funds.",
+};
 
 const sidebarLinks: SidebarItem[] = [
   { label: "About", href: "/about-1" },
