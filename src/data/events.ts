@@ -1,5 +1,6 @@
 import { UnifiedEvent, EventCategory, CATEGORY_COLORS } from '@/types/calendar';
 import { formatTimeDisplay, getDateInfo, truncateDescription } from '@/lib/date-utils';
+import { googleCalendarUrl } from '@/lib/ics';
 
 export const SITE_URL = 'https://www.bitcoinassociation.ch';
 
@@ -17,7 +18,6 @@ export interface EventPageOverrides {
   location?: string;
   /** `null` hides the map link. */
   locationUrl?: string | null;
-  googleCalendarUrl?: string;
 }
 
 /** An event with its own page under /most-recent-events or /roadshow-2025. */
@@ -45,8 +45,6 @@ export interface EventRecord {
   imageUrl?: string;
   /** Summary for the index pages and the calendar; paragraphs are separated by blank lines. */
   description: string;
-  /** Defaults to a link built from the title and the Swiss local times. */
-  googleCalendarUrl?: string;
   signupLink?: string;
   /** Text before the sign-up link on the roadshow index. */
   signupText?: string;
@@ -96,8 +94,6 @@ const eventRecords: EventRecord[] = [
     description:
       "Every second Wednesday we meet in Zurich and every fourth Wednesday in Geneva. There are also Bitcoin meetups in other cities on a less regular schedule. Please contact us if you plan to start a meetup in your city and we will help you as good as we can!\n\nBesides our regular beer & Bitcoin meetups, we organize various events. You can find an overview of our past events for this year below.\n\nJoin us at meetup.com to sign up for our events!",
     imageUrl: "/images/events/regular-meetup.jpeg",
-    googleCalendarUrl:
-      "http://www.google.com/calendar/event?action=TEMPLATE&text=Regular%20Meetups&dates=20220401T170000Z/20220401T180000Z",
   },
   {
     id: "mre-2",
@@ -115,8 +111,6 @@ const eventRecords: EventRecord[] = [
     description:
       'At this "Industry Insights" meetup, Elizabeth will give us some interesting insights into the Lightning Network. Short talk, no slides, q&a, causal get-together.',
     imageUrl: "/images/events/elizabeth-stark-meetup.jpeg",
-    googleCalendarUrl:
-      "http://www.google.com/calendar/event?action=TEMPLATE&text=Lightning%20Meetup%20with%20Elizabeth%20Stark%20%28CEO%20Lightning%20Labs%29&dates=20200113T180000Z/20200113T190000Z&location=Langstrasse%20136",
   },
   {
     id: "mre-3",
@@ -134,8 +128,6 @@ const eventRecords: EventRecord[] = [
     description:
       "Bitcoin Association Switzerland invited for a Christmas Special Bitcoin Meetup Zurich.\n\nDouglas Bakkum, Co-founder and CEO of Shift Cryptosecurity gave us some exciting insights into the industry's cat and mouse game of securing private keys",
     imageUrl: "/images/events/lightning-meetup.jpeg",
-    googleCalendarUrl:
-      "http://www.google.com/calendar/event?action=TEMPLATE&text=Bitcoin%20Christmas%20Meetup%20Z%C3%BCrich&dates=20191218T180000Z/20191218T225900Z&location=Langstrasse%20136",
     page: { title: "Bitcoin Christmas Meetup Zürich" },
   },
   {
@@ -154,8 +146,6 @@ const eventRecords: EventRecord[] = [
     description:
       "Bitcoin is considered to be currency of the internet. But what happens if someone has a poor internet connection, or loses it entirely? Neil takes a look at the technologies being built to keep Bitcoin running regardless of network disruptions, including Blockstream Satellite and goTenna mesh networks.",
     imageUrl: "/images/events/christmas-meetup.jpeg",
-    googleCalendarUrl:
-      "http://www.google.com/calendar/event?action=TEMPLATE&text=Who%20Needs%20the%20Internet%20Anyway%3A%20Taking%20Bitcoin%20Transactions%20Offline&dates=20191015T170000Z/20191015T180000Z",
   },
   {
     id: "mre-5",
@@ -174,8 +164,6 @@ const eventRecords: EventRecord[] = [
     description:
       'With over 1\'500 signup this was the biggest Bitcoin meetup event ever in Europe.\n\nTalks:\n\nThoughts on The Future of Programmable Money - Andreas M. Antonopoulos\n\nAn enlightening speech about the future of programmable money ending with a standing ovation!\n\nA video of the speech can be found on YouTube.\n\nCryptoasset Inheritance Planning - Pamela Morgan\n\nWill your loved ones be able to access your bitcoin, ether, or other cryptoassets if something happens to you? For most cryptoasset owners, the answer is no. Attend this talk and learn how to start building a cryptoasset inheritance plan for your loved ones, without relying on a single third party, and without giving them your keys now.',
     imageUrl: "/images/events/antonopoulos-talk.jpg",
-    googleCalendarUrl:
-      "http://www.google.com/calendar/event?action=TEMPLATE&text=Andreas%20M.%20Antonopoulos%3A%20Thoughts%20on%20The%20Future%20of%20Programmable%20Money.&dates=20190623T170000Z/20190623T180000Z",
   },
   {
     id: "mre-6",
@@ -193,8 +181,6 @@ const eventRecords: EventRecord[] = [
     description:
       "Drivechain is a proposed soft fork of Bitcoin that allows BTC to travel to and from any other piece of software. How does it work? Does it have any detrimental effects? Do we *want* some sidechains to fail (and why)?",
     imageUrl: "/images/events/paul-sztorc.jpg",
-    googleCalendarUrl:
-      "http://www.google.com/calendar/event?action=TEMPLATE&text=Sidechains%20on%20BTC%20--%20Drivechain%20and%20Blind%20Merged%20Mining%20-%20Paul%20Sztorc&dates=20190606T170000Z/20190606T180000Z",
   },
   {
     id: "mre-7",
@@ -212,8 +198,6 @@ const eventRecords: EventRecord[] = [
     description:
       "The members of the Bitcoin Association Switzerland came together to discuss and decide on various things.",
     imageUrl: "/images/branding/logo-with-name-large.png",
-    googleCalendarUrl:
-      "http://www.google.com/calendar/event?action=TEMPLATE&text=Annual%20General%20Assembly%20of%20the%20Bitcoin%20Association%20Switzerland%20-%202019&dates=20190522T170000Z/20190522T180000Z",
   },
   {
     id: "mre-8",
@@ -231,8 +215,6 @@ const eventRecords: EventRecord[] = [
     description:
       'In this tech-talk we examined all current and proposed mechanisms for creating a "Bitcoin Vault".',
     imageUrl: "/images/events/bob-mcelrath-talk.jpeg",
-    googleCalendarUrl:
-      "http://www.google.com/calendar/event?action=TEMPLATE&text=On-Chain%20Defense%20in%20Depth%20-%20Dr.%20Bob%20McElrath&dates=20190125T180000Z/20190125T190000Z",
   },
   {
     id: "mre-9",
@@ -250,8 +232,6 @@ const eventRecords: EventRecord[] = [
     description:
       "The Bitcoin Association Switzerland hosted a 1 hour session in Davos, talking about Bitcoin, the past 10 years and its future.",
     imageUrl: "/images/events/davos.jpg",
-    googleCalendarUrl:
-      "http://www.google.com/calendar/event?action=TEMPLATE&text=10%20Years%20Bitcoin%20-%20Bitcoin%20Association%20in%20Davos%20%28during%20WEF%29&dates=20190122T130000Z/20190122T140000Z&location=Davos",
     page: { locationUrl: "http://maps.google.com/?q=Davos" },
   },
 
@@ -269,15 +249,11 @@ const eventRecords: EventRecord[] = [
     locationUrl: "https://maps.google.com/?q=Kreuzlingen,+Switzerland",
     description: basMembersMeetupDescription,
     imageUrl: "/images/branding/bas-people.jpg",
-    googleCalendarUrl:
-      "https://www.google.com/calendar/event?action=TEMPLATE&text=BAS%20Members%20Meetup%20at%20the%20Swiss%20Bitcoin%20Conference&dates=20260425T170000/20260425T190000&ctz=Europe/Zurich&location=Kreuzlingen%20(conference%20venue%2C%20exact%20spot%20to%20be%20shared)&details=Registration%20required%3A%20https%3A%2F%2Fwww.meetup.com%2Fde-de%2Fbitcoin-meetup-switzerland%2Fevents%2F314034144%2F%0AConference%20info%3A%20https%3A%2F%2Fswiss-bitcoin-conference.com%2F",
     signupLink:
       "https://www.meetup.com/de-de/bitcoin-meetup-switzerland/events/314034144/",
     page: {
       location: "Kreuzlingen, conference venue",
       locationUrl: null,
-      googleCalendarUrl:
-        "https://www.google.com/calendar/event?action=TEMPLATE&text=BAS%20Members%20Meetup%20at%20the%20Swiss%20Bitcoin%20Conference&dates=20260425T170000/20260425T190000&ctz=Europe/Zurich&location=Kreuzlingen%20%28conference%20venue%2C%20exact%20spot%20to%20be%20shared%29&details=Registration%20required%3A%20https%3A%2F%2Fwww.meetup.com%2Fde-de%2Fbitcoin-meetup-switzerland%2Fevents%2F314034144%2F%0AConference%20info%3A%20https%3A%2F%2Fswiss-bitcoin-conference.com%2F",
     },
   },
 
@@ -304,8 +280,6 @@ const eventRecords: EventRecord[] = [
     page: {
       title: "BAS Roadshow – Basel",
       time: "18:30 – 22:30",
-      googleCalendarUrl:
-        "http://www.google.com/calendar/event?action=TEMPLATE&text=BAS%20Roadshow%20%E2%80%93%20Basel&dates=20250921T163000Z/20250921T203000Z",
     },
   },
   {
@@ -326,8 +300,6 @@ const eventRecords: EventRecord[] = [
     signupLink: "https://lu.ma/pa1cmg9y",
     signupText: "Sign up for the roadshow event in Lake Zurich",
     page: {
-      googleCalendarUrl:
-        "http://www.google.com/calendar/event?action=TEMPLATE&text=BAS%20Roadshow%20Lake%20Zurich&dates=20250321T173000Z/20250321T220000Z",
     },
   },
   {
@@ -353,8 +325,6 @@ const eventRecords: EventRecord[] = [
     signupText: "Sign up for the roadshow event in Lausanne",
     page: {
       title: "BAS Roadshow – Lausanne",
-      googleCalendarUrl:
-        "http://www.google.com/calendar/event?action=TEMPLATE&text=BAS%20Roadshow%20%E2%80%93%20Lausanne&dates=20250221T170000Z/20250221T220000Z&location=Lausanne",
     },
   },
   {
@@ -379,8 +349,6 @@ const eventRecords: EventRecord[] = [
     page: {
       title: "BAS Roadshow – Bern",
       time: "18:00 – 20:00",
-      googleCalendarUrl:
-        "http://www.google.com/calendar/event?action=TEMPLATE&text=BAS%20Roadshow%20%E2%80%93%20Bern&dates=20250121T170000Z/20250121T190000Z",
     },
   },
 ];
@@ -417,21 +385,17 @@ export function getPageTitle(event: EventRecord): string {
   return event.page?.title ?? event.title;
 }
 
-/** Google Calendar link for the event (the stored one, or one built from the Swiss local times). */
+/** Google Calendar link built from the event's Swiss local times. */
 export function getGoogleCalendarUrl(event: EventRecord): string {
-  if (event.googleCalendarUrl) return event.googleCalendarUrl;
-
-  // No Z suffix: times are local Swiss time, so ctz sets the timezone.
-  const date = event.dateISO.replace(/-/g, "");
-  const start = event.startTime.replace(":", "");
-  const end = (event.endTime ?? event.startTime).replace(":", "");
-  return `http://www.google.com/calendar/event?action=TEMPLATE&text=${encodeURIComponent(event.title)}&dates=${date}T${start}00/${date}T${end}00&ctz=Europe/Zurich`;
-}
-
-function determineEventStatus(dateISO: string): 'upcoming' | 'past' {
-  const eventDate = new Date(dateISO + 'T23:59:59');
-  const today = new Date();
-  return eventDate >= today ? 'upcoming' : 'past';
+  return googleCalendarUrl({
+    uid: event.id,
+    title: event.title,
+    dateISO: event.dateISO,
+    startTime: event.startTime,
+    endTime: event.endTime,
+    location: event.location,
+    url: event.signupLink ?? getEventUrl(event),
+  });
 }
 
 function toUnifiedEvent(event: EventRecord): UnifiedEvent {
@@ -460,7 +424,6 @@ function toUnifiedEvent(event: EventRecord): UnifiedEvent {
     signupLink: event.signupLink,
     googleCalendarUrl: getGoogleCalendarUrl(event),
     category: event.category,
-    status: determineEventStatus(event.dateISO),
     source: 'most-recent-events',
     accentColor: CATEGORY_COLORS[event.category],
   };

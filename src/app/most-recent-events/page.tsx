@@ -7,7 +7,7 @@ import { Separator } from "@/components/ui/separator";
 import IcsLink from "@/components/events/IcsLink";
 import { formatEventDate, getEventBadge } from "@/components/events/event-format";
 import { formatTimeDisplay } from "@/lib/date-utils";
-import { getSeriesEvents, type EventRecord } from "@/data/events";
+import { getGoogleCalendarUrl, getSeriesEvents, type EventRecord } from "@/data/events";
 
 export const metadata: Metadata = {
   title: "Most Recent Events",
@@ -27,7 +27,7 @@ function EventCard({ event }: { event: EventRecord }) {
       {/* Thumbnail Image */}
       {event.imageUrl && (
         <Link
-          href={`/most-recent-events/${event.slug}`}
+          href={event.href}
           className="flex-shrink-0 w-full md:w-[200px] h-[150px] relative overflow-hidden bg-gray-100"
         >
           <Image
@@ -41,7 +41,7 @@ function EventCard({ event }: { event: EventRecord }) {
 
       {/* Date Badge */}
       <Link
-        href={`/most-recent-events/${event.slug}`}
+        href={event.href}
         className="hidden md:flex flex-col items-center justify-start flex-shrink-0 w-[80px] pt-1"
       >
         <div className="text-center">
@@ -58,7 +58,7 @@ function EventCard({ event }: { event: EventRecord }) {
         {/* Title */}
         <h1 className="text-lg font-semibold text-gray-900 mb-2 leading-snug">
           <Link
-            href={`/most-recent-events/${event.slug}`}
+            href={event.href}
             className="hover:text-[#c75b4a] transition-colors"
           >
             {event.title}
@@ -92,19 +92,15 @@ function EventCard({ event }: { event: EventRecord }) {
             </li>
           )}
           <li className="flex items-center gap-1">
-            {event.googleCalendarUrl && (
-              <a
-                href={event.googleCalendarUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-[#c75b4a] hover:underline"
-              >
-                Google Calendar
-              </a>
-            )}
-            {event.googleCalendarUrl && (
-              <span className="text-gray-300 mx-1">|</span>
-            )}
+            <a
+              href={getGoogleCalendarUrl(event)}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[#c75b4a] hover:underline"
+            >
+              Google Calendar
+            </a>
+            <span className="text-gray-300 mx-1">|</span>
             <IcsLink event={event} className="text-[#c75b4a] hover:underline" />
           </li>
         </ul>
@@ -116,7 +112,7 @@ function EventCard({ event }: { event: EventRecord }) {
 
         {/* View Event Button */}
         <Link
-          href={`/most-recent-events/${event.slug}`}
+          href={event.href}
           className="inline-block text-[13px] text-[#c75b4a] border border-[#c75b4a] px-4 py-2 hover:bg-[#c75b4a] hover:text-white transition-colors mb-4"
         >
           View Event &rarr;

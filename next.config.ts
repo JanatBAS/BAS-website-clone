@@ -48,6 +48,20 @@ const LEGACY_AUTHOR_SLUGS: Record<string, string> = {
   'luzius-meisser': '5a9907f3e4966b72996b9c31',
 };
 
+// Past-event pages live under dated paths; the old index linked the bare slug.
+const LEGACY_EVENT_PATHS: Record<string, string> = {
+  'regular-meetups': '/most-recent-events/2022/4/1/regular-meetups',
+  'lightning-meetup-with-elizabeth-stark-ceo-lightning-labs': '/most-recent-events/2020/1/13/lightning-meetup-with-elizabeth-stark-ceo-lightning-labs',
+  'bitcoin-christmas-meetup-zurich': '/most-recent-events/2020/2/4/bitcoin-christmas-meetup-zurich',
+  'who-needs-the-internet-anyway-taking-bitcoin-transactions-offline': '/most-recent-events/2019/10/15/who-needs-the-internet-anyway-taking-bitcoin-transactions-offline',
+  'andreas-m-antonopoulos-thoughts-on-the-future-of-programmable-money': '/most-recent-events/2019/6/23/andreas-m-antonopoulos-thoughts-on-the-future-of-programmable-money',
+  'sidechains-on-btc-drivechain-and-blind-merged-mining-paul-sztorc': '/most-recent-events/2019/6/6/sidechains-on-btc-drivechain-and-blind-merged-mining-paul-sztorc',
+  'annual-general-assembly-of-the-bitcoin-association-switzerland-2019': '/most-recent-events/2019/5/22/annual-general-assembly-of-the-bitcoin-association-switzerland-2019',
+  'on-chain-defense-in-depth-dr-bob-mcelrath': '/most-recent-events/2019/1/25/on-chain-defense-in-depth-dr-bob-mcelrath',
+  '10-years-bitcoin-bitcoin-association-in-davos-during-wef': '/most-recent-events/2019/1/22/10-years-bitcoin-bitcoin-association-in-davos-during-wef',
+  'bas-members-meetup-swiss-bitcoin-conference': '/most-recent-events/2026/4/25/bas-members-meetup-swiss-bitcoin-conference',
+};
+
 const nextConfig: NextConfig = {
   poweredByHeader: false,
   async headers() {
@@ -79,6 +93,11 @@ const nextConfig: NextConfig = {
       { source: '/candidate-:number(\\d+)', destination: '/candidates', permanent: true },
       { source: '/home', destination: '/', permanent: true },
       { source: '/home-updated', destination: '/', permanent: true },
+      ...Object.entries(LEGACY_EVENT_PATHS).map(([slug, destination]) => ({
+        source: `/most-recent-events/${slug}`,
+        destination,
+        permanent: true,
+      })),
       // Old listing pages linked a few authors by name instead of by id.
       ...Object.entries(LEGACY_AUTHOR_SLUGS).map(([slug, id]) => ({
         source: '/bitcoin-association-switzerland',

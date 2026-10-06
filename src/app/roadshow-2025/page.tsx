@@ -9,7 +9,7 @@ import ShareButton from "@/components/ShareButton";
 import IcsLink from "@/components/events/IcsLink";
 import { formatEventDate, getEventBadge } from "@/components/events/event-format";
 import { formatTimeDisplay } from "@/lib/date-utils";
-import { getSeriesEvents, type EventRecord } from "@/data/events";
+import { getGoogleCalendarUrl, getSeriesEvents, type EventRecord } from "@/data/events";
 
 export const metadata: Metadata = {
   title: "Roadshow 2025",
@@ -18,14 +18,6 @@ export const metadata: Metadata = {
 };
 
 const roadshowEvents = getSeriesEvents("roadshow-2025");
-
-// As published on this page: the Swiss local times are marked as UTC (Z).
-function googleCalendarUrl(event: EventRecord): string {
-  const date = event.dateISO.replace(/-/g, "");
-  const start = event.startTime.replace(":", "");
-  const end = (event.endTime ?? event.startTime).replace(":", "");
-  return `http://www.google.com/calendar/event?action=TEMPLATE&text=${encodeURIComponent(event.title)}&dates=${date}T${start}00Z/${date}T${end}00Z`;
-}
 
 function EventCard({ event }: { event: EventRecord }) {
   const badge = getEventBadge(event);
@@ -103,7 +95,7 @@ function EventCard({ event }: { event: EventRecord }) {
           )}
           <li className="flex gap-2 items-center">
             <a
-              href={googleCalendarUrl(event)}
+              href={getGoogleCalendarUrl(event)}
               target="_blank"
               rel="noopener noreferrer"
               className="text-[#c75b4a] hover:underline"

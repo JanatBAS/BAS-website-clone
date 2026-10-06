@@ -82,7 +82,7 @@ export default function EventDetailLayout({
   const location = event.page?.location ?? event.location;
   const locationUrl =
     event.page?.locationUrl === null ? undefined : (event.page?.locationUrl ?? event.locationUrl);
-  const googleCalendarUrl = event.page?.googleCalendarUrl ?? getGoogleCalendarUrl(event);
+  const googleCalendarUrl = getGoogleCalendarUrl(event);
   const { earlier, later } = getAdjacentEvents(event);
 
   return (
