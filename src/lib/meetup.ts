@@ -1,6 +1,7 @@
 import { unstable_cache, revalidateTag } from 'next/cache';
-import { get, put } from '@vercel/blob';
+import { put } from '@vercel/blob';
 import { MEETUP_GROUPS } from '@/data/meetup-groups';
+import { readPublicBlobJson } from './blob-read';
 import { stripHtml } from './utils';
 
 /**
@@ -297,21 +298,10 @@ async function fetchAllGroups(cacheMode: RequestCache, previous: MeetupEvent[] =
 
 /** Reads the stored events. A missing file returns null; other failures throw. */
 async function readMeetupCache(): Promise<MeetupEventsCache | null> {
-  // Local builds and CI have no store configured.
-  if (!process.env.BLOB_READ_WRITE_TOKEN) return null;
-
-  const result = await get(MEETUP_CACHE_KEY, {
-    access: 'public',
-    useCache: false,
-  });
-
-  if (!result) return null;
-  if (result.statusCode !== 200 || !result.stream) {
-    throw new Error(`Unexpected Blob response ${result.statusCode} for ${MEETUP_CACHE_KEY}`);
-  }
-
-  const cache = await new Response(result.stream).json() as MeetupEventsCache;
-  if (cache.version !== MEETUP_CACHE_VERSION || !Array.isArray(cache.events)) {
+  // Null when the file does not exist yet, or locally/in CI where no store is configured.
+  const result = await readPublicBlobJson(MEETUP_CACHE_KEY);
+  const cache = result?.data as MeetupEventsCache | undefined;
+  if (!cache || cache.version !== MEETUP_CACHE_VERSION || !Array.isArray(cache.events)) {
     return null;
   }
 

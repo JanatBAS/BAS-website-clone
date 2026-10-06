@@ -1,6 +1,7 @@
 import { unstable_cache, revalidateTag } from 'next/cache';
-import { BlobPreconditionFailedError, get, put } from '@vercel/blob';
+import { BlobPreconditionFailedError, put } from '@vercel/blob';
 import type { AdminEvent, AdminBlogPost } from '@/types/admin';
+import { readPublicBlobJson } from './blob-read';
 
 /**
  * Admin-created events and posts, each stored as one JSON list in Vercel Blob.
@@ -8,8 +9,8 @@ import type { AdminEvent, AdminBlogPost } from '@/types/admin';
  * Blob operation budget (keep it this way):
  * - Public pages read through `unstable_cache` with no expiry, so a cache hit
  *   costs nothing. The admin API invalidates the tag after every save.
- * - A save is exactly one uncached `get` plus one `put`. A save that changes
- *   nothing performs no `put`.
+ * - A save is exactly one fresh read (a simple operation) plus one `put` (an
+ *   advanced operation). A save that changes nothing performs no `put`.
  *
  * Only a missing blob (404) counts as an empty list. Any other read error is
  * thrown, so an empty list is never cached for public pages and never written
@@ -56,21 +57,14 @@ function normalizeEvents(events: StoredAdminEvent[]): AdminEvent[] {
 }
 
 async function readDataset<T>(key: string): Promise<Dataset<T>> {
-  // Local builds and CI have no store configured; there is no admin data there.
-  if (!process.env.BLOB_READ_WRITE_TOKEN) return { items: [] };
-
-  const result = await get(key, { access: 'public', useCache: false });
+  // Null when the blob does not exist yet, or locally/in CI where no store is configured.
+  const result = await readPublicBlobJson(key);
   if (!result) return { items: [] };
-  if (result.statusCode !== 200 || !result.stream) {
-    throw new Error(`Unexpected Blob response ${result.statusCode} for ${key}`);
-  }
-
-  const data: unknown = await new Response(result.stream).json();
-  if (!Array.isArray(data)) {
+  if (!Array.isArray(result.data)) {
     throw new Error(`Blob ${key} does not contain a list`);
   }
 
-  return { items: data as T[], etag: result.blob.etag };
+  return { items: result.data as T[], etag: result.etag };
 }
 
 async function writeDataset<T>(key: string, items: T[], etag: string | undefined): Promise<void> {
