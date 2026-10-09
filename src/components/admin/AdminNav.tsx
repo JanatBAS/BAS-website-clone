@@ -22,7 +22,7 @@ export default function AdminNav() {
     <nav className="bg-gray-900 border-b border-gray-800">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-14">
         <div className="flex items-center gap-1">
-          <Link href="/admin" className="text-[#2a9d8f] font-bold text-sm mr-4">
+          <Link href="/admin" className="text-brand-teal font-bold text-sm mr-4">
             BAS Admin
           </Link>
           {links.map((link) => (

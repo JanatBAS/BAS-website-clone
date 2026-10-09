@@ -21,14 +21,14 @@ export function CalendarWeekView({ days, onEventClick }: CalendarWeekViewProps) 
               key={index}
               className={`
                 min-h-[200px] sm:min-h-[300px] rounded-lg border
-                ${day.isToday ? 'border-[#c75b4a] bg-[#c75b4a]/5' : 'border-gray-200 bg-white'}
+                ${day.isToday ? 'border-brand bg-brand/5' : 'border-gray-200 bg-white'}
               `}
             >
               {/* Day header */}
               <div
                 className={`
                   p-2 sm:p-3 border-b text-center
-                  ${day.isToday ? 'border-[#c75b4a]/20' : 'border-gray-100'}
+                  ${day.isToday ? 'border-brand/20' : 'border-gray-100'}
                 `}
               >
                 <div className="text-xs text-gray-500 uppercase tracking-wider">
@@ -38,7 +38,7 @@ export function CalendarWeekView({ days, onEventClick }: CalendarWeekViewProps) 
                   className={`
                     mt-1 w-8 h-8 mx-auto flex items-center justify-center rounded-full text-lg font-semibold
                     ${day.isToday
-                      ? 'bg-[#c75b4a] text-white calendar-today-pulse'
+                      ? 'bg-brand text-white calendar-today-pulse'
                       : 'text-gray-900'
                     }
                   `}

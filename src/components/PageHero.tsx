@@ -16,7 +16,7 @@ export default function PageHero({
   const bg =
     variant === "gradient"
       ? "bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900"
-      : "bg-[#1a1a1a]";
+      : "bg-ink";
   const descriptionColor = variant === "gradient" ? "text-gray-300" : "text-gray-400";
 
   return (

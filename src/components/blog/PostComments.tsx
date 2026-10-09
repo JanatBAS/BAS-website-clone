@@ -29,7 +29,7 @@ export default function PostComments({ comments }: { comments: BlogPostComment[]
                     href={comment.authorUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-sm font-medium text-gray-800 hover:text-[#c75b4a]"
+                    className="text-sm font-medium text-gray-800 hover:text-brand"
                   >
                     {comment.author}
                   </a>

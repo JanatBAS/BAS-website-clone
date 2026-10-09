@@ -19,7 +19,7 @@ export default function Footer() {
       </div>
 
       {/* Dark Footer Section */}
-      <div className="bg-[#1a1a1a] py-8 md:py-10">
+      <div className="bg-ink py-8 md:py-10">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Social Icons Row */}
           <div className="mb-6">

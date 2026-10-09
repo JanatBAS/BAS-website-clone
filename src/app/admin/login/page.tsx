@@ -49,7 +49,7 @@ function LoginForm() {
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className="w-full px-3 py-2 bg-gray-900 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#2a9d8f] focus:border-transparent"
+          className="w-full px-3 py-2 bg-gray-900 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-brand-teal focus:border-transparent"
           placeholder="Enter admin password"
           required
           autoFocus
@@ -63,7 +63,7 @@ function LoginForm() {
       <button
         type="submit"
         disabled={loading}
-        className="w-full py-2 px-4 bg-[#2a9d8f] hover:bg-[#238b7f] disabled:opacity-50 disabled:cursor-not-allowed text-white font-medium rounded-lg transition-colors"
+        className="w-full py-2 px-4 bg-brand-teal hover:bg-brand-teal-dark disabled:opacity-50 disabled:cursor-not-allowed text-white font-medium rounded-lg transition-colors"
       >
         {loading ? 'Signing in...' : 'Sign In'}
       </button>

@@ -1,17 +1,24 @@
 import { NextResponse } from 'next/server';
 import { revalidatePath } from 'next/cache';
 import {
-  AdminDataConflictError,
-  getAdminPosts,
   addAdminPost,
   deleteAdminPost,
   updateAdminPost,
   invalidateAdminPostsCache,
 } from '@/lib/blob-store';
+import {
+  idParam,
+  invalidInput,
+  missingId,
+  optionalString,
+  optionalUrl,
+  requiredString,
+  saveFailed,
+} from '@/lib/admin-input';
 import type { AdminBlogPost, AdminBlogPostFormData } from '@/types/admin';
+import { isValidDateISO } from '@/lib/event-dates';
 import { slugify } from '@/lib/utils';
 import { sanitizePostHtml } from '@/lib/sanitize-html';
-import { safeHttpUrl } from '@/lib/safe-url';
 
 export const dynamic = 'force-dynamic';
 
@@ -34,20 +41,6 @@ interface ValidatedPostFields {
   category?: string;
   tags?: string[];
   imageUrl?: string;
-}
-
-function requiredString(value: unknown, max: number): string | null {
-  if (typeof value !== 'string') return null;
-  const trimmed = value.trim();
-  if (!trimmed || trimmed.length > max) return null;
-  return trimmed;
-}
-
-function optionalString(value: unknown, max: number): string | undefined {
-  if (typeof value !== 'string') return undefined;
-  const trimmed = value.trim();
-  if (!trimmed) return undefined;
-  return trimmed.slice(0, max);
 }
 
 function validateTags(value: unknown): string[] | undefined {
@@ -83,16 +76,9 @@ function validatePostData(data: AdminBlogPostFormData): { fields?: ValidatedPost
     return { error: 'Post content is too long.' };
   }
 
-  // date field is YYYY-MM-DD from a date input
-  const parsedDate = new Date(dateISO + 'T12:00:00');
-  if (!/^\d{4}-\d{2}-\d{2}$/.test(dateISO) || isNaN(parsedDate.getTime())) {
+  // YYYY-MM-DD from a date input; impossible dates such as Feb 31 are rejected.
+  if (!isValidDateISO(dateISO)) {
     return { error: 'Invalid date format. Use YYYY-MM-DD.' };
-  }
-
-  // Strict validation: reject impossible dates like Feb 31 (Node normalizes them silently)
-  const [year, month, day] = dateISO.split('-').map(Number);
-  if (parsedDate.getFullYear() !== year || parsedDate.getMonth() + 1 !== month || parsedDate.getDate() !== day) {
-    return { error: 'Invalid calendar date.' };
   }
 
   const authorId = optionalString(data.authorId, 64);
@@ -100,11 +86,8 @@ function validatePostData(data: AdminBlogPostFormData): { fields?: ValidatedPost
     return { error: 'Invalid author id.' };
   }
 
-  const imageUrlInput = optionalString(data.imageUrl, 2048);
-  const imageUrl = imageUrlInput ? safeHttpUrl(imageUrlInput) : undefined;
-  if (imageUrlInput && !imageUrl) {
-    return { error: 'Image URL must be an http(s) URL.' };
-  }
+  const imageUrl = optionalUrl(data.imageUrl, 'Image URL');
+  if (imageUrl.error) return { error: imageUrl.error };
 
   const htmlContent = sanitizePostHtml(rawHtml);
   if (!htmlContent.trim()) {
@@ -117,12 +100,12 @@ function validatePostData(data: AdminBlogPostFormData): { fields?: ValidatedPost
       author,
       authorId,
       dateISO,
-      timestamp: parsedDate.getTime(),
+      timestamp: new Date(dateISO + 'T12:00:00').getTime(),
       excerpt,
       htmlContent,
       category: optionalString(data.category, 100),
       tags: validateTags(data.tags),
-      imageUrl,
+      imageUrl: imageUrl.url,
     },
   };
 }
@@ -131,25 +114,10 @@ function validatePostData(data: AdminBlogPostFormData): { fields?: ValidatedPost
 function revalidatePostPages(slugs: string[]): void {
   invalidateAdminPostsCache();
   revalidatePath('/bitcoin-association-switzerland');
-  revalidatePath('/bitcoin-association-switzerland/author/[authorId]', 'page');
+  // A route pattern (unlike a URL) includes the route group folder.
+  revalidatePath('/(simple-footer)/bitcoin-association-switzerland/author/[authorId]', 'page');
   for (const slug of slugs) {
     revalidatePath(`/blog/${slug}`);
-  }
-}
-
-function saveFailed(error: unknown, message: string): NextResponse {
-  if (error instanceof AdminDataConflictError) {
-    return NextResponse.json({ error: error.message }, { status: 409 });
-  }
-  return NextResponse.json({ error: message }, { status: 500 });
-}
-
-export async function GET() {
-  try {
-    const posts = await getAdminPosts();
-    return NextResponse.json(posts);
-  } catch {
-    return NextResponse.json({ error: 'Failed to fetch posts' }, { status: 500 });
   }
 }
 
@@ -158,9 +126,7 @@ export async function POST(request: Request) {
     const data: AdminBlogPostFormData = await request.json();
     const validation = validatePostData(data);
 
-    if (!validation.fields) {
-      return NextResponse.json({ error: validation.error || 'Invalid post data' }, { status: 400 });
-    }
+    if (!validation.fields) return invalidInput(validation.error || 'Invalid post data');
 
     const { fields } = validation;
     const uniqueSuffix = Date.now().toString(36);
@@ -193,18 +159,13 @@ export async function POST(request: Request) {
 
 export async function PUT(request: Request) {
   try {
-    const { searchParams } = new URL(request.url);
-    const id = searchParams.get('id');
-    if (!id) {
-      return NextResponse.json({ error: 'Missing id parameter' }, { status: 400 });
-    }
+    const id = idParam(request);
+    if (!id) return missingId();
 
     const data: AdminBlogPostFormData = await request.json();
     const validation = validatePostData(data);
 
-    if (!validation.fields) {
-      return NextResponse.json({ error: validation.error || 'Invalid post data' }, { status: 400 });
-    }
+    if (!validation.fields) return invalidInput(validation.error || 'Invalid post data');
 
     const { fields } = validation;
     const updated = await updateAdminPost(id, (existing) => ({
@@ -235,11 +196,8 @@ export async function PUT(request: Request) {
 
 export async function DELETE(request: Request) {
   try {
-    const { searchParams } = new URL(request.url);
-    const id = searchParams.get('id');
-    if (!id) {
-      return NextResponse.json({ error: 'Missing id parameter' }, { status: 400 });
-    }
+    const id = idParam(request);
+    if (!id) return missingId();
     const deleted = await deleteAdminPost(id);
     if (!deleted) {
       return NextResponse.json({ error: 'Post not found' }, { status: 404 });

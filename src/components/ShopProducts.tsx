@@ -1,53 +1,7 @@
-"use client";
-
-import { useEffect, useState } from "react";
 import Image from "next/image";
-
-interface Product {
-  id: number;
-  name: string;
-  short_description: string;
-  image_url: string;
-  product_url: string;
-  price: string;
-  price_formatted: string;
-  checkout_url: string;
-  type: "simple" | "variable";
-}
-
-interface ProductFeed {
-  ref: string;
-  generated_at: string;
-  currency: string;
-  products: Product[];
-}
-
-function isSafeUrl(url: string): boolean {
-  try {
-    const parsed = new URL(url);
-    return parsed.protocol === "https:" || parsed.protocol === "http:";
-  } catch {
-    return false;
-  }
-}
-
-function ExternalLinkIcon() {
-  return (
-    <svg
-      className="w-4 h-4 ml-1 inline"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth={2}
-      viewBox="0 0 24 24"
-    >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"
-      />
-    </svg>
-  );
-}
+import type { ShopProduct } from "@/lib/shop";
+import { safeHttpUrl } from "@/lib/safe-url";
+import { ExternalLinkIcon } from "@/components/icons";
 
 function formatPrice(price: string): string {
   const num = parseFloat(price);
@@ -55,10 +9,10 @@ function formatPrice(price: string): string {
   return num.toFixed(2);
 }
 
-function ProductCard({ product }: { product: Product }) {
+function ProductCard({ product }: { product: ShopProduct }) {
   const isVariable = product.type === "variable";
   const rawUrl = isVariable ? product.product_url : product.checkout_url;
-  const linkUrl = isSafeUrl(rawUrl) ? rawUrl : null;
+  const linkUrl = safeHttpUrl(rawUrl);
   const displayPrice = formatPrice(product.price);
 
   return (
@@ -112,7 +66,7 @@ function ProductCard({ product }: { product: Product }) {
             href={linkUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="block w-full text-center px-3 py-2.5 bg-[#2a9d8f] hover:bg-[#238578] text-white text-sm font-medium rounded-md transition-colors"
+            className="block w-full text-center px-3 py-2.5 bg-brand-teal hover:bg-brand-teal-dark text-white text-sm font-medium rounded-md transition-colors"
           >
             {isVariable ? "View Options" : "Buy Now"}
             <ExternalLinkIcon />
@@ -127,58 +81,9 @@ function ProductCard({ product }: { product: Product }) {
   );
 }
 
-function ProductCardSkeleton() {
-  return (
-    <div className="bg-white rounded-lg border border-gray-100 overflow-hidden">
-      <div className="aspect-square bg-gray-50 animate-pulse" />
-      <div className="p-3 sm:p-4">
-        <div className="h-4 bg-gray-100 rounded mb-1.5 w-3/4 animate-pulse" />
-        <div className="h-4 bg-gray-100 rounded mb-3 w-1/2 animate-pulse" />
-        <div className="h-5 bg-gray-100 rounded mb-3 w-1/3 animate-pulse" />
-        <div className="h-[38px] bg-gray-100 rounded-md animate-pulse" />
-      </div>
-    </div>
-  );
-}
-
-export default function ShopProducts() {
-  const [products, setProducts] = useState<Product[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const response = await fetch("/api/shop");
-        if (!response.ok) {
-          throw new Error(`Failed to load products (${response.status})`);
-        }
-        const data: ProductFeed = await response.json();
-        if (!Array.isArray(data?.products)) {
-          throw new Error("Unexpected response format");
-        }
-        setProducts(data.products);
-      } catch (err) {
-        setError(err instanceof Error ? err.message : "Failed to load products");
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchProducts();
-  }, []);
-
-  if (isLoading) {
-    return (
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5">
-        {Array.from({ length: 8 }).map((_, i) => (
-          <ProductCardSkeleton key={i} />
-        ))}
-      </div>
-    );
-  }
-
-  if (error) {
+/** Product grid, or a link to the shop when the product feed could not be loaded (`null`). */
+export default function ShopProducts({ products }: { products: ShopProduct[] | null }) {
+  if (!products) {
     return (
       <div className="text-center py-16">
         <svg className="w-10 h-10 mx-auto mb-4 text-gray-300" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
@@ -189,7 +94,7 @@ export default function ShopProducts() {
           href="https://dezentralshop.ch"
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center px-5 py-2.5 bg-[#2a9d8f] hover:bg-[#238578] text-white text-sm font-medium rounded-md transition-colors"
+          className="inline-flex items-center px-5 py-2.5 bg-brand-teal hover:bg-brand-teal-dark text-white text-sm font-medium rounded-md transition-colors"
         >
           Visit dezentralshop.ch
           <ExternalLinkIcon />
@@ -224,7 +129,7 @@ export default function ShopProducts() {
           href="https://dezentralshop.ch"
           target="_blank"
           rel="noopener noreferrer"
-          className="text-gray-500 hover:text-[#2a9d8f] transition-colors"
+          className="text-gray-500 hover:text-brand-teal transition-colors"
         >
           dezentralshop.ch
         </a>

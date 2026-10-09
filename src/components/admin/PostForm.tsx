@@ -99,7 +99,7 @@ export default function PostForm({ mode, initialData }: PostFormProps) {
   };
 
   const inputClass =
-    'w-full px-3 py-2 bg-gray-900 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#2a9d8f] focus:border-transparent text-sm';
+    'w-full px-3 py-2 bg-gray-900 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-brand-teal focus:border-transparent text-sm';
   const labelClass = 'block text-sm font-medium text-gray-300 mb-1';
 
   return (
@@ -206,7 +206,7 @@ export default function PostForm({ mode, initialData }: PostFormProps) {
         <button
           type="submit"
           disabled={saving}
-          className="px-4 py-2 bg-[#2a9d8f] hover:bg-[#238b7f] disabled:opacity-50 text-white text-sm font-medium rounded-lg transition-colors"
+          className="px-4 py-2 bg-brand-teal hover:bg-brand-teal-dark disabled:opacity-50 text-white text-sm font-medium rounded-lg transition-colors"
         >
           {saving
             ? mode === 'edit'

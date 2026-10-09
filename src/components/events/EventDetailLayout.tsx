@@ -1,8 +1,6 @@
 import type { ReactNode } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import Header from "@/components/Header";
-import FooterSimple from "@/components/FooterSimple";
 import ShareButton from "@/components/ShareButton";
 import IcsLink from "@/components/events/IcsLink";
 import { formatEventDate, formatEventDay } from "@/components/events/event-format";
@@ -17,7 +15,7 @@ import {
 export const EVENT_TAGLINE =
   "A bright new dawn for digital transfers, sound money and personal freedom.";
 
-const linkClass = "text-[#c75b4a] hover:underline";
+const linkClass = "text-brand hover:underline";
 
 interface EventDetailLayoutProps {
   event: EventRecord;
@@ -87,10 +85,8 @@ export default function EventDetailLayout({
 
   return (
     <div className="min-h-screen bg-white flex flex-col">
-      <Header />
-
       {tagline && (
-        <section className="relative w-full h-[200px] mt-20 bg-[#1a1a1a]">
+        <section className="relative w-full h-[200px] mt-20 bg-ink">
           {event.imageUrl && (
             <Image
               src={event.imageUrl}
@@ -114,7 +110,7 @@ export default function EventDetailLayout({
           {backLink && (
             <Link
               href={backLink.href}
-              className="inline-block text-[13px] text-gray-500 hover:text-[#c75b4a] mb-8 transition-colors"
+              className="inline-block text-[13px] text-gray-500 hover:text-brand mb-8 transition-colors"
             >
               &larr; {backLink.label}
             </Link>
@@ -194,8 +190,6 @@ export default function EventDetailLayout({
           )}
         </div>
       </main>
-
-      <FooterSimple />
     </div>
   );
 }

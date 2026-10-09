@@ -13,12 +13,12 @@ export default function BlogPostCard({ post }: { post: BlogPost }) {
       {/* Meta above title */}
       <div className="text-xs text-gray-500 uppercase tracking-wider mb-2 space-y-1">
         <div>
-          <Link href={authorHref(post.authorId)} className="hover:text-[#c75b4a]">
+          <Link href={authorHref(post.authorId)} className="hover:text-brand">
             {post.author}
           </Link>
         </div>
         <div>
-          <Link href={post.href} className="hover:text-[#c75b4a]">
+          <Link href={post.href} className="hover:text-brand">
             {post.date}
           </Link>
         </div>
@@ -29,7 +29,7 @@ export default function BlogPostCard({ post }: { post: BlogPost }) {
             ) : (
               <Link
                 href={categoryHref(post.category)}
-                className="hover:text-[#c75b4a]"
+                className="hover:text-brand"
               >
                 {post.category}
               </Link>
@@ -40,7 +40,7 @@ export default function BlogPostCard({ post }: { post: BlogPost }) {
 
       {/* Title */}
       <h2 className="text-lg md:text-xl font-semibold text-gray-900 mb-4 tracking-wide uppercase">
-        <Link href={post.href} className="hover:text-[#c75b4a] transition-colors">
+        <Link href={post.href} className="hover:text-brand transition-colors">
           {post.title}
         </Link>
       </h2>
@@ -71,13 +71,13 @@ export default function BlogPostCard({ post }: { post: BlogPost }) {
         <div className="text-xs text-gray-500 mb-3">
           Tagged:{" "}
           {isAdminPost ? (
-            <span className="text-[#c75b4a]">{post.tags.join(", ")}</span>
+            <span className="text-brand">{post.tags.join(", ")}</span>
           ) : (
             post.tags.map((tag, index, tags) => (
               <span key={tag}>
                 <Link
                   href={tagHref(tag)}
-                  className="text-[#c75b4a] hover:underline"
+                  className="text-brand hover:underline"
                 >
                   {tag}
                 </Link>
@@ -91,7 +91,7 @@ export default function BlogPostCard({ post }: { post: BlogPost }) {
       {/* Footer actions */}
       <div className="flex items-center gap-4 text-xs text-gray-500">
         {post.commentCount !== undefined && (
-          <Link href={`${post.href}#comments`} className="hover:text-[#c75b4a]">
+          <Link href={`${post.href}#comments`} className="hover:text-brand">
             {post.commentCount === 0
               ? "Comment"
               : post.commentCount === 1

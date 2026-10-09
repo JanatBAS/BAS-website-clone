@@ -93,13 +93,13 @@ export default function EventForm({ mode, initialData, isDuplicate = false }: Ev
     }
   };
 
-  const inputClass = 'w-full px-3 py-2 bg-gray-900 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#2a9d8f] focus:border-transparent text-sm';
+  const inputClass = 'w-full px-3 py-2 bg-gray-900 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-brand-teal focus:border-transparent text-sm';
   const labelClass = 'block text-sm font-medium text-gray-300 mb-1';
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
       {isDuplicate && (
-        <div className="rounded-lg border border-[#2a9d8f]/40 bg-[#2a9d8f]/10 px-4 py-3 text-sm text-gray-200">
+        <div className="rounded-lg border border-brand-teal/40 bg-brand-teal/10 px-4 py-3 text-sm text-gray-200">
           This form is pre-filled from the selected event. Saving it will create a separate new event.
         </div>
       )}
@@ -167,7 +167,7 @@ export default function EventForm({ mode, initialData, isDuplicate = false }: Ev
             type="checkbox"
             checked={isRecurring}
             onChange={(e) => setIsRecurring(e.target.checked)}
-            className="rounded border-gray-600 bg-gray-900 text-[#2a9d8f] focus:ring-[#2a9d8f]"
+            className="rounded border-gray-600 bg-gray-900 text-brand-teal focus:ring-brand-teal"
           />
           <span className="text-sm font-medium text-gray-300">This is a recurring event</span>
         </label>
@@ -211,7 +211,7 @@ export default function EventForm({ mode, initialData, isDuplicate = false }: Ev
         <button
           type="submit"
           disabled={saving}
-          className="px-4 py-2 bg-[#2a9d8f] hover:bg-[#238b7f] disabled:opacity-50 text-white text-sm font-medium rounded-lg transition-colors"
+          className="px-4 py-2 bg-brand-teal hover:bg-brand-teal-dark disabled:opacity-50 text-white text-sm font-medium rounded-lg transition-colors"
         >
           {saving
             ? mode === 'edit'

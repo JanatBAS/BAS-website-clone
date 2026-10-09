@@ -1,0 +1,2 @@
+# Keep line endings consistent (LF) regardless of the editor or OS.
+* text=auto eol=lf

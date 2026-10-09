@@ -1,7 +1,8 @@
 import type { MetadataRoute } from 'next';
 import { getCategories, getSortedPosts, getTags, categoryHref, tagHref } from '@/data/blog-posts';
 import { candidateProfiles } from '@/data/candidates';
-import { getEventPages, SITE_URL } from '@/data/events';
+import { getEventPages } from '@/data/events';
+import { SITE_URL } from '@/lib/site';
 
 /**
  * Standalone pages. Blog posts, events, candidates and listing pages come

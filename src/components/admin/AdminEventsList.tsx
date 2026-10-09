@@ -46,7 +46,7 @@ export default function AdminEventsList({ events }: { events: AdminEvent[] }) {
               <td className="py-3 pr-4 text-gray-400">
                 {formatAdminDateRange(event)}
                 {event.recurrence && (
-                  <span className="ml-2 text-xs text-[#2a9d8f]">
+                  <span className="ml-2 text-xs text-brand-teal">
                     (repeats {event.recurrence.frequency === 'biweekly' ? 'biweekly' : event.recurrence.frequency})
                   </span>
                 )}
@@ -55,13 +55,13 @@ export default function AdminEventsList({ events }: { events: AdminEvent[] }) {
               <td className="py-3 text-right whitespace-nowrap space-x-3">
                 <Link
                   href={`/admin/events/${event.id}/edit`}
-                  className="text-[#2a9d8f] hover:text-[#238b7f] text-xs"
+                  className="text-brand-teal hover:text-brand-teal-dark text-xs"
                 >
                   Edit
                 </Link>
                 <Link
                   href={`/admin/events/${event.id}/duplicate`}
-                  className="text-[#2a9d8f] hover:text-[#238b7f] text-xs"
+                  className="text-brand-teal hover:text-brand-teal-dark text-xs"
                 >
                   Duplicate
                 </Link>

@@ -1,12 +1,10 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import Image from "next/image";
-import Header from "@/components/Header";
-import FooterSimple from "@/components/FooterSimple";
 import BoardElectionNav from "@/components/candidates/BoardElectionNav";
 import type { CandidateProfile } from "@/data/candidates";
 
-const linkClassName = "text-[#c75b4a] hover:underline";
+const linkClassName = "text-brand hover:underline";
 
 export function candidateMetadata(profile: CandidateProfile): Metadata {
   return {
@@ -26,8 +24,6 @@ function ExternalLink({ href, children }: { href: string; children: ReactNode })
 export default function CandidateProfilePage({ profile }: { profile: CandidateProfile }) {
   return (
     <>
-      <Header />
-
       {profile.showBanner && (
         <div className="relative w-full h-[200px] md:h-[300px] mt-20">
           <Image
@@ -122,8 +118,6 @@ export default function CandidateProfilePage({ profile }: { profile: CandidatePr
           </div>
         </div>
       </main>
-
-      <FooterSimple />
     </>
   );
 }

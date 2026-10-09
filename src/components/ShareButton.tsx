@@ -1,71 +1,86 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
-import { copyCurrentUrl, openShareWindow } from "@/components/blog/share-actions";
-import { CopyLinkIcon, FacebookIcon, LinkedInIcon, ShareIcon, XIcon } from "@/components/blog/ShareIcons";
+import { useEffect, useRef, useState } from "react";
+import { CopyLinkIcon, FacebookIcon, LinkedInIcon, ShareIcon, XIcon } from "@/components/icons/ShareIcons";
+
+type ShareNetwork = "x" | "linkedin" | "facebook";
+
+const NETWORKS: { network: ShareNetwork; label: string; icon: () => React.ReactNode; height: number }[] = [
+  { network: "x", label: "Share on X", icon: XIcon, height: 400 },
+  { network: "linkedin", label: "Share on LinkedIn", icon: LinkedInIcon, height: 600 },
+  { network: "facebook", label: "Share on Facebook", icon: FacebookIcon, height: 400 },
+];
+
+function shareUrl(network: ShareNetwork, title: string): string {
+  const url = encodeURIComponent(window.location.href);
+  switch (network) {
+    case "x":
+      return `https://twitter.com/intent/tweet?url=${url}&text=${encodeURIComponent(title)}`;
+    case "linkedin":
+      return `https://www.linkedin.com/sharing/share-offsite/?url=${url}`;
+    case "facebook":
+      return `https://www.facebook.com/sharer/sharer.php?u=${url}`;
+  }
+}
+
+/** Copies the page URL, falling back to execCommand where the Clipboard API is unavailable. */
+async function copyCurrentUrl() {
+  try {
+    await navigator.clipboard.writeText(window.location.href);
+  } catch {
+    const textArea = document.createElement("textarea");
+    textArea.value = window.location.href;
+    document.body.appendChild(textArea);
+    textArea.select();
+    document.execCommand("copy");
+    document.body.removeChild(textArea);
+  }
+}
+
+const itemClassName =
+  "w-full px-4 py-2.5 text-left text-sm text-gray-700 hover:bg-gray-100 flex items-center gap-3 cursor-pointer";
 
 interface ShareButtonProps {
   title: string;
-  className?: string;
+  /** Where the menu opens; "above" for buttons near the bottom of a page. */
+  placement?: "above" | "below";
 }
 
-export default function ShareButton({ title, className = "" }: ShareButtonProps) {
+/** "Share" button with a menu for X, LinkedIn, Facebook and copying the link. */
+export default function ShareButton({ title, placement = "below" }: ShareButtonProps) {
   const [showShareMenu, setShowShareMenu] = useState(false);
   const [copyFeedback, setCopyFeedback] = useState(false);
-  const menuRef = useRef<HTMLDivElement>(null);
-  const buttonRef = useRef<HTMLButtonElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const position = placement === "above" ? "bottom-full mb-2" : "top-full mt-2";
 
-  // Close menu when clicking outside
+  // Close the menu on a click outside of it.
   useEffect(() => {
+    if (!showShareMenu) return;
     const handleClickOutside = (event: MouseEvent) => {
-      if (
-        menuRef.current &&
-        buttonRef.current &&
-        !menuRef.current.contains(event.target as Node) &&
-        !buttonRef.current.contains(event.target as Node)
-      ) {
-        setShowShareMenu(false);
-      }
+      if (!containerRef.current?.contains(event.target as Node)) setShowShareMenu(false);
     };
-
-    if (showShareMenu) {
-      document.addEventListener("mousedown", handleClickOutside);
-    }
-
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [showShareMenu]);
 
+  const share = (network: ShareNetwork, height: number) => {
+    window.open(shareUrl(network, title), "_blank", `noopener,noreferrer,width=600,height=${height}`);
+    setShowShareMenu(false);
+  };
+
   const handleCopyLink = async () => {
+    setShowShareMenu(false);
     await copyCurrentUrl();
     setCopyFeedback(true);
     setTimeout(() => setCopyFeedback(false), 2000);
-    setShowShareMenu(false);
-  };
-
-  const shareOnTwitter = () => {
-    openShareWindow("x", title, "noopener,noreferrer,width=600,height=400");
-    setShowShareMenu(false);
-  };
-
-  const shareOnLinkedIn = () => {
-    openShareWindow("linkedin", title, "noopener,noreferrer,width=600,height=600");
-    setShowShareMenu(false);
-  };
-
-  const shareOnFacebook = () => {
-    openShareWindow("facebook", title, "noopener,noreferrer,width=600,height=400");
-    setShowShareMenu(false);
   };
 
   return (
-    <div className={`relative ${className}`}>
+    <div ref={containerRef} className="relative">
       <button
-        ref={buttonRef}
         type="button"
         onClick={() => setShowShareMenu(!showShareMenu)}
-        className="flex items-center gap-1 cursor-pointer hover:text-[#c75b4a] transition-colors"
+        className="flex items-center gap-1 cursor-pointer hover:text-brand transition-colors"
         aria-expanded={showShareMenu}
         aria-haspopup="true"
       >
@@ -75,44 +90,23 @@ export default function ShareButton({ title, className = "" }: ShareButtonProps)
 
       {showShareMenu && (
         <div
-          ref={menuRef}
-          className="absolute top-full left-0 mt-2 bg-white border border-gray-200 rounded-lg shadow-xl py-2 min-w-[180px] z-[100]"
+          className={`absolute ${position} left-0 bg-white border border-gray-200 rounded-lg shadow-xl py-2 min-w-[180px] z-[100]`}
           role="menu"
         >
-          <button
-            type="button"
-            onClick={shareOnTwitter}
-            className="w-full px-4 py-2.5 text-left text-sm text-gray-700 hover:bg-gray-100 flex items-center gap-3 cursor-pointer"
-            role="menuitem"
-          >
-            <XIcon />
-            Share on X
-          </button>
-          <button
-            type="button"
-            onClick={shareOnLinkedIn}
-            className="w-full px-4 py-2.5 text-left text-sm text-gray-700 hover:bg-gray-100 flex items-center gap-3 cursor-pointer"
-            role="menuitem"
-          >
-            <LinkedInIcon />
-            Share on LinkedIn
-          </button>
-          <button
-            type="button"
-            onClick={shareOnFacebook}
-            className="w-full px-4 py-2.5 text-left text-sm text-gray-700 hover:bg-gray-100 flex items-center gap-3 cursor-pointer"
-            role="menuitem"
-          >
-            <FacebookIcon />
-            Share on Facebook
-          </button>
+          {NETWORKS.map(({ network, label, icon: Icon, height }) => (
+            <button
+              key={network}
+              type="button"
+              onClick={() => share(network, height)}
+              className={itemClassName}
+              role="menuitem"
+            >
+              <Icon />
+              {label}
+            </button>
+          ))}
           <div className="border-t border-gray-100 my-1" />
-          <button
-            type="button"
-            onClick={handleCopyLink}
-            className="w-full px-4 py-2.5 text-left text-sm text-gray-700 hover:bg-gray-100 flex items-center gap-3 cursor-pointer"
-            role="menuitem"
-          >
+          <button type="button" onClick={handleCopyLink} className={itemClassName} role="menuitem">
             <CopyLinkIcon />
             Copy link
           </button>
@@ -120,7 +114,7 @@ export default function ShareButton({ title, className = "" }: ShareButtonProps)
       )}
 
       {copyFeedback && (
-        <div className="absolute top-full left-0 mt-2 bg-gray-900 text-white text-xs px-3 py-1.5 rounded z-[101]">
+        <div className={`absolute ${position} left-0 bg-gray-900 text-white text-xs px-3 py-1.5 rounded z-[101]`}>
           Link copied!
         </div>
       )}

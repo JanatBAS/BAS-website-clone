@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 interface NavItem {
   label: string;
@@ -255,7 +256,7 @@ function MobileNavItem({ item, onClose }: { item: NavItem; onClose: () => void }
   );
 }
 
-export default function Header() {
+function HeaderBar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
@@ -338,4 +339,13 @@ export default function Header() {
       </div>
     </header>
   );
+}
+
+/**
+ * The page layouts keep the header mounted across navigations; keying it by
+ * path starts every page with closed menus, as a fresh page load would.
+ */
+export default function Header() {
+  const pathname = usePathname();
+  return <HeaderBar key={pathname} />;
 }

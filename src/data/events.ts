@@ -1,8 +1,7 @@
 import { UnifiedEvent, EventCategory, CATEGORY_COLORS } from '@/types/calendar';
 import { formatTimeDisplay, getDateInfo, truncateDescription } from '@/lib/date-utils';
 import { googleCalendarUrl } from '@/lib/ics';
-
-export const SITE_URL = 'https://www.bitcoinassociation.ch';
+import { SITE_URL } from '@/lib/site';
 
 /** Event lists with an index page and earlier/later links between their events. */
 export type EventSeries = 'most-recent-events' | 'roadshow-2025';

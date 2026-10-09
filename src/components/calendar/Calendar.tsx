@@ -136,7 +136,7 @@ export function Calendar({ events, initialTodayISO }: CalendarProps) {
                 href={meetupGroupUrl(group.urlname)}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-[#c75b4a] hover:underline"
+                className="text-brand hover:underline"
               >
                 {group.city}
               </a>

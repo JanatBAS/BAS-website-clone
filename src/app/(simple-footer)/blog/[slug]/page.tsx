@@ -1,0 +1,109 @@
+import type { Metadata } from 'next';
+import { notFound } from 'next/navigation';
+import Link from 'next/link';
+import { getAdminPostBySlug } from '@/lib/blob-store';
+import { sanitizePostHtml } from '@/lib/sanitize-html';
+import { safeHttpUrl } from '@/lib/safe-url';
+import { stripHtml } from '@/lib/utils';
+
+interface PageProps {
+  params: Promise<{ slug: string }>;
+}
+
+// Nothing is pre-rendered at build time; each post is rendered on its first
+// visit and then served from cache until the admin API revalidates it.
+export function generateStaticParams(): { slug: string }[] {
+  return [];
+}
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const post = await getAdminPostBySlug(slug);
+  if (!post) return {};
+  return {
+    title: post.title,
+    description: stripHtml(post.excerpt).slice(0, 300),
+  };
+}
+
+export default async function AdminBlogPostPage({ params }: PageProps) {
+  const { slug } = await params;
+  const post = await getAdminPostBySlug(slug);
+
+  if (!post) notFound();
+
+  // Defense in depth: content is sanitized on save, and again here so posts
+  // stored before sanitization existed are covered too.
+  const safeHtml = sanitizePostHtml(post.htmlContent);
+  const imageUrl = safeHttpUrl(post.imageUrl);
+  const authorHref = `/bitcoin-association-switzerland/author/${encodeURIComponent(post.authorId)}`;
+
+  return (
+    <main className="pt-20 min-h-screen bg-white">
+      {/* Featured Image Banner — uses plain img to support arbitrary hosts */}
+      {imageUrl && (
+        <div className="relative h-[300px] md:h-[400px] lg:h-[500px] overflow-hidden">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={imageUrl}
+            alt={post.title}
+            className="absolute inset-0 w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-black/20" />
+          <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4">
+            <h1 className="text-2xl md:text-3xl lg:text-4xl font-semibold text-white uppercase tracking-wider max-w-4xl">
+              {post.title}
+            </h1>
+            <div className="mt-4 text-white/90 text-sm">{post.date}</div>
+            <div className="mt-1 text-white/90 text-sm">
+              <Link href={authorHref} className="hover:underline">
+                {post.author}
+              </Link>
+            </div>
+          </div>
+        </div>
+      )}
+
+      <article className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        {/* Header when no featured image */}
+        {!imageUrl && (
+          <header className="mb-8">
+            <div className="text-sm text-taupe mb-3">{post.date}</div>
+            <h1 className="text-2xl md:text-3xl font-semibold text-gray-900 tracking-wide mb-4">
+              {post.title}
+            </h1>
+            <div className="text-sm text-gray-600">
+              <Link href={authorHref} className="hover:text-brand">
+                {post.author}
+              </Link>
+            </div>
+          </header>
+        )}
+
+        {/* Post content (sanitized) */}
+        <div
+          className="prose prose-lg max-w-none prose-headings:text-gray-900 prose-p:text-gray-700 prose-p:leading-relaxed prose-a:text-brand prose-a:no-underline hover:prose-a:underline prose-li:text-gray-700"
+          dangerouslySetInnerHTML={{ __html: safeHtml }}
+        />
+
+        {/* Tags — plain text (no links) since admin tags may not have matching pages */}
+        {post.tags && post.tags.length > 0 && (
+          <div className="mt-10 pt-6 border-t border-gray-200">
+            <span className="text-sm text-gray-600">Tagged: </span>
+            <span className="text-sm text-brand">{post.tags.join(', ')}</span>
+          </div>
+        )}
+
+        {/* Back to blog link */}
+        <div className="mt-8 pt-6 border-t border-gray-200">
+          <Link
+            href="/bitcoin-association-switzerland"
+            className="text-sm text-brand hover:underline"
+          >
+            &larr; Back to all posts
+          </Link>
+        </div>
+      </article>
+    </main>
+  );
+}

@@ -43,7 +43,7 @@ export default function ContactForm() {
       >
         {/* Name Fields */}
         <div>
-          <label className="block text-sm text-[#1a1a1a] mb-1">
+          <label className="block text-sm text-ink mb-1">
             Name{" "}
             <span className="text-gray-400 text-xs">(required)</span>
           </label>
@@ -75,7 +75,7 @@ export default function ContactForm() {
 
         {/* Email Field */}
         <div>
-          <label className="block text-sm text-[#1a1a1a] mb-1">
+          <label className="block text-sm text-ink mb-1">
             Email Address{" "}
             <span className="text-gray-400 text-xs">(required)</span>
           </label>
@@ -89,7 +89,7 @@ export default function ContactForm() {
 
         {/* Subject Field */}
         <div>
-          <label className="block text-sm text-[#1a1a1a] mb-1">
+          <label className="block text-sm text-ink mb-1">
             Subject{" "}
             <span className="text-gray-400 text-xs">(required)</span>
           </label>
@@ -103,7 +103,7 @@ export default function ContactForm() {
 
         {/* Message Field */}
         <div>
-          <label className="block text-sm text-[#1a1a1a] mb-1">
+          <label className="block text-sm text-ink mb-1">
             Message{" "}
             <span className="text-gray-400 text-xs">(required)</span>
           </label>
@@ -119,13 +119,13 @@ export default function ContactForm() {
         <div>
           <Button
             type="submit"
-            className="bg-[#1a1a1a] text-white px-8 py-2 text-sm tracking-widest uppercase hover:bg-[#333] rounded-none transition-colors"
+            className="bg-ink text-white px-8 py-2 text-sm tracking-widest uppercase hover:bg-[#333] rounded-none transition-colors"
           >
             Submit
           </Button>
         </div>
 
-        <p className="text-[#8b7355] font-serif text-sm">
+        <p className="text-taupe font-serif text-sm">
           You can also email{" "}
           <a
             href={fallbackMailtoHref}

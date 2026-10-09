@@ -20,7 +20,7 @@ export default function FeaturedPostBanner({
 }) {
   return (
     <div
-      className={`relative h-[400px] md:h-[500px] lg:h-[600px] overflow-hidden ${!image ? "bg-[#2a9d8f]" : ""}`}
+      className={`relative h-[400px] md:h-[500px] lg:h-[600px] overflow-hidden ${!image ? "bg-brand-teal" : ""}`}
     >
       {image && (
         <>

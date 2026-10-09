@@ -17,7 +17,7 @@ export default function BoardElectionNav({
 }: BoardElectionNavProps) {
   return (
     <aside className="md:w-56 flex-shrink-0">
-      <h2 className="text-[#8b7355] text-base font-light mb-4 font-serif italic">
+      <h2 className="text-taupe text-base font-light mb-4 font-serif italic">
         {boardElectionNavTitle}
       </h2>
       <nav className="space-y-1">

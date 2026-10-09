@@ -23,7 +23,7 @@ export default function PageSidebar({
     <aside className="md:w-48 flex-shrink-0">
       <h2
         className={`text-lg font-light mb-4 font-serif italic ${
-          titleClassName ?? "text-[#8b7355]"
+          titleClassName ?? "text-taupe"
         }`}
       >
         {titleHref ? (

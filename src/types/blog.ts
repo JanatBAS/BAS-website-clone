@@ -12,6 +12,5 @@ export interface BlogPost {
   image?: string;
   tags?: string[];
   commentCount?: number;
-  likeCount?: number;
   unoptimizedImage?: boolean;
 }

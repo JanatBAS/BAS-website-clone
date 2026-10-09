@@ -28,7 +28,7 @@ export function CalendarDay({ day, onDayClick, onEventClick }: CalendarDayProps)
             w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center rounded-full text-sm
             transition-all duration-300
             ${day.isToday
-              ? 'bg-[#c75b4a] text-white font-semibold calendar-today-pulse'
+              ? 'bg-brand text-white font-semibold calendar-today-pulse'
               : day.isCurrentMonth
                 ? 'text-gray-900'
                 : 'text-gray-400'

@@ -86,8 +86,8 @@ export function CalendarHeader({
         {/* Today button */}
         <button
           onClick={onToday}
-          className="px-3 py-1.5 text-sm font-medium text-[#c75b4a] border border-[#c75b4a] rounded-lg
-            hover:bg-[#c75b4a] hover:text-white transition-colors"
+          className="px-3 py-1.5 text-sm font-medium text-brand border border-brand rounded-lg
+            hover:bg-brand hover:text-white transition-colors"
         >
           Today
         </button>

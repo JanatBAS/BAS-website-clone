@@ -1,33 +1,25 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Bitcoin Association Switzerland website
 
-## Getting Started
+The public website of the Bitcoin Association Switzerland (www.bitcoinassociation.ch), built with Next.js 16 (App Router), React 19, TypeScript and Tailwind CSS 4.
 
-First, run the development server:
+## Development
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev      # http://localhost:3000
+npm run lint
+npm run build
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Node.js 24 is required (`engines` in `package.json`; CI and Vercel use the same version). Without a `BLOB_READ_WRITE_TOKEN` the site runs normally and admin-created content is simply empty.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Structure
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- `src/app/(full-footer)/` and `src/app/(simple-footer)/`: the public pages. Each route group has a layout that renders the header and its footer, so pages render only their own content. The folder names do not appear in URLs.
+- `src/app/admin/`: the admin panel; `(panel)/` holds the pages behind the login, with the admin navigation in its layout.
+- `src/data/`: hardcoded content. `blog-posts.ts` holds one record per News post; each post page under `bitcoin-association-switzerland/` reads its title, date, author and neighbour links from there with `getPostPage()`. `events.ts` does the same for event pages.
+- `src/lib/`: data loading (Vercel Blob, Meetup sync, shop feed), admin auth and input checks, date helpers.
+- The site palette (`brand`, `brand-teal`, `taupe`, `ink`) is defined in `src/app/globals.css`; use those utilities (`text-brand`, `bg-brand-teal`, ...) instead of hex values.
 
 ## Admin Panel
 
@@ -65,8 +57,6 @@ Keep Blob operations to a minimum: an admin save is one read plus one write, and
 2. Create events and blog posts via the admin forms
 3. Content appears on the public calendar and blog pages immediately
 
-## Deploy on Vercel
+## Deployment
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Pushes to `main` are deployed by Vercel's Git integration. GitHub Actions (`.github/workflows/ci.yml`) runs lint, build and `npm audit` on every push and pull request.

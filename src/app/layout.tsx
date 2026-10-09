@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { SITE_URL } from "@/lib/site";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -7,13 +8,15 @@ const geistSans = Geist({
   subsets: ["latin"],
 });
 
+// Only a few pages use the monospace font, so it is not preloaded on every page.
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+  preload: false,
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://www.bitcoinassociation.ch"),
+  metadataBase: new URL(SITE_URL),
   title: {
     default: "Bitcoin Association Switzerland",
     // Child pages set a plain title; the site name is appended here.
@@ -25,7 +28,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Bitcoin Association Switzerland",
     description: "The Bitcoin Association Switzerland forms an active community of enthusiasts with regular events, try to resolve open legal questions, and educate the public by providing a contact point for media inquiries.",
-    url: "https://www.bitcoinassociation.ch",
+    url: SITE_URL,
     siteName: "Bitcoin Association Switzerland",
     locale: "en_GB",
     type: "website",

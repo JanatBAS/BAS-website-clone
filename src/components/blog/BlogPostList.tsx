@@ -32,7 +32,7 @@ export function NoPostsMessage({ children }: { children: React.ReactNode }) {
       <p>{children}</p>
       <Link
         href={NEWS_PATH}
-        className="text-[#c75b4a] hover:underline mt-2 inline-block"
+        className="text-brand hover:underline mt-2 inline-block"
       >
         View all posts
       </Link>

@@ -36,7 +36,7 @@ export default function AdminPostsList({ posts }: { posts: AdminBlogPost[] }) {
           {posts.map((post) => (
             <tr key={post.id} className="border-b border-gray-800/50">
               <td className="py-3 pr-4">
-                <Link href={`/blog/${post.slug}`} className="hover:text-[#2a9d8f]" target="_blank">
+                <Link href={`/blog/${post.slug}`} className="hover:text-brand-teal" target="_blank">
                   {post.title}
                 </Link>
               </td>
@@ -45,7 +45,7 @@ export default function AdminPostsList({ posts }: { posts: AdminBlogPost[] }) {
               <td className="py-3 text-right space-x-3">
                 <Link
                   href={`/admin/posts/${post.id}/edit`}
-                  className="text-[#2a9d8f] hover:text-[#238b7f] text-xs"
+                  className="text-brand-teal hover:text-brand-teal-dark text-xs"
                 >
                   Edit
                 </Link>

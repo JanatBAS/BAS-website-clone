@@ -1,19 +1,25 @@
 import { NextResponse } from 'next/server';
 import { revalidatePath } from 'next/cache';
 import {
-  AdminDataConflictError,
-  getAdminEvents,
   addAdminEvent,
   deleteAdminEvent,
   excludeEventOccurrence,
   updateAdminEvent,
   invalidateAdminEventsCache,
 } from '@/lib/blob-store';
+import {
+  idParam,
+  invalidInput,
+  missingId,
+  optionalString,
+  optionalUrl,
+  requiredString,
+  saveFailed,
+} from '@/lib/admin-input';
 import type { AdminEvent, AdminEventFormData, RecurrenceRule } from '@/types/admin';
 import type { EventCategory } from '@/types/calendar';
 import { isValidDateISO } from '@/lib/event-dates';
 import { slugify } from '@/lib/utils';
-import { safeHttpUrl } from '@/lib/safe-url';
 import { truncateDescription } from '@/lib/date-utils';
 
 export const dynamic = 'force-dynamic';
@@ -36,22 +42,6 @@ interface ValidatedEventFields {
   signupLink?: string;
   category: EventCategory;
   recurrence?: RecurrenceRule;
-}
-
-function optionalString(value: unknown): string | undefined {
-  return typeof value === 'string' && value.trim() ? value.trim() : undefined;
-}
-
-/** Optional URL field: empty is fine, otherwise it must be an http(s) URL or site-relative path. */
-function optionalUrl(value: unknown, label: string): { url?: string; error?: string } {
-  const input = optionalString(value);
-  if (!input) return {};
-  const url = safeHttpUrl(input);
-  return url ? { url } : { error: `${label} must be an http(s) URL.` };
-}
-
-function requiredString(value: unknown): string {
-  return typeof value === 'string' ? value.trim() : '';
 }
 
 function isValidTime(value: string): boolean {
@@ -159,30 +149,12 @@ function revalidateEventPages(): void {
   revalidatePath('/events');
 }
 
-function saveFailed(error: unknown, message: string): NextResponse {
-  if (error instanceof AdminDataConflictError) {
-    return NextResponse.json({ error: error.message }, { status: 409 });
-  }
-  return NextResponse.json({ error: message }, { status: 500 });
-}
-
-export async function GET() {
-  try {
-    const events = await getAdminEvents();
-    return NextResponse.json(events);
-  } catch {
-    return NextResponse.json({ error: 'Failed to fetch events' }, { status: 500 });
-  }
-}
-
 export async function POST(request: Request) {
   try {
     const data: AdminEventFormData = await request.json();
     const validation = validateEventData(data);
 
-    if (!validation.fields) {
-      return NextResponse.json({ error: validation.error || 'Invalid event data' }, { status: 400 });
-    }
+    if (!validation.fields) return invalidInput(validation.error || 'Invalid event data');
 
     const uniqueSuffix = Date.now().toString(36);
     const now = new Date().toISOString();
@@ -204,18 +176,13 @@ export async function POST(request: Request) {
 
 export async function PUT(request: Request) {
   try {
-    const { searchParams } = new URL(request.url);
-    const id = searchParams.get('id');
-    if (!id) {
-      return NextResponse.json({ error: 'Missing id parameter' }, { status: 400 });
-    }
+    const id = idParam(request);
+    if (!id) return missingId();
 
     const data: AdminEventFormData = await request.json();
     const validation = validateEventData(data);
 
-    if (!validation.fields) {
-      return NextResponse.json({ error: validation.error || 'Invalid event data' }, { status: 400 });
-    }
+    if (!validation.fields) return invalidInput(validation.error || 'Invalid event data');
 
     const fields = validation.fields;
     const updated = await updateAdminEvent(id, (existing) => ({
@@ -239,15 +206,10 @@ export async function PUT(request: Request) {
 
 export async function DELETE(request: Request) {
   try {
-    const { searchParams } = new URL(request.url);
-    const id = searchParams.get('id');
-    if (!id) {
-      return NextResponse.json({ error: 'Missing id parameter' }, { status: 400 });
-    }
-    const date = searchParams.get('date');
-    if (date && !isValidDateISO(date)) {
-      return NextResponse.json({ error: 'Invalid date format. Use YYYY-MM-DD.' }, { status: 400 });
-    }
+    const id = idParam(request);
+    if (!id) return missingId();
+    const date = new URL(request.url).searchParams.get('date');
+    if (date && !isValidDateISO(date)) return invalidInput('Invalid date format. Use YYYY-MM-DD.');
     // With a date, only that occurrence of a recurring series is hidden.
     const found = date ? await excludeEventOccurrence(id, date) : await deleteAdminEvent(id);
     if (!found) {

@@ -6,8 +6,7 @@ import Image from 'next/image';
 import { UnifiedEvent, CATEGORY_COLORS, CATEGORY_LABELS } from '@/types/calendar';
 import { formatEventDateRange, isEventPast } from '@/lib/event-dates';
 import { googleCalendarUrl, icsDataUrl, icsFileName, type IcsEventInput } from '@/lib/ics';
-
-const SITE_URL = 'https://www.bitcoinassociation.ch';
+import { SITE_URL } from '@/lib/site';
 
 interface CalendarEventModalProps {
   event: UnifiedEvent | null;
@@ -185,7 +184,7 @@ export function CalendarEventModal({ event, isOpen, onClose, todayISO }: Calenda
                     href={event.locationUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="ml-2 text-[#c75b4a] hover:underline"
+                    className="ml-2 text-brand hover:underline"
                   >
                     (map)
                   </a>
@@ -206,8 +205,8 @@ export function CalendarEventModal({ event, isOpen, onClose, todayISO }: Calenda
               <Link
                 href={event.href}
                 className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-2.5
-                  bg-[#c75b4a] text-white font-medium rounded-lg
-                  hover:bg-[#b54a3a] transition-colors"
+                  bg-brand text-white font-medium rounded-lg
+                  hover:bg-brand-dark transition-colors"
               >
                 View Event
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -223,8 +222,8 @@ export function CalendarEventModal({ event, isOpen, onClose, todayISO }: Calenda
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-2.5
-                  border-2 border-[#c75b4a] text-[#c75b4a] font-medium rounded-lg
-                  hover:bg-[#c75b4a]/10 transition-colors"
+                  border-2 border-brand text-brand font-medium rounded-lg
+                  hover:bg-brand/10 transition-colors"
               >
                 View on Meetup
               </a>
@@ -239,8 +238,8 @@ export function CalendarEventModal({ event, isOpen, onClose, todayISO }: Calenda
                 className={`flex-1 inline-flex items-center justify-center gap-2 px-4 py-2.5
                   font-medium rounded-lg transition-colors
                   ${event.source === 'admin' || event.source === 'meetup.com'
-                    ? 'bg-[#c75b4a] text-white hover:bg-[#b54a3a]'
-                    : 'border-2 border-[#c75b4a] text-[#c75b4a] hover:bg-[#c75b4a]/10'
+                    ? 'bg-brand text-white hover:bg-brand-dark'
+                    : 'border-2 border-brand text-brand hover:bg-brand/10'
                   }`}
               >
                 Sign Up
@@ -260,14 +259,14 @@ export function CalendarEventModal({ event, isOpen, onClose, todayISO }: Calenda
                   href={event.googleCalendarUrl ?? googleCalendarUrl(calendarInput)}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-sm text-[#c75b4a] hover:underline"
+                  className="text-sm text-brand hover:underline"
                 >
                   Google Calendar
                 </a>
                 <a
                   href={icsDataUrl(calendarInput)}
                   download={icsFileName(event.slug)}
-                  className="text-sm text-[#c75b4a] hover:underline"
+                  className="text-sm text-brand hover:underline"
                 >
                   ICS / Outlook
                 </a>

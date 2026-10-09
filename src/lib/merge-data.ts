@@ -157,7 +157,6 @@ export function adminPostToMerged(post: AdminBlogPost): BlogPost {
     image: safeHttpUrl(post.imageUrl),
     tags: post.tags,
     commentCount: 0,
-    likeCount: 0,
     unoptimizedImage: true,
   };
 }
