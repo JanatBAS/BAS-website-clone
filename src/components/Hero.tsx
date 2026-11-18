@@ -10,6 +10,9 @@ export default function Hero() {
         fill
         className="object-cover"
         priority
+        // The hero is the home page's LCP element; without this hint the
+        // browser starts it at low priority until layout.
+        fetchPriority="high"
       />
 
       {/* Dark overlay to match original screenshot */}
