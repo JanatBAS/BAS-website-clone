@@ -1,16 +1,15 @@
 import BlogPostLayout, { type BlogPostComment } from "@/components/BlogPostLayout";
-import { getPostPage } from "@/data/blog-posts";
+import { getPostPage, postMetadata } from "@/data/blog-posts";
 import { Metadata } from "next";
 
 const post = getPostPage("bitcoin-association-switzerland-appoints-new-board-sets-bold-vision-for-the-future");
 
 const comments: BlogPostComment[] = [];
 
-export const metadata: Metadata = {
-  title: post.title,
-  description:
-    "Bitcoin Association Switzerland (BAS) is proud to announce the appointment of a new board, marking a fresh chapter in its long-standing commitment to Bitcoin advocacy and innovation.",
-};
+export const metadata: Metadata = postMetadata(
+  post,
+  "Bitcoin Association Switzerland (BAS) is proud to announce the appointment of a new board, marking a fresh chapter in its long-standing commitment to Bitcoin advocacy and innovation.",
+);
 
 export default function BitcoinAssociationNewBoardPage() {
   return (

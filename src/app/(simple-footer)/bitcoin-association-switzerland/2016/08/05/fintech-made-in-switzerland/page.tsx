@@ -1,16 +1,15 @@
 import BlogPostLayout, { type BlogPostComment } from "@/components/BlogPostLayout";
-import { getPostPage } from "@/data/blog-posts";
+import { getPostPage, postMetadata } from "@/data/blog-posts";
 import { Metadata } from "next";
 
 const post = getPostPage("fintech-made-in-switzerland");
 
 const comments: BlogPostComment[] = [];
 
-export const metadata: Metadata = {
-  title: post.title,
-  description:
-    "Manual Stagars is creating a Swiss FinTech documentary and talked to Luzius Meisser about the blockchain and opportunities for Switzerland.",
-};
+export const metadata: Metadata = postMetadata(
+  post,
+  "Manual Stagars is creating a Swiss FinTech documentary and talked to Luzius Meisser about the blockchain and opportunities for Switzerland.",
+);
 
 export default function FintechMadeInSwitzerlandPage() {
   return (

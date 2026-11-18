@@ -1,5 +1,5 @@
 import BlogPostLayout, { type BlogPostComment } from "@/components/BlogPostLayout";
-import { getPostPage } from "@/data/blog-posts";
+import { getPostPage, postMetadata } from "@/data/blog-posts";
 import Image from "next/image";
 import { Metadata } from "next";
 
@@ -7,11 +7,10 @@ const post = getPostPage("talk-at-sipug-day");
 
 const comments: BlogPostComment[] = [];
 
-export const metadata: Metadata = {
-  title: post.title,
-  description:
-    "The Bitcoin Association is invited to hold a talk about Bitcoin about twice per month, such as this SIPUG day with 300 registered participants.",
-};
+export const metadata: Metadata = postMetadata(
+  post,
+  "The Bitcoin Association is invited to hold a talk about Bitcoin about twice per month, such as this SIPUG day with 300 registered participants.",
+);
 
 export default function TalkAtSipugDayPage() {
   return (

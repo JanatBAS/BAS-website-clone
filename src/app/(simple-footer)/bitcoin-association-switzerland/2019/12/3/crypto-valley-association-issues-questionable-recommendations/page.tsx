@@ -1,5 +1,5 @@
 import BlogPostLayout, { type BlogPostComment } from "@/components/BlogPostLayout";
-import { getPostPage } from "@/data/blog-posts";
+import { getPostPage, postMetadata } from "@/data/blog-posts";
 import { Metadata } from "next";
 
 const post = getPostPage("crypto-valley-association-issues-questionable-recommendations");
@@ -54,11 +54,10 @@ const comments: BlogPostComment[] = [
   },
 ];
 
-export const metadata: Metadata = {
-  title: post.title,
-  description:
-    "The Crypto Valley Association's paper on Asset Tokenization contains many insightful sections, but others get some fundamental legal considerations embarrassingly wrong.",
-};
+export const metadata: Metadata = postMetadata(
+  post,
+  "The Crypto Valley Association's paper on Asset Tokenization contains many insightful sections, but others get some fundamental legal considerations embarrassingly wrong.",
+);
 
 export default function CryptoValleyAssociationPage() {
   return (

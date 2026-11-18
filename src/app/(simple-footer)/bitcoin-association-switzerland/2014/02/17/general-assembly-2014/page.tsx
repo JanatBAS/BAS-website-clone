@@ -1,5 +1,5 @@
 import BlogPostLayout, { type BlogPostComment } from "@/components/BlogPostLayout";
-import { getPostPage } from "@/data/blog-posts";
+import { getPostPage, postMetadata } from "@/data/blog-posts";
 import Image from "next/image";
 import { Metadata } from "next";
 
@@ -7,11 +7,10 @@ const post = getPostPage("general-assembly-2014");
 
 const comments: BlogPostComment[] = [];
 
-export const metadata: Metadata = {
-  title: post.title,
-  description:
-    "Our general assembly will take place on 2014-02-23 at Colab Zurich, with highlights including an intro to Ethereum by the founders themselves.",
-};
+export const metadata: Metadata = postMetadata(
+  post,
+  "Our general assembly will take place on 2014-02-23 at Colab Zurich, with highlights including an intro to Ethereum by the founders themselves.",
+);
 
 export default function GeneralAssembly2014Page() {
   return (
@@ -36,7 +35,7 @@ export default function GeneralAssembly2014Page() {
       <p>
         Then, most importantly, we finally have our membership application form online on{" "}
         <a
-          href="http://bitcoinassociation.ch/join.html"
+          href="/membership/private-individuals"
           target="_blank"
           rel="noopener noreferrer"
           className="text-brand hover:underline"

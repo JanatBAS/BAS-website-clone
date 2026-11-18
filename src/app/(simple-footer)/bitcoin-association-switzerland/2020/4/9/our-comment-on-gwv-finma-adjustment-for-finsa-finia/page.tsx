@@ -1,5 +1,5 @@
 import BlogPostLayout, { type BlogPostComment } from "@/components/BlogPostLayout";
-import { getPostPage } from "@/data/blog-posts";
+import { getPostPage, postMetadata } from "@/data/blog-posts";
 import Link from "next/link";
 import { Metadata } from "next";
 
@@ -20,11 +20,10 @@ const comments: BlogPostComment[] = [
   },
 ];
 
-export const metadata: Metadata = {
-  title: post.title,
-  description:
-    "On the 8th of April 2020 we sent a comment to FINMA regarding the new money laundering ordinance, recommending to remove article 51a or to set the new threshold of CHF 1'000 for all currencies.",
-};
+export const metadata: Metadata = postMetadata(
+  post,
+  "On the 8th of April 2020 we sent a comment to FINMA regarding the new money laundering ordinance, recommending to remove article 51a or to set the new threshold of CHF 1'000 for all currencies.",
+);
 
 export default function GwvFinmaCommentPage() {
   return (

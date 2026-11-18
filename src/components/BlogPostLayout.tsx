@@ -3,6 +3,7 @@ import Link from "next/link";
 import PostComments from "@/components/blog/PostComments";
 import ShareButton from "@/components/ShareButton";
 import { authorHref, categoryHref, tagHref, type BlogPostPage } from "@/data/blog-posts";
+import { SITE_URL } from "@/lib/site";
 
 export interface BlogPostComment {
   /** Commenter name; omitted for anonymous comments. */
@@ -43,10 +44,27 @@ function Byline({ post, linkClassName }: { post: BlogPostPage; linkClassName: st
   );
 }
 
+/** schema.org data of the post for search engines, as an escaped JSON string. */
+function structuredData(post: BlogPostPage, datePublished: string): string {
+  const data = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: post.title,
+    datePublished,
+    author: { "@type": "Person", name: post.author },
+    publisher: { "@type": "Organization", name: "Bitcoin Association Switzerland", url: SITE_URL },
+    mainEntityOfPage: `${SITE_URL}${post.href}`,
+    ...(post.banner && { image: `${SITE_URL}${post.banner}` }),
+  };
+  // "<" is escaped so no text in the data can close the script element.
+  return JSON.stringify(data).replace(/</g, "\\u003c");
+}
+
 export default function BlogPostLayout({ post, comments, children }: BlogPostLayoutProps) {
+  const datePublished = new Date(post.timestamp).toISOString();
   const date = (
     <Link href={post.href} className="hover:underline">
-      {post.date}
+      <time dateTime={datePublished}>{post.date}</time>
     </Link>
   );
   const titleLink = post.titleHref && (
@@ -65,6 +83,11 @@ export default function BlogPostLayout({ post, comments, children }: BlogPostLay
 
   return (
     <main className="pt-20 min-h-screen bg-white">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: structuredData(post, datePublished) }}
+      />
+
       {/* Featured Image Banner (if present) */}
       {post.banner && (
         <div className="relative h-[300px] md:h-[400px] lg:h-[500px] overflow-hidden">
@@ -134,7 +157,7 @@ export default function BlogPostLayout({ post, comments, children }: BlogPostLay
 
         {/* Share */}
         <div className="mt-6 flex items-center gap-6 text-sm text-gray-600">
-          <ShareButton title={post.title} placement="above" />
+          <ShareButton title={post.title} url={post.href} placement="above" />
         </div>
 
         {/* Comments */}

@@ -1,16 +1,15 @@
 import BlogPostLayout, { type BlogPostComment } from "@/components/BlogPostLayout";
-import { getPostPage } from "@/data/blog-posts";
+import { getPostPage, postMetadata } from "@/data/blog-posts";
 import { Metadata } from "next";
 
 const post = getPostPage("announcement-from-the-board-of-the-bitcoin-association-switzerland");
 
 const comments: BlogPostComment[] = [];
 
-export const metadata: Metadata = {
-  title: post.title,
-  description:
-    "The newly appointed board shares its first update with the members of Bitcoin Association Switzerland and what they can expect moving forward.",
-};
+export const metadata: Metadata = postMetadata(
+  post,
+  "The newly appointed board shares its first update with the members of Bitcoin Association Switzerland and what they can expect moving forward.",
+);
 
 export default function AnnouncementFromBoardPage() {
   return (

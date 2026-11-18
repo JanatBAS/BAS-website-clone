@@ -1,14 +1,13 @@
 import BlogPostLayout from "@/components/BlogPostLayout";
-import { getPostPage } from "@/data/blog-posts";
+import { getPostPage, postMetadata } from "@/data/blog-posts";
 import { Metadata } from "next";
 
 const post = getPostPage("lakeside-partners-joins-the-bitcoin-association-switzerland");
 
-export const metadata: Metadata = {
-  title: post.title,
-  description:
-    "Lakeside Partners set up a mining operation in-house and paid the annual membership fee for the Bitcoin Association Switzerland with Bitcoin they mined themselves.",
-};
+export const metadata: Metadata = postMetadata(
+  post,
+  "Lakeside Partners set up a mining operation in-house and paid the annual membership fee for the Bitcoin Association Switzerland with Bitcoin they mined themselves.",
+);
 
 export default function LakesidePartnersJoinsPage() {
   return (

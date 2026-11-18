@@ -156,7 +156,7 @@ function EventCard({ event }: { event: EventRecord }) {
 
         {/* Actions Row */}
         <div className="flex items-center gap-4 mt-4 text-xs text-gray-400">
-          <ShareButton title={event.title} />
+          <ShareButton title={event.title} url={event.href} />
         </div>
       </div>
     </article>

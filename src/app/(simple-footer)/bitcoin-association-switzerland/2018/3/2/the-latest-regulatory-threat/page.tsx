@@ -1,5 +1,5 @@
 import BlogPostLayout, { type BlogPostComment } from "@/components/BlogPostLayout";
-import { getPostPage } from "@/data/blog-posts";
+import { getPostPage, postMetadata } from "@/data/blog-posts";
 import { Metadata } from "next";
 
 const post = getPostPage("the-latest-regulatory-threat");
@@ -54,11 +54,10 @@ const comments: BlogPostComment[] = [
   },
 ];
 
-export const metadata: Metadata = {
-  title: post.title,
-  description:
-    "The Swiss government has proposed a law that inadvertently threatens Switzerland's excellent position in the international race for becoming the preferred jurisdiction for crypto startups.",
-};
+export const metadata: Metadata = postMetadata(
+  post,
+  "The Swiss government has proposed a law that inadvertently threatens Switzerland's excellent position in the international race for becoming the preferred jurisdiction for crypto startups.",
+);
 
 export default function TheLatestRegulatoryThreatPage() {
   return (

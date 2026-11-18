@@ -1,5 +1,5 @@
 import BlogPostLayout, { type BlogPostComment } from "@/components/BlogPostLayout";
-import { getPostPage } from "@/data/blog-posts";
+import { getPostPage, postMetadata } from "@/data/blog-posts";
 import Link from "next/link";
 import Image from "next/image";
 import { Metadata } from "next";
@@ -29,11 +29,10 @@ const comments: BlogPostComment[] = [
   },
 ];
 
-export const metadata: Metadata = {
-  title: post.title,
-  description:
-    "Creating a new cryptocurrency by forking off of Bitcoin seems to be this season's fashion; this post covers how to benefit from such forks and the specific changes of the Bitcoin Gold fork.",
-};
+export const metadata: Metadata = postMetadata(
+  post,
+  "Creating a new cryptocurrency by forking off of Bitcoin seems to be this season's fashion; this post covers how to benefit from such forks and the specific changes of the Bitcoin Gold fork.",
+);
 
 export default function BitcoinGoldPage() {
   return (

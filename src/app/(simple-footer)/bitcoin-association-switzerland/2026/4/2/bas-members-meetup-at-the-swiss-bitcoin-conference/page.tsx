@@ -1,14 +1,13 @@
 import BlogPostLayout from "@/components/BlogPostLayout";
-import { getPostPage } from "@/data/blog-posts";
+import { getPostPage, postMetadata } from "@/data/blog-posts";
 import { Metadata } from "next";
 
 const post = getPostPage("bas-members-meetup-at-the-swiss-bitcoin-conference");
 
-export const metadata: Metadata = {
-  title: post.title,
-  description:
-    "Our first BAS member meetup alongside a Bitcoin conference this year takes place at the Swiss Bitcoin Conference in Kreuzlingen on Saturday, 25 April 2026.",
-};
+export const metadata: Metadata = postMetadata(
+  post,
+  "Our first BAS member meetup alongside a Bitcoin conference this year takes place at the Swiss Bitcoin Conference in Kreuzlingen on Saturday, 25 April 2026.",
+);
 
 export default function BASMembersMeetupAtTheSwissBitcoinConferencePostPage() {
   return (

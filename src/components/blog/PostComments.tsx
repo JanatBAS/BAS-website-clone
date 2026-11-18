@@ -7,7 +7,7 @@ const metaItemClassName = "before:content-['·'] before:mr-2";
 /** Read-only list of the comments a post received on the original site. */
 export default function PostComments({ comments }: { comments: BlogPostComment[] }) {
   return (
-    <section className="mt-12 pt-8 border-t border-gray-200">
+    <section id="comments" className="mt-12 pt-8 border-t border-gray-200 scroll-mt-24">
       <h2 className="text-sm font-medium text-gray-800 uppercase tracking-wider mb-6">
         Comments ({comments.length})
       </h2>

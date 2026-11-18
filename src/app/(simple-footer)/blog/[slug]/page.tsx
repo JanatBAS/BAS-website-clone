@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
+import { postMetadata } from '@/data/blog-posts';
 import { getAdminPostBySlug } from '@/lib/blob-store';
 import { sanitizePostHtml } from '@/lib/sanitize-html';
 import { safeHttpUrl } from '@/lib/safe-url';
@@ -20,10 +21,11 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const { slug } = await params;
   const post = await getAdminPostBySlug(slug);
   if (!post) return {};
-  return {
-    title: post.title,
-    description: stripHtml(post.excerpt).slice(0, 300),
-  };
+  return postMetadata(
+    { ...post, href: `/blog/${post.slug}` },
+    stripHtml(post.excerpt).slice(0, 300),
+    safeHttpUrl(post.imageUrl),
+  );
 }
 
 export default async function AdminBlogPostPage({ params }: PageProps) {

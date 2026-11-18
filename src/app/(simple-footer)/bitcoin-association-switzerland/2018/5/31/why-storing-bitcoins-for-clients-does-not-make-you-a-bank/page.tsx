@@ -1,14 +1,13 @@
 import BlogPostLayout from "@/components/BlogPostLayout";
-import { getPostPage } from "@/data/blog-posts";
+import { getPostPage, postMetadata } from "@/data/blog-posts";
 import { Metadata } from "next";
 
 const post = getPostPage("why-storing-bitcoins-for-clients-does-not-make-you-a-bank");
 
-export const metadata: Metadata = {
-  title: post.title,
-  description:
-    "Last week, three interesting legal papers have been published that might turn out to be helpful for Crypto Nation Switzerland.",
-};
+export const metadata: Metadata = postMetadata(
+  post,
+  "Last week, three interesting legal papers have been published that might turn out to be helpful for Crypto Nation Switzerland.",
+);
 
 export default function WhyStoringBitcoinsPage() {
   return (

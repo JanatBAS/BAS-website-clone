@@ -1,15 +1,14 @@
 import BlogPostLayout from "@/components/BlogPostLayout";
-import { getPostPage } from "@/data/blog-posts";
+import { getPostPage, postMetadata } from "@/data/blog-posts";
 import Image from "next/image";
 import { Metadata } from "next";
 
 const post = getPostPage("welcoming-new-board-members");
 
-export const metadata: Metadata = {
-  title: post.title,
-  description:
-    "At the annual general assembly of the Bitcoin Association Switzerland on the 28th of March 2017, our members appointed two new board members.",
-};
+export const metadata: Metadata = postMetadata(
+  post,
+  "At the annual general assembly of the Bitcoin Association Switzerland on the 28th of March 2017, our members appointed two new board members.",
+);
 
 export default function WelcomingNewBoardMembersPage() {
   return (

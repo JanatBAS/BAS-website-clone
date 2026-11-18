@@ -1,5 +1,5 @@
 import BlogPostLayout, { type BlogPostComment } from "@/components/BlogPostLayout";
-import { getPostPage } from "@/data/blog-posts";
+import { getPostPage, postMetadata } from "@/data/blog-posts";
 import { Metadata } from "next";
 
 const post = getPostPage("our-comment-on-designing-a-prudential-treatment-for-cryptoassets-of-the-basel-committee-on-banking-supervision");
@@ -33,11 +33,10 @@ const comments: BlogPostComment[] = [
   },
 ];
 
-export const metadata: Metadata = {
-  title: post.title,
-  description:
-    "Bitcoin Association Switzerland's comment on the Basel Committee on Banking Supervision's discussion paper on the design of a prudential treatment for crypto-assets.",
-};
+export const metadata: Metadata = postMetadata(
+  post,
+  "Bitcoin Association Switzerland's comment on the Basel Committee on Banking Supervision's discussion paper on the design of a prudential treatment for crypto-assets.",
+);
 
 export default function BaselCommitteeCommentPage() {
   return (

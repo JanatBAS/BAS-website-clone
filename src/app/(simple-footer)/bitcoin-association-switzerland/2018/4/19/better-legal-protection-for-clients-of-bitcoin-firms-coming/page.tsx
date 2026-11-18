@@ -1,14 +1,13 @@
 import BlogPostLayout from "@/components/BlogPostLayout";
-import { getPostPage } from "@/data/blog-posts";
+import { getPostPage, postMetadata } from "@/data/blog-posts";
 import { Metadata } from "next";
 
 const post = getPostPage("better-legal-protection-for-clients-of-bitcoin-firms-coming");
 
-export const metadata: Metadata = {
-  title: post.title,
-  description:
-    "Marcel Dobler, member of the Swiss national parliament and co-founder of digitec.ch, proposed a law that could turn out to be very helpful for Crypto Nation Switzerland.",
-};
+export const metadata: Metadata = postMetadata(
+  post,
+  "Marcel Dobler, member of the Swiss national parliament and co-founder of digitec.ch, proposed a law that could turn out to be very helpful for Crypto Nation Switzerland.",
+);
 
 export default function BetterLegalProtectionPage() {
   return (

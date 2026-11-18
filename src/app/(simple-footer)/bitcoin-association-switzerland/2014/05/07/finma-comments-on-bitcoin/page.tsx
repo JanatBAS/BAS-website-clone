@@ -1,5 +1,5 @@
 import BlogPostLayout, { type BlogPostComment } from "@/components/BlogPostLayout";
-import { getPostPage } from "@/data/blog-posts";
+import { getPostPage, postMetadata } from "@/data/blog-posts";
 import Link from "next/link";
 import { Metadata } from "next";
 
@@ -7,11 +7,10 @@ const post = getPostPage("finma-comments-on-bitcoin");
 
 const comments: BlogPostComment[] = [];
 
-export const metadata: Metadata = {
-  title: post.title,
-  description:
-    "In a recently published guide titled 'how consumers can protect themselves from financial market actors that operate without permit', the Swiss financial market authorities commented on Bitcoin.",
-};
+export const metadata: Metadata = postMetadata(
+  post,
+  "In a recently published guide titled 'how consumers can protect themselves from financial market actors that operate without permit', the Swiss financial market authorities commented on Bitcoin.",
+);
 
 export default function FinmaCommentsOnBitcoinPage() {
   return (

@@ -1,5 +1,5 @@
 import BlogPostLayout, { type BlogPostComment } from "@/components/BlogPostLayout";
-import { getPostPage } from "@/data/blog-posts";
+import { getPostPage, postMetadata } from "@/data/blog-posts";
 import { Metadata } from "next";
 
 const post = getPostPage("general-discussion-meetup");
@@ -14,10 +14,10 @@ const comments: BlogPostComment[] = [
   },
 ];
 
-export const metadata: Metadata = {
-  title: post.title,
-  description: "The November 20th meetup will be dedicated to discussing our association.",
-};
+export const metadata: Metadata = postMetadata(
+  post,
+  "The November 20th meetup will be dedicated to discussing our association.",
+);
 
 export default function GeneralDiscussionMeetupPage() {
   return (

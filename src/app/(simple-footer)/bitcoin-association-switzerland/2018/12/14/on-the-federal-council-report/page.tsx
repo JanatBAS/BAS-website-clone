@@ -1,15 +1,14 @@
 import BlogPostLayout from "@/components/BlogPostLayout";
-import { getPostPage } from "@/data/blog-posts";
+import { getPostPage, postMetadata } from "@/data/blog-posts";
 import Link from "next/link";
 import { Metadata } from "next";
 
 const post = getPostPage("on-the-federal-council-report");
 
-export const metadata: Metadata = {
-  title: post.title,
-  description:
-    "The federal council published its 170-page report on the legal foundations of the blockchain in Switzerland, incorporating the findings of a consultation to which the Bitcoin Association also provided inputs.",
-};
+export const metadata: Metadata = postMetadata(
+  post,
+  "The federal council published its 170-page report on the legal foundations of the blockchain in Switzerland, incorporating the findings of a consultation to which the Bitcoin Association also provided inputs.",
+);
 
 export default function OnTheFederalCouncilReportPage() {
   return (

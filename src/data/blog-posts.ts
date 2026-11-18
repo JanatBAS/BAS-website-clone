@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import type { BlogPost } from "@/types/blog";
 
 /**
@@ -27,6 +28,8 @@ export interface BlogPostLink {
 export interface BlogPostPage {
   title: string;
   date: string;
+  /** Unix timestamp in milliseconds of `date`. */
+  timestamp: number;
   author: string;
   authorId: string;
   href: string;
@@ -603,6 +606,7 @@ export function getPostPage(slug: string): BlogPostPage {
   return {
     title: post.title,
     date: post.date,
+    timestamp: post.timestamp,
     author: post.author,
     authorId: post.authorId,
     href: post.href,
@@ -612,6 +616,52 @@ export function getPostPage(slug: string): BlogPostPage {
     banner: post.imageInBody ? undefined : post.image,
     newerPost: link(sortedPosts[index - 1]),
     olderPost: link(sortedPosts[index + 1]),
+  };
+}
+
+/**
+ * Shown when a post is shared. Post images are mostly WebP files under
+ * .jpg/.png names, which some link-preview crawlers reject, so the real PNG
+ * logo of the root layout is used.
+ */
+const SHARE_IMAGE = {
+  url: "/images/branding/logo-with-name.png",
+  width: 227,
+  height: 238,
+  alt: "Bitcoin Association Switzerland Logo",
+};
+
+/**
+ * Metadata of a post's page: without its own Open Graph and Twitter fields a
+ * page inherits the home page's title and URL from the root layout, so shared
+ * links would preview as the home page.
+ */
+export function postMetadata(
+  post: Pick<BlogPostPage, "title" | "href" | "timestamp" | "author" | "category" | "tags">,
+  description: string,
+  image?: string,
+): Metadata {
+  const images = image ? [image] : [SHARE_IMAGE];
+  return {
+    title: post.title,
+    description,
+    alternates: { canonical: post.href },
+    openGraph: {
+      type: "article",
+      title: post.title,
+      description,
+      url: post.href,
+      siteName: "Bitcoin Association Switzerland",
+      locale: "en_GB",
+      publishedTime: Number.isFinite(post.timestamp)
+        ? new Date(post.timestamp).toISOString()
+        : undefined,
+      authors: [post.author],
+      section: post.category,
+      tags: post.tags,
+      images,
+    },
+    twitter: { card: "summary", title: post.title, description, images },
   };
 }
 

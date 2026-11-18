@@ -1,16 +1,15 @@
 import BlogPostLayout, { type BlogPostComment } from "@/components/BlogPostLayout";
-import { getPostPage } from "@/data/blog-posts";
+import { getPostPage, postMetadata } from "@/data/blog-posts";
 import { Metadata } from "next";
 
 const post = getPostPage("statement-on-12-point-program");
 
 const comments: BlogPostComment[] = [];
 
-export const metadata: Metadata = {
-  title: post.title,
-  description:
-    "The Bitcoin Association Switzerland supports the 12-point program jointly developed by leading industry associations, but strongly opposes the introduction of Central Bank Digital Currencies (CBDCs).",
-};
+export const metadata: Metadata = postMetadata(
+  post,
+  "The Bitcoin Association Switzerland supports the 12-point program jointly developed by leading industry associations, but strongly opposes the introduction of Central Bank Digital Currencies (CBDCs).",
+);
 
 export default function StatementOn12PointProgramPage() {
   return (

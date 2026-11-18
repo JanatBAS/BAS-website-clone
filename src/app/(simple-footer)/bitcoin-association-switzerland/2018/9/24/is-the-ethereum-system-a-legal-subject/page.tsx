@@ -1,14 +1,13 @@
 import BlogPostLayout from "@/components/BlogPostLayout";
-import { getPostPage } from "@/data/blog-posts";
+import { getPostPage, postMetadata } from "@/data/blog-posts";
 import { Metadata } from "next";
 
 const post = getPostPage("is-the-ethereum-system-a-legal-subject");
 
-export const metadata: Metadata = {
-  title: post.title,
-  description:
-    "There are some hints that abstract systems like Ethereum should legally be treated like their own entities, the latest coming from the context of value-added tax (VAT or MWST in German).",
-};
+export const metadata: Metadata = postMetadata(
+  post,
+  "There are some hints that abstract systems like Ethereum should legally be treated like their own entities, the latest coming from the context of value-added tax (VAT or MWST in German).",
+);
 
 export default function IsTheEthereumSystemALegalSubjectPage() {
   return (

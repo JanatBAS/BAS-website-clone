@@ -1,14 +1,13 @@
 import BlogPostLayout from "@/components/BlogPostLayout";
-import { getPostPage } from "@/data/blog-posts";
+import { getPostPage, postMetadata } from "@/data/blog-posts";
 import { Metadata } from "next";
 
 const post = getPostPage("alexis-roussel-warns-about-centralized-money-advertised-as-crypto-currency-on-swiss-tv");
 
-export const metadata: Metadata = {
-  title: post.title,
-  description:
-    "Alexis Roussel, cofondateur de Bity, discusses the difference between true cryptocurrencies like Bitcoin and centralized alternatives on Leman Bleu TV.",
-};
+export const metadata: Metadata = postMetadata(
+  post,
+  "Alexis Roussel, cofondateur de Bity, discusses the difference between true cryptocurrencies like Bitcoin and centralized alternatives on Leman Bleu TV.",
+);
 
 export default function AlexisRousselWarnsPage() {
   return (

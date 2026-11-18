@@ -99,7 +99,7 @@ export default function BlogPostCard({ post }: { post: BlogPost }) {
                 : `${post.commentCount} Comments`}
           </Link>
         )}
-        <ShareButton title={post.title} />
+        <ShareButton title={post.title} url={post.href} />
       </div>
     </article>
   );

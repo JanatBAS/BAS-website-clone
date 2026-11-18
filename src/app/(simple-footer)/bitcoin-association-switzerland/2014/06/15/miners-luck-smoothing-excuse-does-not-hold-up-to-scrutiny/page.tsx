@@ -1,5 +1,5 @@
 import BlogPostLayout, { type BlogPostComment } from "@/components/BlogPostLayout";
-import { getPostPage } from "@/data/blog-posts";
+import { getPostPage, postMetadata } from "@/data/blog-posts";
 import Image from "next/image";
 import { Metadata } from "next";
 
@@ -45,11 +45,10 @@ const comments: BlogPostComment[] = [
   },
 ];
 
-export const metadata: Metadata = {
-  title: post.title,
-  description:
-    "The enormous computing power of the GHash.IO pool sparked another debate about 51%-attacks; this post dispels the \"luck smoothing\" argument for mining in such a large pool.",
-};
+export const metadata: Metadata = postMetadata(
+  post,
+  "The enormous computing power of the GHash.IO pool sparked another debate about 51%-attacks; this post dispels the \"luck smoothing\" argument for mining in such a large pool.",
+);
 
 export default function MinersLuckSmoothingPage() {
   return (

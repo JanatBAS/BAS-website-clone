@@ -1,15 +1,14 @@
 import BlogPostLayout from "@/components/BlogPostLayout";
-import { getPostPage } from "@/data/blog-posts";
+import { getPostPage, postMetadata } from "@/data/blog-posts";
 import Image from "next/image";
 import { Metadata } from "next";
 
 const post = getPostPage("bitcoin-association-switzerland-2018-general-assembly");
 
-export const metadata: Metadata = {
-  title: post.title,
-  description:
-    "On May 16th 2018, the Bitcoin Association Switzerland held its 6th Annual General Assembly, where the most engaged members of our community come together to discuss the past years and future activities.",
-};
+export const metadata: Metadata = postMetadata(
+  post,
+  "On May 16th 2018, the Bitcoin Association Switzerland held its 6th Annual General Assembly, where the most engaged members of our community come together to discuss the past years and future activities.",
+);
 
 export default function GeneralAssembly2018Page() {
   return (

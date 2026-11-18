@@ -1,5 +1,5 @@
 import BlogPostLayout, { type BlogPostComment } from "@/components/BlogPostLayout";
-import { getPostPage } from "@/data/blog-posts";
+import { getPostPage, postMetadata } from "@/data/blog-posts";
 import { Metadata } from "next";
 
 const post = getPostPage("comments-on-draft-revised-vasp-guidance");
@@ -31,11 +31,10 @@ const comments: BlogPostComment[] = [
   },
 ];
 
-export const metadata: Metadata = {
-  title: post.title,
-  description:
-    "The Financial Action Task Force has recently published a revised draft for VASP guidance that, once finalised, will likely become de-facto law in numerous countries.",
-};
+export const metadata: Metadata = postMetadata(
+  post,
+  "The Financial Action Task Force has recently published a revised draft for VASP guidance that, once finalised, will likely become de-facto law in numerous countries.",
+);
 
 export default function VASPGuidanceCommentsPage() {
   return (

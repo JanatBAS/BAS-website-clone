@@ -1,14 +1,13 @@
 import BlogPostLayout from "@/components/BlogPostLayout";
-import { getPostPage } from "@/data/blog-posts";
+import { getPostPage, postMetadata } from "@/data/blog-posts";
 import { Metadata } from "next";
 
 const post = getPostPage("stellungnahme-der-bitcoin-association-switzerland-zur-neuen-fintech-regulierung");
 
-export const metadata: Metadata = {
-  title: post.title,
-  description:
-    "The State Secretariat for International Financial Matters invited us to comment on the latest proposal to improve regulation for fintech startups in Switzerland.",
-};
+export const metadata: Metadata = postMetadata(
+  post,
+  "The State Secretariat for International Financial Matters invited us to comment on the latest proposal to improve regulation for fintech startups in Switzerland.",
+);
 
 export default function RegulatoryCommentFintechPage() {
   return (

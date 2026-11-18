@@ -1,5 +1,5 @@
 import BlogPostLayout, { type BlogPostComment } from "@/components/BlogPostLayout";
-import { getPostPage } from "@/data/blog-posts";
+import { getPostPage, postMetadata } from "@/data/blog-posts";
 import Image from "next/image";
 import { Metadata } from "next";
 
@@ -7,11 +7,10 @@ const post = getPostPage("marc-faber-points-readers-to-bitcoin");
 
 const comments: BlogPostComment[] = [];
 
-export const metadata: Metadata = {
-  title: post.title,
-  description:
-    "Along with his June market commentary, Swiss investment guru Marc Faber sent his subscribers a report on Bitcoin titled \"Dispelling the Myths of Bitcoin\".",
-};
+export const metadata: Metadata = postMetadata(
+  post,
+  "Along with his June market commentary, Swiss investment guru Marc Faber sent his subscribers a report on Bitcoin titled \"Dispelling the Myths of Bitcoin\".",
+);
 
 export default function MarcFaberPointsReadersToBitcoinPage() {
   return (

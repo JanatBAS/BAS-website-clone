@@ -1,5 +1,5 @@
 import BlogPostLayout, { type BlogPostComment } from "@/components/BlogPostLayout";
-import { getPostPage } from "@/data/blog-posts";
+import { getPostPage, postMetadata } from "@/data/blog-posts";
 import Image from "next/image";
 import { Metadata } from "next";
 
@@ -7,11 +7,10 @@ const post = getPostPage("bitcoin-on-rts-and-euronews");
 
 const comments: BlogPostComment[] = [];
 
-export const metadata: Metadata = {
-  title: post.title,
-  description:
-    "Luzius Meisser had a quick appearance on French-speaking Swiss TV RTS as well as on euronews.",
-};
+export const metadata: Metadata = postMetadata(
+  post,
+  "Luzius Meisser had a quick appearance on French-speaking Swiss TV RTS as well as on euronews.",
+);
 
 export default function BitcoinOnRtsAndEuronewsPage() {
   return (

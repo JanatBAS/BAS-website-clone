@@ -1,15 +1,14 @@
 import BlogPostLayout from "@/components/BlogPostLayout";
-import { getPostPage } from "@/data/blog-posts";
+import { getPostPage, postMetadata } from "@/data/blog-posts";
 import Link from "next/link";
 import { Metadata } from "next";
 
 const post = getPostPage("how-to-join-the-community");
 
-export const metadata: Metadata = {
-  title: post.title,
-  description:
-    "Get to know the community at our regular meetups in Zurich or Geneva, join our Telegram chat group, follow us on Twitter, or join the Bitcoin Association as a member.",
-};
+export const metadata: Metadata = postMetadata(
+  post,
+  "Get to know the community at our regular meetups in Zurich or Geneva, join our Telegram chat group, follow us on Twitter, or join the Bitcoin Association as a member.",
+);
 
 export default function HowToJoinTheCommunityPage() {
   return (

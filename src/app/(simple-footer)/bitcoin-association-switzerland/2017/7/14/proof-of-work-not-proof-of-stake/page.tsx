@@ -1,5 +1,5 @@
 import BlogPostLayout, { type BlogPostComment } from "@/components/BlogPostLayout";
-import { getPostPage } from "@/data/blog-posts";
+import { getPostPage, postMetadata } from "@/data/blog-posts";
 import Image from "next/image";
 import { Metadata } from "next";
 
@@ -63,11 +63,10 @@ const comments: BlogPostComment[] = [
   },
 ];
 
-export const metadata: Metadata = {
-  title: post.title,
-  description:
-    "A personal journey through the Bitcoin world, exploring encounters with key figures and investigating the identity of Satoshi Nakamoto.",
-};
+export const metadata: Metadata = postMetadata(
+  post,
+  "A personal journey through the Bitcoin world, exploring encounters with key figures and investigating the identity of Satoshi Nakamoto.",
+);
 
 export default function ProofOfWorkNotProofOfStakePage() {
   return (

@@ -1,15 +1,14 @@
 import BlogPostLayout from "@/components/BlogPostLayout";
-import { getPostPage } from "@/data/blog-posts";
+import { getPostPage, postMetadata } from "@/data/blog-posts";
 import Image from "next/image";
 import { Metadata } from "next";
 
 const post = getPostPage("tone-vays-meetup-in-zurich-september-2017");
 
-export const metadata: Metadata = {
-  title: post.title,
-  description:
-    "On 13 September the Bitcoin Association Switzerland hosted its largest Bitcoin Meetup so far, with Tony Vays and more than 330 Bitcoin enthusiasts in Volkshaus Zurich.",
-};
+export const metadata: Metadata = postMetadata(
+  post,
+  "On 13 September the Bitcoin Association Switzerland hosted its largest Bitcoin Meetup so far, with Tony Vays and more than 330 Bitcoin enthusiasts in Volkshaus Zurich.",
+);
 
 export default function ToneVaysMeetupPage() {
   return (

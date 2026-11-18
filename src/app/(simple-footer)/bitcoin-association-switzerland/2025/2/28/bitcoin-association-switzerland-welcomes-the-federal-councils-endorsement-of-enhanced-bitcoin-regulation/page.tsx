@@ -1,5 +1,5 @@
 import BlogPostLayout, { type BlogPostComment } from "@/components/BlogPostLayout";
-import { getPostPage } from "@/data/blog-posts";
+import { getPostPage, postMetadata } from "@/data/blog-posts";
 import Image from "next/image";
 import { Metadata } from "next";
 
@@ -7,11 +7,10 @@ const post = getPostPage("bitcoin-association-switzerland-welcomes-the-federal-c
 
 const comments: BlogPostComment[] = [];
 
-export const metadata: Metadata = {
-  title: post.title,
-  description:
-    "The Bitcoin Association Switzerland welcomes the Federal Council's acceptance of a motion introduced by National Councilor Benjamin Fischer, a significant step forward in enhancing regulatory clarity for Bitcoin and digital assets in Switzerland.",
-};
+export const metadata: Metadata = postMetadata(
+  post,
+  "The Bitcoin Association Switzerland welcomes the Federal Council's acceptance of a motion introduced by National Councilor Benjamin Fischer, a significant step forward in enhancing regulatory clarity for Bitcoin and digital assets in Switzerland.",
+);
 
 export default function FederalCouncilEndorsementPage() {
   return (

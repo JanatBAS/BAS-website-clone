@@ -1,5 +1,5 @@
 import BlogPostLayout, { type BlogPostComment } from "@/components/BlogPostLayout";
-import { getPostPage } from "@/data/blog-posts";
+import { getPostPage, postMetadata } from "@/data/blog-posts";
 import { Metadata } from "next";
 
 const post = getPostPage("the-mtgox-debacle-would-not-have-happened-in-a-free-market");
@@ -30,11 +30,10 @@ const comments: BlogPostComment[] = [
   },
 ];
 
-export const metadata: Metadata = {
-  title: post.title,
-  description:
-    "Some will blame the spectacular failure of MtGox on a lack of regulation, but the main reason is a long history of lacking competition.",
-};
+export const metadata: Metadata = postMetadata(
+  post,
+  "Some will blame the spectacular failure of MtGox on a lack of regulation, but the main reason is a long history of lacking competition.",
+);
 
 export default function MtGoxDebacleFreemarketPage() {
   return (

@@ -1,5 +1,5 @@
 import BlogPostLayout, { type BlogPostComment } from "@/components/BlogPostLayout";
-import { getPostPage } from "@/data/blog-posts";
+import { getPostPage, postMetadata } from "@/data/blog-posts";
 import { Metadata } from "next";
 
 const post = getPostPage("federal-council-report-no-special-regulation-needed");
@@ -22,11 +22,10 @@ const comments: BlogPostComment[] = [
   },
 ];
 
-export const metadata: Metadata = {
-  title: post.title,
-  description:
-    "A report by the Swiss government concludes that Bitcoin is covered by existing laws and that no new regulation is needed.",
-};
+export const metadata: Metadata = postMetadata(
+  post,
+  "A report by the Swiss government concludes that Bitcoin is covered by existing laws and that no new regulation is needed.",
+);
 
 export default function FederalCouncilReportPage() {
   return (

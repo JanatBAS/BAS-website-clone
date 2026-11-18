@@ -1,5 +1,5 @@
 import BlogPostLayout, { type BlogPostComment } from "@/components/BlogPostLayout";
-import { getPostPage } from "@/data/blog-posts";
+import { getPostPage, postMetadata } from "@/data/blog-posts";
 import Link from "next/link";
 import { Metadata } from "next";
 
@@ -24,11 +24,10 @@ const comments: BlogPostComment[] = [
   },
 ];
 
-export const metadata: Metadata = {
-  title: post.title,
-  description:
-    "Our letter to the Financial Stability Board of the G-20 commenting on their risk assessment for global stablecoins, warning that the main risk stems from the political response the idea has elicited.",
-};
+export const metadata: Metadata = postMetadata(
+  post,
+  "Our letter to the Financial Stability Board of the G-20 commenting on their risk assessment for global stablecoins, warning that the main risk stems from the political response the idea has elicited.",
+);
 
 export default function StablecoinsCommentPage() {
   return (
