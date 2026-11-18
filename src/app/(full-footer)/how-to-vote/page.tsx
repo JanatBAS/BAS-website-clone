@@ -79,9 +79,9 @@ export default function HowToVotePage() {
               </h1>
 
               {/* Two Ways to Vote */}
-              <h3 className="text-lg md:text-xl font-semibold text-gray-800 mb-4 uppercase tracking-wide">
+              <h2 className="text-lg md:text-xl font-semibold text-gray-800 mb-4 uppercase tracking-wide">
                 There are two ways to cast your Vote:
-              </h3>
+              </h2>
 
               <ol className="list-decimal list-outside ml-6 space-y-6 mb-8 text-gray-700">
                 <li>
@@ -114,18 +114,18 @@ export default function HowToVotePage() {
               </ol>
 
               {/* How Does It Work */}
-              <h3 className="text-lg md:text-xl font-semibold text-gray-800 mb-4 uppercase tracking-wide">
+              <h2 className="text-lg md:text-xl font-semibold text-gray-800 mb-4 uppercase tracking-wide">
                 How does it work, exactly?
-              </h3>
+              </h2>
 
               <p className="text-gray-700 mb-6 leading-relaxed">
                 The goal is to elect five board members, though four to six will be acceptable as well. A candidate needs to reach 50% of the vote to become elected. The voting ballot consists of all 14 candidates, with each name having a separate check box next to the name. If you want to vote for a candidate, you check the box next to the name. Voters who use the mail-in ballot will also be asked to express their preferences (1 for the strongest preference to 10 for the weakest preference) in case there is a second round of voting required.
               </p>
 
               {/* First Voting Round */}
-              <h4 className="text-base font-semibold text-gray-800 mb-3">
+              <h3 className="text-base font-semibold text-gray-800 mb-3">
                 First voting round
-              </h4>
+              </h3>
 
               <p className="text-gray-700 mb-4 leading-relaxed">
                 You can check up to six (6) boxes, it is not possible to give a candidate more than one vote. This is identical for voters present at the assembly and mail-in voters.
@@ -136,9 +136,9 @@ export default function HowToVotePage() {
               </p>
 
               {/* Second Voting Round */}
-              <h4 className="text-base font-semibold text-gray-800 mb-3">
+              <h3 className="text-base font-semibold text-gray-800 mb-3">
                 Second voting round
-              </h4>
+              </h3>
 
               <p className="text-gray-700 mb-4 leading-relaxed">
                 If fewer than four seats have been filled after the first round of voting, a second round will take place where the elected board members and the two weakest candidates get removed from the ballot. Each member will then have three (3) votes to give to three different candidates from the pool of remaining candidates. For mail-in voters, their preference is being applied in casting the three new votes with those already elected being ignored.
@@ -149,9 +149,9 @@ export default function HowToVotePage() {
               </p>
 
               {/* Third Voting Round */}
-              <h4 className="text-base font-semibold text-gray-800 mb-3">
+              <h3 className="text-base font-semibold text-gray-800 mb-3">
                 Third voting round
-              </h4>
+              </h3>
 
               <p className="text-gray-700 mb-4 leading-relaxed">
                 If fewer than four seats have been filled after two rounds of voting, a third round will take place where the elected board members and the weakest candidate from the second round get removed from the ballot. Each member will then have three (3) votes to give to three different candidates from the pool of remaining candidates. For mail-in voters, their preference is being applied in casting the three new votes with those already elected being ignored.
@@ -166,9 +166,9 @@ export default function HowToVotePage() {
               </p>
 
               {/* President Election */}
-              <h3 className="text-lg md:text-xl font-semibold text-gray-800 mb-4 uppercase tracking-wide">
+              <h2 className="text-lg md:text-xl font-semibold text-gray-800 mb-4 uppercase tracking-wide">
                 How will the President get elected?
-              </h3>
+              </h2>
 
               <p className="text-gray-700 leading-relaxed">
                 Once all board members have been elected, a second vote will take place for the election of the President from amongst all board members. The person with the most member votes will then become President. Elected board members are not allowed to vote in this process but get to briefly verbally express their preferences, if any. A tie in the election for the Presidency will result in a second round of voting with all but the two strongest candidates being removed from consideration. If the second round also ends in a tie, the toss of a coin will decide. For mail-in voters, their preference numbers will be applied with the lowest number being the strongest preference for President.

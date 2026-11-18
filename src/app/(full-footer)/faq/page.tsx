@@ -66,7 +66,7 @@ const faqItems: FAQItem[] = [
     question: "How do I pay my membership dues (individuals)?",
     answer: (
       <>
-        Send the equivalent of at least CHF 21 to the Bitcoin Association Switzerland&apos;s wallet (bc1q4rw988vc977354c70qae7m6k4zj45plksm47g0sek36zhe3adv5ss7w9ju) and send an email with your name to info@bitcoinassociation.ch and roger@bitcoinassociation.ch stating your TX number. You will get a brief email confirmation of your membership within 7 days, unless there have been reasons to reject you, in which case you will also hear back from us within 7 days (possible reasons for a rejection include fake names, or a history of hostility towards Bitcoin). More on signing up can be found <Link href="/renew-membership" className="text-brand hover:underline">here</Link>.
+        Send the equivalent of at least CHF 21 to the Bitcoin Association Switzerland&apos;s wallet (bc1q4rw988vc977354c70qae7m6k4zj45plksm47g0sek36zhe3adv5ss7w9ju) and send an email with your name to info@bitcoinassociation.ch and roger@bitcoinassociation.ch stating your TX number. You will get a brief email confirmation of your membership within 7 days, unless there have been reasons to reject you, in which case you will also hear back from us within 7 days (possible reasons for a rejection include fake names, or a history of hostility towards Bitcoin). More on signing up can be found <Link href="/membership/private-individuals/register" className="text-brand hover:underline">here</Link>.
       </>
     ),
   },
@@ -141,7 +141,7 @@ export default function FAQPage() {
               <div className="mb-8">
                 <h3 className="text-base font-semibold text-gray-800 leading-relaxed">
                   Update 6.10.24: The new board has been elected at the extra ordinary general assembly in Zurich on the 5th October 2024. You can see the new board members{" "}
-                  <Link href="/board-1" className="text-brand hover:underline">
+                  <Link href="/board" className="text-brand hover:underline">
                     here
                   </Link>
                   .
@@ -160,9 +160,9 @@ export default function FAQPage() {
               <div className="space-y-8">
                 {faqItems.map((item, index) => (
                   <div key={index} className="space-y-3">
-                    <h3 className="text-base font-semibold text-gray-800">
+                    <h2 className="text-base font-semibold text-gray-800">
                       {item.question}
-                    </h3>
+                    </h2>
                     <p className="text-sm text-gray-600 leading-relaxed">
                       {item.answer}
                     </p>

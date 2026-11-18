@@ -169,7 +169,7 @@ export default function TzBTCPage() {
               <ul className="list-disc list-inside space-y-2 mb-8 text-gray-600">
                 <li>
                   <a
-                    href="https://github.com/lclc/bitcoin-association-switzerland/blob/master/tzbtc/2020_04_02_TZBTC_Use_of_Keys_Agreement_v1.pdf"
+                    href="https://github.com/lclc/bitcoin-association-switzerland/blob/master/tzbtc/Agreement-KH_GK_TEMPLATE.pdf"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-[#5aa9a9] hover:underline"

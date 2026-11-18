@@ -109,9 +109,9 @@ export default function TimelinePage() {
               <div className="space-y-8">
                 {timelineItems.map((item, index) => (
                   <div key={index} className="space-y-2">
-                    <h3 className="text-sm font-semibold text-gray-800 uppercase tracking-wide">
+                    <h2 className="text-sm font-semibold text-gray-800 uppercase tracking-wide">
                       {item.title}
-                    </h3>
+                    </h2>
                     {item.dayRange && (
                       <p className="text-sm text-gray-600">{item.dayRange}</p>
                     )}

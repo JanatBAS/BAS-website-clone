@@ -160,7 +160,7 @@ export const candidateProfiles: CandidateProfile[] = [
       "Marcel is running for a board seat at the Bitcoin Association Switzerland with the goal of establishing it as a Bitcoin-only association. He aims to bring his strong organizational skills to the role of Secretary, where he has already worked on structuring BAS protocols, improving workflows for member onboarding, and securing funds with a multisig wallet setup. Marcel's focus is on efficient communication, process automation, and ensuring that BAS remains firmly committed to Bitcoin's principles",
     ],
     linkedin: "https://www.linkedin.com/in/marcelrapold/",
-    telegram: { handle: "@muraschal", href: "http://t.me/muraschal" },
+    telegram: { handle: "@muraschal", href: "https://t.me/muraschal" },
     nostr: {
       npub: "npub17zja62hnnuz5yrqgdv5ummpcs4n3fflm7xkyp7lxtwzstedksd3sft2afg",
       href: "https://primal.net/p/npub17zja62hnnuz5yrqgdv5ummpcs4n3fflm7xkyp7lxtwzstedksd3sft2afg",

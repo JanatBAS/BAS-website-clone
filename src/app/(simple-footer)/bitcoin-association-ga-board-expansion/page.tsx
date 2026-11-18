@@ -117,12 +117,10 @@ export default function BitcoinAssociationGABoardExpansionPage() {
             <p>
               Become a member:{" "}
               <a
-                href="https://www.bitcoinassociation.ch/membership"
+                href="/membership/private-individuals"
                 className="text-[#5a9e9e] hover:underline"
-                target="_blank"
-                rel="noopener noreferrer"
               >
-                https://www.bitcoinassociation.ch/membership
+                https://www.bitcoinassociation.ch/membership/private-individuals
               </a>
             </p>
 

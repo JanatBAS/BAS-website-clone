@@ -95,9 +95,9 @@ export default function MediaKitPage() {
 
               {/* Download Section */}
               <div className="max-w-lg mx-auto">
-                <h3 className="text-sm font-bold uppercase tracking-widest text-gray-800 mb-4">
+                <h2 className="text-sm font-bold uppercase tracking-widest text-gray-800 mb-4">
                   Download the BAS Logo
-                </h3>
+                </h2>
 
                 <p className="text-gray-600 text-sm leading-relaxed mb-4">
                   Welcome to the <strong className="text-gray-800">BAS Media Kit</strong>.
@@ -139,9 +139,9 @@ export default function MediaKitPage() {
                 <div className="grid gap-4 sm:grid-cols-2 mb-6">
                   {mediaKitDownloads.map((group) => (
                     <div key={group.title} className="border border-gray-200 rounded-lg p-4">
-                      <h4 className="text-xs font-bold uppercase tracking-widest text-gray-800 mb-3">
+                      <h3 className="text-xs font-bold uppercase tracking-widest text-gray-800 mb-3">
                         {group.title}
-                      </h4>
+                      </h3>
                       <div className="flex flex-wrap gap-2">
                         {group.files.map((file) => (
                           <a

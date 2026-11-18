@@ -183,7 +183,7 @@ const locationPartners: LogoItem[] = [
 
 // Generous Donors data
 const generousDonors = [
-  { name: "Daniel Gutenberg", url: "http://www.gutenberg.ch/" },
+  { name: "Daniel Gutenberg", url: "https://www.gutenberg.ch/" },
   { name: "William Taborda", url: null },
   { name: "Andre Drommershausen", url: null },
   { name: "Thierry Fragniere", url: "https://thierryfragniere.ch/" },

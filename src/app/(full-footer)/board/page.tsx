@@ -107,9 +107,9 @@ function BoardMemberCard({ member }: { member: BoardMember }) {
 
       {/* Member Info */}
       <div>
-        <h3 className="text-lg font-semibold text-gray-900 mb-1">
+        <h2 className="text-lg font-semibold text-gray-900 mb-1">
           {member.name}
-        </h3>
+        </h2>
         {member.role && (
           <p className="font-semibold text-gray-900 mb-4">{member.role}</p>
         )}
