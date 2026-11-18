@@ -208,14 +208,14 @@ function LogoGrid({ items }: { items: LogoItem[] }) {
               href={item.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="block transition-opacity hover:opacity-80"
+              className="block w-full transition-opacity hover:opacity-80"
             >
               <Image
                 src={item.logo}
                 alt={item.name}
                 width={120}
                 height={70}
-                className="max-h-[70px] w-auto object-contain"
+                className="h-[70px] w-full object-contain"
                 unoptimized
               />
             </a>
@@ -225,7 +225,7 @@ function LogoGrid({ items }: { items: LogoItem[] }) {
               alt={item.name}
               width={120}
               height={70}
-              className="max-h-[70px] w-auto object-contain"
+              className="h-[70px] w-full object-contain"
               unoptimized
             />
           )}
