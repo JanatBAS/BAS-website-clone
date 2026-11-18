@@ -18,5 +18,8 @@ export function getDateInfo(dateISO: string) {
 
 export function truncateDescription(description: string, maxLength = 150): string {
   if (description.length <= maxLength) return description;
-  return description.substring(0, maxLength).trim() + '...';
+  // Do not cut an emoji (or other astral character) in half.
+  const lastCode = description.charCodeAt(maxLength - 1);
+  const end = lastCode >= 0xd800 && lastCode <= 0xdbff ? maxLength - 1 : maxLength;
+  return description.substring(0, end).trim() + '...';
 }

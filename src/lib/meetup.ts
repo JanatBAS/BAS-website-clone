@@ -93,6 +93,16 @@ function withinWindow(events: MeetupEvent[], now = new Date()): MeetupEvent[] {
   return events.filter((event) => (event.endDateISO || event.dateISO) >= startISO);
 }
 
+const MEETUP_DATE_TIME_FORMAT = new Intl.DateTimeFormat('en-US', {
+  timeZone: 'Europe/Zurich',
+  year: 'numeric',
+  month: '2-digit',
+  day: '2-digit',
+  hour: '2-digit',
+  minute: '2-digit',
+  hourCycle: 'h23',
+});
+
 function parseMeetupDateTime(isoString: string): { dateISO: string; time: string } {
   // Keep Meetup's local wall-clock date/time from the ISO string itself.
   // Avoid Date#getHours()/getDate() to prevent server-timezone shifts.
@@ -109,15 +119,15 @@ function parseMeetupDateTime(isoString: string): { dateISO: string; time: string
     throw new Error(`Invalid Meetup dateTime: ${isoString}`);
   }
 
-  const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, '0');
-  const day = String(date.getDate()).padStart(2, '0');
-  const hours = String(date.getHours()).padStart(2, '0');
-  const minutes = String(date.getMinutes()).padStart(2, '0');
+  // Any other format: read the date and time in Swiss time, not in the
+  // server's time zone (UTC on Vercel).
+  const parts = Object.fromEntries(
+    MEETUP_DATE_TIME_FORMAT.formatToParts(date).map((part) => [part.type, part.value]),
+  );
 
   return {
-    dateISO: `${year}-${month}-${day}`,
-    time: `${hours}:${minutes}`,
+    dateISO: `${parts.year}-${parts.month}-${parts.day}`,
+    time: `${parts.hour}:${parts.minute}`,
   };
 }
 
@@ -183,7 +193,8 @@ function meetupNodeToEvent(
 }
 
 function extractApolloState(html: string): ApolloState {
-  const match = html.match(/<script id="__NEXT_DATA__" type="application\/json">([\s\S]*?)<\/script>/);
+  // Attribute order and extra attributes (nonce, crossorigin) may change.
+  const match = html.match(/<script\b[^>]{0,500}?\sid=["']?__NEXT_DATA__(?=["'\s>])[^>]{0,500}>([\s\S]*?)<\/script>/);
   if (!match) {
     throw new Error('Missing Meetup __NEXT_DATA__ payload');
   }
@@ -358,7 +369,9 @@ export async function syncMeetupEventsCache(): Promise<MeetupSyncResult> {
   }
 
   const syncedAt = new Date().toISOString();
-  const status = canonicalizeEvents(currentCache?.events ?? []) === canonicalizeEvents(events)
+  // Stored events that aged out of the window are hidden on read anyway; their
+  // removal alone is not worth a write.
+  const status = canonicalizeEvents(withinWindow(currentCache?.events ?? [])) === canonicalizeEvents(events)
     ? 'unchanged'
     : 'updated';
 
