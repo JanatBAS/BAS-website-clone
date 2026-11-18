@@ -275,7 +275,7 @@ const eventRecords: EventRecord[] = [
       "The Bitcoin Association Switzerland is launching its official Roadshow 2025, and the next stop will take place in the great city of Basel!",
     ].join("\n\n"),
     signupLink: "https://luma.com/7pewjjp3",
-    signupText: "Sign up for the roadshow event in Lausanne",
+    signupText: "Sign up for the roadshow event in Basel",
     page: {
       title: "BAS Roadshow – Basel",
       time: "18:30 – 22:30",
@@ -352,12 +352,12 @@ const eventRecords: EventRecord[] = [
   },
 ];
 
-/** Returns the event with the given slug; throws at build time for an unknown slug. */
 /** Every event that has its own page. */
 export function getEventPages(): EventRecord[] {
   return eventRecords;
 }
 
+/** Returns the event with the given slug; throws at build time for an unknown slug. */
 export function getEvent(slug: string): EventRecord {
   const event = eventRecords.find(e => e.slug === slug);
   if (!event) throw new Error(`Unknown event slug: ${slug}`);

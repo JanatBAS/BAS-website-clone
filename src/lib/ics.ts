@@ -17,7 +17,7 @@ const DEFAULT_DURATION_MINUTES = 120;
 function escapeText(value: string): string {
   return value
     .replace(/\\/g, '\\\\')
-    .replace(/\r?\n/g, '\\n')
+    .replace(/\r\n|\r|\n/g, '\\n')
     .replace(/,/g, '\\,')
     .replace(/;/g, '\\;');
 }
@@ -60,6 +60,30 @@ function formatLocal(dateISO: string, minutes: number): string {
 }
 
 /**
+ * RFC 5545 requires a VTIMEZONE for every TZID used; Outlook relies on it.
+ * Central European rules (last Sunday of March / October), in force since 1996.
+ */
+const ZURICH_VTIMEZONE = [
+  'BEGIN:VTIMEZONE',
+  'TZID:Europe/Zurich',
+  'BEGIN:DAYLIGHT',
+  'TZOFFSETFROM:+0100',
+  'TZOFFSETTO:+0200',
+  'TZNAME:CEST',
+  'DTSTART:19810329T020000',
+  'RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=-1SU',
+  'END:DAYLIGHT',
+  'BEGIN:STANDARD',
+  'TZOFFSETFROM:+0200',
+  'TZOFFSETTO:+0100',
+  'TZNAME:CET',
+  'DTSTART:19961027T030000',
+  'RRULE:FREQ=YEARLY;BYMONTH=10;BYDAY=-1SU',
+  'END:STANDARD',
+  'END:VTIMEZONE',
+];
+
+/**
  * Builds an iCalendar file for a single event. Times are Swiss wall-clock
  * times, so they are emitted with TZID=Europe/Zurich.
  */
@@ -70,6 +94,7 @@ export function buildIcs(event: IcsEventInput): string {
     'VERSION:2.0',
     'PRODID:-//Bitcoin Association Switzerland//Events//EN',
     'CALSCALE:GREGORIAN',
+    ...ZURICH_VTIMEZONE,
     'BEGIN:VEVENT',
     `UID:${event.uid}@bitcoinassociation.ch`,
     `DTSTAMP:${event.dateISO.replace(/-/g, '')}T000000Z`,
@@ -89,7 +114,8 @@ export function buildIcs(event: IcsEventInput): string {
 function eventEnd(event: IcsEventInput): string {
   const startMinutes = toMinutes(event.startTime);
   if (!event.endTime) {
-    return formatLocal(event.dateISO, startMinutes + DEFAULT_DURATION_MINUTES);
+    // Without an end time the event ends DEFAULT_DURATION_MINUTES after its start, on its last day.
+    return formatLocal(event.endDateISO || event.dateISO, startMinutes + DEFAULT_DURATION_MINUTES);
   }
 
   const endMinutes = toMinutes(event.endTime);

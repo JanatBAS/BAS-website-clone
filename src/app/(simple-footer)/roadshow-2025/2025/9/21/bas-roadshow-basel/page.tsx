@@ -22,7 +22,7 @@ export default function BASRoadshowBaselPage() {
         <li>
           Location:{" "}
           <a
-            href="http://maps.google.com/?q=%20Lausanne"
+            href="https://maps.google.com/?q=Basel"
             target="_blank"
             rel="noopener noreferrer"
             className="text-brand hover:underline"

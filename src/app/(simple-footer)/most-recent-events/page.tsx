@@ -32,6 +32,7 @@ function EventCard({ event }: { event: EventRecord }) {
             src={event.imageUrl}
             alt={event.title}
             fill
+            sizes="(min-width: 768px) 200px, 100vw"
             className="object-cover"
           />
         </Link>
