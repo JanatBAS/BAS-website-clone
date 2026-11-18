@@ -135,42 +135,62 @@ function NavItemComponent({ item }: { item: NavItem }) {
   const buttonRef = useRef<HTMLButtonElement>(null);
   const menuId = useId();
 
-  const handleMouseEnter = () => {
+  const wrapperRef = useRef<HTMLDivElement>(null);
+  // True while the menu is open because a mouse hovered over it.
+  const openedByHoverRef = useRef(false);
+
+  // Only a real mouse opens on hover; touch screens (an iPad shows the desktop
+  // nav) open and close with taps.
+  const handlePointerEnter = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (e.pointerType !== "mouse") return;
     if (timeoutRef.current) {
       clearTimeout(timeoutRef.current);
     }
+    if (!isOpen) openedByHoverRef.current = true;
     setIsOpen(true);
   };
 
-  // A keyboard activation (detail 0) toggles the menu; a mouse or touch click
-  // only opens it, since hovering has usually opened it already.
-  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+  // A click toggles the menu, except the first click on a menu the mouse has
+  // just opened by hovering, which keeps it open.
+  const handleClick = () => {
     if (timeoutRef.current) {
       clearTimeout(timeoutRef.current);
     }
-    const toggle = e.detail === 0;
-    setIsOpen((open) => (toggle ? !open : true));
-  };
-
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
-    if (e.key === "Escape" && isOpen) {
-      setIsOpen(false);
-      buttonRef.current?.focus();
-    }
+    const keepOpen = openedByHoverRef.current;
+    openedByHoverRef.current = false;
+    setIsOpen((open) => (keepOpen ? true : !open));
   };
 
   // Close once keyboard focus moves outside the button and its menu.
   const handleBlur = (e: React.FocusEvent<HTMLDivElement>) => {
     if (!e.currentTarget.contains(e.relatedTarget as Node | null)) {
+      openedByHoverRef.current = false;
       setIsOpen(false);
     }
   };
 
-  const handleMouseLeave = () => {
+  const handlePointerLeave = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (e.pointerType !== "mouse") return;
     timeoutRef.current = setTimeout(() => {
+      openedByHoverRef.current = false;
       setIsOpen(false);
     }, 150);
   };
+
+  // Escape closes an open menu wherever focus is (also one opened by hovering).
+  useEffect(() => {
+    if (!isOpen) return;
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key !== "Escape") return;
+      openedByHoverRef.current = false;
+      setIsOpen(false);
+      if (wrapperRef.current?.contains(document.activeElement)) {
+        buttonRef.current?.focus();
+      }
+    };
+    document.addEventListener("keydown", onKeyDown);
+    return () => document.removeEventListener("keydown", onKeyDown);
+  }, [isOpen]);
 
   useEffect(() => {
     return () => {
@@ -183,10 +203,10 @@ function NavItemComponent({ item }: { item: NavItem }) {
   if (item.dropdown) {
     return (
       <div
+        ref={wrapperRef}
         className="relative"
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
-        onKeyDown={handleKeyDown}
+        onPointerEnter={handlePointerEnter}
+        onPointerLeave={handlePointerLeave}
         onBlur={handleBlur}
       >
         <button
