@@ -166,6 +166,7 @@ function EventCard({ event }: { event: EventRecord }) {
 export default function Roadshow2025Page() {
   return (
     <main className="pt-24 pb-16 bg-white min-h-screen">
+      <h1 className="sr-only">Roadshow 2025</h1>
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Past Events Divider */}
         <Separator className="mb-0" />

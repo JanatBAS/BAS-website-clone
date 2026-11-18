@@ -6,6 +6,7 @@ import IcsLink from "@/components/events/IcsLink";
 import { formatEventDate, getEventBadge } from "@/components/events/event-format";
 import { formatTimeDisplay } from "@/lib/date-utils";
 import { getGoogleCalendarUrl, getSeriesEvents, type EventRecord } from "@/data/events";
+import ShareButton from "@/components/ShareButton";
 
 export const metadata: Metadata = {
   title: "Most Recent Events",
@@ -55,14 +56,14 @@ function EventCard({ event }: { event: EventRecord }) {
       {/* Event Info */}
       <div className="flex-1 pt-0 md:pt-0 mt-4 md:mt-0">
         {/* Title */}
-        <h1 className="text-lg font-semibold text-gray-900 mb-2 leading-snug">
+        <h2 className="text-lg font-semibold text-gray-900 mb-2 leading-snug">
           <Link
             href={event.href}
             className="hover:text-brand transition-colors"
           >
             {event.title}
           </Link>
-        </h1>
+        </h2>
 
         {/* Meta Info */}
         <ul className="text-[13px] text-gray-500 space-y-0.5 mb-3">
@@ -119,16 +120,7 @@ function EventCard({ event }: { event: EventRecord }) {
 
         {/* Actions */}
         <div className="flex items-center gap-4 text-[13px] text-gray-500">
-          <button className="flex items-center gap-1.5 hover:text-gray-700 transition-colors">
-            <svg
-              className="w-4 h-4"
-              fill="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92-1.31-2.92-2.92-2.92z"/>
-            </svg>
-            Share
-          </button>
+          <ShareButton title={event.title} url={event.href} />
         </div>
       </div>
     </article>
@@ -140,6 +132,7 @@ export default function MostRecentEventsPage() {
     <div className="min-h-screen bg-white flex flex-col">
       {/* Main Content */}
       <main className="flex-1 pt-24">
+        <h1 className="sr-only">Most Recent Events</h1>
         <div className="max-w-[900px] mx-auto px-4 sm:px-6 lg:px-8 py-8">
           {/* Separator line at top - dark gray line like original */}
           <Separator className="bg-gray-300 mb-0" />

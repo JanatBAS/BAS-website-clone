@@ -16,7 +16,7 @@ import { CalendarEventModal } from './CalendarEventModal';
 interface CalendarProps {
   /** The events, shaped on the server with `toCalendarData()`. */
   data: CalendarData;
-  /** Today (YYYY-MM-DD) at server render time; the browser's date takes over after hydration. */
+  /** Today (YYYY-MM-DD) at server render time; re-read in the browser after hydration. */
   initialTodayISO: string;
 }
 

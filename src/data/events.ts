@@ -106,7 +106,7 @@ const eventRecords: EventRecord[] = [
     startTime: "19:00",
     endTime: "20:00",
     location: "Langstrasse 136",
-    locationUrl: "http://maps.google.com/?q=Langstrasse%20136",
+    locationUrl: "https://maps.google.com/?q=Langstrasse%20136",
     description:
       'At this "Industry Insights" meetup, Elizabeth will give us some interesting insights into the Lightning Network. Short talk, no slides, q&a, causal get-together.',
     imageUrl: "/images/events/elizabeth-stark-meetup.jpeg",
@@ -123,7 +123,7 @@ const eventRecords: EventRecord[] = [
     startTime: "19:00",
     endTime: "23:59",
     location: "Langstrasse 136",
-    locationUrl: "http://maps.google.com/?q=Langstrasse%20136",
+    locationUrl: "https://maps.google.com/?q=Langstrasse%20136",
     description:
       "Bitcoin Association Switzerland invited for a Christmas Special Bitcoin Meetup Zurich.\n\nDouglas Bakkum, Co-founder and CEO of Shift Cryptosecurity gave us some exciting insights into the industry's cat and mouse game of securing private keys",
     imageUrl: "/images/events/lightning-meetup.jpeg",
@@ -141,7 +141,7 @@ const eventRecords: EventRecord[] = [
     startTime: "19:00",
     endTime: "20:00",
     location: "Karl der Grosse",
-    locationUrl: "http://maps.google.com/?q=Karl%20der%20Grosse",
+    locationUrl: "https://maps.google.com/?q=Karl%20der%20Grosse",
     description:
       "Bitcoin is considered to be currency of the internet. But what happens if someone has a poor internet connection, or loses it entirely? Neil takes a look at the technologies being built to keep Bitcoin running regardless of network disruptions, including Blockstream Satellite and goTenna mesh networks.",
     imageUrl: "/images/events/christmas-meetup.jpeg",
@@ -159,7 +159,7 @@ const eventRecords: EventRecord[] = [
     startTime: "19:00",
     endTime: "20:00",
     location: "Volkshaus",
-    locationUrl: "http://maps.google.com/?q=Volkshaus",
+    locationUrl: "https://maps.google.com/?q=Volkshaus",
     description:
       'With over 1\'500 signup this was the biggest Bitcoin meetup event ever in Europe.\n\nTalks:\n\nThoughts on The Future of Programmable Money - Andreas M. Antonopoulos\n\nAn enlightening speech about the future of programmable money ending with a standing ovation!\n\nA video of the speech can be found on YouTube.\n\nCryptoasset Inheritance Planning - Pamela Morgan\n\nWill your loved ones be able to access your bitcoin, ether, or other cryptoassets if something happens to you? For most cryptoasset owners, the answer is no. Attend this talk and learn how to start building a cryptoasset inheritance plan for your loved ones, without relying on a single third party, and without giving them your keys now.',
     imageUrl: "/images/events/antonopoulos-talk.jpg",
@@ -176,7 +176,7 @@ const eventRecords: EventRecord[] = [
     startTime: "19:00",
     endTime: "20:00",
     location: "Karl der Grosse",
-    locationUrl: "http://maps.google.com/?q=Karl%20der%20Grosse",
+    locationUrl: "https://maps.google.com/?q=Karl%20der%20Grosse",
     description:
       "Drivechain is a proposed soft fork of Bitcoin that allows BTC to travel to and from any other piece of software. How does it work? Does it have any detrimental effects? Do we *want* some sidechains to fail (and why)?",
     imageUrl: "/images/events/paul-sztorc.jpg",
@@ -193,7 +193,7 @@ const eventRecords: EventRecord[] = [
     startTime: "19:00",
     endTime: "20:00",
     location: "Volkshaus",
-    locationUrl: "http://maps.google.com/?q=Volkshaus",
+    locationUrl: "https://maps.google.com/?q=Volkshaus",
     description:
       "The members of the Bitcoin Association Switzerland came together to discuss and decide on various things.",
     imageUrl: "/images/branding/logo-with-name-large.png",
@@ -210,7 +210,7 @@ const eventRecords: EventRecord[] = [
     startTime: "19:00",
     endTime: "20:00",
     location: "Karl der Grosse",
-    locationUrl: "http://maps.google.com/?q=Karl%20der%20Grosse",
+    locationUrl: "https://maps.google.com/?q=Karl%20der%20Grosse",
     description:
       'In this tech-talk we examined all current and proposed mechanisms for creating a "Bitcoin Vault".',
     imageUrl: "/images/events/bob-mcelrath-talk.jpeg",
@@ -227,11 +227,11 @@ const eventRecords: EventRecord[] = [
     startTime: "14:00",
     endTime: "15:00",
     location: "Davos",
-    locationUrl: "http://maps.google.com/?q=%20Davos",
+    locationUrl: "https://maps.google.com/?q=%20Davos",
     description:
       "The Bitcoin Association Switzerland hosted a 1 hour session in Davos, talking about Bitcoin, the past 10 years and its future.",
     imageUrl: "/images/events/davos.jpg",
-    page: { locationUrl: "http://maps.google.com/?q=Davos" },
+    page: { locationUrl: "https://maps.google.com/?q=Davos" },
   },
 
   // Standalone member meetup (not part of the past-events list)
@@ -314,7 +314,7 @@ const eventRecords: EventRecord[] = [
     endTime: "23:00",
     location: "Lausanne",
     venue: "BAS Roadshow",
-    locationUrl: "http://maps.google.com/?q=%20Lausanne",
+    locationUrl: "https://maps.google.com/?q=%20Lausanne",
     imageUrl: "/images/branding/bas-roadshow-2025.jpg",
     description: [
       "The Bitcoin Association Switzerland invites you: Roadshow in Lausanne on February 21, 2025",

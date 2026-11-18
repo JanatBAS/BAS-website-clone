@@ -47,12 +47,23 @@ export function isDateWithinEventRange(event: Pick<UnifiedEvent, 'dateISO' | 'en
   return event.dateISO <= dateISO && dateISO <= endDateISO;
 }
 
-/** Today's date (YYYY-MM-DD) in Switzerland, for server-side rendering. */
+const swissDateFormat = new Intl.DateTimeFormat('en-US', {
+  timeZone: 'Europe/Zurich',
+  year: 'numeric',
+  month: '2-digit',
+  day: '2-digit',
+});
+
+/**
+ * Today's date (YYYY-MM-DD) in Switzerland, where the events take place. Used
+ * on the server and in the browser, so both agree whatever the visitor's zone.
+ */
 export function swissTodayISO(now: Date = new Date()): string {
-  return new Intl.DateTimeFormat('en-CA', { timeZone: 'Europe/Zurich' }).format(now);
+  const parts = Object.fromEntries(swissDateFormat.formatToParts(now).map(({ type, value }) => [type, value]));
+  return `${parts.year}-${parts.month}-${parts.day}`;
 }
 
-/** True once the event's last day is before `todayISO` (YYYY-MM-DD, local date). */
+/** True once the event's last day is before `todayISO` (YYYY-MM-DD, Swiss date). */
 export function isEventPast(event: Pick<UnifiedEvent, 'dateISO' | 'endDateISO'>, todayISO: string): boolean {
   return (event.endDateISO || event.dateISO) < todayISO;
 }

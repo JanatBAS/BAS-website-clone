@@ -16,10 +16,9 @@ import {
   getStartOfWeek,
   addMonths,
   addWeeks,
-  formatDateISO,
   sortEventsByDate,
 } from '@/lib/calendar-utils';
-import { isEventPast } from '@/lib/event-dates';
+import { isEventPast, swissTodayISO } from '@/lib/event-dates';
 
 interface UseCalendarOptions {
   events: CalendarEvent[];
@@ -31,7 +30,7 @@ interface UseCalendarOptions {
 interface UseCalendarReturn {
   // Current state
   currentDate: Date;
-  /** Today in the visitor's time zone (the server's value until hydration). */
+  /** Today in Switzerland (YYYY-MM-DD; the server's value until hydration). */
   todayISO: string;
   currentView: CalendarView;
   selectedEvent: CalendarEvent | null;
@@ -62,7 +61,11 @@ interface UseCalendarReturn {
   setActiveCategories: (categories: Set<EventCategory | 'all'>) => void;
 }
 
-const noSubscription = () => () => {};
+// Re-reads the date every minute, so a page left open past midnight moves on to the new day.
+const subscribeToClock = (onChange: () => void) => {
+  const timer = setInterval(onChange, 60_000);
+  return () => clearInterval(timer);
+};
 
 function dateFromISO(dateISO: string): Date {
   const [year, month, day] = dateISO.split('-').map(Number);
@@ -74,12 +77,15 @@ export function useCalendar({
   initialTodayISO,
   initialView = 'month',
 }: UseCalendarOptions): UseCalendarReturn {
-  // Cached pages can be a day old, so "today" comes from the browser. The
-  // server value is used for the server render and hydration, which keeps the
-  // two identical; React re-renders with the browser's date right after.
+  // Cached pages can be a day old, so "today" is re-read in the browser. It is
+  // the Swiss date, as on the server: the events' dates are Swiss dates, and a
+  // visitor elsewhere would otherwise see today's events as past (or the other
+  // way round) and the "today" mark move after hydration. The server value is
+  // used for the server render and hydration, which keeps the two identical;
+  // React re-renders right after if the cached page is from an earlier day.
   const todayISO = useSyncExternalStore(
-    noSubscription,
-    () => formatDateISO(new Date()),
+    subscribeToClock,
+    () => swissTodayISO(),
     () => initialTodayISO,
   );
 
