@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import type { AdminBlogPost } from '@/types/admin';
 import { apiErrorMessage } from './api-error';
@@ -26,6 +26,8 @@ export default function PostForm({ mode, initialData }: PostFormProps) {
     initialData?.tags?.join(', ') || ''
   );
   const [authorName, setAuthorName] = useState(initialData?.author || '');
+  // Set synchronously, so a second submit before the re-render cannot save again.
+  const savingRef = useRef(false);
 
   const initialDate = initialData
     ? new Date(initialData.timestamp).toISOString().split('T')[0]
@@ -33,7 +35,7 @@ export default function PostForm({ mode, initialData }: PostFormProps) {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setSaving(true);
+    if (savingRef.current) return;
     setError('');
     setSessionExpired(false);
 
@@ -41,9 +43,10 @@ export default function PostForm({ mode, initialData }: PostFormProps) {
     const name = authorName.trim();
     if (!name) {
       setError('Author name is required');
-      setSaving(false);
       return;
     }
+    savingRef.current = true;
+    setSaving(true);
     const authorId =
       knownAuthors[name] ||
       (mode === 'edit' && initialData?.author === name
@@ -92,6 +95,7 @@ export default function PostForm({ mode, initialData }: PostFormProps) {
     } catch {
       setError(fallback);
     }
+    savingRef.current = false;
     setSaving(false);
   };
 

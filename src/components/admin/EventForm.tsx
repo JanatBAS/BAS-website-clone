@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import type { AdminEvent, RecurrenceFrequency } from '@/types/admin';
 import type { EventCategory } from '@/types/calendar';
@@ -35,9 +35,13 @@ export default function EventForm({ mode, initialData, isDuplicate = false }: Ev
   const [error, setError] = useState('');
   const [sessionExpired, setSessionExpired] = useState(false);
   const [isRecurring, setIsRecurring] = useState(Boolean(initialData?.recurrence));
+  // Set synchronously, so a second submit before the re-render cannot save again.
+  const savingRef = useRef(false);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (savingRef.current) return;
+    savingRef.current = true;
     setSaving(true);
     setError('');
     setSessionExpired(false);
@@ -87,6 +91,7 @@ export default function EventForm({ mode, initialData, isDuplicate = false }: Ev
     } catch {
       setError(fallback);
     }
+    savingRef.current = false;
     setSaving(false);
   };
 
@@ -169,32 +174,31 @@ export default function EventForm({ mode, initialData, isDuplicate = false }: Ev
           <span className="text-sm font-medium text-gray-300">This is a recurring event</span>
         </label>
 
-        {isRecurring && (
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-1">
-            <div>
-              <label htmlFor="event-recurrenceFrequency" className={labelClass}>Frequency</label>
-              <select
-                id="event-recurrenceFrequency" name="recurrenceFrequency"
-                required
-                defaultValue={initialData?.recurrence?.frequency || 'weekly'}
-                className={inputClass}
-              >
-                <option value="weekly">Every week</option>
-                <option value="biweekly">Every 2 weeks</option>
-                <option value="monthly">Same date each month</option>
-              </select>
-            </div>
-            <div>
-              <label htmlFor="event-recurrenceEndDate" className={labelClass}>Recurrence End Date (optional)</label>
-              <input
-                id="event-recurrenceEndDate" name="recurrenceEndDate"
-                type="date"
-                defaultValue={initialData?.recurrence?.endDate}
-                className={inputClass}
-              />
-            </div>
+        {/* Hidden rather than unmounted, so unticking and ticking again keeps the chosen values. */}
+        <div hidden={!isRecurring} className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-1">
+          <div>
+            <label htmlFor="event-recurrenceFrequency" className={labelClass}>Frequency</label>
+            <select
+              id="event-recurrenceFrequency" name="recurrenceFrequency"
+              required
+              defaultValue={initialData?.recurrence?.frequency || 'weekly'}
+              className={inputClass}
+            >
+              <option value="weekly">Every week</option>
+              <option value="biweekly">Every 2 weeks</option>
+              <option value="monthly">Same date each month</option>
+            </select>
           </div>
-        )}
+          <div>
+            <label htmlFor="event-recurrenceEndDate" className={labelClass}>Recurrence End Date (optional)</label>
+            <input
+              id="event-recurrenceEndDate" name="recurrenceEndDate"
+              type="date"
+              defaultValue={initialData?.recurrence?.endDate}
+              className={inputClass}
+            />
+          </div>
+        </div>
       </div>
 
       <div>
