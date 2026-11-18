@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import type { AdminEvent, RecurrenceFrequency } from '@/types/admin';
 import type { EventCategory } from '@/types/calendar';
+import { apiErrorMessage } from './api-error';
 
 const categories: { value: EventCategory; label: string }[] = [
   { value: 'meetup', label: 'Meetup' },
@@ -32,12 +33,14 @@ export default function EventForm({ mode, initialData, isDuplicate = false }: Ev
   const router = useRouter();
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
+  const [sessionExpired, setSessionExpired] = useState(false);
   const [isRecurring, setIsRecurring] = useState(Boolean(initialData?.recurrence));
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setSaving(true);
     setError('');
+    setSessionExpired(false);
 
     const form = new FormData(e.currentTarget);
     const recurrence = isRecurring
@@ -62,8 +65,9 @@ export default function EventForm({ mode, initialData, isDuplicate = false }: Ev
       recurrence,
     };
 
-    const url = mode === 'edit' ? `/api/admin/events?id=${initialData!.id}` : '/api/admin/events';
+    const url = mode === 'edit' ? `/api/admin/events?id=${encodeURIComponent(initialData!.id)}` : '/api/admin/events';
     const method = mode === 'edit' ? 'PUT' : 'POST';
+    const fallback = `Failed to ${mode === 'edit' ? 'update' : 'create'} event`;
 
     try {
       const res = await fetch(url, {
@@ -73,24 +77,17 @@ export default function EventForm({ mode, initialData, isDuplicate = false }: Ev
       });
 
       if (res.ok) {
+        // Stay disabled while navigating away so a second click cannot save again.
         router.push('/admin/events');
         return;
       }
 
-      let apiError = '';
-      try {
-        const data = await res.json();
-        apiError = data.error || '';
-      } catch {
-        // Ignore non-JSON error responses and use fallback message below.
-      }
-
-      setError(apiError || `Failed to ${mode === 'edit' ? 'update' : 'create'} event`);
+      setSessionExpired(res.status === 401);
+      setError(await apiErrorMessage(res, fallback));
     } catch {
-      setError(`Failed to ${mode === 'edit' ? 'update' : 'create'} event`);
-    } finally {
-      setSaving(false);
+      setError(fallback);
     }
+    setSaving(false);
   };
 
   const inputClass = 'w-full px-3 py-2 bg-gray-900 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-brand-teal focus:border-transparent text-sm';
@@ -105,23 +102,23 @@ export default function EventForm({ mode, initialData, isDuplicate = false }: Ev
       )}
 
       <div>
-        <label className={labelClass}>Title *</label>
-        <input name="title" required defaultValue={initialData?.title} className={inputClass} placeholder="Bitcoin Meetup Zurich" />
+        <label htmlFor="event-title" className={labelClass}>Title *</label>
+        <input id="event-title" name="title" required defaultValue={initialData?.title} className={inputClass} placeholder="Bitcoin Meetup Zurich" />
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         <div>
-          <label className={labelClass}>Start Date *</label>
-          <input name="dateISO" type="date" required defaultValue={initialData?.dateISO} className={inputClass} />
+          <label htmlFor="event-dateISO" className={labelClass}>Start Date *</label>
+          <input id="event-dateISO" name="dateISO" type="date" required defaultValue={initialData?.dateISO} className={inputClass} />
         </div>
         <div>
-          <label className={labelClass}>End Date</label>
-          <input name="endDateISO" type="date" defaultValue={initialData?.endDateISO} className={inputClass} />
+          <label htmlFor="event-endDateISO" className={labelClass}>End Date</label>
+          <input id="event-endDateISO" name="endDateISO" type="date" defaultValue={initialData?.endDateISO} className={inputClass} />
           <p className="mt-1 text-xs text-gray-500">Leave empty for one-day events.</p>
         </div>
         <div>
-          <label className={labelClass}>Category *</label>
-          <select name="category" required defaultValue={initialData?.category || 'meetup'} className={inputClass}>
+          <label htmlFor="event-category" className={labelClass}>Category *</label>
+          <select id="event-category" name="category" required defaultValue={initialData?.category || 'meetup'} className={inputClass}>
             {categories.map((c) => (
               <option key={c.value} value={c.value}>{c.label}</option>
             ))}
@@ -131,34 +128,34 @@ export default function EventForm({ mode, initialData, isDuplicate = false }: Ev
 
       <div className="grid grid-cols-2 gap-4">
         <div>
-          <label className={labelClass}>Start Time *</label>
-          <input name="startTime" type="time" required defaultValue={initialData?.startTime} className={inputClass} />
+          <label htmlFor="event-startTime" className={labelClass}>Start Time *</label>
+          <input id="event-startTime" name="startTime" type="time" required defaultValue={initialData?.startTime} className={inputClass} />
         </div>
         <div>
-          <label className={labelClass}>End Time</label>
-          <input name="endTime" type="time" defaultValue={initialData?.endTime} className={inputClass} />
+          <label htmlFor="event-endTime" className={labelClass}>End Time</label>
+          <input id="event-endTime" name="endTime" type="time" defaultValue={initialData?.endTime} className={inputClass} />
         </div>
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
-          <label className={labelClass}>Location</label>
-          <input name="location" defaultValue={initialData?.location} className={inputClass} placeholder="Zurich" />
+          <label htmlFor="event-location" className={labelClass}>Location</label>
+          <input id="event-location" name="location" defaultValue={initialData?.location} className={inputClass} placeholder="Zurich" />
         </div>
         <div>
-          <label className={labelClass}>Location URL</label>
-          <input name="locationUrl" type="url" defaultValue={initialData?.locationUrl} className={inputClass} placeholder="https://maps.google.com/..." />
+          <label htmlFor="event-locationUrl" className={labelClass}>Location URL</label>
+          <input id="event-locationUrl" name="locationUrl" type="url" defaultValue={initialData?.locationUrl} className={inputClass} placeholder="https://maps.google.com/..." />
         </div>
       </div>
 
       <div>
-        <label className={labelClass}>Image URL</label>
-        <input name="imageUrl" type="url" defaultValue={initialData?.imageUrl} className={inputClass} placeholder="https://..." />
+        <label htmlFor="event-imageUrl" className={labelClass}>Image URL</label>
+        <input id="event-imageUrl" name="imageUrl" type="text" inputMode="url" defaultValue={initialData?.imageUrl} className={inputClass} placeholder="https://... or /images/..." />
       </div>
 
       <div>
-        <label className={labelClass}>Signup Link</label>
-        <input name="signupLink" type="url" defaultValue={initialData?.signupLink} className={inputClass} placeholder="https://lu.ma/..." />
+        <label htmlFor="event-signupLink" className={labelClass}>Signup Link</label>
+        <input id="event-signupLink" name="signupLink" type="url" defaultValue={initialData?.signupLink} className={inputClass} placeholder="https://lu.ma/..." />
       </div>
 
       <div className="border border-gray-700 rounded-lg p-4 space-y-3">
@@ -175,9 +172,9 @@ export default function EventForm({ mode, initialData, isDuplicate = false }: Ev
         {isRecurring && (
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-1">
             <div>
-              <label className={labelClass}>Frequency</label>
+              <label htmlFor="event-recurrenceFrequency" className={labelClass}>Frequency</label>
               <select
-                name="recurrenceFrequency"
+                id="event-recurrenceFrequency" name="recurrenceFrequency"
                 required
                 defaultValue={initialData?.recurrence?.frequency || 'weekly'}
                 className={inputClass}
@@ -188,9 +185,9 @@ export default function EventForm({ mode, initialData, isDuplicate = false }: Ev
               </select>
             </div>
             <div>
-              <label className={labelClass}>Recurrence End Date (optional)</label>
+              <label htmlFor="event-recurrenceEndDate" className={labelClass}>Recurrence End Date (optional)</label>
               <input
-                name="recurrenceEndDate"
+                id="event-recurrenceEndDate" name="recurrenceEndDate"
                 type="date"
                 defaultValue={initialData?.recurrence?.endDate}
                 className={inputClass}
@@ -201,11 +198,24 @@ export default function EventForm({ mode, initialData, isDuplicate = false }: Ev
       </div>
 
       <div>
-        <label className={labelClass}>Description *</label>
-        <textarea name="description" required rows={5} defaultValue={initialData?.description} className={inputClass} placeholder="Event description..." />
+        <label htmlFor="event-description" className={labelClass}>Description *</label>
+        <textarea id="event-description" name="description" required rows={5} defaultValue={initialData?.description} className={inputClass} placeholder="Event description..." />
       </div>
 
-      {error && <p className="text-red-400 text-sm">{error}</p>}
+      {error && (
+        <p role="alert" className="text-red-400 text-sm">
+          {error}
+          {sessionExpired && (
+            <>
+              {' '}
+              {/* A new tab keeps what was typed here; save again after signing in. */}
+              <a href="/admin/login" target="_blank" rel="noopener" className="underline hover:text-red-300">
+                Sign in (opens a new tab)
+              </a>
+            </>
+          )}
+        </p>
+      )}
 
       <div className="flex gap-3 pt-2">
         <button

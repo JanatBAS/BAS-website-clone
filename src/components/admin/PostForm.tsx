@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import type { AdminBlogPost } from '@/types/admin';
+import { apiErrorMessage } from './api-error';
 
 const knownAuthors: Record<string, string> = {
   'Phil Lojacono': '672bdb3ae0672c1501f39ce8',
@@ -20,6 +21,7 @@ export default function PostForm({ mode, initialData }: PostFormProps) {
   const router = useRouter();
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
+  const [sessionExpired, setSessionExpired] = useState(false);
   const [tagsInput, setTagsInput] = useState(
     initialData?.tags?.join(', ') || ''
   );
@@ -33,6 +35,7 @@ export default function PostForm({ mode, initialData }: PostFormProps) {
     e.preventDefault();
     setSaving(true);
     setError('');
+    setSessionExpired(false);
 
     const form = new FormData(e.currentTarget);
     const name = authorName.trim();
@@ -66,9 +69,10 @@ export default function PostForm({ mode, initialData }: PostFormProps) {
 
     const url =
       mode === 'edit'
-        ? `/api/admin/posts?id=${initialData!.id}`
+        ? `/api/admin/posts?id=${encodeURIComponent(initialData!.id)}`
         : '/api/admin/posts';
     const method = mode === 'edit' ? 'PUT' : 'POST';
+    const fallback = `Failed to ${mode === 'edit' ? 'update' : 'create'} post`;
 
     try {
       const res = await fetch(url, {
@@ -78,24 +82,17 @@ export default function PostForm({ mode, initialData }: PostFormProps) {
       });
 
       if (res.ok) {
+        // Stay disabled while navigating away so a second click cannot save again.
         router.push('/admin/posts');
         return;
       }
 
-      let apiError = '';
-      try {
-        const data = await res.json();
-        apiError = data.error || '';
-      } catch {
-        // Ignore non-JSON error responses and use fallback message below.
-      }
-
-      setError(apiError || `Failed to ${mode === 'edit' ? 'update' : 'create'} post`);
+      setSessionExpired(res.status === 401);
+      setError(await apiErrorMessage(res, fallback));
     } catch {
-      setError(`Failed to ${mode === 'edit' ? 'update' : 'create'} post`);
-    } finally {
-      setSaving(false);
+      setError(fallback);
     }
+    setSaving(false);
   };
 
   const inputClass =
@@ -105,8 +102,9 @@ export default function PostForm({ mode, initialData }: PostFormProps) {
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
       <div>
-        <label className={labelClass}>Title *</label>
+        <label htmlFor="post-title" className={labelClass}>Title *</label>
         <input
+          id="post-title"
           name="title"
           required
           defaultValue={initialData?.title}
@@ -117,8 +115,9 @@ export default function PostForm({ mode, initialData }: PostFormProps) {
 
       <div className="grid grid-cols-2 gap-4">
         <div>
-          <label className={labelClass}>Author *</label>
+          <label htmlFor="post-author" className={labelClass}>Author *</label>
           <input
+            id="post-author"
             value={authorName}
             onChange={(e) => setAuthorName(e.target.value)}
             list="author-suggestions"
@@ -133,8 +132,9 @@ export default function PostForm({ mode, initialData }: PostFormProps) {
           </datalist>
         </div>
         <div>
-          <label className={labelClass}>Date *</label>
+          <label htmlFor="post-date" className={labelClass}>Date *</label>
           <input
+            id="post-date"
             name="date"
             type="date"
             required
@@ -146,8 +146,9 @@ export default function PostForm({ mode, initialData }: PostFormProps) {
 
       <div className="grid grid-cols-2 gap-4">
         <div>
-          <label className={labelClass}>Category</label>
+          <label htmlFor="post-category" className={labelClass}>Category</label>
           <input
+            id="post-category"
             name="category"
             defaultValue={initialData?.category}
             className={inputClass}
@@ -155,8 +156,9 @@ export default function PostForm({ mode, initialData }: PostFormProps) {
           />
         </div>
         <div>
-          <label className={labelClass}>Tags (comma-separated)</label>
+          <label htmlFor="post-tags" className={labelClass}>Tags (comma-separated)</label>
           <input
+            id="post-tags"
             value={tagsInput}
             onChange={(e) => setTagsInput(e.target.value)}
             className={inputClass}
@@ -166,19 +168,22 @@ export default function PostForm({ mode, initialData }: PostFormProps) {
       </div>
 
       <div>
-        <label className={labelClass}>Featured Image URL</label>
+        <label htmlFor="post-imageUrl" className={labelClass}>Featured Image URL</label>
         <input
+          id="post-imageUrl"
           name="imageUrl"
-          type="url"
+          type="text"
+          inputMode="url"
           defaultValue={initialData?.imageUrl}
           className={inputClass}
-          placeholder="https://..."
+          placeholder="https://... or /images/..."
         />
       </div>
 
       <div>
-        <label className={labelClass}>Excerpt *</label>
+        <label htmlFor="post-excerpt" className={labelClass}>Excerpt *</label>
         <textarea
+          id="post-excerpt"
           name="excerpt"
           required
           rows={3}
@@ -189,8 +194,9 @@ export default function PostForm({ mode, initialData }: PostFormProps) {
       </div>
 
       <div>
-        <label className={labelClass}>Content (HTML) *</label>
+        <label htmlFor="post-htmlContent" className={labelClass}>Content (HTML) *</label>
         <textarea
+          id="post-htmlContent"
           name="htmlContent"
           required
           rows={12}
@@ -200,7 +206,20 @@ export default function PostForm({ mode, initialData }: PostFormProps) {
         />
       </div>
 
-      {error && <p className="text-red-400 text-sm">{error}</p>}
+      {error && (
+        <p role="alert" className="text-red-400 text-sm">
+          {error}
+          {sessionExpired && (
+            <>
+              {' '}
+              {/* A new tab keeps what was typed here; save again after signing in. */}
+              <a href="/admin/login" target="_blank" rel="noopener" className="underline hover:text-red-300">
+                Sign in (opens a new tab)
+              </a>
+            </>
+          )}
+        </p>
+      )}
 
       <div className="flex gap-3 pt-2">
         <button

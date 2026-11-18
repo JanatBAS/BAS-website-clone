@@ -14,7 +14,11 @@ export default function AdminNav() {
   const router = useRouter();
 
   const handleLogout = async () => {
-    await fetch('/api/admin/logout', { method: 'POST' });
+    try {
+      await fetch('/api/admin/logout', { method: 'POST' });
+    } catch {
+      // Go to the login page even when the request fails.
+    }
     router.push('/admin/login');
   };
 
@@ -29,6 +33,7 @@ export default function AdminNav() {
             <Link
               key={link.href}
               href={link.href}
+              aria-current={pathname === link.href ? 'page' : undefined}
               className={`px-3 py-1.5 text-sm rounded-md transition-colors ${
                 pathname === link.href
                   ? 'bg-gray-800 text-white'
@@ -40,6 +45,7 @@ export default function AdminNav() {
           ))}
         </div>
         <button
+          type="button"
           onClick={handleLogout}
           className="text-sm text-gray-400 hover:text-white transition-colors"
         >

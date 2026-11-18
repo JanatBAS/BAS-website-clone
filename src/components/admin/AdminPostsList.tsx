@@ -1,20 +1,35 @@
 'use client';
 
 import Link from 'next/link';
+import { useState, useTransition } from 'react';
 import { useRouter } from 'next/navigation';
 import type { AdminBlogPost } from '@/types/admin';
+import { apiErrorMessage } from './api-error';
 
 export default function AdminPostsList({ posts }: { posts: AdminBlogPost[] }) {
   const router = useRouter();
+  const [deletingId, setDeletingId] = useState<string | null>(null);
+  // True until the refreshed list has rendered, so a deleted row cannot be deleted again.
+  const [refreshing, startRefresh] = useTransition();
 
-  const handleDelete = async (id: string) => {
-    if (!confirm('Delete this post?')) return;
-    const res = await fetch(`/api/admin/posts?id=${encodeURIComponent(id)}`, { method: 'DELETE' });
-    if (!res.ok) {
-      const data = await res.json().catch(() => ({}));
-      alert(data.error || 'Failed to delete post');
+  const handleDelete = async (id: string, title: string) => {
+    if (deletingId || refreshing || !confirm(`Delete the post "${title}"?`)) return;
+    setDeletingId(id);
+    try {
+      const res = await fetch(`/api/admin/posts?id=${encodeURIComponent(id)}`, { method: 'DELETE' });
+      if (res.status === 401) {
+        router.push('/admin/login?redirect=/admin/posts');
+        return;
+      }
+      if (!res.ok) {
+        alert(await apiErrorMessage(res, 'Failed to delete post'));
+      }
+      startRefresh(() => router.refresh());
+    } catch {
+      alert('Failed to delete post');
+    } finally {
+      setDeletingId(null);
     }
-    router.refresh();
   };
 
   if (posts.length === 0) {
@@ -50,10 +65,12 @@ export default function AdminPostsList({ posts }: { posts: AdminBlogPost[] }) {
                   Edit
                 </Link>
                 <button
-                  onClick={() => handleDelete(post.id)}
-                  className="text-red-400 hover:text-red-300 text-xs"
+                  type="button"
+                  onClick={() => handleDelete(post.id, post.title)}
+                  disabled={deletingId !== null || refreshing}
+                  className="text-red-400 hover:text-red-300 disabled:opacity-50 text-xs"
                 >
-                  Delete
+                  {deletingId === post.id ? 'Deleting...' : 'Delete'}
                 </button>
               </td>
             </tr>

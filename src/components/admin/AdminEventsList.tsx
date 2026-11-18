@@ -1,8 +1,10 @@
 'use client';
 
 import Link from 'next/link';
+import { useState, useTransition } from 'react';
 import { useRouter } from 'next/navigation';
 import type { AdminEvent } from '@/types/admin';
+import { apiErrorMessage } from './api-error';
 
 function formatAdminDateRange(event: AdminEvent): string {
   if (event.endDateISO && event.endDateISO !== event.dateISO) {
@@ -13,15 +15,28 @@ function formatAdminDateRange(event: AdminEvent): string {
 
 export default function AdminEventsList({ events }: { events: AdminEvent[] }) {
   const router = useRouter();
+  const [deletingId, setDeletingId] = useState<string | null>(null);
+  // True until the refreshed list has rendered, so a deleted row cannot be deleted again.
+  const [refreshing, startRefresh] = useTransition();
 
-  const handleDelete = async (id: string) => {
-    if (!confirm('Delete this event?')) return;
-    const res = await fetch(`/api/admin/events?id=${encodeURIComponent(id)}`, { method: 'DELETE' });
-    if (!res.ok) {
-      const data = await res.json().catch(() => ({}));
-      alert(data.error || 'Failed to delete event');
+  const handleDelete = async (id: string, title: string) => {
+    if (deletingId || refreshing || !confirm(`Delete the event "${title}"?`)) return;
+    setDeletingId(id);
+    try {
+      const res = await fetch(`/api/admin/events?id=${encodeURIComponent(id)}`, { method: 'DELETE' });
+      if (res.status === 401) {
+        router.push('/admin/login?redirect=/admin/events');
+        return;
+      }
+      if (!res.ok) {
+        alert(await apiErrorMessage(res, 'Failed to delete event'));
+      }
+      startRefresh(() => router.refresh());
+    } catch {
+      alert('Failed to delete event');
+    } finally {
+      setDeletingId(null);
     }
-    router.refresh();
   };
 
   if (events.length === 0) {
@@ -66,10 +81,12 @@ export default function AdminEventsList({ events }: { events: AdminEvent[] }) {
                   Duplicate
                 </Link>
                 <button
-                  onClick={() => handleDelete(event.id)}
-                  className="text-red-400 hover:text-red-300 text-xs"
+                  type="button"
+                  onClick={() => handleDelete(event.id, event.title)}
+                  disabled={deletingId !== null || refreshing}
+                  className="text-red-400 hover:text-red-300 disabled:opacity-50 text-xs"
                 >
-                  Delete
+                  {deletingId === event.id ? 'Deleting...' : 'Delete'}
                 </button>
               </td>
             </tr>
