@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useId } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -87,14 +87,17 @@ const navigationItems: NavItem[] = [
 ];
 
 function DropdownMenu({
+  id,
   items,
   isOpen,
 }: {
+  id: string;
   items: NonNullable<NavItem["dropdown"]>;
   isOpen: boolean;
 }) {
   return (
     <div
+      id={id}
       className={`absolute top-full left-0 mt-2 min-w-[200px] bg-white shadow-lg rounded-md py-2 transition-all duration-200 ${
         isOpen ? "opacity-100 visible translate-y-0" : "opacity-0 invisible -translate-y-2"
       }`}
@@ -109,7 +112,8 @@ function DropdownMenu({
               className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 transition-colors"
             >
               {item.label}
-              <span className="ml-1 text-xs">&#8599;</span>
+              <span className="ml-1 text-xs" aria-hidden="true">&#8599;</span>
+              <span className="sr-only"> (opens in a new tab)</span>
             </a>
           ) : (
             <Link
@@ -128,12 +132,38 @@ function DropdownMenu({
 function NavItemComponent({ item }: { item: NavItem }) {
   const [isOpen, setIsOpen] = useState(false);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const buttonRef = useRef<HTMLButtonElement>(null);
+  const menuId = useId();
 
   const handleMouseEnter = () => {
     if (timeoutRef.current) {
       clearTimeout(timeoutRef.current);
     }
     setIsOpen(true);
+  };
+
+  // A keyboard activation (detail 0) toggles the menu; a mouse or touch click
+  // only opens it, since hovering has usually opened it already.
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+    }
+    const toggle = e.detail === 0;
+    setIsOpen((open) => (toggle ? !open : true));
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    if (e.key === "Escape" && isOpen) {
+      setIsOpen(false);
+      buttonRef.current?.focus();
+    }
+  };
+
+  // Close once keyboard focus moves outside the button and its menu.
+  const handleBlur = (e: React.FocusEvent<HTMLDivElement>) => {
+    if (!e.currentTarget.contains(e.relatedTarget as Node | null)) {
+      setIsOpen(false);
+    }
   };
 
   const handleMouseLeave = () => {
@@ -156,11 +186,21 @@ function NavItemComponent({ item }: { item: NavItem }) {
         className="relative"
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
+        onKeyDown={handleKeyDown}
+        onBlur={handleBlur}
       >
-        <button className="text-white hover:text-white/80 font-medium text-sm uppercase tracking-wider transition-colors flex items-center gap-1 drop-shadow-[0_1px_2px_rgba(0,0,0,0.5)]">
+        <button
+          ref={buttonRef}
+          type="button"
+          onClick={handleClick}
+          aria-expanded={isOpen}
+          aria-controls={menuId}
+          className="text-white hover:text-white/80 font-medium text-sm uppercase tracking-wider transition-colors flex items-center gap-1 drop-shadow-[0_1px_2px_rgba(0,0,0,0.5)]"
+        >
           {item.label}
           <svg
             className={`w-3 h-3 transition-transform ${isOpen ? "rotate-180" : ""}`}
+            aria-hidden="true"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -173,7 +213,7 @@ function NavItemComponent({ item }: { item: NavItem }) {
             />
           </svg>
         </button>
-        <DropdownMenu items={item.dropdown} isOpen={isOpen} />
+        <DropdownMenu id={menuId} items={item.dropdown} isOpen={isOpen} />
       </div>
     );
   }
@@ -195,12 +235,15 @@ function MobileNavItem({ item, onClose }: { item: NavItem; onClose: () => void }
     return (
       <div className="border-b border-gray-100">
         <button
+          type="button"
           onClick={() => setIsExpanded(!isExpanded)}
+          aria-expanded={isExpanded}
           className="w-full flex items-center justify-between px-4 py-3 text-gray-800 font-medium text-sm uppercase tracking-wider"
         >
           {item.label}
           <svg
             className={`w-4 h-4 transition-transform ${isExpanded ? "rotate-180" : ""}`}
+            aria-hidden="true"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -226,7 +269,8 @@ function MobileNavItem({ item, onClose }: { item: NavItem; onClose: () => void }
                     className="block px-8 py-2 text-sm text-gray-700 hover:text-gray-900"
                   >
                     {subItem.label}
-                    <span className="ml-1 text-xs">&#8599;</span>
+                    <span className="ml-1 text-xs" aria-hidden="true">&#8599;</span>
+                    <span className="sr-only"> (opens in a new tab)</span>
                   </a>
                 ) : (
                   <Link
@@ -258,9 +302,20 @@ function MobileNavItem({ item, onClose }: { item: NavItem; onClose: () => void }
 
 function HeaderBar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLElement>) => {
+    if (e.key === "Escape" && isMobileMenuOpen) {
+      setIsMobileMenuOpen(false);
+      menuButtonRef.current?.focus();
+    }
+  };
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-gradient-to-b from-black/40 to-transparent">
+    <header
+      className="fixed top-0 left-0 right-0 z-50 bg-gradient-to-b from-black/40 to-transparent"
+      onKeyDown={handleKeyDown}
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
@@ -268,8 +323,8 @@ function HeaderBar() {
             <Image
               src="/images/branding/logo-horizontal.png"
               alt="Bitcoin Association Switzerland"
-              width={200}
-              height={50}
+              width={140}
+              height={48}
               className="h-12 w-auto"
               priority
             />
@@ -284,13 +339,18 @@ function HeaderBar() {
 
           {/* Mobile Menu Button */}
           <button
+            ref={menuButtonRef}
+            type="button"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            aria-expanded={isMobileMenuOpen}
+            aria-controls="mobile-menu"
             className="lg:hidden p-2 text-white hover:text-white/80 transition-colors drop-shadow-[0_1px_2px_rgba(0,0,0,0.5)]"
             aria-label="Toggle mobile menu"
           >
             {isMobileMenuOpen ? (
               <svg
                 className="w-6 h-6"
+                aria-hidden="true"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -305,6 +365,7 @@ function HeaderBar() {
             ) : (
               <svg
                 className="w-6 h-6"
+                aria-hidden="true"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -322,9 +383,14 @@ function HeaderBar() {
       </div>
 
       {/* Mobile Menu */}
+      {/* When closed the menu is also invisible, so its links leave the tab order.
+          When open it scrolls if it is taller than the space below the header bar. */}
       <div
+        id="mobile-menu"
         className={`lg:hidden bg-white shadow-lg transition-all duration-300 ${
-          isMobileMenuOpen ? "max-h-screen opacity-100" : "max-h-0 opacity-0 overflow-hidden"
+          isMobileMenuOpen
+            ? "max-h-[calc(100dvh-5rem)] opacity-100 overflow-y-auto"
+            : "max-h-0 opacity-0 overflow-hidden invisible"
         }`}
       >
         <nav className="max-w-7xl mx-auto">

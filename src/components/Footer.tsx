@@ -12,7 +12,7 @@ export default function Footer() {
             src="/images/branding/logo-footer.png"
             alt="Bitcoin Association Switzerland"
             width={200}
-            height={220}
+            height={210}
             className="h-auto"
           />
         </div>

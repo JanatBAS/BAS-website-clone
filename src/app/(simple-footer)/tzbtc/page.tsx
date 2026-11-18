@@ -65,9 +65,9 @@ export default function TzBTCPage() {
               </div>
 
               {/* Setup Section */}
-              <h1 className="text-3xl md:text-4xl font-serif text-gray-800 mb-6">
+              <h2 className="text-3xl md:text-4xl font-serif text-gray-800 mb-6">
                 Setup
-              </h1>
+              </h2>
 
               <p className="text-gray-600 leading-relaxed mb-6">
                 The multi-signature concept of tzBTC enables a strongly
@@ -250,9 +250,9 @@ export default function TzBTCPage() {
               <Separator className="my-8" />
 
               {/* Issuance Check Statements */}
-              <h1 className="text-3xl md:text-4xl font-serif text-gray-800 mb-6">
+              <h2 className="text-3xl md:text-4xl font-serif text-gray-800 mb-6">
                 Issuance Check Statements
-              </h1>
+              </h2>
 
               <p className="text-gray-600 leading-relaxed mb-6">
                 Each quarter we will issue a statement on the number of tzBTC

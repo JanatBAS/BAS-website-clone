@@ -58,9 +58,9 @@ export default function ContactPage() {
 
             {/* Form Section */}
             <div className="mt-8">
-              <h3 className="text-sm font-semibold tracking-wider text-ink mb-6 uppercase">
+              <h2 className="text-sm font-semibold tracking-wider text-ink mb-6 uppercase">
                 Please complete the form below
-              </h3>
+              </h2>
 
               <ContactForm />
             </div>

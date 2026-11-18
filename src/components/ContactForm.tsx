@@ -42,76 +42,84 @@ export default function ContactForm() {
         className="space-y-6"
       >
         {/* Name Fields */}
-        <div>
-          <label className="block text-sm text-ink mb-1">
+        <fieldset className="min-w-0">
+          <legend className="block text-sm text-ink mb-1">
             Name{" "}
             <span className="text-gray-400 text-xs">(required)</span>
-          </label>
+          </legend>
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs text-gray-500 mb-1">
+              <label htmlFor="contact-first-name" className="block text-xs text-gray-500 mb-1">
                 First Name
               </label>
               <input
+                id="contact-first-name"
                 type="text"
                 name="firstName"
+                autoComplete="given-name"
                 required
-                className="w-full px-3 py-2 border border-gray-300 rounded-none focus:outline-none focus:border-gray-400 text-sm bg-white"
+                className="w-full px-3 py-2 border border-gray-300 rounded-none focus:outline-none focus:border-gray-700 text-sm bg-white"
               />
             </div>
             <div>
-              <label className="block text-xs text-gray-500 mb-1">
+              <label htmlFor="contact-last-name" className="block text-xs text-gray-500 mb-1">
                 Last Name
               </label>
               <input
+                id="contact-last-name"
                 type="text"
                 name="lastName"
+                autoComplete="family-name"
                 required
-                className="w-full px-3 py-2 border border-gray-300 rounded-none focus:outline-none focus:border-gray-400 text-sm bg-white"
+                className="w-full px-3 py-2 border border-gray-300 rounded-none focus:outline-none focus:border-gray-700 text-sm bg-white"
               />
             </div>
           </div>
-        </div>
+        </fieldset>
 
         {/* Email Field */}
         <div>
-          <label className="block text-sm text-ink mb-1">
+          <label htmlFor="contact-email" className="block text-sm text-ink mb-1">
             Email Address{" "}
             <span className="text-gray-400 text-xs">(required)</span>
           </label>
           <input
+            id="contact-email"
             type="email"
             name="email"
+            autoComplete="email"
             required
-            className="w-full px-3 py-2 border border-gray-300 rounded-none focus:outline-none focus:border-gray-400 text-sm bg-white"
+            className="w-full px-3 py-2 border border-gray-300 rounded-none focus:outline-none focus:border-gray-700 text-sm bg-white"
           />
         </div>
 
         {/* Subject Field */}
         <div>
-          <label className="block text-sm text-ink mb-1">
+          <label htmlFor="contact-subject" className="block text-sm text-ink mb-1">
             Subject{" "}
             <span className="text-gray-400 text-xs">(required)</span>
           </label>
           <input
+            id="contact-subject"
             type="text"
             name="subject"
             required
-            className="w-full px-3 py-2 border border-gray-300 rounded-none focus:outline-none focus:border-gray-400 text-sm bg-white"
+            className="w-full px-3 py-2 border border-gray-300 rounded-none focus:outline-none focus:border-gray-700 text-sm bg-white"
           />
         </div>
 
         {/* Message Field */}
         <div>
-          <label className="block text-sm text-ink mb-1">
+          <label htmlFor="contact-message" className="block text-sm text-ink mb-1">
             Message{" "}
             <span className="text-gray-400 text-xs">(required)</span>
           </label>
           <textarea
+            id="contact-message"
             name="message"
             required
             rows={5}
-            className="w-full px-3 py-2 border border-gray-300 rounded-none focus:outline-none focus:border-gray-400 text-sm bg-white resize-y"
+            className="w-full px-3 py-2 border border-gray-300 rounded-none focus:outline-none focus:border-gray-700 text-sm bg-white resize-y"
           />
         </div>
 

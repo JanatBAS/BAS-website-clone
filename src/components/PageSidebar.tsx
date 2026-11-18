@@ -34,11 +34,12 @@ export default function PageSidebar({
           title
         )}
       </h2>
-      <nav className="space-y-2">
+      <nav aria-label={title} className="space-y-2">
         {items.map((item) => (
           <Link
             key={item.href}
             href={item.href}
+            aria-current={item.active ? "page" : undefined}
             className={`block text-xs uppercase tracking-wider transition-colors ${
               item.active
                 ? "text-gray-900 font-semibold"

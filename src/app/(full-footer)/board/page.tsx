@@ -153,6 +153,7 @@ export default function BoardPage() {
     <div className="min-h-screen bg-white">
       {/* Main Content */}
       <main className="pt-24 pb-16">
+        <h1 className="sr-only">Board</h1>
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-[200px_1fr] gap-8 lg:gap-12">
             {/* Sidebar Navigation */}

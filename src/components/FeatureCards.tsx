@@ -35,10 +35,10 @@ const cards: FeatureCard[] = [
     image: "/images/branding/bas-gv-2018-bw.jpeg",
     imageAlt: "Join Bitcoin Association Switzerland",
     title: "Become a member",
-    titleLink: "/events",
+    titleLink: "/membership/private-individuals",
     description: "You can become a contributor to our cause, or participate yourself.",
     ctaText: "Find Out How",
-    ctaLink: "/events",
+    ctaLink: "/membership/private-individuals",
   },
 ];
 
@@ -56,7 +56,7 @@ export default function FeatureCards() {
                   alt={card.imageAlt}
                   fill
                   className="object-cover grayscale"
-                  sizes="(max-width: 768px) 100vw, 50vw"
+                  sizes="(max-width: 768px) 100vw, 300px"
                 />
               </div>
 

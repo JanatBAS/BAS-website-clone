@@ -110,6 +110,7 @@ export default function CandidateProfilePage({ profile }: { profile: CandidatePr
                     className="w-full h-full"
                     allow="autoplay; fullscreen; picture-in-picture"
                     allowFullScreen
+                    loading="lazy"
                     title={profile.video.title}
                   />
                 </div>

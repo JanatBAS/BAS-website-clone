@@ -11,9 +11,9 @@ export default function BitcoinAssociationGABoardExpansionPage() {
     <main className="pt-24 min-h-screen bg-white">
       <article className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Date and Title */}
-        <p className="text-sm text-gray-700 mb-4">
+        <h1 className="text-sm text-gray-700 mb-4">
           <strong>27 NOV 2024 Bitcoin Association GA Board Expansion</strong>
-        </p>
+        </h1>
 
         <p className="text-sm text-gray-700 mb-6">
           <strong>Announcement Re: Potential Board Expansion – November 27th 2024</strong>

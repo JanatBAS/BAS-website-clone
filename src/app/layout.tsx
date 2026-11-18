@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import { SITE_URL } from "@/lib/site";
+import { SITE_OPEN_GRAPH, SITE_URL } from "@/lib/site";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -25,27 +25,12 @@ export const metadata: Metadata = {
   description: "The Bitcoin Association Switzerland forms an active community of enthusiasts with regular events, try to resolve open legal questions, and educate the public by providing a contact point for media inquiries.",
   keywords: ["Bitcoin", "Switzerland", "Cryptocurrency", "Association", "Community", "Meetup"],
   authors: [{ name: "Bitcoin Association Switzerland" }],
-  openGraph: {
-    title: "Bitcoin Association Switzerland",
-    description: "The Bitcoin Association Switzerland forms an active community of enthusiasts with regular events, try to resolve open legal questions, and educate the public by providing a contact point for media inquiries.",
-    url: SITE_URL,
-    siteName: "Bitcoin Association Switzerland",
-    locale: "en_GB",
-    type: "website",
-    images: [
-      {
-        url: "/images/branding/logo-with-name.png",
-        width: 227,
-        height: 237,
-        alt: "Bitcoin Association Switzerland Logo",
-      },
-    ],
-  },
+  // Only the shared fields: og/twitter title and description fall back to each
+  // page's own, and og:url is left to the pages that set it (home, blog posts).
+  openGraph: SITE_OPEN_GRAPH,
   twitter: {
     card: "summary",
-    title: "Bitcoin Association Switzerland",
-    description: "The Bitcoin Association Switzerland forms an active community of enthusiasts with regular events.",
-    images: ["/images/branding/logo-with-name.png"],
+    images: [SITE_OPEN_GRAPH.images[0].url],
   },
   icons: {
     icon: "/favicon.ico",

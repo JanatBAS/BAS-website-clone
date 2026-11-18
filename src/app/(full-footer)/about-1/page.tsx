@@ -60,9 +60,9 @@ export default function AboutPage() {
           <div className="flex-1 max-w-2xl">
             {/* About Us Section */}
             <section className="mb-12">
-              <h2 className="text-sm uppercase tracking-wider text-gray-800 font-semibold mb-6">
+              <h1 className="text-sm uppercase tracking-wider text-gray-800 font-semibold mb-6">
                 About Us
-              </h2>
+              </h1>
               <p className="text-gray-600 text-sm leading-relaxed mb-4">
                 Founded in late 2013, the Bitcoin Association Switzerland is
                 the oldest Fintech association in Switzerland and one of the
@@ -92,6 +92,7 @@ export default function AboutPage() {
                     title="What is Bitcoin? (v2)"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen
+                    loading="lazy"
                     className="absolute inset-0 w-full h-full"
                   />
                 </div>

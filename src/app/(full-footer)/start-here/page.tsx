@@ -31,7 +31,7 @@ export default function StartHerePage() {
           <p className="text-gray-600 text-sm leading-relaxed mb-3">
             But Bitcoin is more than a currency. It also functions as a secure, 
             distributed network of peers, where security comes from a process called{" "}
-            <a href="https://learnmeabitcoin.com/beginners/guide/mining/" target="_blank" className="text-blue-500 hover:underline">mining</a>, 
+            <a href="https://learnmeabitcoin.com/beginners/guide/mining/" target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">mining</a>, 
             the same process by which new Bitcoin is issued and by which it derives its value.
           </p>
           <p className="text-gray-600 text-sm leading-relaxed">
