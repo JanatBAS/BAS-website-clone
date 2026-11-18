@@ -22,8 +22,33 @@ function unauthorized(request: NextRequest): NextResponse {
   return response;
 }
 
+const SAFE_METHODS = new Set(['GET', 'HEAD', 'OPTIONS']);
+
+/**
+ * Admin API writes come only from the admin pages on this origin. The
+ * SameSite=Lax cookie already stays off cross-site requests; this also refuses
+ * requests from other subdomains of the same site. Browsers send
+ * Sec-Fetch-Site; Origin is the fallback for those that do not.
+ */
+function isCrossOriginWrite(request: NextRequest): boolean {
+  if (SAFE_METHODS.has(request.method)) return false;
+  const fetchSite = request.headers.get('sec-fetch-site');
+  if (fetchSite) return fetchSite !== 'same-origin';
+  const origin = request.headers.get('origin');
+  if (!origin) return false;
+  try {
+    return new URL(origin).host !== request.headers.get('host');
+  } catch {
+    return true;
+  }
+}
+
 export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
+
+  if (pathname.startsWith('/api/admin/') && isCrossOriginWrite(request)) {
+    return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
+  }
 
   if (pathname === '/admin/login' || pathname === '/api/admin/login') {
     return NextResponse.next();

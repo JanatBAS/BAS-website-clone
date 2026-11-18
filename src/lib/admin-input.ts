@@ -29,6 +29,16 @@ export function optionalUrl(value: unknown, label: string): { url?: string; erro
   return url ? { url } : { error: `${label} must be an http(s) URL.` };
 }
 
+/** The request body when it is a JSON object, otherwise null (answered with a 400). */
+export async function readJsonObject<T>(request: Request): Promise<T | null> {
+  try {
+    const body: unknown = await request.json();
+    return body !== null && typeof body === 'object' && !Array.isArray(body) ? (body as T) : null;
+  } catch {
+    return null;
+  }
+}
+
 /** The `id` query parameter of a PUT or DELETE request. */
 export function idParam(request: Request): string | null {
   return new URL(request.url).searchParams.get('id');

@@ -13,6 +13,7 @@ import {
   missingId,
   optionalString,
   optionalUrl,
+  readJsonObject,
   requiredString,
   saveFailed,
 } from '@/lib/admin-input';
@@ -151,7 +152,8 @@ function revalidateEventPages(): void {
 
 export async function POST(request: Request) {
   try {
-    const data: AdminEventFormData = await request.json();
+    const data = await readJsonObject<AdminEventFormData>(request);
+    if (!data) return invalidInput('Invalid request body');
     const validation = validateEventData(data);
 
     if (!validation.fields) return invalidInput(validation.error || 'Invalid event data');
@@ -179,7 +181,8 @@ export async function PUT(request: Request) {
     const id = idParam(request);
     if (!id) return missingId();
 
-    const data: AdminEventFormData = await request.json();
+    const data = await readJsonObject<AdminEventFormData>(request);
+    if (!data) return invalidInput('Invalid request body');
     const validation = validateEventData(data);
 
     if (!validation.fields) return invalidInput(validation.error || 'Invalid event data');
@@ -197,8 +200,9 @@ export async function PUT(request: Request) {
       return NextResponse.json({ error: 'Event not found' }, { status: 404 });
     }
 
-    revalidateEventPages();
-    return NextResponse.json(updated);
+    // Nothing was written when the event did not change, so the pages are current.
+    if (updated.changed) revalidateEventPages();
+    return NextResponse.json(updated.item);
   } catch (error) {
     return saveFailed(error, 'Failed to update event');
   }

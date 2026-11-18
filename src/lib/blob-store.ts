@@ -1,3 +1,4 @@
+import { cache } from 'react';
 import { unstable_cache, revalidateTag } from 'next/cache';
 import { BlobPreconditionFailedError, put } from '@vercel/blob';
 import type { AdminEvent, AdminBlogPost } from '@/types/admin';
@@ -10,7 +11,8 @@ import { readPublicBlobJson } from './blob-read';
  * - Public pages read through `unstable_cache` with no expiry, so a cache hit
  *   costs nothing. The admin API invalidates the tag after every save.
  * - A save is exactly one fresh read (a simple operation) plus one `put` (an
- *   advanced operation). A save that changes nothing performs no `put`.
+ *   advanced operation). A save that changes nothing (an edit saved without
+ *   changes, an occurrence that is already hidden) performs no `put`.
  *
  * Only a missing blob (404) counts as an empty list. Any other read error is
  * thrown, so an empty list is never cached for public pages and never written
@@ -26,9 +28,26 @@ const POSTS_TAG = 'admin-posts';
 /** Thrown when another save changed the same list between our read and write. */
 export class AdminDataConflictError extends Error {
   constructor() {
-    super('The data was changed by another save. Reload and try again.');
+    super('The data was changed by another save at the same time. Please save again.');
     this.name = 'AdminDataConflictError';
   }
+}
+
+/** Result of an edit; `changed` is false when nothing was written. */
+export interface UpdateResult<T> {
+  item: T;
+  changed: boolean;
+}
+
+/** True when both records hold the same data, apart from `updatedAt`. */
+function sameExceptUpdatedAt(a: object, b: object): boolean {
+  const fields = (record: object) =>
+    JSON.stringify(
+      Object.entries(record)
+        .filter(([key, value]) => key !== 'updatedAt' && value !== undefined)
+        .sort(([x], [y]) => (x < y ? -1 : x > y ? 1 : 0)),
+    );
+  return fields(a) === fields(b);
 }
 
 interface Dataset<T> {
@@ -116,9 +135,11 @@ const getAdminEventsCached = unstable_cache(
   },
 );
 
-export async function getAdminEvents(): Promise<AdminEvent[]> {
-  return getAdminEventsCached();
-}
+/**
+ * `cache` shares one result per render (e.g. generateMetadata and the page), so
+ * concurrent cache misses in one render cost a single read.
+ */
+export const getAdminEvents = cache(async (): Promise<AdminEvent[]> => getAdminEventsCached());
 
 export async function getAdminEventById(id: string): Promise<AdminEvent | undefined> {
   const events = await getAdminEvents();
@@ -152,20 +173,28 @@ export async function deleteAdminEvent(id: string): Promise<boolean> {
 
 /**
  * Replaces an event with `build(existing)`, using the freshly read version.
- * Returns null when no event has this id.
+ * Returns null when no event has this id. An edit that changes nothing but
+ * `updatedAt` is not written and returns the stored event.
  */
 export async function updateAdminEvent(
   id: string,
   build: (existing: AdminEvent) => AdminEvent,
-): Promise<AdminEvent | null> {
-  return updateEvents((events) => {
+): Promise<UpdateResult<AdminEvent> | null> {
+  let unchanged: AdminEvent | undefined;
+  const updated = await updateEvents((events) => {
     const index = events.findIndex((event) => event.id === id);
     if (index === -1) return null;
-    const updated = build(events[index]);
+    const next = build(events[index]);
+    if (sameExceptUpdatedAt(next, events[index])) {
+      unchanged = events[index];
+      return null;
+    }
     const items = events.slice();
-    items[index] = updated;
-    return { items, result: updated };
+    items[index] = next;
+    return { items, result: next };
   });
+  if (updated) return { item: updated, changed: true };
+  return unchanged ? { item: unchanged, changed: false } : null;
 }
 
 /**
@@ -198,9 +227,8 @@ const getAdminPostsCached = unstable_cache(
   },
 );
 
-export async function getAdminPosts(): Promise<AdminBlogPost[]> {
-  return getAdminPostsCached();
-}
+/** See getAdminEvents. */
+export const getAdminPosts = cache(async (): Promise<AdminBlogPost[]> => getAdminPostsCached());
 
 export async function getAdminPostBySlug(slug: string): Promise<AdminBlogPost | undefined> {
   const posts = await getAdminPosts();
@@ -231,18 +259,26 @@ export async function deleteAdminPost(id: string): Promise<AdminBlogPost | null>
 
 /**
  * Replaces a post with `build(existing)`, using the freshly read version.
- * Returns null when no post has this id.
+ * Returns null when no post has this id. An edit that changes nothing but
+ * `updatedAt` is not written and returns the stored post.
  */
 export async function updateAdminPost(
   id: string,
   build: (existing: AdminBlogPost) => AdminBlogPost,
-): Promise<AdminBlogPost | null> {
-  return updateDataset<AdminBlogPost, AdminBlogPost>(POSTS_KEY, (posts) => {
+): Promise<UpdateResult<AdminBlogPost> | null> {
+  let unchanged: AdminBlogPost | undefined;
+  const updated = await updateDataset<AdminBlogPost, AdminBlogPost>(POSTS_KEY, (posts) => {
     const index = posts.findIndex((post) => post.id === id);
     if (index === -1) return null;
-    const updated = build(posts[index]);
+    const next = build(posts[index]);
+    if (sameExceptUpdatedAt(next, posts[index])) {
+      unchanged = posts[index];
+      return null;
+    }
     const items = posts.slice();
-    items[index] = updated;
-    return { items, result: updated };
+    items[index] = next;
+    return { items, result: next };
   });
+  if (updated) return { item: updated, changed: true };
+  return unchanged ? { item: unchanged, changed: false } : null;
 }

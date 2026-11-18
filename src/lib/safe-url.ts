@@ -9,9 +9,11 @@ export function safeHttpUrl(value: unknown): string | undefined {
   const trimmed = value.trim();
   if (!trimmed || trimmed.length > 2048) return undefined;
 
-  // Site-relative path (but not protocol-relative "//host").
+  // Site-relative path (but not protocol-relative "//host"). Browsers read a
+  // backslash as "/" and drop tabs and newlines, so "/\host" and "/\t/host"
+  // would also leave the site.
   if (trimmed.startsWith('/')) {
-    return trimmed.startsWith('//') ? undefined : trimmed;
+    return trimmed.startsWith('//') || /[\\\u0000-\u001f\u007f]/.test(trimmed) ? undefined : trimmed;
   }
 
   try {

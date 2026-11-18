@@ -12,6 +12,7 @@ import {
   missingId,
   optionalString,
   optionalUrl,
+  readJsonObject,
   requiredString,
   saveFailed,
 } from '@/lib/admin-input';
@@ -123,7 +124,8 @@ function revalidatePostPages(slugs: string[]): void {
 
 export async function POST(request: Request) {
   try {
-    const data: AdminBlogPostFormData = await request.json();
+    const data = await readJsonObject<AdminBlogPostFormData>(request);
+    if (!data) return invalidInput('Invalid request body');
     const validation = validatePostData(data);
 
     if (!validation.fields) return invalidInput(validation.error || 'Invalid post data');
@@ -162,7 +164,8 @@ export async function PUT(request: Request) {
     const id = idParam(request);
     if (!id) return missingId();
 
-    const data: AdminBlogPostFormData = await request.json();
+    const data = await readJsonObject<AdminBlogPostFormData>(request);
+    if (!data) return invalidInput('Invalid request body');
     const validation = validatePostData(data);
 
     if (!validation.fields) return invalidInput(validation.error || 'Invalid post data');
@@ -187,8 +190,9 @@ export async function PUT(request: Request) {
       return NextResponse.json({ error: 'Post not found' }, { status: 404 });
     }
 
-    revalidatePostPages([updated.slug]);
-    return NextResponse.json(updated);
+    // Nothing was written when the post did not change, so the pages are current.
+    if (updated.changed) revalidatePostPages([updated.item.slug]);
+    return NextResponse.json(updated.item);
   } catch (error) {
     return saveFailed(error, 'Failed to update post');
   }

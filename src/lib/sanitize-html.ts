@@ -39,10 +39,11 @@ const options: sanitizeHtml.IOptions = {
   },
   allowedIframeHostnames: ALLOWED_IFRAME_HOSTS,
   allowProtocolRelative: false,
-  // Any link that opens a new tab must not be able to reach back to our window.
+  // Any link that opens another window (a "_blank" or a named target) must not
+  // be able to reach back to our window.
   transformTags: {
     a: (tagName, attribs) => {
-      if (attribs.target === '_blank') {
+      if (attribs.target && attribs.target !== '_self') {
         return { tagName, attribs: { ...attribs, rel: 'noopener noreferrer' } };
       }
       return { tagName, attribs };
