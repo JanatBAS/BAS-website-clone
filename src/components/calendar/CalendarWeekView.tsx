@@ -1,10 +1,10 @@
 "use client";
 
-import { CalendarDay as CalendarDayType, UnifiedEvent, CATEGORY_COLORS } from '@/types/calendar';
+import { CalendarDay as CalendarDayType, CalendarEvent, CATEGORY_COLORS } from '@/types/calendar';
 
 interface CalendarWeekViewProps {
   days: CalendarDayType[];
-  onEventClick: (event: UnifiedEvent) => void;
+  onEventClick: (event: CalendarEvent) => void;
 }
 
 export function CalendarWeekView({ days, onEventClick }: CalendarWeekViewProps) {

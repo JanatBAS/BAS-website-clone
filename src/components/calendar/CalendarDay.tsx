@@ -1,11 +1,11 @@
 "use client";
 
-import { CalendarDay as CalendarDayType, UnifiedEvent, CATEGORY_COLORS } from '@/types/calendar';
+import { CalendarDay as CalendarDayType, CalendarEvent, CATEGORY_COLORS } from '@/types/calendar';
 
 interface CalendarDayProps {
   day: CalendarDayType;
   onDayClick: (day: CalendarDayType) => void;
-  onEventClick: (event: UnifiedEvent) => void;
+  onEventClick: (event: CalendarEvent) => void;
 }
 
 export function CalendarDay({ day, onDayClick, onEventClick }: CalendarDayProps) {

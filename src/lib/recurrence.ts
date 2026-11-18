@@ -25,6 +25,8 @@ export function expandRecurringEvent(event: AdminEvent): AdminEvent[] {
   const cutoff = seriesEnd < windowEnd ? seriesEnd : windowEnd;
 
   const startDate = new Date(event.dateISO + 'T12:00:00');
+  // An unparsable start date would never pass the cutoff and loop forever.
+  if (Number.isNaN(startDate.getTime())) return [event];
   const hasEndDate = Boolean(event.endDateISO && event.endDateISO >= event.dateISO);
   const durationDays = hasEndDate ? daysBetweenDateISO(event.dateISO, event.endDateISO!) : 0;
   const occurrences: AdminEvent[] = [];

@@ -1,4 +1,13 @@
-import { CalendarDay, CalendarWeek, CalendarMonth, UnifiedEvent } from '@/types/calendar';
+import type {
+  CalendarData,
+  CalendarDay,
+  CalendarEvent,
+  CalendarEventDetails,
+  CalendarMonth,
+  CalendarOccurrence,
+  CalendarWeek,
+  UnifiedEvent,
+} from '@/types/calendar';
 import { isDateWithinEventRange } from './event-dates';
 
 export function getMonthName(month: number, format: 'long' | 'short' = 'long'): string {
@@ -66,7 +75,7 @@ export function formatDateISO(date: Date): string {
   return `${year}-${month}-${day}`;
 }
 
-export function getEventsForDate(events: UnifiedEvent[], date: Date): UnifiedEvent[] {
+export function getEventsForDate(events: CalendarEvent[], date: Date): CalendarEvent[] {
   const dateISO = formatDateISO(date);
   return sortEventsByDate(events.filter(event => isDateWithinEventRange(event, dateISO)), true);
 }
@@ -74,7 +83,7 @@ export function getEventsForDate(events: UnifiedEvent[], date: Date): UnifiedEve
 export function generateCalendarMonth(
   year: number,
   month: number,
-  events: UnifiedEvent[],
+  events: CalendarEvent[],
   todayISO: string
 ): CalendarMonth {
   const firstDayOfMonth = getStartOfMonth(year, month);
@@ -114,7 +123,7 @@ export function generateCalendarMonth(
 
 export function generateWeekDays(
   weekStart: Date,
-  events: UnifiedEvent[],
+  events: CalendarEvent[],
   todayISO: string
 ): CalendarDay[] {
   const days: CalendarDay[] = [];
@@ -137,7 +146,7 @@ export function generateWeekDays(
   return days;
 }
 
-export function sortEventsByDate(events: UnifiedEvent[], ascending = true): UnifiedEvent[] {
+export function sortEventsByDate(events: CalendarEvent[], ascending = true): CalendarEvent[] {
   return [...events].sort((a, b) => {
     const dateA = new Date(`${a.dateISO}T${a.startTime || '00:00'}`);
     const dateB = new Date(`${b.dateISO}T${b.startTime || '00:00'}`);
@@ -147,4 +156,62 @@ export function sortEventsByDate(events: UnifiedEvent[], ascending = true): Unif
 
 export function getMonthYearLabel(year: number, month: number): string {
   return `${getMonthName(month)} ${year}`;
+}
+
+/** Leaves out undefined fields, which the page payload would otherwise carry as "$undefined". */
+function definedFields<T extends object>(value: T): T {
+  return Object.fromEntries(Object.entries(value).filter(([, field]) => field !== undefined)) as T;
+}
+
+/**
+ * Shapes the events for the calendar component on the server: only the fields
+ * the calendar shows, with the details shared by a recurring series' occurrences
+ * (an admin series repeats its description in every occurrence) stored once.
+ */
+export function toCalendarData(events: UnifiedEvent[]): CalendarData {
+  const details: CalendarEventDetails[] = [];
+  const detailsIndex = new Map<string, number>();
+
+  const occurrences = events.map((event): CalendarOccurrence => {
+    const eventDetails = definedFields<CalendarEventDetails>({
+      slug: event.slug,
+      title: event.title,
+      description: event.description,
+      shortDescription: event.shortDescription,
+      startTime: event.startTime,
+      endTime: event.endTime,
+      startTimeDisplay: event.startTimeDisplay,
+      endTimeDisplay: event.endTimeDisplay,
+      location: event.location,
+      locationUrl: event.locationUrl,
+      imageUrl: event.imageUrl,
+      href: event.href,
+      signupLink: event.signupLink,
+      googleCalendarUrl: event.googleCalendarUrl,
+      category: event.category,
+      source: event.source,
+    });
+    const key = JSON.stringify(eventDetails);
+    let index = detailsIndex.get(key);
+    if (index === undefined) {
+      index = details.push(eventDetails) - 1;
+      detailsIndex.set(key, index);
+    }
+
+    return definedFields<CalendarOccurrence>({
+      id: event.id,
+      dateISO: event.dateISO,
+      endDateISO: event.endDateISO,
+      dayOfMonth: event.dayOfMonth,
+      monthShort: event.monthShort,
+      details: index,
+    });
+  });
+
+  return { details, occurrences };
+}
+
+/** The events from `toCalendarData()`, in the same order. */
+export function fromCalendarData({ details, occurrences }: CalendarData): CalendarEvent[] {
+  return occurrences.map(({ details: index, ...occurrence }) => ({ ...details[index], ...occurrence }));
 }

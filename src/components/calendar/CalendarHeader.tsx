@@ -99,6 +99,7 @@ export function CalendarHeader({
           <button
             key={view.key}
             onClick={() => onViewChange(view.key)}
+            aria-pressed={currentView === view.key}
             className={`
               px-3 sm:px-4 py-1.5 text-sm font-medium rounded-md transition-all duration-200
               ${currentView === view.key

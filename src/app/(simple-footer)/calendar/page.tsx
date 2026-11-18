@@ -2,6 +2,7 @@ import { Metadata } from 'next';
 import { Calendar } from '@/components/calendar';
 import { allEvents } from '@/data/events';
 import { getAllEventsWithAdmin } from '@/lib/merge-data';
+import { toCalendarData } from '@/lib/calendar-utils';
 import { swissTodayISO } from '@/lib/event-dates';
 
 export const revalidate = 86400;
@@ -12,7 +13,7 @@ export const metadata: Metadata = {
 };
 
 export default async function CalendarPage() {
-  const events = await getAllEventsWithAdmin(allEvents);
+  const calendarData = toCalendarData(await getAllEventsWithAdmin(allEvents));
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
@@ -31,7 +32,7 @@ export default async function CalendarPage() {
       {/* Calendar section */}
       <main className="flex-1 py-8 sm:py-12">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <Calendar events={events} initialTodayISO={swissTodayISO()} />
+          <Calendar data={calendarData} initialTodayISO={swissTodayISO()} />
         </div>
       </main>
     </div>

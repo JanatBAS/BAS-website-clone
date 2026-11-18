@@ -7,6 +7,7 @@ import Image from "next/image";
 import { Calendar } from "@/components/calendar";
 import { allEvents } from "@/data/events";
 import { getAllEventsWithAdmin } from "@/lib/merge-data";
+import { toCalendarData } from "@/lib/calendar-utils";
 import { swissTodayISO } from "@/lib/event-dates";
 import { MEETUP_GROUPS, meetupGroupUrl } from "@/data/meetup-groups";
 
@@ -34,7 +35,7 @@ const moreEventsCards = [
 ];
 
 export default async function EventsPage() {
-  const events = await getAllEventsWithAdmin(allEvents);
+  const calendarData = toCalendarData(await getAllEventsWithAdmin(allEvents));
 
   return (
     <main className="min-h-screen">
@@ -46,7 +47,7 @@ export default async function EventsPage() {
       {/* Calendar Section */}
       <section className="bg-white py-12 md:py-16">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <Calendar events={events} initialTodayISO={swissTodayISO()} />
+          <Calendar data={calendarData} initialTodayISO={swissTodayISO()} />
         </div>
       </section>
 

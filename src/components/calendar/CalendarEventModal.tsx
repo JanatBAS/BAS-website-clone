@@ -1,21 +1,21 @@
 "use client";
 
-import { useEffect, useCallback } from 'react';
+import { useEffect, useCallback, useId, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { UnifiedEvent, CATEGORY_COLORS, CATEGORY_LABELS } from '@/types/calendar';
+import { CalendarEvent, CATEGORY_COLORS, CATEGORY_LABELS } from '@/types/calendar';
 import { formatEventDateRange, isEventPast } from '@/lib/event-dates';
 import { googleCalendarUrl, icsDataUrl, icsFileName, type IcsEventInput } from '@/lib/ics';
 import { SITE_URL } from '@/lib/site';
 
 interface CalendarEventModalProps {
-  event: UnifiedEvent | null;
+  event: CalendarEvent | null;
   isOpen: boolean;
   onClose: () => void;
   todayISO: string;
 }
 
-function toCalendarInput(event: UnifiedEvent): IcsEventInput {
+function toCalendarInput(event: CalendarEvent): IcsEventInput {
   const pageUrl = event.signupLink ?? (event.href.startsWith('/') ? `${SITE_URL}${event.href}` : event.href);
   return {
     uid: event.id,
@@ -30,26 +30,54 @@ function toCalendarInput(event: UnifiedEvent): IcsEventInput {
   };
 }
 
+const FOCUSABLE_SELECTOR = 'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])';
+
 export function CalendarEventModal({ event, isOpen, onClose, todayISO }: CalendarEventModalProps) {
-  // Handle escape key
+  const dialogRef = useRef<HTMLDivElement>(null);
+  const titleId = useId();
+
+  // Escape closes the dialog; Tab and Shift+Tab stay inside it.
   const handleKeyDown = useCallback(
     (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
         onClose();
+        return;
+      }
+
+      const dialog = dialogRef.current;
+      if (e.key !== 'Tab' || !dialog) return;
+
+      const focusable = dialog.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTOR);
+      if (focusable.length === 0) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      const active = document.activeElement;
+      const outside = !dialog.contains(active);
+
+      if (e.shiftKey && (active === first || active === dialog || outside)) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && (active === last || outside)) {
+        e.preventDefault();
+        first.focus();
       }
     },
     [onClose]
   );
 
   useEffect(() => {
-    if (isOpen) {
-      document.addEventListener('keydown', handleKeyDown);
-      document.body.style.overflow = 'hidden';
-    }
+    if (!isOpen) return;
+
+    // Move focus into the dialog and give it back to the trigger on close.
+    const previouslyFocused = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    dialogRef.current?.focus();
+    document.addEventListener('keydown', handleKeyDown);
+    document.body.style.overflow = 'hidden';
 
     return () => {
       document.removeEventListener('keydown', handleKeyDown);
       document.body.style.overflow = '';
+      previouslyFocused?.focus();
     };
   }, [isOpen, handleKeyDown]);
 
@@ -67,11 +95,20 @@ export function CalendarEventModal({ event, isOpen, onClose, todayISO }: Calenda
           ${isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}
         `}
         onClick={onClose}
+        aria-hidden="true"
       />
 
       {/* Modal */}
       <div
+        ref={dialogRef}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby={titleId}
+        tabIndex={-1}
+        // Still rendered while it fades out; keep it out of reach until then.
+        inert={!isOpen}
         className={`
+          focus:outline-none
           fixed inset-4 sm:inset-auto sm:top-1/2 sm:left-1/2 sm:-translate-x-1/2 sm:-translate-y-1/2
           sm:max-w-lg sm:w-full z-50
           bg-white rounded-xl shadow-2xl overflow-hidden
@@ -89,6 +126,7 @@ export function CalendarEventModal({ event, isOpen, onClose, todayISO }: Calenda
               src={event.imageUrl}
               alt={event.title}
               fill
+              sizes="(min-width: 640px) 512px, 100vw"
               className="object-cover"
               unoptimized={event.source === 'admin' || event.source === 'meetup.com'}
             />
@@ -97,6 +135,7 @@ export function CalendarEventModal({ event, isOpen, onClose, todayISO }: Calenda
             {/* Close button */}
             <button
               onClick={onClose}
+              aria-label="Close"
               className="absolute top-3 right-3 p-2 rounded-full bg-black/20 hover:bg-black/40
                 text-white transition-colors"
             >
@@ -136,6 +175,7 @@ export function CalendarEventModal({ event, isOpen, onClose, todayISO }: Calenda
               </span>
               <button
                 onClick={onClose}
+                aria-label="Close"
                 className="p-1 rounded-full hover:bg-gray-100 text-gray-400 hover:text-gray-600 transition-colors"
               >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -146,7 +186,7 @@ export function CalendarEventModal({ event, isOpen, onClose, todayISO }: Calenda
           )}
 
           {/* Title */}
-          <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3">
+          <h2 id={titleId} className="text-xl sm:text-2xl font-bold text-gray-900 mb-3">
             {event.title}
           </h2>
 

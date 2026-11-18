@@ -1,13 +1,13 @@
 "use client";
 
-import { CalendarMonth, CalendarDay as CalendarDayType, UnifiedEvent } from '@/types/calendar';
+import { CalendarMonth, CalendarDay as CalendarDayType, CalendarEvent } from '@/types/calendar';
 import { getWeekDays } from '@/lib/calendar-utils';
 import { CalendarDay } from './CalendarDay';
 
 interface CalendarGridProps {
   month: CalendarMonth;
   onDayClick: (day: CalendarDayType) => void;
-  onEventClick: (event: UnifiedEvent) => void;
+  onEventClick: (event: CalendarEvent) => void;
 }
 
 export function CalendarGrid({ month, onDayClick, onEventClick }: CalendarGridProps) {

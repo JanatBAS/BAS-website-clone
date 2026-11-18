@@ -40,6 +40,21 @@ export function adminEventToUnified(event: AdminEvent): UnifiedEvent {
   };
 }
 
+/**
+ * A Meetup event that runs past midnight (e.g. 19:00-01:00) is stored with the
+ * next day as its end date; it belongs on its start day only.
+ */
+function meetupEndDateISO(event: MeetupEvent): string | undefined {
+  if (!event.endDateISO || !event.endTime) return event.endDateISO;
+  const nextDay = new Date(`${event.dateISO}T12:00:00Z`);
+  nextDay.setUTCDate(nextDay.getUTCDate() + 1);
+  const endsNextMorning =
+    event.endDateISO === nextDay.toISOString().slice(0, 10) &&
+    event.endTime <= '06:00' &&
+    event.endTime < event.startTime;
+  return endsNextMorning ? undefined : event.endDateISO;
+}
+
 export function meetupEventToUnified(event: MeetupEvent): UnifiedEvent {
   const dateInfo = getDateInfo(event.dateISO);
 
@@ -50,7 +65,7 @@ export function meetupEventToUnified(event: MeetupEvent): UnifiedEvent {
     description: event.description,
     shortDescription: truncateDescription(event.description),
     dateISO: event.dateISO,
-    endDateISO: event.endDateISO,
+    endDateISO: meetupEndDateISO(event),
     startTime: event.startTime,
     endTime: event.endTime,
     startTimeDisplay: formatTimeDisplay(event.startTime),

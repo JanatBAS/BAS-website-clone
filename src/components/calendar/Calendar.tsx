@@ -1,9 +1,10 @@
 "use client";
 
-import { useCallback, useRef } from 'react';
-import { UnifiedEvent, CalendarDay as CalendarDayType } from '@/types/calendar';
+import { useCallback, useMemo, useRef } from 'react';
+import { CalendarData, CalendarDay as CalendarDayType } from '@/types/calendar';
 import { useCalendar } from '@/hooks/useCalendar';
 import { isEventPast } from '@/lib/event-dates';
+import { fromCalendarData } from '@/lib/calendar-utils';
 import { MEETUP_GROUPS, meetupGroupUrl } from '@/data/meetup-groups';
 import { CalendarHeader } from './CalendarHeader';
 import { CalendarFilters } from './CalendarFilters';
@@ -13,12 +14,14 @@ import { CalendarListView } from './CalendarListView';
 import { CalendarEventModal } from './CalendarEventModal';
 
 interface CalendarProps {
-  events: UnifiedEvent[];
+  /** The events, shaped on the server with `toCalendarData()`. */
+  data: CalendarData;
   /** Today (YYYY-MM-DD) at server render time; the browser's date takes over after hydration. */
   initialTodayISO: string;
 }
 
-export function Calendar({ events, initialTodayISO }: CalendarProps) {
+export function Calendar({ data, initialTodayISO }: CalendarProps) {
+  const events = useMemo(() => fromCalendarData(data), [data]);
   const {
     currentDate,
     todayISO,
@@ -34,6 +37,7 @@ export function Calendar({ events, initialTodayISO }: CalendarProps) {
     goToPrevMonth,
     goToNextWeek,
     goToPrevWeek,
+    goToDate,
     setView,
     openModal,
     closeModal,
@@ -86,16 +90,16 @@ export function Calendar({ events, initialTodayISO }: CalendarProps) {
     touchStartY.current = null;
   }, [currentView, goToPrevWeek, goToNextWeek, goToPrevMonth, goToNextMonth]);
 
-  // Handle day click (shows first event or all events for that day)
+  // A day with one event opens it; a day with several shows its week, where
+  // every event of the day is listed (the month cell shows at most two).
   const handleDayClick = useCallback((day: CalendarDayType) => {
     if (day.events.length === 1) {
       openModal(day.events[0]);
     } else if (day.events.length > 1) {
-      // For multiple events, open the first one
-      // In a full implementation, you might show a popover with all events
-      openModal(day.events[0]);
+      goToDate(day.date);
+      setView('week');
     }
-  }, [openModal]);
+  }, [openModal, goToDate, setView]);
 
   // Determine navigation handlers based on current view
   const handlePrev = currentView === 'week' ? goToPrevWeek : goToPrevMonth;

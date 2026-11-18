@@ -30,12 +30,35 @@ export interface UnifiedEvent {
   accentColor?: string;
 }
 
+/** The fields of an event that the calendar components use. */
+export type CalendarEvent = Omit<UnifiedEvent, 'dayOfWeek' | 'monthLong' | 'year' | 'accentColor'>;
+
+type OccurrenceField = 'id' | 'dateISO' | 'endDateISO' | 'dayOfMonth' | 'monthShort';
+
+/** Calendar fields that every occurrence of a recurring series shares. */
+export type CalendarEventDetails = Omit<CalendarEvent, OccurrenceField>;
+
+export type CalendarOccurrence = Pick<CalendarEvent, OccurrenceField> & {
+  /** Index into `CalendarData.details`. */
+  details: number;
+};
+
+/**
+ * The calendar's events as sent to the browser: the details shared by the
+ * occurrences of a recurring series (description, title, links...) are sent
+ * once instead of once per occurrence.
+ */
+export interface CalendarData {
+  details: CalendarEventDetails[];
+  occurrences: CalendarOccurrence[];
+}
+
 export interface CalendarDay {
   date: Date;
   dayOfMonth: number;
   isCurrentMonth: boolean;
   isToday: boolean;
-  events: UnifiedEvent[];
+  events: CalendarEvent[];
 }
 
 export interface CalendarWeek {

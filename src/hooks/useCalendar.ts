@@ -1,10 +1,10 @@
 "use client";
 
-import { useState, useCallback, useMemo, useSyncExternalStore } from 'react';
+import { useState, useCallback, useMemo, useRef, useSyncExternalStore } from 'react';
 import {
   CalendarView,
   CalendarMonth,
-  UnifiedEvent,
+  CalendarEvent,
   EventCategory,
   CategoryFilter,
   CATEGORY_COLORS,
@@ -22,7 +22,7 @@ import {
 import { isEventPast } from '@/lib/event-dates';
 
 interface UseCalendarOptions {
-  events: UnifiedEvent[];
+  events: CalendarEvent[];
   /** Today (YYYY-MM-DD) when the page was rendered on the server. */
   initialTodayISO: string;
   initialView?: CalendarView;
@@ -34,14 +34,14 @@ interface UseCalendarReturn {
   /** Today in the visitor's time zone (the server's value until hydration). */
   todayISO: string;
   currentView: CalendarView;
-  selectedEvent: UnifiedEvent | null;
+  selectedEvent: CalendarEvent | null;
   isModalOpen: boolean;
 
   // Computed data
   calendarMonth: CalendarMonth;
   weekDays: ReturnType<typeof generateWeekDays>;
-  listEvents: UnifiedEvent[];
-  filteredEvents: UnifiedEvent[];
+  listEvents: CalendarEvent[];
+  filteredEvents: CalendarEvent[];
 
   // Filters
   categoryFilters: CategoryFilter[];
@@ -53,9 +53,10 @@ interface UseCalendarReturn {
   goToPrevMonth: () => void;
   goToNextWeek: () => void;
   goToPrevWeek: () => void;
+  goToDate: (date: Date) => void;
   setView: (view: CalendarView) => void;
-  setSelectedEvent: (event: UnifiedEvent | null) => void;
-  openModal: (event: UnifiedEvent) => void;
+  setSelectedEvent: (event: CalendarEvent | null) => void;
+  openModal: (event: CalendarEvent) => void;
   closeModal: () => void;
   toggleCategory: (category: EventCategory | 'all') => void;
   setActiveCategories: (categories: Set<EventCategory | 'all'>) => void;
@@ -86,7 +87,7 @@ export function useCalendar({
   const [navigatedDate, setNavigatedDate] = useState<Date | null>(null);
   const currentDate = useMemo(() => navigatedDate ?? dateFromISO(todayISO), [navigatedDate, todayISO]);
   const [currentView, setCurrentView] = useState<CalendarView>(initialView);
-  const [selectedEvent, setSelectedEvent] = useState<UnifiedEvent | null>(null);
+  const [selectedEvent, setSelectedEvent] = useState<CalendarEvent | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [activeCategories, setActiveCategories] = useState<Set<EventCategory | 'all'>>(
     new Set(['all'])
@@ -171,12 +172,21 @@ export function useCalendar({
     setNavigatedDate(addWeeks(currentDate, -1));
   }, [currentDate]);
 
+  const goToDate = useCallback((date: Date) => {
+    setNavigatedDate(date);
+  }, []);
+
   const setView = useCallback((view: CalendarView) => {
     setCurrentView(view);
   }, []);
 
   // Modal actions
-  const openModal = useCallback((event: UnifiedEvent) => {
+  const clearSelectionTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const openModal = useCallback((event: CalendarEvent) => {
+    // A close just before must not clear the newly opened event.
+    if (clearSelectionTimer.current) clearTimeout(clearSelectionTimer.current);
+    clearSelectionTimer.current = null;
     setSelectedEvent(event);
     setIsModalOpen(true);
   }, []);
@@ -184,7 +194,11 @@ export function useCalendar({
   const closeModal = useCallback(() => {
     setIsModalOpen(false);
     // Delay clearing selected event for animation
-    setTimeout(() => setSelectedEvent(null), 200);
+    if (clearSelectionTimer.current) clearTimeout(clearSelectionTimer.current);
+    clearSelectionTimer.current = setTimeout(() => {
+      clearSelectionTimer.current = null;
+      setSelectedEvent(null);
+    }, 200);
   }, []);
 
   // Category filter actions
@@ -231,6 +245,7 @@ export function useCalendar({
     goToPrevMonth,
     goToNextWeek,
     goToPrevWeek,
+    goToDate,
     setView,
     setSelectedEvent,
     openModal,
