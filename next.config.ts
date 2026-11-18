@@ -31,6 +31,10 @@ const contentSecurityPolicy = [
 
 const securityHeaders = [
   { key: 'Content-Security-Policy', value: contentSecurityPolicy },
+  // Pin HTTPS for two years (this host only: other subdomains of the domain
+  // are not ours to pin). The CSP already upgrades insecure requests; this
+  // also covers the first plaintext request. Ignored over plain HTTP.
+  { key: 'Strict-Transport-Security', value: 'max-age=63072000' },
   { key: 'X-Content-Type-Options', value: 'nosniff' },
   { key: 'X-Frame-Options', value: 'DENY' },
   { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
@@ -62,6 +66,57 @@ const LEGACY_EVENT_PATHS: Record<string, string> = {
   'bas-members-meetup-swiss-bitcoin-conference': '/most-recent-events/2026/4/25/bas-members-meetup-swiss-bitcoin-conference',
 };
 
+/**
+ * Other URLs of the old sites (Squarespace and the earlier static site) that
+ * the Wayback Machine has captured and that still have a clear destination.
+ * Sources match case-insensitively, so a source must never equal its own
+ * destination in another casing. '+' and '(' are escaped for path-to-regexp.
+ */
+const LEGACY_PATHS: Record<string, string> = {
+  '/membership': '/membership/private-individuals',
+  '/about': '/about-1',
+  '/about.html': '/about-1',
+  '/board.html': '/board',
+  '/join.html': '/membership/private-individuals',
+  '/join-old': '/membership/private-individuals',
+  '/corporate-membership': '/membership/corporations',
+  '/corporate-members': '/our-corporate-members',
+  '/activities.html': '/events',
+  '/meetups': '/events',
+  '/TokenizedBitcoin': '/tzbtc',
+  // Yearly past-event indexes of the old site.
+  '/events-:year(201213|2014|2015|2016|2017ff|2018)': '/most-recent-events',
+  // Old event pages whose event is covered by a News post.
+  '/events-2014/2014/2/23/1st-swiss-bitcoin-association-general-assembly': '/bitcoin-association-switzerland/2014/02/17/general-assembly-2014',
+  '/events-2017ff/2017/9/13/tone-vays': '/bitcoin-association-switzerland/2017/9/13/tone-vays-meetup-in-zurich-september-2017',
+  '/events-2018/2018/5/16/annual-general-assembly-of-the-bitcoin-association-switzerland-2018': '/bitcoin-association-switzerland/2018/5/17/bitcoin-association-switzerland-2018-general-assembly',
+  // The pre-2015 site's blog. Other /blog/* paths are admin-created posts.
+  '/blog': '/bitcoin-association-switzerland',
+  '/blog/board': '/board',
+  '/blog/federal-council-report-no-special-regulation-needed': '/bitcoin-association-switzerland/2014/06/25/federal-council-report-no-special-regulation-needed',
+  // A hyphenated copy of the News path that circulates in external links.
+  '/bitcoin-associa-tion-switzerland/:path*': '/bitcoin-association-switzerland/:path*',
+  // Squarespace's generated slug of a post that was renamed later.
+  '/bitcoin-association-switzerland/2021/6/23/01ts1e8cggntafbag86wvwbztvudvh': '/bitcoin-association-switzerland/2021/6/23/comments-on-draft-revised-vasp-guidance',
+  '/bitcoin-association-switzerland/announcing-tzbtc-tokenized-bitcoin': '/tzbtc',
+  // Squarespace category and tag URLs ('+' for spaces, or encoded spaces).
+  '/bitcoin-association-switzerland/category/Ask\\+Me\\+Anything\\+\\(AMA\\)': '/bitcoin-association-switzerland/category/Ask-Me-Anything',
+  '/bitcoin-association-switzerland/category/Ask%20Me%20Anything%20\\(AMA\\)':'/bitcoin-association-switzerland/category/Ask-Me-Anything',
+  '/bitcoin-association-switzerland/category/Technical\\+Analysis': '/bitcoin-association-switzerland/category/Technical-Analysis',
+  '/bitcoin-association-switzerland/category/Technical%20Analysis':'/bitcoin-association-switzerland/category/Technical-Analysis',
+  '/bitcoin-association-switzerland/tag/Announcement': '/bitcoin-association-switzerland/category/Announcement',
+  '/bitcoin-association-switzerland/tag/tzBTC': '/tzbtc',
+  '/bitcoin-association-switzerland/tag/Tokenized\\+Bitcoin': '/tzbtc',
+  '/bitcoin-association-switzerland/tag/Tokenized%20Bitcoin':'/tzbtc',
+};
+
+// Squarespace filtered the News index by category with a query string.
+const LEGACY_CATEGORY_QUERIES: Record<string, string> = {
+  '(?<category>Announcement|Events|Opinion|Uncategorized)': ':category',
+  'Ask Me Anything \\(AMA\\)': 'Ask-Me-Anything',
+  'Technical Analysis': 'Technical-Analysis',
+};
+
 const nextConfig: NextConfig = {
   poweredByHeader: false,
   async headers() {
@@ -74,6 +129,12 @@ const nextConfig: NextConfig = {
         // Never cache admin pages or admin API responses in shared caches.
         source: '/(admin|api/admin)(.*)',
         headers: [{ key: 'Cache-Control', value: 'no-store' }],
+      },
+      {
+        // Files in public/images keep their names when replaced, so browsers
+        // keep them for a day only (they were sent with max-age=0).
+        source: '/images/:path*',
+        headers: [{ key: 'Cache-Control', value: 'public, max-age=86400, stale-while-revalidate=604800' }],
       },
     ];
   },
@@ -119,6 +180,24 @@ const nextConfig: NextConfig = {
         destination,
         permanent: true,
       })),
+      ...Object.entries(LEGACY_PATHS).map(([source, destination]) => ({
+        source,
+        destination,
+        permanent: true,
+      })),
+      ...Object.entries(LEGACY_CATEGORY_QUERIES).map(([value, category]) => ({
+        source: '/bitcoin-association-switzerland',
+        has: [{ type: 'query' as const, key: 'category', value }],
+        destination: `/bitcoin-association-switzerland/category/${category}`,
+        permanent: true,
+      })),
+      {
+        // Squarespace's month filter; the archive lists posts by month.
+        source: '/bitcoin-association-switzerland',
+        has: [{ type: 'query', key: 'month', value: '(?<month>\\d{2})-(?<year>\\d{4})' }],
+        destination: '/archive#:year-:month',
+        permanent: true,
+      },
       // Old listing pages linked a few authors by name instead of by id.
       ...Object.entries(LEGACY_AUTHOR_SLUGS).map(([slug, id]) => ({
         source: '/bitcoin-association-switzerland',
@@ -136,6 +215,9 @@ const nextConfig: NextConfig = {
     ];
   },
   images: {
+    // Optimized images are kept for a week instead of 4 hours: fewer image
+    // transformations on Vercel. A replaced image can show for up to a week.
+    minimumCacheTTL: 604800,
     remotePatterns: [
       {
         // Shop product images
