@@ -11,7 +11,7 @@ export const metadata: Metadata = postMetadata(
 
 export default function RegulatoryCommentFintechPage() {
   return (
-    <BlogPostLayout post={post}>
+    <BlogPostLayout post={post} comments={[]}>
       <p>
         One of the main activities and major reasons for the founding of the Bitcoin Association Switzerland is building a positive regulatory environment for crypto currency startups in Switzerland. The State Secretariat for International Financial Matters invited us to comment on the latest proposal to improve regulation for fintech startups in Switzerland. The plan is to allow startups that previously would have required a full banking license to handle client funds under a more appropriate, light-weight regulation (known as &quot;banking license light&quot;). Luzius Meisser, founder and board member of the BAS, wrote a comment in the name of our association, with a lot of support by the Swiss Fintech community. You can access the comment (in German) here:
       </p>
@@ -30,7 +30,7 @@ export default function RegulatoryCommentFintechPage() {
       <p>
         In particular during the pioneer phase of a new technology, small regulatory differences can make an enormous long-term difference. Switzerland is in the pole position for becoming a major hub for blockchain technology, but there are still a few hurdles that stand in the way. Some of them will be removed by the proposed relaxation of the banking law, but there is still plenty of work to be done. Fortunately, the State Secretariat of Economic Affairs (SECO) has recognized this and{" "}
         <a
-          href="https://www.seco.admin.ch/seco/de/home/wirtschaftslage---wirtschaftspolitik/wirschaftspolitik/digitalisierung.html"
+          href="https://web.archive.org/web/20170219095325/https://www.seco.admin.ch/seco/de/home/wirtschaftslage---wirtschaftspolitik/wirschaftspolitik/digitalisierung.html"
           target="_blank"
           rel="noopener noreferrer"
           className="text-brand hover:underline"

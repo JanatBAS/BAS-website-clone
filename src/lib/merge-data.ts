@@ -171,7 +171,7 @@ export function adminPostToMerged(post: AdminBlogPost): BlogPost {
     href: `/blog/${post.slug}`,
     image: safeHttpUrl(post.imageUrl),
     tags: post.tags,
-    commentCount: 0,
+    // No commentCount: admin posts have no comments section to link to.
     unoptimizedImage: true,
   };
 }

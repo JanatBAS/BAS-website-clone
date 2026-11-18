@@ -57,5 +57,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...candidateProfiles.map((profile) => `/${profile.slug}`),
   ]);
 
-  return [...paths].map((path) => ({ url: `${SITE_URL}${path}` }));
+  // Static posts are not edited after publication, so their date is their lastmod.
+  const postDates = new Map(
+    getSortedPosts().map((post) => [post.href, new Date(post.timestamp).toISOString()]),
+  );
+
+  return [...paths].map((path) => ({
+    url: `${SITE_URL}${path}`,
+    ...(postDates.has(path) && { lastModified: postDates.get(path) }),
+  }));
 }

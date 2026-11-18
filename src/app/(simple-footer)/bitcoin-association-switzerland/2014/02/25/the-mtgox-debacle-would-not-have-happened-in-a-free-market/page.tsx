@@ -41,7 +41,7 @@ export default function MtGoxDebacleFreemarketPage() {
       <p>
         As{" "}
         <a
-          href="http://blog.blockchain.info/2014/02/25/joint-statement/"
+          href="https://web.archive.org/web/20140225202047/http://blog.blockchain.info/2014/02/25/joint-statement/"
           target="_blank"
           rel="noopener noreferrer"
           className="text-brand hover:underline"
@@ -58,7 +58,7 @@ export default function MtGoxDebacleFreemarketPage() {
         Internet thrives on people being able to experiment - otherwise, sites
         like{" "}
         <a
-          href="http://ebay.com/"
+          href="https://ebay.com/"
           target="_blank"
           rel="noopener noreferrer"
           className="text-brand hover:underline"
@@ -67,7 +67,7 @@ export default function MtGoxDebacleFreemarketPage() {
         </a>
         ,{" "}
         <a
-          href="http://doodle.com/"
+          href="https://doodle.com/"
           target="_blank"
           rel="noopener noreferrer"
           className="text-brand hover:underline"
@@ -76,7 +76,7 @@ export default function MtGoxDebacleFreemarketPage() {
         </a>{" "}
         or{" "}
         <a
-          href="http://yahoo.com/"
+          href="https://yahoo.com/"
           target="_blank"
           rel="noopener noreferrer"
           className="text-brand hover:underline"

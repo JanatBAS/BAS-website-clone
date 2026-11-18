@@ -85,9 +85,9 @@ export default function GeneralAssembly2018Page() {
         </p>
       </div>
 
-      <h3 className="text-lg font-semibold text-gray-900 mt-8 mb-4 uppercase tracking-wide">
+      <h2 className="text-lg font-semibold text-gray-900 mt-8 mb-4 uppercase tracking-wide">
         Giacomo Zucco Joins the Board
-      </h3>
+      </h2>
 
       <p className="mb-6">
         Myself and the entire BAS board would like to thank our former board member{" "}
@@ -191,9 +191,7 @@ export default function GeneralAssembly2018Page() {
       <p className="mb-6">
         If you&apos;d like to support our activities please consider becoming a member{" "}
         <a
-          href="https://www.bitcoinassociation.ch/individual-membership"
-          target="_blank"
-          rel="noopener noreferrer"
+          href="/membership/private-individuals"
           className="text-brand hover:underline"
         >
           https://www.bitcoinassociation.ch/individual-membership

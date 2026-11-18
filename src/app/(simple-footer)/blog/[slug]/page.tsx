@@ -21,9 +21,13 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const { slug } = await params;
   const post = await getAdminPostBySlug(slug);
   if (!post) return {};
+  // Cut by code point, not UTF-16 unit, so an emoji is never split in half.
+  const description = Array.from(stripHtml(post.excerpt).replace(/\s+/g, ' '))
+    .slice(0, 300)
+    .join('');
   return postMetadata(
     { ...post, href: `/blog/${post.slug}` },
-    stripHtml(post.excerpt).slice(0, 300),
+    description,
     safeHttpUrl(post.imageUrl),
   );
 }

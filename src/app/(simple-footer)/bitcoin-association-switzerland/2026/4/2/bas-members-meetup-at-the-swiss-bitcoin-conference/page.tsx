@@ -11,7 +11,7 @@ export const metadata: Metadata = postMetadata(
 
 export default function BASMembersMeetupAtTheSwissBitcoinConferencePostPage() {
   return (
-    <BlogPostLayout post={post}>
+    <BlogPostLayout post={post} comments={[]}>
       <p>
         <strong>Dear BAS members,</strong>
       </p>

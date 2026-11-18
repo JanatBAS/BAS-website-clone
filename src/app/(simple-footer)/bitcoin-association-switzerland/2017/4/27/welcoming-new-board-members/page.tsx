@@ -12,7 +12,7 @@ export const metadata: Metadata = postMetadata(
 
 export default function WelcomingNewBoardMembersPage() {
   return (
-    <BlogPostLayout post={post}>
+    <BlogPostLayout post={post} comments={[]}>
       <p>
         At the{" "}
         <a
@@ -77,7 +77,7 @@ export default function WelcomingNewBoardMembersPage() {
       <p>
         Roger is also connecting our association with the wider Swiss finance and technology scene through his involvement in{" "}
         <a
-          href="http://www.sictic.ch/"
+          href="https://www.sictic.ch/"
           target="_blank"
           rel="noopener noreferrer"
           className="text-brand hover:underline"

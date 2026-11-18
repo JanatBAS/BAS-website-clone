@@ -1,6 +1,5 @@
 import BlogPostLayout, { type BlogPostComment } from "@/components/BlogPostLayout";
 import { getPostPage, postMetadata } from "@/data/blog-posts";
-import Link from "next/link";
 import { Metadata } from "next";
 
 const post = getPostPage("our-comment-on-gwv-finma-adjustment-for-finsa-finia");
@@ -30,24 +29,18 @@ export default function GwvFinmaCommentPage() {
     <BlogPostLayout post={post} comments={comments}>
       <p className="mb-6">
         On the 8th of April 2020 we sent the{" "}
-        <Link
-          href="#"
-          className="text-[#87a4ad] hover:opacity-80"
-        >
+        <span>
           following comment to FINMA regarding the new money laundering ordinance
-        </Link>
+        </span>
         :
       </p>
 
       <p className="mb-6">
         On February 7th 2020, FINMA has published an ordinance project as well as several partial
         ordinance revision projects including the{" "}
-        <Link
-          href="#"
-          className="text-[#87a4ad] hover:opacity-80"
-        >
+        <span>
           Geldwaschereiverordnung-FINMA (GWV-FINMA)
-        </Link>
+        </span>
         . We greatly appreciate this opportunity to take part in the public consultation and want to
         point out a specific detail that affects crypto currencies.
       </p>
@@ -69,19 +62,13 @@ export default function GwvFinmaCommentPage() {
         We recommend FINMA to <strong className="text-gray-900">remove article 51a</strong> or to{" "}
         <strong className="text-gray-900">change article 51</strong> to set the new threshold of
         CHF 1&apos;000 to all currencies in order to preserve{" "}
-        <Link
-          href="#"
-          className="text-[#87a4ad] hover:opacity-80"
-        >
+        <span>
           technical neutrality
-        </Link>{" "}
+        </span>{" "}
         and to avoid unnecessary{" "}
-        <Link
-          href="#"
-          className="text-[#87a4ad] hover:opacity-80"
-        >
+        <span>
           uncertainty
-        </Link>
+        </span>
         .
       </p>
     </BlogPostLayout>

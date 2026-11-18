@@ -24,7 +24,7 @@ export default function GeneralDiscussionMeetupPage() {
     <BlogPostLayout post={post} comments={comments}>
       <p>
         <a
-          href="http://www.meetup.com/Bitcoin-Meetup-Switzerland/events/149566652/"
+          href="https://www.meetup.com/Bitcoin-Meetup-Switzerland/events/149566652/"
           target="_blank"
           rel="noopener noreferrer"
           className="text-brand hover:underline"

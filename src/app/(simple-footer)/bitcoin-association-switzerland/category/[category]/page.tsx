@@ -128,6 +128,9 @@ export default async function CategoryPage({ params }: PageProps) {
 
   return (
     <main className="pt-20 min-h-screen bg-white">
+      {/* The featured post banners hold the page heading otherwise */}
+      {!featuredPost && <h1 className="sr-only">Category: {label}</h1>}
+
       {/* Featured Post Banner */}
       {featuredPost && banner?.style === "full" && (
         <FeaturedPostBanner post={featuredPost} image={banner.image} linkAuthor={false} />

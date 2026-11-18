@@ -17,7 +17,7 @@ export default function FintechMadeInSwitzerlandPage() {
       <p>
         Manual Stagars is creating{" "}
         <a
-          href="http://fintech-documentary.com/"
+          href="https://fintech-documentary.com/"
           target="_blank"
           rel="noopener noreferrer"
           className="text-brand hover:underline"

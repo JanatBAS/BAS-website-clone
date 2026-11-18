@@ -16,7 +16,7 @@ export default function BitcoinInEchoDerZeitPage() {
     <BlogPostLayout post={post} comments={comments}>
       <p>
         <a
-          href="http://www.srf.ch/sendungen/echo-der-zeit/keine-visa-erleichterungen-mehr-fuer-syrienfluechtlinge"
+          href="https://web.archive.org/web/20131206030624/http://www.srf.ch/sendungen/echo-der-zeit/keine-visa-erleichterungen-mehr-fuer-syrienfluechtlinge"
           target="_blank"
           rel="noopener noreferrer"
           className="text-brand hover:underline"

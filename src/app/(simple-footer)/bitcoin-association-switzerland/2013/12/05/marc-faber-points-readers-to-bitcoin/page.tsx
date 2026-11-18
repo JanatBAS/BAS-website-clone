@@ -28,7 +28,7 @@ export default function MarcFaberPointsReadersToBitcoinPage() {
       <p>
         Swiss investment guru{" "}
         <a
-          href="http://en.wikipedia.org/wiki/Marc_Faber"
+          href="https://en.wikipedia.org/wiki/Marc_Faber"
           target="_blank"
           rel="noopener noreferrer"
           className="text-brand hover:underline"
@@ -37,7 +37,7 @@ export default function MarcFaberPointsReadersToBitcoinPage() {
         </a>{" "}
         publishes a monthly market commentary. Along with the June commentary, he sent his subscribers a report on Bitcoin, titled &quot;Dispelling the Myths of Bitcoin&quot; and written by{" "}
         <a
-          href="http://www.altanawealth.com/our-team/lee-robinson"
+          href="https://www.altanawealth.com/our-team/lee-robinson"
           target="_blank"
           rel="noopener noreferrer"
           className="text-brand hover:underline"
@@ -46,7 +46,7 @@ export default function MarcFaberPointsReadersToBitcoinPage() {
         </a>{" "}
         from Atlana wealth. I already was in contact with Faber last autumn suggesting that he should send{" "}
         <a
-          href="http://bitcoinassociation.ch/Bitcoin-A_Promise_of_Freedom.pdf"
+          href="https://web.archive.org/web/20160401170016/http://bitcoinassociation.ch/Bitcoin-A_Promise_of_Freedom.pdf"
           target="_blank"
           rel="noopener noreferrer"
           className="text-brand hover:underline"

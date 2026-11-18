@@ -8,19 +8,16 @@ const post = getPostPage("miners-luck-smoothing-excuse-does-not-hold-up-to-scrut
 const comments: BlogPostComment[] = [
   {
     author: "Renegade",
-    authorUrl: "http://cynic.me/",
+    authorUrl: "https://cynic.me/",
     date: "12 years ago",
     likes: 0,
     body: (
       <p className="text-sm text-gray-700">
         miner8765 said he isn&apos;t selling BTC. So USD variations
         are irrelevant there. Did I miss{" "}
-        <a
-          href="#"
-          className="text-brand hover:underline"
-        >
+        <span>
           something
-        </a>
+        </span>
         ?
       </p>
     ),
@@ -33,12 +30,9 @@ const comments: BlogPostComment[] = [
     body: (
       <p className="text-sm text-gray-700">
         If he can afford hoarding the Bitcoins, he has the{" "}
-        <a
-          href="#"
-          className="text-brand hover:underline"
-        >
+        <span>
           liquidity
-        </a>{" "}
+        </span>{" "}
         to absorb the variance anyway.
       </p>
     ),
@@ -62,7 +56,7 @@ export default function MinersLuckSmoothingPage() {
         miners to all mine in the same pool, as it undermines Bitcoins
         value. When asked, why they do so anyway,{" "}
         <a
-          href="http://www.reddit.com/r/Bitcoin/comments/2828s9/i_own_a_large_mining_operation_ill_explain_why_i/"
+          href="https://www.reddit.com/r/Bitcoin/comments/2828s9/i_own_a_large_mining_operation_ill_explain_why_i/"
           target="_blank"
           rel="noopener noreferrer"
           className="text-brand hover:underline"
@@ -226,7 +220,7 @@ export default function MinersLuckSmoothingPage() {
         reason for this is that mining returns do not depend on the
         returns of the previous day (i.e. they follow an{" "}
         <a
-          href="http://en.wikipedia.org/wiki/Autoregressive_model"
+          href="https://en.wikipedia.org/wiki/Autoregressive_model"
           target="_blank"
           rel="noopener noreferrer"
           className="text-brand hover:underline"
@@ -255,7 +249,7 @@ export default function MinersLuckSmoothingPage() {
       <p>
         PS: Ziepheiw did some{" "}
         <a
-          href="http://www.reddit.com/r/Bitcoin/comments/282tsb/mining_in_a_small_pool_is_statistically_as/"
+          href="https://www.reddit.com/r/Bitcoin/comments/282tsb/mining_in_a_small_pool_is_statistically_as/"
           target="_blank"
           rel="noopener noreferrer"
           className="text-brand hover:underline"
@@ -266,7 +260,7 @@ export default function MinersLuckSmoothingPage() {
         that also incorporate difficulty adjustments. They do not matter
         much. Also, this post is{" "}
         <a
-          href="http://www.reddit.com/r/Bitcoin/comments/286xxy/why_the_miners_luck_smoothing_excuse_is_nonsense/"
+          href="https://www.reddit.com/r/Bitcoin/comments/286xxy/why_the_miners_luck_smoothing_excuse_is_nonsense/"
           target="_blank"
           rel="noopener noreferrer"
           className="text-brand hover:underline"

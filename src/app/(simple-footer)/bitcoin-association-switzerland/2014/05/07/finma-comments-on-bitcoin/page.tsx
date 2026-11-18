@@ -17,7 +17,7 @@ export default function FinmaCommentsOnBitcoinPage() {
     <BlogPostLayout post={post} comments={comments}>
       <p>
         <Link
-          href="http://www.finma.ch/d/privatpersonen/Documents/kundenschutz-d.pdf"
+          href="https://web.archive.org/web/20140617042425/http://www.finma.ch/d/privatpersonen/Documents/kundenschutz-d.pdf"
           className="text-brand hover:underline"
           target="_blank"
           rel="noopener noreferrer"

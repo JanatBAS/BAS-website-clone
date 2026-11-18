@@ -40,7 +40,7 @@ export default function BitcoinGoldPage() {
       <p>
         BCash/Bitcoin (BCH){" "}
         <sup>
-          <a href="#fn1" className="text-brand hover:underline">
+          <a id="fnref1" href="#fn1" className="text-brand hover:underline">
             1
           </a>
         </sup>{" "}
@@ -196,7 +196,7 @@ export default function BitcoinGoldPage() {
       <p>
         The{" "}
         <a
-          href="https://bitcoingold.org/faq/"
+          href="https://web.archive.org/web/20171118224821/https://bitcoingold.org/faq/"
           target="_blank"
           rel="noopener noreferrer"
           className="text-brand hover:underline"
@@ -306,7 +306,7 @@ export default function BitcoinGoldPage() {
         . In a similar way, the infamous illegal video sharing platform Pirate Bay recently
         started taking &apos;payments&apos; by using the CPU of visitors of their site{" "}
         <a
-          href="http://www.bbc.com/news/technology-41306384"
+          href="https://www.bbc.com/news/technology-41306384"
           target="_blank"
           rel="noopener noreferrer"
           className="text-brand hover:underline"
@@ -389,7 +389,7 @@ export default function BitcoinGoldPage() {
         are empty. At least there, the development and discussion seems to be internal only.
         For the whitepaper, one reason that it is not on GitHub might be that the meta tags of{" "}
         <a
-          href="https://btcgpu.org/wp-content/uploads/2017/10/BitcoinGold-Roadmap.pdf"
+          href="https://web.archive.org/web/20171024164611/https://btcgpu.org/wp-content/uploads/2017/10/BitcoinGold-Roadmap.pdf"
           target="_blank"
           rel="noopener noreferrer"
           className="text-brand hover:underline"
@@ -477,7 +477,7 @@ export default function BitcoinGoldPage() {
         even then it is not the landing page. Before that you&apos;ll find several topical and
         general interest news outlets{" "}
         <sup>
-          <a href="#fn2" className="text-brand hover:underline">
+          <a id="fnref2" href="#fn2" className="text-brand hover:underline">
             2
           </a>
         </sup>
@@ -503,7 +503,7 @@ export default function BitcoinGoldPage() {
         <p id="fn1">
           1. I really don&apos;t want to enter the naming discussion so I&apos;ll just give all
           relevant names for all currencies that I mention.{" "}
-          <a href="#" className="text-brand hover:underline">
+          <a href="#fnref1" className="text-brand hover:underline">
             ↩
           </a>
         </p>
@@ -518,7 +518,7 @@ export default function BitcoinGoldPage() {
           >
             google bubble
           </a>{" "}
-          <a href="#" className="text-brand hover:underline">
+          <a href="#fnref2" className="text-brand hover:underline">
             ↩
           </a>
         </p>

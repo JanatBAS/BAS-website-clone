@@ -100,7 +100,7 @@ export default function WhyStoringBitcoinsPage() {
       <p className="mb-6">
         In case you want further information about the storage of Bitcoin, I recommend to read the paper itself. Furthermore, I will be presenting our findings at the{" "}
         <a
-          href="https://www.isss.ch/veranstaltungen/2018/zuercher-tagung/"
+          href="https://web.archive.org/web/20180831235718/https://www.isss.ch/veranstaltungen/2018/zuercher-tagung/"
           target="_blank"
           rel="noopener noreferrer"
           className="text-brand hover:underline"

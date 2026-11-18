@@ -138,7 +138,7 @@ export default function ProofOfWorkNotProofOfStakePage() {
       <p>
         I had spent all of 1999 down-under as an exchange student. One of my dear friends from that time called me to have a chat. He mentioned an{" "}
         <a
-          href="http://www.spiegel.de/netzwelt/netzpolitik/hacker-waehrung-bitcoin-geld-aus-der-steckdose-a-765382.html"
+          href="https://www.spiegel.de/netzwelt/netzpolitik/hacker-waehrung-bitcoin-geld-aus-der-steckdose-a-765382.html"
           target="_blank"
           rel="noopener noreferrer"
           className="text-brand hover:underline"
@@ -264,7 +264,7 @@ export default function ProofOfWorkNotProofOfStakePage() {
       <p>
         The second meeting was arranged with the gentleman from{" "}
         <a
-          href="http://newlibertydollar.com/"
+          href="https://newlibertydollar.com/"
           target="_blank"
           rel="noopener noreferrer"
           className="text-brand hover:underline"
@@ -393,7 +393,7 @@ export default function ProofOfWorkNotProofOfStakePage() {
         </a>{" "}
         showed that she was indeed asking many very specific questions and thus indirectly had led to speculations. In December, after two magazines ({" "}
         <a
-          href="http://web.archive.org/web/20151208235451/http://gizmodo.com/this-australian-says-he-and-his-dead-friend-invented-bi-1746958692"
+          href="https://web.archive.org/web/20151208235451/http://gizmodo.com/this-australian-says-he-and-his-dead-friend-invented-bi-1746958692"
           target="_blank"
           rel="noopener noreferrer"
           className="text-brand hover:underline"
@@ -402,7 +402,7 @@ export default function ProofOfWorkNotProofOfStakePage() {
         </a>
         ,{" "}
         <a
-          href="http://web.archive.org/web/20151208214655/https://www.wired.com/2015/12/bitcoins-creator-satoshi-nakamoto-is-probably-this-unknown-australian-genius/"
+          href="https://web.archive.org/web/20151208214655/https://www.wired.com/2015/12/bitcoins-creator-satoshi-nakamoto-is-probably-this-unknown-australian-genius/"
           target="_blank"
           rel="noopener noreferrer"
           className="text-brand hover:underline"
@@ -424,7 +424,7 @@ export default function ProofOfWorkNotProofOfStakePage() {
         </a>
         , the former lead developer of Bitcoin, wrote a{" "}
         <a
-          href="http://gavinandresen.ninja/satoshi"
+          href="https://web.archive.org/web/20170706181729/http://gavinandresen.ninja/satoshi"
           target="_blank"
           rel="noopener noreferrer"
           className="text-brand hover:underline"
@@ -455,7 +455,7 @@ export default function ProofOfWorkNotProofOfStakePage() {
         </a>{" "}
         appeared with a statement and instruction to verify the proof. It was weird, as the free text kind of implied that Craig Wright did not actually want to provide that proof. He had mentioned previously that he did not want to come out and that other people had pressured him do it. My reading up on the person the past week, lead me to believe that the man was getting extorted, had huge tax issues, potentially financial issues at large and that there might even be more factors involved that forced him to act. The title referencing{" "}
         <a
-          href="http://www.nybooks.com/articles/1964/12/17/sartre-on-the-nobel-prize/"
+          href="https://www.nybooks.com/articles/1964/12/17/sartre-on-the-nobel-prize/"
           target="_blank"
           rel="noopener noreferrer"
           className="text-brand hover:underline"

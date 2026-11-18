@@ -11,7 +11,7 @@ export const metadata: Metadata = postMetadata(
 
 export default function AlexisRousselWarnsPage() {
   return (
-    <BlogPostLayout post={post}>
+    <BlogPostLayout post={post} comments={[]}>
       <p>
         Alexis Roussel, cofondateur de Bity, etait mardi l&apos;invite du journal de Leman Bleu ou on lui a demande de reagir a la creation mediatisee du Bilur, systeme centralise et monnaie privee indexee sur le petrole : &laquo; Quand on regarde ces nouvelles monnaies qui apparaissent, et dans ce cas precisement, on ne peut pas parler de crypto-monnaie : il ne s&apos;agit pas d&apos;un systeme ouvert, il y a un intermediaire fixe qui decide et qui est le garant de la quantite de petrole disponible.
       </p>

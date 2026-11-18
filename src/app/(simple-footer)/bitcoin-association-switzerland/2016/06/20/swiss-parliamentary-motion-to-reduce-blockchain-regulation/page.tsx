@@ -46,7 +46,7 @@ export default function SwissMoveToReduceBlockchainRegulationPage() {
         </a>{" "}
         to reduce regulatory burdens of blockchain startups by restricting the legal definition of &quot;client deposit&quot;. Today, firms that handle client money - regardless of whether in Swiss Francs, Bitcoin, or any other currency - get very quickly classified as banks, even if their risk profile fundamentally differs from that of typical banks. Being classified as a bank comes with regulatory and capital requirements that are practically impossible to fulfill for startups. That might be the primary reason why there is not a single operationally active cryptocurrency exchange in the style of bitstamp or bitfinex in Switzerland despite having an otherwise{" "}
         <a
-          href="http://www.nzz.ch/schweiz/internet-unternehmer-unterwegs-im-crypto-valley-ld.89840"
+          href="https://www.nzz.ch/schweiz/internet-unternehmer-unterwegs-im-crypto-valley-ld.89840"
           target="_blank"
           rel="noopener noreferrer"
           className="text-brand hover:underline"
@@ -77,7 +77,7 @@ export default function SwissMoveToReduceBlockchainRegulationPage() {
         </a>{" "}
         art. 2 more narrowly, to the extent risk allows. The current broad interpretation by financial regulator Finma obstructs innovative blockchain startups whose business models get qualified as banking even in cases where the intention behind the law - namely depositor protection - would not require such a qualification.&quot; The full version (in German) can be found on the Website of the{" "}
         <a
-          href="http://www.digitale-nachhaltigkeit.ch/2016/06/blockchain-motion/"
+          href="https://web.archive.org/web/20161106143526/http://www.digitale-nachhaltigkeit.ch/2016/06/blockchain-motion/"
           target="_blank"
           rel="noopener noreferrer"
           className="text-brand hover:underline"
@@ -90,7 +90,7 @@ export default function SwissMoveToReduceBlockchainRegulationPage() {
       <p>
         Franz Gruter comments in{" "}
         <a
-          href="http://www.nzzmediasolutions.ch/titel/zentralschweiz-sonntag-2/"
+          href="https://web.archive.org/web/20160526213642/http://www.nzzmediasolutions.ch/titel/zentralschweiz-sonntag-2/"
           target="_blank"
           rel="noopener noreferrer"
           className="text-brand hover:underline"
@@ -99,7 +99,7 @@ export default function SwissMoveToReduceBlockchainRegulationPage() {
         </a>{" "}
         that he wants to prevent Finma from trampling the seedlings of a promising new ecosystem with the boots of bureaucracy. Andreas Glarner from law firm{" "}
         <a
-          href="http://www.mme.ch/de/team/"
+          href="https://www.mme.ch/de/team/"
           target="_blank"
           rel="noopener noreferrer"
           className="text-brand hover:underline"
@@ -108,7 +108,7 @@ export default function SwissMoveToReduceBlockchainRegulationPage() {
         </a>{" "}
         emphasizes the importance of creating a free, yet carefully regulated, environment in order to continue attracting blockchain startups from all over the world. Switzerland is already well positioned with initiatives like the{" "}
         <a
-          href="http://cryptovalleyzug.net/"
+          href="https://web.archive.org/web/20160610161722/http://cryptovalleyzug.net/"
           target="_blank"
           rel="noopener noreferrer"
           className="text-brand hover:underline"

@@ -48,9 +48,9 @@ export default function FederalCouncilEndorsementPage() {
         />
       </div>
 
-      <h3 className="text-sm font-semibold text-gray-900 mb-4 tracking-wide uppercase">
+      <h2 className="text-sm font-semibold text-gray-900 mb-4 tracking-wide uppercase">
         Strengthening Switzerland&apos;s Leadership in Bitcoin Innovation
-      </h3>
+      </h2>
 
       <p className="mb-6">
         The accepted motion is part of a broader initiative that also includes an interpellation and a parliamentary initiative, all aimed at establishing a supportive and future-proof regulatory framework for digital assets. This legislative progress reinforces Switzerland&apos;s reputation as a global leader in Bitcoin technology and digital finance.
@@ -66,17 +66,17 @@ export default function FederalCouncilEndorsementPage() {
         &ldquo;We remain committed to collaborating with policymakers and other key stakeholders to ensure a balanced and forward-looking approach to digital asset regulation. Let us work to ensure that Switzerland will once again be a world leading Bitcoin &amp; crypto jurisdiction, for private individuals and companies alike.&rdquo;
       </p>
 
-      <h3 className="text-sm font-bold text-gray-900 mb-4 tracking-wide uppercase">
+      <h2 className="text-sm font-bold text-gray-900 mb-4 tracking-wide uppercase">
         Regulatory Clarity: A Foundation for Growth
-      </h3>
+      </h2>
 
       <p className="mb-8">
         Clear and effective regulation is crucial for attracting and retaining talent, investment, and innovation in Switzerland. By creating a predictable legal environment, the motion provides blockchain and digital asset companies with the confidence they need to build, grow, and contribute to the Swiss economy.
       </p>
 
-      <h3 className="text-sm font-bold text-gray-900 mb-4 tracking-wide uppercase">
+      <h2 className="text-sm font-bold text-gray-900 mb-4 tracking-wide uppercase">
         Next Steps for the Industry
-      </h3>
+      </h2>
 
       <p className="mb-6">
         The Bitcoin Association Switzerland, alongside other key stakeholders and industry representatives will continue to engage proactively with Swiss policymakers and regulators. Our goal is to support the development of regulations that align with global standards while maintaining Switzerland&apos;s unique position as a pioneer in financial and technological innovation.
@@ -119,9 +119,9 @@ export default function FederalCouncilEndorsementPage() {
         </li>
       </ul>
 
-      <h3 className="text-sm font-bold text-gray-900 mb-4 tracking-wide uppercase">
+      <h2 className="text-sm font-bold text-gray-900 mb-4 tracking-wide uppercase">
         Stay Informed
-      </h3>
+      </h2>
 
       <p className="mb-6">
         We encourage all stakeholders, community members, and industry participants to stay engaged as this process moves forward. For the latest updates, follow us on X, LinkedIn, and become a member of the Bitcoin Association Switzerland.

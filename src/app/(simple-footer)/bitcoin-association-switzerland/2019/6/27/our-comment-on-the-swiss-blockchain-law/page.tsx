@@ -90,7 +90,7 @@ export default function SwissBlockchainLawCommentPage() {
       <p className="mb-6">
         Academically, the first change is by far the most interesting as its solution requires adjustments to the Swiss Code of Obligations, which is part of the foundations our whole legal system. Generally, Switzerland&apos;s legal system is rooted in basic principles and its laws are much less detailed than those of most other countries. This allows courts and scholars to figure out the details on the fly as new circumstances present themselves. This is one of the secrets of why Swiss companies enjoy a high degree of freedom of innovation. A software engineer would say that the Swiss system is more agile than that of other countries. This agility has already been used in the past when stock markets started to get digital in the 1980ies. And it can be used today to find ways to{" "}
         <a
-          href="http://meissereconomics.com/2019/05/03/sharetoken.html#main"
+          href="https://meissereconomics.com/2019/05/03/sharetoken.html#main"
           target="_blank"
           rel="noopener noreferrer"
           className="text-brand hover:underline"

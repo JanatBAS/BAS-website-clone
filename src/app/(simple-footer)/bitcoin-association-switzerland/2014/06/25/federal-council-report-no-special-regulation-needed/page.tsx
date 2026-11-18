@@ -9,7 +9,7 @@ const comments: BlogPostComment[] = [
     author:
       "Virtual Mining Bitcoin News » Swiss Report Lays Foundation for Bitcoin to Become Legal Money",
     authorUrl:
-      "http://virtualmining.com/swiss-report-lays-foundation-for-bitcoin-to-become-legal-money/",
+      "https://virtualmining.com/swiss-report-lays-foundation-for-bitcoin-to-become-legal-money/",
     date: "12 years ago",
     likes: 0,
     body: (
@@ -33,7 +33,7 @@ export default function FederalCouncilReportPage() {
       <p>
         In a{" "}
         <a
-          href="http://www.admin.ch/aktuell/00089/index.html?lang=en&msg-id=53513"
+          href="https://web.archive.org/web/20150104185945/http://www.admin.ch/aktuell/00089/index.html?lang=en&msg-id=53513"
           target="_blank"
           rel="noopener noreferrer"
           className="text-brand hover:underline"

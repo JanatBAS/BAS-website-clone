@@ -8,7 +8,7 @@ const post = getPostPage("on-the-risk-assessment-for-global-stablecoins-of-the-g
 const comments: BlogPostComment[] = [
   {
     author: "Marq",
-    authorUrl: "http://framingbitcoin.com/",
+    authorUrl: "https://web.archive.org/web/20201101101837/http://framingbitcoin.com/",
     date: "6 years ago",
     likes: 0,
     body: (
@@ -71,7 +71,7 @@ export default function StablecoinsCommentPage() {
       <p className="mb-6">
         This worrying attitude not only slows down innovation, but also invites the institutions concerned with preserving the status quo to abuse the law-making process to prevent the emergence of competing ideas. In a recent{" "}
         <Link
-          href="http://ssrn.com/abstract=3585372"
+          href="https://ssrn.com/abstract=3585372"
           className="text-[#87a4ad] hover:opacity-80"
           target="_blank"
           rel="noopener noreferrer"
@@ -84,7 +84,7 @@ export default function StablecoinsCommentPage() {
       <p className="mb-6">
         The right strategy at this point in time for any jurisdiction would be to eradicate as many barriers as possible and to wait and see how the market evolves. In case of the manifestation of actual systemic risks, law-makers and regulators will still have plenty of time to react as stablecoins are still at a very early stage. The largest stablecoin, the Tether, has an outstanding volume of merely{" "}
         <Link
-          href="http://coinmarketcap.com/currencies/tether"
+          href="https://coinmarketcap.com/currencies/tether"
           className="text-[#87a4ad] hover:opacity-80"
           target="_blank"
           rel="noopener noreferrer"
@@ -98,16 +98,16 @@ export default function StablecoinsCommentPage() {
         In the light of these considerations, we would like to suggest law-makers and regulators to adhere to the following five recommendations and invite you to reiterate these ideas in your communication with your member countries:
       </p>
 
-      <h3 className="text-base font-semibold text-gray-800 mt-8 mb-4">
+      <h2 className="text-base font-semibold text-gray-800 mt-8 mb-4">
         1. Treat stablecoins like currencies, and not like securities.
-      </h3>
+      </h2>
       <p className="mb-6">
         In some jurisdictions, national regulators tend to classify stablecoins as securities when the issuer pegs their value such as the US Dollar or the Swiss Franc. However, applying the extremely heavy regulatory frameworks designed for securities to stablecoins causes disproportionate regulatory costs. Here, the principle &quot;same risks, same rules&quot; should be consequently followed and stablecoins that serve no investment purpose should be treated like any other currency or means of payment. For the regulator, this has the benefit of being able to apply the FATF&apos;s travel rule (which applies to payments, but not to the trading of securities) when stablecoins are transferred between financial intermediaries.
       </p>
 
-      <h3 className="text-base font-semibold text-gray-800 mt-8 mb-4">
+      <h2 className="text-base font-semibold text-gray-800 mt-8 mb-4">
         2. Encourage law-makers to impose deadlines on regulators
-      </h3>
+      </h2>
       <p className="mb-6">
         Being cautious, financial market authorities often tend to be hesitant in allowing novel business ideas, thereby slowing down innovation. A prime example is the Narrow Bank, an innovative bank that successfully obtained a banking license years ago but cannot start operating as the Federal Reserve Bank of New York refuses to provide it with a central bank account for{" "}
         <Link
@@ -121,16 +121,16 @@ export default function StablecoinsCommentPage() {
         . To be more precise, the federal reserve is not officially declining the opening of the account, but instead is postponing it indefinitely. This legal trickery allows them to escape judicial accountability, as there is no decision that the Narrow Bank could fight in court. The root problem here is that regulators in many jurisdictions can indefinitely postpone their decisions, even on purpose. Such delays cause enormous economic cost as license applicants often need to be fully staffed and ready from the point in time when the application is filed. To address this problem, Liechtenstein requires its financial market authority by law to decide on licence applications within six months. Other jurisdictions should be encouraged to take an example of Liechtenstein and also take measures to limit the economic damage done by slow regulatory processes.
       </p>
 
-      <h3 className="text-base font-semibold text-gray-800 mt-8 mb-4">
+      <h2 className="text-base font-semibold text-gray-800 mt-8 mb-4">
         3. Provide guidelines when regulatory costs should be considered excessive
-      </h3>
+      </h2>
       <p className="mb-6">
         In particular in the field of information technology, innovation often comes from small startups and not from the established dinosaurs. At the same time, the financial markets are extremely densely regulated, leading to high regulatory costs, which disproportionately affect small businesses. In combination, this results in a sluggish adoption of new technologies in finance, which in turn makes the financial system less adaptive and less resilient. In order to avert the risk of the global financial system becoming sclerotic, we encourage you to issue concrete guidelines for at what point regulatory costs should be deemed excessive. For example, we think that in a healthy regulatory environment, compliance costs should stay below 5% of the total expenses of a typical company. But already today, compliance costs for financial institutions often exceed 20% of their total budget. And this does not even take into account all the missed growth opportunities due to the bad user experience of many regulatory processes. This is a problem worth pointing to and countries should be encouraged to take measures against the excessive costs of compliance.
       </p>
 
-      <h3 className="text-base font-semibold text-gray-800 mt-8 mb-4">
+      <h2 className="text-base font-semibold text-gray-800 mt-8 mb-4">
         4. Address the risk of regulatory capture and anti-competitive behaviour under the disguise of compliance
-      </h3>
+      </h2>
       <p className="mb-6">
         When imposing new regulation, there is always the risk of regulatory capture, i.e. established players twisting the regulation in ways that hurt competition and innovation. In particular, the biggest risk for holders of the currently most important stablecoin &quot;Tether&quot; is an overzealous enforcement of anti-money laundering regulation. Tether is backed 1:1 by US dollars and issued by an organization with close ties to the crypto exchange Bitfinex. If we held any Tether right now, we would probably be less worried about whether they are actually backed by dollars, and more about whether the issuer will be able to wire us the money once we want to exchange the Tether back into a bank account. In the past, Bitfinex and related organizations have been repeatedly excluded from international dollar-clearing on{" "}
         <Link
@@ -144,9 +144,9 @@ export default function StablecoinsCommentPage() {
         . The more regulation there is, the more potential excuses established banks have to squash the business of emerging new competitors under the disguise of fulfilling their compliance duties. You should keep a close eye on all regulation that provides established financial institutions with excuses for anti-competitive behavior. In particular, the unjustified freezing of funds poses a real economic risk for the stability of the currently most popular stablecoin.
       </p>
 
-      <h3 className="text-base font-semibold text-gray-800 mt-8 mb-4">
+      <h2 className="text-base font-semibold text-gray-800 mt-8 mb-4">
         5. Emphasize the importance of freedom of innovation to keep the financial system anti-fragile
-      </h3>
+      </h2>
       <p className="mb-6">
         The most well-known stablecoin project is Libra. This project has faced extreme public scrutiny before even having started its operations. While the public is free to form its own opinions, regulators should be careful to not get captured by politics. They should make sure that the law is applied equally to all market participants. Instead, in a move that could come right out of the handbook for despotic governance, two US senators have chosen to abuse their power and to{" "}
         <Link

@@ -63,6 +63,7 @@ export default async function TagPage({ params }: PageProps) {
         <RegulationLetterBanner />
       ) : (
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
+          <h1 className="sr-only">Tag: {tag}</h1>
           <ListingFilterChip label={tag} />
         </div>
       )}

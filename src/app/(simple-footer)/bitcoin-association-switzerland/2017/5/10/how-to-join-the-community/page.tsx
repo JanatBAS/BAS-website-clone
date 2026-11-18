@@ -12,7 +12,7 @@ export const metadata: Metadata = postMetadata(
 
 export default function HowToJoinTheCommunityPage() {
   return (
-    <BlogPostLayout post={post}>
+    <BlogPostLayout post={post} comments={[]}>
       <ul className="list-disc pl-6 space-y-4">
         <li>
           Get to know the community members in person by attending one of our regular meetups in Zurich or Geneva:{" "}
@@ -50,7 +50,7 @@ export default function HowToJoinTheCommunityPage() {
         </li>
         <li>
           <Link
-            href="/join"
+            href="/membership/private-individuals"
             className="text-brand hover:underline"
           >
             Join

@@ -56,9 +56,15 @@ export default async function AuthorPostsPage({ params }: PageProps) {
   // The newest post is featured when it is by this author
   const featuredPost = allPosts[0];
   const showFeaturedPost = featuredPost?.authorId === authorId;
+  const name = authorName ?? posts[0]?.author;
 
   return (
     <main className="pt-20 min-h-screen bg-white">
+      {/* The featured post banner holds the page heading otherwise */}
+      {!showFeaturedPost && (
+        <h1 className="sr-only">{name ? `Posts by ${name}` : "Author Posts"}</h1>
+      )}
+
       {/* Author Filter Banner */}
       {authorName && (
         <div className="bg-gray-100 py-4">

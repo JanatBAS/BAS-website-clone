@@ -52,7 +52,7 @@ export default function GeneralAssembly2014Page() {
       {/* Colab Zurich Logo */}
       <div className="my-8 flex justify-center">
         <a
-          href="http://colab-zurich.ch/"
+          href="https://colab-zurich.ch/"
           target="_blank"
           rel="noopener noreferrer"
         >

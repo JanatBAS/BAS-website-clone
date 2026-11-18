@@ -12,7 +12,7 @@ export const metadata: Metadata = postMetadata(
 
 export default function ToneVaysMeetupPage() {
   return (
-    <BlogPostLayout post={post}>
+    <BlogPostLayout post={post} comments={[]}>
       <div className="mb-8">
         <Image
           src="/images/blog/tone-vays-meetup-highres.jpeg"

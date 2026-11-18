@@ -7,7 +7,7 @@ const post = getPostPage("our-comment-on-designing-a-prudential-treatment-for-cr
 const comments: BlogPostComment[] = [
   {
     author: "Luzius Meisser",
-    authorUrl: "http://bitcoinassociation.ch/",
+    authorUrl: "https://bitcoinassociation.ch/",
     date: "6 years ago",
     likes: 0,
     body: (

@@ -11,7 +11,7 @@ export const metadata: Metadata = postMetadata(
 
 export default function LakesidePartnersJoinsPage() {
   return (
-    <BlogPostLayout post={post}>
+    <BlogPostLayout post={post} comments={[]}>
       <p>
         Some people take pride in being self-made, though it can mean different things to different people.{" "}
         <a
@@ -24,7 +24,7 @@ export default function LakesidePartnersJoinsPage() {
         </a>
         ,{" "}
         <a
-          href="http://www.thesimpledollar.com/a-walkthrough-and-cost-breakdown-of-brewing-your-own-beer/"
+          href="https://web.archive.org/web/20170806095440/http://www.thesimpledollar.com/a-walkthrough-and-cost-breakdown-of-brewing-your-own-beer/"
           target="_blank"
           rel="noopener noreferrer"
           className="text-brand hover:underline"
@@ -33,7 +33,7 @@ export default function LakesidePartnersJoinsPage() {
         </a>{" "}
         at home or{" "}
         <a
-          href="http://www.mackcollier.com/so-you-want-to-write-a-book-heres-10-things-you-need-to-know-to-get-published/"
+          href="https://www.mackcollier.com/so-you-want-to-write-a-book-heres-10-things-you-need-to-know-to-get-published/"
           target="_blank"
           rel="noopener noreferrer"
           className="text-brand hover:underline"
@@ -60,7 +60,7 @@ export default function LakesidePartnersJoinsPage() {
       <p>
         This was the approach that{" "}
         <a
-          href="http://lakeside.partners/"
+          href="https://web.archive.org/web/20170724092002/http://lakeside.partners/"
           target="_blank"
           rel="noopener noreferrer"
           className="text-brand hover:underline"
@@ -69,9 +69,7 @@ export default function LakesidePartnersJoinsPage() {
         </a>{" "}
         decided to take. After making the decision to get into the blockchain and crypto space, the obvious next step was to set up a mining operation in-house. Nothing extreme, mind you – but enough to get a handle on how things work and pay the annual membership fee for the Bitcoin Association Switzerland (we famously only accept Bitcoin for{" "}
         <a
-          href="https://www.bitcoinassociation.ch/join/"
-          target="_blank"
-          rel="noopener noreferrer"
+          href="/membership/private-individuals"
           className="text-brand hover:underline"
         >
           membership
@@ -82,7 +80,7 @@ export default function LakesidePartnersJoinsPage() {
       <p>
         Admittedly, this wasn&apos;t Lakeside Partners first foray into cryptocurrencies: earlier this year, their sister company{" "}
         <a
-          href="http://inacta.ch/"
+          href="https://inacta.ch/"
           target="_blank"
           rel="noopener noreferrer"
           className="text-brand hover:underline"
@@ -109,7 +107,7 @@ export default function LakesidePartnersJoinsPage() {
         </a>
         . Lakeside Partners is also the company behing Europe&apos;s largest{" "}
         <a
-          href="http://www.blockchaincompetition.ch/en/"
+          href="https://web.archive.org/web/20170818150743/http://www.blockchaincompetition.ch/en/"
           target="_blank"
           rel="noopener noreferrer"
           className="text-brand hover:underline"

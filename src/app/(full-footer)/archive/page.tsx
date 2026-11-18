@@ -46,6 +46,7 @@ export default function ArchivePage() {
     <div className="min-h-screen bg-white">
       {/* Main Content Area */}
       <main className="pt-24 pb-16">
+        <h1 className="sr-only">News Archive</h1>
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row gap-8 md:gap-12">
             {/* Left Sidebar - News Navigation */}

@@ -35,7 +35,7 @@ export default function BitcoinOnRtsAndEuronewsPage() {
       <p>
         I had a quick appearance on French-speaking Swiss TV{" "}
         <a
-          href="http://www.rts.ch/video/emissions/ttc/4899012-le-bitcoin-la-nouvelle-monnaie-virtuelle.html"
+          href="https://www.rts.ch/video/emissions/ttc/4899012-le-bitcoin-la-nouvelle-monnaie-virtuelle.html"
           target="_blank"
           rel="noopener noreferrer"
           className="text-brand hover:underline"
