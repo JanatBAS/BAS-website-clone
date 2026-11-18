@@ -6,6 +6,7 @@ import { Separator } from "@/components/ui/separator";
 export const metadata: Metadata = {
   title: "tzBTC",
   description: "tzBTC brings the liquidity and stability of Bitcoin to the Tezos network.",
+  alternates: { canonical: "/tzbtc" },
 };
 
 export default function TzBTCPage() {

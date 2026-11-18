@@ -7,6 +7,7 @@ const archiveMonths = getArchiveMonths();
 export const metadata: Metadata = {
   title: "News Archive",
   description: `All news posts of the Bitcoin Association Switzerland by month, from ${archiveMonths.at(-1)?.label} to ${archiveMonths[0]?.label}.`,
+  alternates: { canonical: "/archive" },
 };
 
 // Split archive data into two columns for the layout

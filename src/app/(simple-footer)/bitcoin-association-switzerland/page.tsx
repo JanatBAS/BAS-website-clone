@@ -8,6 +8,8 @@ export const metadata: Metadata = {
   title: "News",
   description:
     "News, statements and regulatory comments from the Bitcoin Association Switzerland.",
+  // Old filter query strings (?offset=, ?category=...) land here too.
+  alternates: { canonical: "/bitcoin-association-switzerland" },
 };
 
 export default async function BlogPage() {

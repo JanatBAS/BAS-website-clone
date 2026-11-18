@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import BlogPostList from "@/components/blog/BlogPostList";
 import ListingFilterChip from "@/components/blog/ListingFilterChip";
-import { getPostsByTag, getTags } from "@/data/blog-posts";
+import { getPostsByTag, getTags, tagHref } from "@/data/blog-posts";
 
 export const dynamicParams = false;
 
@@ -19,6 +19,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   return {
     title: `Tag: ${tag}`,
     description: `News posts from the Bitcoin Association Switzerland tagged ${tag}.`,
+    alternates: { canonical: tagHref(tag) },
   };
 }
 

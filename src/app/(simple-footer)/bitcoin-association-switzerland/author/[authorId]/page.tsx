@@ -10,6 +10,7 @@ import {
   getPostsByAuthor,
   getSortedPosts,
   isKnownAuthorId,
+  authorHref,
 } from "@/data/blog-posts";
 import { getAllPostsWithAdmin } from "@/lib/merge-data";
 
@@ -38,14 +39,17 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const { authorId } = await params;
   const { posts, authorName } = await getAuthorPosts(authorId);
   const name = authorName ?? posts[0]?.author;
+  const alternates = { canonical: authorHref(authorId) };
   return name
     ? {
         title: `Posts by ${name}`,
         description: `Posts by ${name} on the Bitcoin Association Switzerland news page.`,
+        alternates,
       }
     : {
         title: "Author Posts",
         description: "Posts by this author on the Bitcoin Association Switzerland news page.",
+        alternates,
       };
 }
 

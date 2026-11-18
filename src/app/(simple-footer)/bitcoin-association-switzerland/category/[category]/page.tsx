@@ -10,6 +10,7 @@ import {
   getCategories,
   getPostsByCategory,
   getSortedPosts,
+  categoryHref,
 } from "@/data/blog-posts";
 import type { BlogPost } from "@/types/blog";
 
@@ -86,6 +87,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   return {
     title: `Category: ${label}`,
     description: `News posts from the Bitcoin Association Switzerland filed under ${label}.`,
+    alternates: { canonical: categoryHref(category) },
   };
 }
 
