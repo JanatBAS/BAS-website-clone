@@ -9,16 +9,17 @@ import {
 import {
   idParam,
   invalidInput,
+  isAdminDateISO,
+  lengthError,
   missingId,
   optionalString,
   optionalUrl,
   readJsonObject,
+  recordSlug,
   requiredString,
   saveFailed,
 } from '@/lib/admin-input';
 import type { AdminBlogPost, AdminBlogPostFormData } from '@/types/admin';
-import { isValidDateISO } from '@/lib/event-dates';
-import { slugify } from '@/lib/utils';
 import { sanitizePostHtml } from '@/lib/sanitize-html';
 
 export const dynamic = 'force-dynamic';
@@ -29,6 +30,7 @@ const MAX_AUTHOR_LENGTH = 200;
 const MAX_EXCERPT_LENGTH = 2000;
 const MAX_HTML_LENGTH = 500_000;
 const MAX_TAGS = 30;
+const MAX_TAG_LENGTH = 100;
 const AUTHOR_ID_PATTERN = /^[A-Za-z0-9_-]{1,64}$/;
 
 interface ValidatedPostFields {
@@ -44,13 +46,18 @@ interface ValidatedPostFields {
   imageUrl?: string;
 }
 
+/** Trimmed, shortened tags without repeats (ignoring case), in their original order. */
 function validateTags(value: unknown): string[] | undefined {
   if (!Array.isArray(value)) return undefined;
-  const tags = value
-    .filter((tag): tag is string => typeof tag === 'string')
-    .map((tag) => tag.trim())
-    .filter(Boolean)
-    .slice(0, MAX_TAGS);
+  const seen = new Set<string>();
+  const tags: string[] = [];
+  for (const tag of value) {
+    const text = requiredString(tag)?.slice(0, MAX_TAG_LENGTH).trim();
+    if (!text || seen.has(text.toLowerCase())) continue;
+    seen.add(text.toLowerCase());
+    tags.push(text);
+    if (tags.length === MAX_TAGS) break;
+  }
   return tags.length > 0 ? tags : undefined;
 }
 
@@ -64,25 +71,31 @@ function formatDisplayDate(dateISO: string): string {
 }
 
 function validatePostData(data: AdminBlogPostFormData): { fields?: ValidatedPostFields; error?: string } {
-  const title = requiredString(data.title, MAX_TITLE_LENGTH);
-  const author = requiredString(data.author, MAX_AUTHOR_LENGTH);
-  const excerpt = requiredString(data.excerpt, MAX_EXCERPT_LENGTH);
+  const title = requiredString(data.title);
+  const author = requiredString(data.author);
+  const excerpt = requiredString(data.excerpt);
   const dateISO = typeof data.date === 'string' ? data.date.trim() : '';
   const rawHtml = typeof data.htmlContent === 'string' ? data.htmlContent : '';
 
   if (!title || !author || !dateISO || !excerpt || !rawHtml.trim()) {
     return { error: 'Missing required fields' };
   }
+  const tooLong =
+    lengthError('Title', title, MAX_TITLE_LENGTH) ||
+    lengthError('Author', author, MAX_AUTHOR_LENGTH) ||
+    lengthError('Excerpt', excerpt, MAX_EXCERPT_LENGTH);
+  if (tooLong) return { error: tooLong };
   if (rawHtml.length > MAX_HTML_LENGTH) {
     return { error: 'Post content is too long.' };
   }
 
   // YYYY-MM-DD from a date input; impossible dates such as Feb 31 are rejected.
-  if (!isValidDateISO(dateISO)) {
-    return { error: 'Invalid date format. Use YYYY-MM-DD.' };
+  if (!isAdminDateISO(dateISO)) {
+    return { error: 'Invalid date. Use YYYY-MM-DD between 2000 and 2100.' };
   }
 
-  const authorId = optionalString(data.authorId, 64);
+  // The pattern also limits the length, so a longer id is refused rather than cut.
+  const authorId = optionalString(data.authorId);
   if (authorId && !AUTHOR_ID_PATTERN.test(authorId)) {
     return { error: 'Invalid author id.' };
   }
@@ -136,7 +149,7 @@ export async function POST(request: Request) {
 
     const post: AdminBlogPost = {
       id: `admin-post-${uniqueSuffix}`,
-      slug: `${slugify(fields.title)}-${uniqueSuffix}`,
+      slug: recordSlug(fields.title, 'post', uniqueSuffix),
       title: fields.title,
       author: fields.author,
       authorId: fields.authorId || DEFAULT_AUTHOR_ID,
@@ -190,8 +203,9 @@ export async function PUT(request: Request) {
       return NextResponse.json({ error: 'Post not found' }, { status: 404 });
     }
 
-    // Nothing was written when the post did not change, so the pages are current.
-    if (updated.changed) revalidatePostPages([updated.item.slug]);
+    // Also after an edit that wrote nothing: saving again then repairs pages
+    // left stale by an interrupted save (at most one cached read).
+    revalidatePostPages([updated.item.slug]);
     return NextResponse.json(updated.item);
   } catch (error) {
     return saveFailed(error, 'Failed to update post');

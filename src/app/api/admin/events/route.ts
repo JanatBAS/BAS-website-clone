@@ -10,17 +10,18 @@ import {
 import {
   idParam,
   invalidInput,
+  isAdminDateISO,
+  lengthError,
   missingId,
   optionalString,
   optionalUrl,
   readJsonObject,
+  recordSlug,
   requiredString,
   saveFailed,
 } from '@/lib/admin-input';
 import type { AdminEvent, AdminEventFormData, RecurrenceRule } from '@/types/admin';
 import type { EventCategory } from '@/types/calendar';
-import { isValidDateISO } from '@/lib/event-dates';
-import { slugify } from '@/lib/utils';
 import { truncateDescription } from '@/lib/date-utils';
 
 export const dynamic = 'force-dynamic';
@@ -28,6 +29,13 @@ export const dynamic = 'force-dynamic';
 const validCategories: EventCategory[] = ['meetup', 'conference', 'workshop', 'general'];
 const validFrequencies: RecurrenceRule['frequency'][] = ['weekly', 'biweekly', 'monthly'];
 const TIME_PATTERN = /^\d{2}:\d{2}$/;
+// Every admin event is part of one cached list, which Next.js only caches up
+// to 2 MB. The limits keep a single event far below that and are set far
+// above real content (the longest static description is about 700
+// characters), so events saved before the limits existed still save.
+const MAX_TITLE_LENGTH = 300;
+const MAX_LOCATION_LENGTH = 500;
+const MAX_DESCRIPTION_LENGTH = 20_000;
 
 interface ValidatedEventFields {
   title: string;
@@ -60,7 +68,7 @@ function validateRecurrence(data: AdminEventFormData): { recurrence?: Recurrence
 
   const endDate = optionalString(data.recurrence.endDate);
   if (endDate) {
-    if (!isValidDateISO(endDate)) {
+    if (!isAdminDateISO(endDate)) {
       return { error: 'Invalid recurrence end date.' };
     }
     if (endDate <= data.dateISO) {
@@ -83,19 +91,26 @@ function validateEventData(data: AdminEventFormData): { fields?: ValidatedEventF
   const startTime = requiredString(data.startTime);
   const endTime = optionalString(data.endTime);
   const description = requiredString(data.description);
+  const location = optionalString(data.location);
 
   if (!title || !dateISO || !startTime || !description) {
     return { error: 'Missing required fields' };
   }
 
-  if (!isValidDateISO(dateISO)) {
-    return { error: 'Invalid date format. Use YYYY-MM-DD.' };
+  const tooLong =
+    lengthError('Title', title, MAX_TITLE_LENGTH) ||
+    lengthError('Location', location, MAX_LOCATION_LENGTH) ||
+    lengthError('Description', description, MAX_DESCRIPTION_LENGTH);
+  if (tooLong) return { error: tooLong };
+
+  if (!isAdminDateISO(dateISO)) {
+    return { error: 'Invalid date. Use YYYY-MM-DD between 2000 and 2100.' };
   }
 
   let endDateISO: string | undefined;
   if (endDateISOInput && endDateISOInput !== dateISO) {
-    if (!isValidDateISO(endDateISOInput)) {
-      return { error: 'Invalid end date format. Use YYYY-MM-DD.' };
+    if (!isAdminDateISO(endDateISOInput)) {
+      return { error: 'Invalid end date. Use YYYY-MM-DD between 2000 and 2100.' };
     }
     if (endDateISOInput < dateISO) {
       return { error: 'End date must be on or after the start date.' };
@@ -134,7 +149,7 @@ function validateEventData(data: AdminEventFormData): { fields?: ValidatedEventF
       endDateISO,
       startTime,
       endTime,
-      location: optionalString(data.location),
+      location,
       locationUrl: locationUrl.url,
       imageUrl: imageUrl.url,
       signupLink: signupLink.url,
@@ -162,7 +177,7 @@ export async function POST(request: Request) {
     const now = new Date().toISOString();
     const event: AdminEvent = {
       id: `admin-evt-${uniqueSuffix}`,
-      slug: `${slugify(validation.fields.title)}-${uniqueSuffix}`,
+      slug: recordSlug(validation.fields.title, 'event', uniqueSuffix),
       ...validation.fields,
       createdAt: now,
       updatedAt: now,
@@ -200,8 +215,9 @@ export async function PUT(request: Request) {
       return NextResponse.json({ error: 'Event not found' }, { status: 404 });
     }
 
-    // Nothing was written when the event did not change, so the pages are current.
-    if (updated.changed) revalidateEventPages();
+    // Also after an edit that wrote nothing: saving again then repairs pages
+    // left stale by an interrupted save (at most one cached read).
+    revalidateEventPages();
     return NextResponse.json(updated.item);
   } catch (error) {
     return saveFailed(error, 'Failed to update event');
@@ -213,7 +229,7 @@ export async function DELETE(request: Request) {
     const id = idParam(request);
     if (!id) return missingId();
     const date = new URL(request.url).searchParams.get('date');
-    if (date && !isValidDateISO(date)) return invalidInput('Invalid date format. Use YYYY-MM-DD.');
+    if (date && !isAdminDateISO(date)) return invalidInput('Invalid date format. Use YYYY-MM-DD.');
     // With a date, only that occurrence of a recurring series is hidden.
     const found = date ? await excludeEventOccurrence(id, date) : await deleteAdminEvent(id);
     if (!found) {

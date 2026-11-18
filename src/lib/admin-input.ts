@@ -1,17 +1,41 @@
 import { NextResponse } from 'next/server';
 import { AdminDataConflictError } from './blob-store';
+import { isValidDateISO } from './event-dates';
 import { safeHttpUrl } from './safe-url';
+import { slugify } from './utils';
 
 /**
  * Input helpers shared by the admin API routes. Request bodies are untrusted
  * JSON, so every field is checked for its type before it is used.
  */
 
-/** Trimmed text, or null when it is missing, empty or longer than `max`. */
-export function requiredString(value: unknown, max = Infinity): string | null {
+/** Zero-width and bidi control characters, which `trim()` keeps and which render as nothing. */
+const INVISIBLE_CHARACTERS = /[\u200b-\u200f\u202a-\u202e\u2060-\u2064\u2066-\u2069]/g;
+
+/** Trimmed text, or null when it is missing, empty or made only of invisible characters. */
+export function requiredString(value: unknown): string | null {
   if (typeof value !== 'string') return null;
   const trimmed = value.trim();
-  return trimmed && trimmed.length <= max ? trimmed : null;
+  return trimmed && trimmed.replace(INVISIBLE_CHARACTERS, '').trim() ? trimmed : null;
+}
+
+/** An error message when `value` is longer than `max` characters. */
+export function lengthError(label: string, value: string | undefined, max: number): string | undefined {
+  return value && value.length > max ? `${label} is too long (at most ${max} characters).` : undefined;
+}
+
+/**
+ * A real YYYY-MM-DD date in 2000-2100. The range refuses typos such as
+ * 0202-05-01, which would also make a recurring series expand from year 202.
+ */
+export function isAdminDateISO(value: string): boolean {
+  return isValidDateISO(value) && value >= '2000-01-01' && value <= '2100-12-31';
+}
+
+/** URL slug for a new record: the title without accents ("für" -> "fur"), then a unique suffix. */
+export function recordSlug(title: string, fallback: string, uniqueSuffix: string): string {
+  const base = slugify(title.normalize('NFKD').replace(/[\u0300-\u036f]/g, '')) || fallback;
+  return `${base}-${uniqueSuffix}`;
 }
 
 /** Trimmed text cut to `max` characters, or undefined when it is missing or empty. */

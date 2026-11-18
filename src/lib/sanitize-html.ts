@@ -10,6 +10,21 @@ import sanitizeHtml from 'sanitize-html';
 
 const ALLOWED_IFRAME_HOSTS = ['www.youtube.com', 'www.youtube-nocookie.com', 'player.vimeo.com'];
 
+/**
+ * An element id is also a global variable in the browser. An id named like a
+ * Next.js or Turbopack runtime global (self.__next_f, globalThis.TURBOPACK,
+ * NEXT_DEPLOYMENT_ID) is read in its place before the runtime sets it, which
+ * stops the page from hydrating, so such ids are dropped.
+ */
+const RUNTIME_GLOBAL_ID = /^(__|TURBOPACK|NEXT_)/;
+
+function withoutRuntimeGlobalId(attribs: sanitizeHtml.Attributes): sanitizeHtml.Attributes {
+  if (attribs.id === undefined || !RUNTIME_GLOBAL_ID.test(attribs.id)) return attribs;
+  const rest = { ...attribs };
+  delete rest.id;
+  return rest;
+}
+
 const options: sanitizeHtml.IOptions = {
   allowedTags: [
     ...sanitizeHtml.defaults.allowedTags,
@@ -48,6 +63,8 @@ const options: sanitizeHtml.IOptions = {
       }
       return { tagName, attribs };
     },
+    // Runs after the tag's own transform, on every element.
+    '*': (tagName, attribs) => ({ tagName, attribs: withoutRuntimeGlobalId(attribs) }),
   },
 };
 
