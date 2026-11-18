@@ -5,6 +5,13 @@ import nextTs from "eslint-config-next/typescript";
 const eslintConfig = defineConfig([
   ...nextVitals,
   ...nextTs,
+  {
+    linterOptions: { reportUnusedDisableDirectives: "error" },
+    rules: {
+      // == only for the null/undefined check (x == null).
+      eqeqeq: ["error", "smart"],
+    },
+  },
   // Override default ignores of eslint-config-next.
   globalIgnores([
     // Default ignores of eslint-config-next:

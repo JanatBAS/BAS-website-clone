@@ -11,7 +11,6 @@ export interface ShopProduct {
   image_url: string;
   product_url: string;
   price: string;
-  price_formatted: string;
   checkout_url: string;
   type: 'simple' | 'variable';
 }
@@ -50,7 +49,6 @@ function toShopProduct(entry: unknown): ShopProduct | null {
     image_url: allowedImageUrl(raw.image_url),
     product_url: str(raw.product_url),
     price: str(raw.price),
-    price_formatted: str(raw.price_formatted),
     checkout_url: str(raw.checkout_url),
     type: raw.type === 'variable' ? 'variable' : 'simple',
   };

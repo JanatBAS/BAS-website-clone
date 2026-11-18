@@ -5,8 +5,14 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
+/** URL slug: lowercase ASCII letters and digits joined by "-", accents dropped ("Zürich" -> "zurich"). */
 export function slugify(text: string): string {
-  return text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+  return text
+    .normalize('NFKD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/(^-|-$)/g, '');
 }
 
 const HTML_ENTITIES: Record<string, string> = {
@@ -36,7 +42,7 @@ export function stripHtml(html: string): string {
 
   // Entities are decoded in one pass, so "&amp;lt;" becomes "&lt;", not "<".
   return removeTags(withBreaks)
-    .replace(/&(?:amp|lt|gt|quot|#39|nbsp);/g, (entity) => HTML_ENTITIES[entity])
+    .replace(/&(?:amp|lt|gt|quot|#39|nbsp);/g, (entity) => HTML_ENTITIES[entity] ?? entity)
     .replace(/\n{3,}/g, '\n\n')
     .trim();
 }
